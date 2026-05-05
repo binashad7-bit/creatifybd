@@ -37,7 +37,7 @@ const Overview = () => {
           title: 'Social Media Management', 
           title_bn: 'সোশ্যাল মিডিয়া ম্যানেজমেন্ট',
           desc: 'Facebook & Instagram setup, content creation, community management, and follower growth.', 
-          desc_bn: 'ফেসবুক ও ইনস্টাগ্রাম সেটআপ, কন্টেন্ট তৈরি এবং ফলোয়ার বৃদ্ধির মাধ্যমে আপনার অনলাইন উপস্থিতি শক্তিশালী করুন।',
+          desc_bn: 'আপনার ব্যবসার ভ্যালু বাড়াতে আমরা করছি প্রফেশনাল সোশ্যাল মিডিয়া ম্যানেজমেন্ট এবং কন্টেন্ট ক্রিয়েশন।',
           price: 'From ৳1,500', bg: 's1', hidden: false 
         },
         { 
@@ -45,7 +45,7 @@ const Overview = () => {
           title: 'Branding & Logo Design', 
           title_bn: 'ব্র্যান্ডিং ও লোগো ডিজাইন',
           desc: 'Impactful logos and branding materials with unlimited revisions and brand guidelines.', 
-          desc_bn: 'আপনার ব্যবসার জন্য আকর্ষণীয় লোগো এবং কমপ্লিট ব্র্যান্ডিং সলিউশন।',
+          desc_bn: 'আপনার ব্যবসার জন্য একটি ইউনিক আইডেন্টিটি বা লোগো তৈরি করুন যা সবার নজর কাড়বে।',
           price: 'From ৳1,000', bg: 's2', hidden: false 
         },
         { 
@@ -53,7 +53,7 @@ const Overview = () => {
           title: 'Product Photography', 
           title_bn: 'প্রোডাক্ট ফটোগ্রাফি',
           desc: 'Professional studio, lifestyle, and white background shots for your products.', 
-          desc_bn: 'পণ্য বিক্রয় বাড়াতে প্রফেশনাল স্টুডিও এবং লাইফস্টাইল ফটোগ্রাফি।',
+          desc_bn: 'আপনার পণ্যের সেরা লুক ফুটিয়ে তুলতে আমরা দিচ্ছি প্রফেশনাল স্টুডিও ও লাইফস্টাইল ফটোগ্রাফি।',
           price: 'From ৳1,500', bg: 's3', hidden: false 
         },
         { 
@@ -61,7 +61,7 @@ const Overview = () => {
           title: 'Video Production', 
           title_bn: 'ভিডিও প্রোডাকশন',
           desc: '15 to 60-second cinematic brand videos with voice-over and licensed soundtracks.', 
-          desc_bn: 'সিনেমাটিক ব্র্যান্ড ভিডিও এবং বিজ্ঞাপনের মাধ্যমে কাস্টমারের নজর কাড়ুন।',
+          desc_bn: 'সিনেমাটিক ব্র্যান্ড ভিডিওর মাধ্যমে আপনার ব্যবসার গল্পটি পৌঁছে দিন সবার কাছে।',
           price: 'From ৳2,000', bg: 's4', hidden: false 
         },
         { 
@@ -69,16 +69,8 @@ const Overview = () => {
           title: 'Website Design & Dev', 
           title_bn: 'ওয়েবসাইট ডিজাইন ও ডেভেলপমেন্ট',
           desc: 'Responsive, SEO-optimized WordPress websites from single-page to full e-commerce.', 
-          desc_bn: 'আধুনিক, রেসপন্সিভ এবং এসইও অপ্টিমাইজড ওয়েবসাইট যা আপনার ব্যবসাকে নিয়ে যাবে অনন্য উচ্চতায়।',
+          desc_bn: 'একটি আধুনিক ও দ্রুতগতির ওয়েবসাইট যা আপনার ব্যবসাকে নিয়ে যাবে অন্য এক উচ্চতায়।',
           price: 'From ৳8,000', bg: 's5', hidden: false 
-        },
-        { 
-          icon: '📢', 
-          title: 'Advertising Campaigns', 
-          title_bn: 'অ্যাডভার্টাইজিং ক্যাম্পেইন',
-          desc: 'Targeted Facebook, Instagram & Google ads. Full campaign management.', 
-          desc_bn: 'সঠিক অডিয়েন্সের কাছে আপনার পণ্য পৌঁছে দিতে কার্যকরী ফেসবুক ও গুগল বিজ্ঞাপন।',
-          price: 'Custom Pricing', bg: 's6', hidden: false 
         }
       ];
       for (const s of services) await addDoc(collection(db, 'services'), s);
@@ -87,7 +79,7 @@ const Overview = () => {
       const portfolio = [
         { 
           title: 'Nova Fashion Branding', 
-          title_bn: 'নোভা ফ্যাশন ব্র্যান্ডিং',
+          title_bn: 'নোভা ফ্যাশনের ব্র্যান্ডিং সলিউশন',
           category: 'Branding', 
           category_bn: 'ব্র্যান্ডিং',
           imageUrl: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800', 
@@ -95,7 +87,7 @@ const Overview = () => {
         },
         { 
           title: 'Organic Food Website', 
-          title_bn: 'অর্গানিক ফুড ওয়েবসাইট',
+          title_bn: 'অর্গানিক ফুড ই-কমার্স ওয়েবসাইট',
           category: 'Web Dev', 
           category_bn: 'ওয়েব ডেভেলপমেন্ট',
           imageUrl: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800', 
@@ -106,8 +98,8 @@ const Overview = () => {
 
       // Seed Testimonials
       const testimonials = [
-        { name: 'Rahim Uddin', role: 'CEO, Nova Fashion', role_bn: 'সিইও, নোভা ফ্যাশন', text: 'CreatifyBD transformed our online presence. Highly recommended!', text_bn: 'ক্রিয়েটিফাইবিডি আমাদের অনলাইন উপস্থিতিকে আমূল বদলে দিয়েছে। তাদের কাজ অতুলনীয়!', stars: 5, hidden: false },
-        { name: 'Sumaiya Ahmed', role: 'Founder, Green Eats', role_bn: 'ফাউন্ডার, গ্রিন ইটস', text: 'Amazing branding work. They understood our vision perfectly.', text_bn: 'চমৎকার ব্র্যান্ডিং কাজ! তারা আমাদের লক্ষ্য খুব সহজেই বুঝতে পেরেছে।', stars: 5, hidden: false }
+        { name: 'Rahim Uddin', role: 'CEO, Nova Fashion', role_bn: 'সিইও, নোভা ফ্যাশন', text: 'CreatifyBD transformed our online presence. Highly recommended!', text_bn: 'ক্রিয়েটিফাইবিডির সাথে কাজ করে আমাদের ব্যবসার ভ্যালু অনেক বেড়েছে। তাদের সার্ভিস সত্যিই অসাধারণ!', stars: 5, hidden: false },
+        { name: 'Sumaiya Ahmed', role: 'Founder, Green Eats', role_bn: 'ফাউন্ডার, গ্রিন ইটস', text: 'Amazing branding work. They understood our vision perfectly.', text_bn: 'খুবই চমৎকার ব্র্যান্ডিং! তারা আমাদের আইডিয়াকে খুব সুন্দরভাবে ফুটিয়ে তুলেছে।', stars: 5, hidden: false }
       ];
       for (const t of testimonials) await addDoc(collection(db, 'testimonials'), t);
 
@@ -117,18 +109,18 @@ const Overview = () => {
           category: 'social', tier: 'Basic', tier_bn: 'বেসিক',
           price: '1,500', 
           desc: 'Perfect for getting started online', 
-          desc_bn: 'অনলাইনে নতুন শুরু করার জন্য উপযুক্ত',
+          desc_bn: 'অনলাইনে ব্যবসার নতুন যাত্রার জন্য উপযুক্ত',
           features: ['Facebook page setup', 'Instagram page setup', 'Basic design'], 
-          features_bn: ['ফেসবুক পেজ সেটআপ', 'ইনস্টাগ্রাম পেজ সেটআপ', 'বেসিক ডিজাইন'],
+          features_bn: ['ফেসবুক পেজ সেটআপ', 'ইনস্টাগ্রাম পেজ সেটআপ', 'বেসিক গ্রাফিক ডিজাইন'],
           order: 1, hidden: false 
         },
         { 
           category: 'social', tier: 'Standard', tier_bn: 'স্ট্যান্ডার্ড',
           price: '3,000', 
           desc: 'Best for growing businesses', 
-          desc_bn: 'বর্ধিষ্ণু ব্যবসার জন্য সেরা সলিউশন',
+          desc_bn: 'বর্ধিষ্ণু ব্যবসার জন্য আমাদের সেরা সলিউশন',
           features: ['Full social setup', 'Logo design', '1-week scheduling'], 
-          features_bn: ['ফুল সোশ্যাল সেটআপ', 'লোগো ডিজাইন', '১ সপ্তাহের শিডিউলিং'],
+          features_bn: ['ফুল সোশ্যাল মিডিয়া সেটআপ', 'লোগো ডিজাইন অন্তর্ভুক্ত', '১ সপ্তাহের কন্টেন্ট শিডিউলিং'],
           order: 2, featured: true, hidden: false 
         }
       ];
