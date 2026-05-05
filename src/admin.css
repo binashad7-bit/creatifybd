@@ -1,0 +1,174 @@
+/* Admin Dashboard CSS - Scoped for safety */
+:root {
+  --adm-bg: #0b0b0b;
+  --adm-side: #121212;
+  --adm-card: #181818;
+  --adm-border: rgba(255,255,255,0.06);
+  --adm-red: #E8192C;
+  --adm-red-soft: rgba(232,25,44,0.12);
+  --adm-txt: #ffffff;
+  --adm-dim: #9ca3af;
+}
+
+.admin-layout {
+  display: flex !important;
+  min-height: 100vh !important;
+  background: var(--adm-bg) !important;
+  color: var(--adm-txt) !important;
+  font-family: 'Inter', 'DM Sans', sans-serif !important;
+}
+
+/* Sidebar Fixes */
+.admin-sidebar {
+  width: 280px !important;
+  background: var(--adm-side) !important;
+  border-right: 1px solid var(--adm-border) !important;
+  padding: 2.5rem 1.25rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 9999 !important;
+  height: 100vh !important;
+}
+
+.sidebar-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 3rem !important;
+  position: relative !important;
+  z-index: 10000 !important;
+}
+
+.sidebar-nav {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+  position: relative !important;
+  z-index: 10000 !important;
+}
+
+.nav-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.85rem !important;
+  padding: 0.85rem 1rem !important;
+  border-radius: 12px !important;
+  color: var(--adm-dim) !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  font-weight: 500 !important;
+  border: none !important;
+  background: transparent !important;
+  width: 100% !important;
+  justify-content: flex-start !important;
+}
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.03) !important;
+  color: var(--adm-txt) !important;
+}
+
+.nav-item.active {
+  background: var(--adm-red-soft) !important;
+  color: var(--adm-red) !important;
+}
+
+.nav-text {
+  font-size: 0.95rem !important;
+  display: inline-block !important;
+}
+
+/* Content Area Fixes */
+.admin-content {
+  flex: 1 !important;
+  margin-left: 280px !important;
+  padding: 3rem 4rem !important;
+  background: var(--adm-bg) !important;
+  min-width: 0 !important;
+}
+
+.content-header {
+  margin-bottom: 3rem !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.admin-card {
+  background: var(--adm-card) !important;
+  border: 1px solid var(--adm-border) !important;
+  border-radius: 20px !important;
+  padding: 2rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.stat-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  gap: 1.5rem !important;
+  margin-bottom: 3rem !important;
+}
+
+.stat-card {
+  background: var(--adm-card) !important;
+  border: 1px solid var(--adm-border) !important;
+  padding: 1.5rem !important;
+  border-radius: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+}
+
+.stat-icon {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Table Fixes */
+.data-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+.data-table th {
+  text-align: left !important;
+  padding: 1rem !important;
+  color: var(--adm-dim) !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  border-bottom: 1px solid var(--adm-border) !important;
+}
+
+.data-table td {
+  padding: 1rem !important;
+  border-bottom: 1px solid var(--adm-border) !important;
+  font-size: 0.9rem !important;
+}
+
+.admin-btn {
+  background: var(--adm-red) !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 0.7rem 1.25rem !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+}
+
+@media (max-width: 1024px) {
+  .admin-sidebar { width: 80px !important; padding: 2rem 0.5rem !important; }
+  .nav-text, .admin-profile-info { display: none !important; }
+  .admin-content { margin-left: 80px !important; padding: 2rem !important; }
+}

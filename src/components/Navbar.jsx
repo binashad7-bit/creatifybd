@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../utils/translations';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { lang } = useLanguage();
+  const t = translations[lang].nav;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,15 +25,15 @@ const Navbar = () => {
       <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
         <a href="#" className="nav-logo">Creatify<span className="dot">BD</span></a>
         <ul className="nav-center">
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Our Work</a></li>
-          <li><a href="#process">Process</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#services">{t.services}</a></li>
+          <li><a href="#portfolio">{t.portfolio}</a></li>
+          <li><a href="#process">{t.process}</a></li>
+          <li><a href="#pricing">{t.pricing}</a></li>
+          <li><a href="#contact">{t.contact}</a></li>
         </ul>
         <div className="nav-right">
-          <a href="tel:+8801951676600" className="btn-ghost">📞 Call Us</a>
-          <a href="#contact" className="btn-red">Get Started →</a>
+          <a href="tel:+8801951676600" className="btn-ghost">{t.callUs}</a>
+          <a href="#contact" className="btn-red">{t.cta} →</a>
           <button className="hamburger-btn" onClick={toggleMobile} aria-label="Menu">
             <span></span><span></span><span></span>
           </button>

@@ -1,38 +1,46 @@
-import React, { useState } from 'react';
-
-const pricingData = {
-  social: [
-    { tier: 'Basic', price: '1,500', desc: 'Perfect for getting started online', features: ['Facebook page setup & optimization', 'Instagram page setup', 'Profile & cover photo design'] },
-    { tier: 'Standard', price: '3,000', desc: 'Best for growing businesses', features: ['Full Facebook & Instagram setup', 'Logo design included', 'Profile & cover photo design', '1-week content scheduling guidance'], featured: true },
-    { tier: 'Premium', price: '5,000', desc: 'Full brand launch package', features: ['Advanced FB & Instagram setup', 'Strong account privacy backup', 'Full branding strategy', '2-week content calendar', 'Audience targeting strategy'] }
-  ],
-  branding: [
-    { tier: 'Basic', price: '1,000', desc: 'Clean, simple logo', features: ['1 logo concept', '1 round of revisions', 'PNG & AI file formats'] },
-    { tier: 'Standard', price: '2,000', desc: 'More options, more revisions', features: ['2 unique logo concepts', '2 revision rounds', 'PNG, JPG, PDF & AI formats'], featured: true },
-    { tier: 'Premium', price: '3,000', desc: 'Complete brand identity', features: ['3 premium logo concepts', 'Unlimited revisions', 'Full brand guidelines doc', 'All file formats'] }
-  ],
-  web: [
-    { tier: 'Basic', price: '8,000', desc: 'Single-page site to get you online', features: ['1-page responsive WordPress', 'Contact form', 'Social media links'] },
-    { tier: 'Standard', price: '15,000', desc: 'Full business website', features: ['Up to 5 pages', 'Responsive WordPress design', 'Speed & security optimized', 'Social integration'], featured: true },
-    { tier: 'Premium', price: '25,000', desc: 'E-commerce ready site', features: ['Up to 10 pages', 'WooCommerce e-commerce', 'Premium WordPress theme', 'Speed & security optimized'] }
-  ],
-  video: [
-    { tier: 'Basic', price: '500', desc: 'Quick brand video ad', features: ['15-second video ad', 'Premium stock footage', 'Professional voice-over', 'Licensed soundtrack'] },
-    { tier: 'Standard', price: '1,000', desc: 'Professional promo video', features: ['30-second video ad', 'Premium stock footage', 'Voice-over + text overlay', 'Licensed soundtrack'], featured: true },
-    { tier: 'Premium', price: '20,000', desc: 'Cinematic brand film', features: ['60-second cinematic video', 'Premium grade stock footage', 'Professional voice-over', 'Licensed soundtrack'] }
-  ]
-};
+import React, { useState, useEffect } from 'react';
+import { db } from '../firebase/config';
+import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore';
+import { observeElements } from '../utils/reveal';
 
 const Pricing = () => {
+  const [pricingData, setPricingData] = useState({ social: [], branding: [], web: [], video: [] });
   const [activeTab, setActiveTab] = useState('social');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const q = query(collection(db, 'pricing'), where('hidden', '==', false), orderBy('order', 'asc'));
+    const unsub = onSnapshot(q, (snap) => {
+      const data = { social: [], branding: [], web: [], video: [] };
+      snap.docs.forEach(doc => {
+        const item = { id: doc.id, ...doc.data() };
+        if (data[item.category]) data[item.category].push(item);
+      });
+      setPricingData(data);
+      setLoading(false);
+      setTimeout(observeElements, 100);
+    });
+    return () => unsub();
+  }, []);
+
+  if (loading && pricingData.social.length === 0) return <section className="section pricing-section" id="pricing" style={{ minHeight: '400px' }}></section>;
+
+  const activePlans = pricingData[activeTab] || [];
+
+  const tabLabels = {
+    social: { en: 'Social Media', bn: 'সোশ্যাল মিডিয়া' },
+    branding: { en: 'Branding', bn: 'ব্র্যান্ডিং' },
+    web: { en: 'Web Dev', bn: 'ওয়েব ডেভেলপমেন্ট' },
+    video: { en: 'Video Production', bn: 'ভিডিও প্রোডাকশন' }
+  };
 
   return (
     <section className="section pricing-section" id="pricing">
       <div className="container">
         <div className="pricing-header sr">
-          <div className="eyebrow" style={{ justifyContent: 'center' }}>Pricing</div>
-          <h2 className="section-h">Clear, Affordable <span className="red">Packages</span></h2>
-          <p className="section-sub">No hidden costs. No contracts. Just great work at the right price.</p>
+          <div className="eyebrow" style={{ justifyContent: 'center' }}>{lang === 'bn' ? 'সাশ্রয়ী প্যাকেজ' : 'Pricing'}</div>
+          <h2 className="section-h">{lang === 'bn' ? <>স্বচ্ছ এবং <span className="red">সাশ্রয়ী প্যাকেজসমূহ</span></> : <>Clear, Affordable <span className="red">Packages</span></>}</h2>
+          <p className="section-sub">{lang === 'bn' ? 'কোনো লুকানো খরচ নেই। আপনার ব্যবসার প্রয়োজন অনুযায়ী সঠিক প্যাকেজটি বেছে নিন।' : "No hidden costs. No contracts. Just great work at the right price."}</p>
         </div>
         <div className="pricing-tabs sr">
           {['social', 'branding', 'web', 'video'].map(tab => (
@@ -41,25 +49,33 @@ const Pricing = () => {
               className={`ptab ${activeTab === tab ? 'active' : ''}`}
               onClick={() => setActiveTab(tab)}
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1).replace('social', 'Social Media')}
+              {tabLabels[tab][lang]}
             </button>
           ))}
         </div>
 
         <div className="pricebox active sr">
-          {pricingData[activeTab].map((plan, index) => (
-            <div key={index} className={`price-card ${plan.featured ? 'featured' : ''}`}>
-              {plan.featured && <div className="popular-badge">Most Popular</div>}
-              <div className="price-tier">{plan.tier}</div>
+          {activePlans.map((plan, index) => (
+            <div key={plan.id || index} className={`price-card ${plan.featured ? 'featured' : ''}`}>
+              {plan.featured && <div className="popular-badge">{lang === 'bn' ? 'জনপ্রিয়' : 'Most Popular'}</div>}
+              <div className="price-tier">{(lang === 'bn' && plan.tier_bn) ? plan.tier_bn : plan.tier}</div>
               <div className="price-amount"><span className="currency">৳</span>{plan.price}</div>
-              <div className="price-desc">{plan.desc}</div>
+              <div className="price-desc">{(lang === 'bn' && plan.desc_bn) ? plan.desc_bn : plan.desc}</div>
               <div className="price-divider"></div>
               <ul className="price-features">
-                {plan.features.map((feat, i) => <li key={i}>{feat}</li>)}
+                {(lang === 'bn' && plan.features_bn) 
+                  ? plan.features_bn.map((feat, i) => <li key={i}>{feat}</li>)
+                  : plan.features?.map((feat, i) => <li key={i}>{feat}</li>)
+                }
               </ul>
-              <a href="#contact" className="btn-red price-cta">Get Started →</a>
+              <a href="#contact" className="btn-red price-cta">{lang === 'bn' ? 'শুরু করুন →' : 'Get Started →'}</a>
             </div>
           ))}
+          {activePlans.length === 0 && (
+            <div style={{ textAlign: 'center', width: '100%', padding: '2rem', color: 'rgba(255,255,255,0.4)' }}>
+              {lang === 'bn' ? 'এই ক্যাটাগরির প্যাকেজ শীঘ্রই আসছে।' : 'Plans coming soon for this category.'}
+            </div>
+          )}
         </div>
       </div>
     </section>

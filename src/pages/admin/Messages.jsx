@@ -1,0 +1,82 @@
+import React, { useState, useEffect } from 'react';
+import { db } from '../../firebase/config';
+import { collection, getDocs, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import { Trash2, Mail, Phone, Calendar } from 'lucide-react';
+
+const MessagesList = () => {
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchMessages = async () => {
+    setLoading(true);
+    const q = query(collection(db, 'messages'), orderBy('timestamp', 'desc'));
+    const snap = await getDocs(q);
+    setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchMessages(); }, []);
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Delete this message permanently?')) {
+      await deleteDoc(doc(db, 'messages', id));
+      fetchMessages();
+    }
+  };
+
+  return (
+    <div>
+      <div style={{ marginBottom: '2.5rem' }}>
+        <h1 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '0.5rem' }}>Customer Inquiries</h1>
+        <p style={{ color: 'rgba(255,255,255,0.5)' }}>Manage and track all messages from the contact form.</p>
+      </div>
+
+      <div className="admin-card">
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Customer Info</th>
+              <th>Business & Service</th>
+              <th>Project Message</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {messages.map((m) => (
+              <tr key={m.id}>
+                <td style={{ verticalAlign: 'top' }}>
+                  <div style={{ fontSize: '0.8rem', fontWeight: '700' }}>{m.timestamp?.toDate().toLocaleDateString()}</div>
+                  <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)' }}>{m.timestamp?.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                </td>
+                <td style={{ verticalAlign: 'top' }}>
+                  <div style={{ fontWeight: '700', marginBottom: '0.3rem' }}>{m.name}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>
+                     {m.contact}
+                  </div>
+                </td>
+                <td style={{ verticalAlign: 'top' }}>
+                  <div style={{ fontWeight: '600', fontSize: '0.85rem' }}>{m.business || 'N/A'}</div>
+                  <div style={{ color: '#E8192C', fontSize: '0.75rem', fontWeight: '700' }}>{m.service}</div>
+                </td>
+                <td style={{ verticalAlign: 'top' }}>
+                  <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', maxWidth: '400px', lineHeight: '1.4' }}>{m.project}</p>
+                </td>
+                <td style={{ verticalAlign: 'top' }}>
+                  <button onClick={() => handleDelete(m.id)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer' }}>
+                    <Trash2 size={18} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {messages.length === 0 && !loading && (
+              <tr><td colSpan="5" style={{ textAlign: 'center', padding: '3rem', color: 'rgba(255,255,255,0.2)' }}>No messages found.</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default MessagesList;

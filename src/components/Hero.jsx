@@ -1,14 +1,19 @@
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../utils/translations';
 
 const Hero = () => {
+  const { lang } = useLanguage();
+  const t = translations[lang].hero;
+
   return (
     <section className="hero">
-      <div className="hero-eyebrow">🇧🇩 Based in Dhaka, Bangladesh</div>
-      <h1>Your <span className="red">Creative</span> Partner<br />for <span className="wavy">Digital Growth</span></h1>
-      <p className="hero-sub">Affordable, high-quality digital marketing for startups & small businesses. Social media, branding, photography, web development — all under one roof.</p>
+      <div className="hero-eyebrow">{t.eyebrow}</div>
+      <h1 dangerouslySetInnerHTML={{ __html: t.title }}></h1>
+      <p className="hero-sub">{t.desc}</p>
       <div className="hero-actions">
-        <a href="#contact" className="btn-red" style={{ fontSize: '0.95rem', padding: '0.75rem 1.75rem' }}>Start a Project →</a>
-        <a href="#portfolio" className="btn-outline-dark" style={{ padding: '0.75rem 1.75rem', fontSize: '0.95rem' }}>See Our Work</a>
+        <a href="#contact" className="btn-red" style={{ fontSize: '0.95rem', padding: '0.75rem 1.75rem' }}>{t.cta1}</a>
+        <a href="#portfolio" className="btn-outline-dark" style={{ padding: '0.75rem 1.75rem', fontSize: '0.95rem' }}>{t.cta2}</a>
       </div>
       <div className="hero-mockup">
         <div className="hero-mockup-inner">

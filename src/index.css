@@ -16,6 +16,7 @@ html { scroll-behavior: smooth; }
   --border: #e8e8e4;
   --font-display: 'Bricolage Grotesque', sans-serif;
   --font-body: 'DM Sans', sans-serif;
+  --font-bn: 'Hind Siliguri', sans-serif;
 }
 
 body {
@@ -24,6 +25,10 @@ body {
   color: var(--black);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+body.lang-bn {
+  font-family: var(--font-bn);
 }
 
 /* ─── NAV ─── */
