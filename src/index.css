@@ -1961,12 +1961,12 @@ footer {
 }
 
 .preloader-brand {
-  font-family: " Outfit\, sans-serif;
- font-size: 3rem;
- font-weight: 800;
- color: white;
- margin-bottom: 2rem;
- letter-spacing: -0.02em;
+  font-family: "Outfit", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
 }
 
 .preloader-brand span {
@@ -1990,22 +1990,22 @@ footer {
 }
 
 .preloader-num {
- font-family: \DM Sans\, sans-serif;
- font-size: 0.9rem;
- color: rgba(255,255,255,0.4);
- font-weight: 500;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
 }
 
 .preloader-bg-text {
- position: absolute;
- bottom: 5vh;
- left: 50%;
- transform: translateX(-50%);
- font-family: \Outfit\, sans-serif;
- font-weight: 900;
- font-size: 10vw;
- color: rgba(255,255,255,0.02);
- white-space: nowrap;
- pointer-events: none;
- user-select: none;
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Outfit", sans-serif;
+  font-weight: 900;
+  font-size: 10vw;
+  color: rgba(255,255,255,0.02);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
 }
