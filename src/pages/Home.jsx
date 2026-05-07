@@ -17,6 +17,7 @@ import Testimonials from '../components/Testimonials';
 import CTABand from '../components/CTABand';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import CustomCursor from '../components/CustomCursor';
 
 const Home = () => {
   const [seo, setSeo] = useState({
@@ -39,6 +40,7 @@ const Home = () => {
 
   return (
     <div className="App">
+      <CustomCursor />
       <Helmet>
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />

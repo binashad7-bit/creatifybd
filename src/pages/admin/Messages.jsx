@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
-import { collection, getDocs, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
-import { Trash2, Mail, Phone, Calendar } from 'lucide-react';
+import { collection, deleteDoc, doc, query, orderBy, onSnapshot, updateDoc } from 'firebase/firestore';
+import { Trash2, Mail, Phone, Calendar, CheckCircle2, Circle } from 'lucide-react';
 
 const MessagesList = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchMessages = async () => {
-    setLoading(true);
+  useEffect(() => {
     const q = query(collection(db, 'messages'), orderBy('timestamp', 'desc'));
-    const snap = await getDocs(q);
-    setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchMessages(); }, []);
+    const unsub = onSnapshot(q, (snap) => {
+      setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      setLoading(false);
+    });
+    return () => unsub();
+  }, []);
 
   const handleDelete = async (id) => {
     if (window.confirm('Delete this message permanently?')) {
       await deleteDoc(doc(db, 'messages', id));
-      fetchMessages();
     }
+  };
+
+  const toggleRead = async (id, currentStatus) => {
+    await updateDoc(doc(db, 'messages', id), { read: !currentStatus });
   };
 
   return (
@@ -35,6 +37,7 @@ const MessagesList = () => {
         <table className="data-table">
           <thead>
             <tr>
+              <th>Status</th>
               <th>Date</th>
               <th>Customer Info</th>
               <th>Business & Service</th>
@@ -44,19 +47,26 @@ const MessagesList = () => {
           </thead>
           <tbody>
             {messages.map((m) => (
-              <tr key={m.id}>
+              <tr key={m.id} style={{ opacity: m.read ? 0.7 : 1 }}>
+                <td style={{ verticalAlign: 'top' }}>
+                  <button 
+                    onClick={() => toggleRead(m.id, m.read)} 
+                    style={{ background: 'none', border: 'none', color: m.read ? '#22c55e' : '#E8192C', cursor: 'pointer' }}
+                    title={m.read ? "Mark as Unread" : "Mark as Read"}
+                  >
+                    {m.read ? <CheckCircle2 size={20} /> : <Circle size={20} />}
+                  </button>
+                </td>
                 <td style={{ verticalAlign: 'top' }}>
                   <div style={{ fontSize: '0.8rem', fontWeight: '700' }}>{m.timestamp?.toDate().toLocaleDateString()}</div>
                   <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)' }}>{m.timestamp?.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                 </td>
                 <td style={{ verticalAlign: 'top' }}>
                   <div style={{ fontWeight: '700', marginBottom: '0.3rem' }}>{m.name}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>
-                     {m.contact}
-                  </div>
+                  <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>{m.contact}</div>
                 </td>
                 <td style={{ verticalAlign: 'top' }}>
-                  <div style={{ fontWeight: '600', fontSize: '0.85rem' }}>{m.business || 'N/A'}</div>
+                  <div style={{ fontWeight: '600', fontSize: '0.85rem' }}>{m.business || 'Personal'}</div>
                   <div style={{ color: '#E8192C', fontSize: '0.75rem', fontWeight: '700' }}>{m.service}</div>
                 </td>
                 <td style={{ verticalAlign: 'top' }}>
@@ -70,7 +80,7 @@ const MessagesList = () => {
               </tr>
             ))}
             {messages.length === 0 && !loading && (
-              <tr><td colSpan="5" style={{ textAlign: 'center', padding: '3rem', color: 'rgba(255,255,255,0.2)' }}>No messages found.</td></tr>
+              <tr><td colSpan="6" style={{ textAlign: 'center', padding: '3rem', color: 'rgba(255,255,255,0.2)' }}>No messages found.</td></tr>
             )}
           </tbody>
         </table>

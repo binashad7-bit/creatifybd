@@ -1,13 +1,15 @@
 /* Admin Dashboard CSS - Scoped for safety */
 :root {
-  --adm-bg: #0b0b0b;
-  --adm-side: #121212;
-  --adm-card: #181818;
-  --adm-border: rgba(255,255,255,0.06);
+  --adm-bg: #050505;
+  --adm-side: #0a0a0a;
+  --adm-card: rgba(255, 255, 255, 0.03);
+  --adm-border: rgba(255, 255, 255, 0.06);
   --adm-red: #E8192C;
-  --adm-red-soft: rgba(232,25,44,0.12);
+  --adm-red-glow: rgba(232, 25, 44, 0.3);
+  --adm-red-soft: rgba(232, 25, 44, 0.1);
   --adm-txt: #ffffff;
-  --adm-dim: #9ca3af;
+  --adm-dim: #94a3b8;
+  --adm-glass: rgba(255, 255, 255, 0.02);
 }
 
 .admin-layout {
@@ -15,7 +17,7 @@
   min-height: 100vh !important;
   background: var(--adm-bg) !important;
   color: var(--adm-txt) !important;
-  font-family: 'Inter', 'DM Sans', sans-serif !important;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif !important;
 }
 
 /* Sidebar Fixes */
@@ -39,50 +41,40 @@
   align-items: center !important;
   gap: 0.75rem !important;
   margin-bottom: 3rem !important;
-  position: relative !important;
-  z-index: 10000 !important;
+  padding-left: 0.5rem !important;
 }
 
 .sidebar-nav {
   display: flex !important;
   flex-direction: column !important;
-  gap: 0.5rem !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  list-style: none !important;
-  position: relative !important;
-  z-index: 10000 !important;
+  gap: 0.4rem !important;
 }
 
 .nav-item {
   display: flex !important;
   align-items: center !important;
   gap: 0.85rem !important;
-  padding: 0.85rem 1rem !important;
+  padding: 0.8rem 1rem !important;
   border-radius: 12px !important;
   color: var(--adm-dim) !important;
   text-decoration: none !important;
-  transition: all 0.2s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   font-weight: 500 !important;
-  border: none !important;
+  border: 1px solid transparent !important;
   background: transparent !important;
   width: 100% !important;
-  justify-content: flex-start !important;
 }
 
 .nav-item:hover {
-  background: rgba(255,255,255,0.03) !important;
+  background: var(--adm-glass) !important;
   color: var(--adm-txt) !important;
+  border-color: var(--adm-border) !important;
 }
 
 .nav-item.active {
   background: var(--adm-red-soft) !important;
   color: var(--adm-red) !important;
-}
-
-.nav-text {
-  font-size: 0.95rem !important;
-  display: inline-block !important;
+  border-color: rgba(232, 25, 44, 0.2) !important;
 }
 
 /* Content Area Fixes */
@@ -90,85 +82,157 @@
   flex: 1 !important;
   margin-left: 280px !important;
   padding: 3rem 4rem !important;
-  background: var(--adm-bg) !important;
-  min-width: 0 !important;
-}
-
-.content-header {
-  margin-bottom: 3rem !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
+  background: radial-gradient(circle at top right, rgba(232, 25, 44, 0.05), transparent 40%), var(--adm-bg) !important;
+  min-height: 100vh !important;
 }
 
 .admin-card {
   background: var(--adm-card) !important;
+  backdrop-filter: blur(12px) !important;
   border: 1px solid var(--adm-border) !important;
-  border-radius: 20px !important;
-  padding: 2rem !important;
-  margin-bottom: 1.5rem !important;
+  border-radius: 24px !important;
+  padding: 2.5rem !important;
+  margin-bottom: 2rem !important;
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2) !important;
+}
+
+.admin-card h1, .admin-card h2 {
+  font-family: 'Bricolage Grotesque', sans-serif !important;
+  letter-spacing: -0.02em !important;
 }
 
 .stat-grid {
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
   gap: 1.5rem !important;
-  margin-bottom: 3rem !important;
+  margin-bottom: 2.5rem !important;
 }
 
 .stat-card {
   background: var(--adm-card) !important;
+  backdrop-filter: blur(8px) !important;
   border: 1px solid var(--adm-border) !important;
-  padding: 1.5rem !important;
-  border-radius: 18px !important;
+  padding: 1.75rem !important;
+  border-radius: 20px !important;
   display: flex !important;
   align-items: center !important;
-  gap: 1rem !important;
+  gap: 1.25rem !important;
+  transition: transform 0.3s ease, border-color 0.3s ease !important;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 .stat-icon {
-  width: 48px !important;
-  height: 48px !important;
-  border-radius: 12px !important;
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 14px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  background: var(--adm-red-soft) !important;
+  color: var(--adm-red) !important;
 }
 
 /* Table Fixes */
 .data-table {
   width: 100% !important;
-  border-collapse: collapse !important;
+  border-collapse: separate !important;
+  border-spacing: 0 0.5rem !important;
 }
 
 .data-table th {
   text-align: left !important;
-  padding: 1rem !important;
+  padding: 1rem 1.25rem !important;
   color: var(--adm-dim) !important;
-  font-size: 0.75rem !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
   text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.data-table tr td {
+  padding: 1.25rem !important;
+  background: rgba(255, 255, 255, 0.01) !important;
+  border-top: 1px solid var(--adm-border) !important;
   border-bottom: 1px solid var(--adm-border) !important;
 }
 
-.data-table td {
-  padding: 1rem !important;
-  border-bottom: 1px solid var(--adm-border) !important;
-  font-size: 0.9rem !important;
+.data-table tr td:first-child {
+  border-left: 1px solid var(--adm-border) !important;
+  border-top-left-radius: 12px !important;
+  border-bottom-left-radius: 12px !important;
+}
+
+.data-table tr td:last-child {
+  border-right: 1px solid var(--adm-border) !important;
+  border-top-right-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+}
+
+.data-table tr:hover td {
+  background: rgba(255, 255, 255, 0.03) !important;
 }
 
 .admin-btn {
   background: var(--adm-red) !important;
   color: #fff !important;
   border: none !important;
-  padding: 0.7rem 1.25rem !important;
-  border-radius: 10px !important;
-  font-weight: 600 !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
   cursor: pointer !important;
-  font-size: 0.9rem !important;
+  font-size: 0.85rem !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px var(--adm-red-soft) !important;
 }
 
+.admin-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px var(--adm-red-glow) !important;
+  filter: brightness(1.1) !important;
+}
+
+.admin-btn:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Inputs */
+.admin-input {
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid var(--adm-border) !important;
+  border-radius: 12px !important;
+  padding: 0.85rem 1.1rem !important;
+  color: #fff !important;
+  font-size: 0.9rem !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.admin-input:focus {
+  border-color: var(--adm-red) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 0 0 4px var(--adm-red-soft) !important;
+}
+
+.badge-status {
+  padding: 0.35rem 0.85rem !important;
+  border-radius: 100px !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+}
+
+.badge-active { background: rgba(34, 197, 94, 0.1) !important; color: #22c55e !important; border: 1px solid rgba(34, 197, 94, 0.2) !important; }
+.badge-hidden { background: rgba(239, 68, 68, 0.1) !important; color: #ef4444 !important; border: 1px solid rgba(239, 68, 68, 0.2) !important; }
+
 @media (max-width: 1024px) {
-  .admin-sidebar { width: 80px !important; padding: 2rem 0.5rem !important; }
+  .admin-sidebar { width: 80px !important; padding: 2.5rem 0.75rem !important; }
   .nav-text, .admin-profile-info { display: none !important; }
   .admin-content { margin-left: 80px !important; padding: 2rem !important; }
 }

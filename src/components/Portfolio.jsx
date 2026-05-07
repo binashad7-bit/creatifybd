@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { db } from '../firebase/config';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useLanguage } from '../context/LanguageContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const CATS = [
   { key: 'all', label: 'All Work', label_bn: 'সব কাজ' },
@@ -37,7 +38,13 @@ function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
   }, [hasPrev, hasNext]);
 
   return (
-    <div className="pf-lightbox" onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="pf-lightbox" 
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
       <button className="pf-lb-close" onClick={onClose} aria-label="Close">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -51,14 +58,18 @@ function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       )}
-      <div className="pf-lb-content">
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className="pf-lb-content"
+      >
         <img src={item.imageUrl} alt={item.title} className="pf-lb-img" />
         <div className="pf-lb-meta">
           <span className="pf-lb-cat">{CAT_DISPLAY[item.category] || item.category}</span>
           <h3 className="pf-lb-title">{item.title}</h3>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -91,29 +102,20 @@ function Counter({ target, duration = 1200 }) {
 }
 
 // ── Work Card ─────────────────────────────────────────────────────────────────
-function WorkCard({ item, index, onClick }) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => setVisible(true), index * 60);
-        observer.disconnect();
-      }
-    }, { threshold: 0.1 });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [index]);
-
+function WorkCard({ item, onClick }) {
   return (
-    <div
-      ref={ref}
-      className={`wk-card${visible ? ' wk-card--vis' : ''}`}
-      onClick={() => onClick(item, index)}
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.4 }}
+      className="wk-card wk-card--vis"
+      onClick={() => onClick(item)}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onClick(item, index)}
+      onKeyDown={(e) => e.key === 'Enter' && onClick(item)}
+      data-cursor="View"
     >
       <div className="wk-card-img-wrap">
         <img src={item.imageUrl} alt={item.title} className="wk-card-img" loading="lazy" />
@@ -128,34 +130,24 @@ function WorkCard({ item, index, onClick }) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 // ── Case Study Card ───────────────────────────────────────────────────────────
 function CaseCard({ item, index, onClick }) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => setVisible(true), index * 100);
-        observer.disconnect();
-      }
-    }, { threshold: 0.15 });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [index]);
-
   return (
-    <div
-      ref={ref}
-      className={`cs-card${visible ? ' cs-card--vis' : ''}`}
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className="cs-card cs-card--vis"
       onClick={() => onClick(item, index)}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick(item, index)}
+      data-cursor="View"
     >
       <div className="cs-card-img-wrap">
         <img src={item.imageUrl} alt={item.title} className="cs-card-img" loading="lazy" />
@@ -171,7 +163,7 @@ function CaseCard({ item, index, onClick }) {
           </svg>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -180,7 +172,6 @@ const Portfolio = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('all');
-  const [filterChanging, setFilterChanging] = useState(false);
   const [lightboxItem, setLightboxItem] = useState(null);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const { lang } = useLanguage();
@@ -203,19 +194,15 @@ const Portfolio = () => {
     return items.some(i => i.category === c.key);
   });
 
-  const handleFilterChange = useCallback((key) => {
-    if (key === activeFilter) return;
-    setFilterChanging(true);
-    setTimeout(() => {
-      setActiveFilter(key);
-      setFilterChanging(false);
-    }, 200);
-  }, [activeFilter]);
+  const handleFilterChange = (key) => {
+    setActiveFilter(key);
+  };
 
-  const openLightbox = useCallback((item, idx) => {
+  const openLightbox = useCallback((item) => {
+    const idx = filteredItems.findIndex(i => i.id === item.id);
     setLightboxItem(item);
     setLightboxIndex(idx);
-  }, []);
+  }, [filteredItems]);
 
   const closeLightbox = useCallback(() => {
     setLightboxItem(null);
@@ -238,7 +225,7 @@ const Portfolio = () => {
     }
   }, [lightboxIndex, filteredItems]);
 
-  // Case studies: pick top 6 for the horizontal scroll
+  // Case studies: pick top 8 for the horizontal scroll
   const caseStudies = items.slice(0, 8);
 
   if (loading && items.length === 0) {
@@ -255,12 +242,15 @@ const Portfolio = () => {
     <>
       {/* ── SECTION 1: OUR WORK ─────────────────────────────────────────── */}
       <section className="wk-section" id="portfolio">
-        {/* Ambient BG grain */}
         <div className="wk-grain" aria-hidden="true" />
 
         <div className="wk-inner">
-          {/* Header */}
-          <div className="wk-header">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="wk-header"
+          >
             <div className="wk-eyebrow">
               <span className="wk-eyebrow-dot" />
               {lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}
@@ -287,9 +277,8 @@ const Portfolio = () => {
                 <span>{lang === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Filter Bar */}
           <div className="wk-filter-bar" role="tablist">
             {availableCats.map(cat => (
               <button
@@ -301,56 +290,73 @@ const Portfolio = () => {
               >
                 {lang === 'bn' ? cat.label_bn : cat.label}
                 {activeFilter === cat.key && (
-                  <span className="wk-filter-count">
+                  <motion.span 
+                    layoutId="filter-count"
+                    className="wk-filter-count"
+                  >
                     {cat.key === 'all' ? items.length : items.filter(i => i.category === cat.key).length}
-                  </span>
+                  </motion.span>
                 )}
               </button>
             ))}
           </div>
 
-          {/* Grid */}
-          <div className={`wk-grid${filterChanging ? ' wk-grid--changing' : ''}`}>
-            {filteredItems.map((item, i) => (
-              <WorkCard
-                key={item.id}
-                item={item}
-                index={i}
-                onClick={openLightbox}
-              />
-            ))}
+          <motion.div layout className="wk-grid">
+            <AnimatePresence mode="popLayout">
+              {filteredItems.map((item) => (
+                <WorkCard
+                  key={item.id}
+                  item={item}
+                  onClick={openLightbox}
+                />
+              ))}
+            </AnimatePresence>
             {filteredItems.length === 0 && (
               <div className="wk-empty">
                 <span>No projects in this category yet.</span>
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── SECTION 2: CASE STUDIES ─────────────────────────────────────── */}
       <section className="cs-section" id="case-studies">
         <div className="cs-header-wrap">
-          <div className="cs-eyebrow">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="cs-eyebrow"
+          >
             <span className="cs-eyebrow-line" />
             {lang === 'bn' ? 'ফিচার্ড প্রজেক্ট' : 'Featured Projects'}
-          </div>
+          </motion.div>
           <div className="cs-header-row">
-            <h2 className="cs-heading">
+            <motion.h2 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="cs-heading"
+            >
               {lang === 'bn'
                 ? <>প্রজেক্ট <span>শোকেস</span></>
                 : <>Project <span>Showcase</span></>
               }
-            </h2>
-            <p className="cs-subhead">
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="cs-subhead"
+            >
               {lang === 'bn'
                 ? 'আমাদের সেরা কাজগুলো একনজরে দেখুন।'
                 : 'A curated selection of our most impactful creative work.'}
-            </p>
+            </motion.p>
           </div>
         </div>
 
-        {/* Horizontal Scroll */}
         <div className="cs-scroll-outer">
           <div className="cs-scroll-track">
             {caseStudies.map((item, i) => (
@@ -365,31 +371,35 @@ const Portfolio = () => {
           <div className="cs-scroll-hint" aria-hidden="true">
             <span>Scroll</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
-            </svg>
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </div>
         </div>
 
         <div className="cs-footer">
-          <a href="#contact" className="cs-cta-btn">
+          <motion.a 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            href="#contact" 
+            className="cs-cta-btn"
+          >
             {lang === 'bn' ? 'প্রজেক্ট শুরু করুন' : 'Start a Project'}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
+          </motion.a>
         </div>
       </section>
 
-      {/* ── LIGHTBOX ──────────────────────────────────────────────────────── */}
-      {lightboxItem && (
-        <Lightbox
-          item={lightboxItem}
-          onClose={closeLightbox}
-          onPrev={goPrev}
-          onNext={goNext}
-          hasPrev={lightboxIndex > 0}
-          hasNext={lightboxIndex < filteredItems.length - 1}
-        />
-      )}
+      <AnimatePresence>
+        {lightboxItem && (
+          <Lightbox
+            item={lightboxItem}
+            onClose={closeLightbox}
+            onPrev={goPrev}
+            onNext={goNext}
+            hasPrev={lightboxIndex > 0}
+            hasNext={lightboxIndex < filteredItems.length - 1}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

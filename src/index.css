@@ -25,6 +25,35 @@ body {
   color: var(--black);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  cursor: none !important; /* Hide default cursor */
+}
+
+a, button, [role="button"] {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: rgba(232, 25, 44, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: difference;
+}
+
+.cursor-text {
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 body.lang-bn {
@@ -686,11 +715,10 @@ h2.section-h .red { color: var(--red); }
 
 /* ── Work Grid ── */
 .wk-grid {
-  columns: 3 340px;
-  column-gap: 1.25rem;
-  transition: opacity 0.2s;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
 }
-.wk-grid--changing { opacity: 0; }
 
 .wk-empty {
   grid-column: 1 / -1;
@@ -702,21 +730,12 @@ h2.section-h .red { color: var(--red); }
 
 /* ── Work Card ── */
 .wk-card {
-  break-inside: avoid;
-  margin-bottom: 1.25rem;
   border-radius: 14px;
   overflow: hidden;
-  cursor: pointer;
   position: relative;
   border: 1px solid rgba(255,255,255,0.06);
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s, border-color 0.3s;
+  transition: box-shadow 0.3s, border-color 0.3s;
   background: #111;
-}
-.wk-card--vis {
-  opacity: 1;
-  transform: translateY(0);
 }
 .wk-card:hover {
   border-color: rgba(232,25,44,0.4);
@@ -906,14 +925,7 @@ h2.section-h .red { color: var(--red); }
   background: white;
   border: 1px solid var(--border);
   scroll-snap-align: start;
-  cursor: pointer;
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s;
-  opacity: 0;
-  transform: translateX(50px);
-}
-.cs-card--vis {
-  opacity: 1;
-  transform: translateX(0);
 }
 .cs-card:hover {
   transform: translateY(-12px) !important;

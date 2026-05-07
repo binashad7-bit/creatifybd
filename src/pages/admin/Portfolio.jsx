@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { uploadImage } from '../../utils/imgbb';
-import { Plus, Edit2, Trash2, X, Image as ImageIcon, Upload, Loader2 } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, Image as ImageIcon, Upload, Loader2, CloudCheck } from 'lucide-react';
 
 const PortfolioManager = () => {
   const [items, setItems] = useState([]);
@@ -10,17 +10,19 @@ const PortfolioManager = () => {
   const [uploading, setUploading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [syncing, setSyncing] = useState(false);
   const [formData, setFormData] = useState({ title: '', category: '', imageUrl: '', hidden: false });
 
-  const fetchItems = async () => {
-    setLoading(true);
+  useEffect(() => {
     const q = query(collection(db, 'portfolio'), orderBy('title'));
-    const snap = await getDocs(q);
-    setItems(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchItems(); }, []);
+    const unsub = onSnapshot(q, (snap) => {
+      setItems(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      setLoading(false);
+      setSyncing(true);
+      setTimeout(() => setSyncing(false), 2000);
+    });
+    return () => unsub();
+  }, []);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -45,14 +47,12 @@ const PortfolioManager = () => {
       setIsModalOpen(false);
       setEditingId(null);
       setFormData({ title: '', category: '', imageUrl: '', hidden: false });
-      fetchItems();
     } catch (err) { console.error(err); }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Delete this portfolio item?')) {
       await deleteDoc(doc(db, 'portfolio', id));
-      fetchItems();
     }
   };
 

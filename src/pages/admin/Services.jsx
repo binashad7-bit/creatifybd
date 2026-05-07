@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { Plus, Edit2, Trash2, X, Check, Eye, EyeOff } from 'lucide-react';
 
 const ServicesManager = () => {
@@ -10,15 +10,14 @@ const ServicesManager = () => {
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({ title: '', desc: '', price: '', icon: '📱', bg: 's1', hidden: false });
 
-  const fetchServices = async () => {
-    setLoading(true);
+  useEffect(() => {
     const q = query(collection(db, 'services'), orderBy('title'));
-    const snap = await getDocs(q);
-    setServices(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchServices(); }, []);
+    const unsub = onSnapshot(q, (snap) => {
+      setServices(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      setLoading(false);
+    });
+    return () => unsub();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,20 +30,17 @@ const ServicesManager = () => {
       setIsModalOpen(false);
       setEditingId(null);
       setFormData({ title: '', desc: '', price: '', icon: '📱', bg: 's1', hidden: false });
-      fetchServices();
     } catch (err) { console.error(err); }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this service?')) {
       await deleteDoc(doc(db, 'services', id));
-      fetchServices();
     }
   };
 
   const toggleHide = async (id, currentStatus) => {
     await updateDoc(doc(db, 'services', id), { hidden: !currentStatus });
-    fetchServices();
   };
 
   return (
