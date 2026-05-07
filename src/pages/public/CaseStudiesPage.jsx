@@ -184,11 +184,11 @@ const caseStudies = [
 ];
 
 const CaseStudyItem = ({ cs, index, images }) => {
-  const isEven = index % 2 === 0;
+  const isOdd = index % 2 !== 0;
   const csImages = images[cs.id] || {};
 
   return (
-    <div className={`premium-cs-item ${isEven ? 'even' : 'odd'}`}>
+    <div className={`premium-cs-item ${isOdd ? 'is-odd' : 'is-even'}`}>
       <div className="cs-sticky-info">
         <FadeReveal delay={0.2}>
           <div className="cs-num-badge" style={{ border: `1px solid ${cs.color}40`, color: cs.color }}>

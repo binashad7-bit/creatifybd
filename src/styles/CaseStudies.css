@@ -102,11 +102,14 @@
   border-bottom: 1px solid var(--cs-border);
 }
 
-.premium-cs-item.odd {
+.premium-cs-item.is-even .cs-sticky-info { order: 1; }
+.premium-cs-item.is-even .cs-visual-scroll { order: 2; }
+
+.premium-cs-item.is-odd {
   grid-template-columns: 1.5fr 1fr;
 }
-.premium-cs-item.odd .cs-sticky-info { order: 2; }
-.premium-cs-item.odd .cs-visual-scroll { order: 1; }
+.premium-cs-item.is-odd .cs-sticky-info { order: 2; }
+.premium-cs-item.is-odd .cs-visual-scroll { order: 1; }
 
 .cs-sticky-info {
   position: sticky;
