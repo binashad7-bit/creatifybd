@@ -17,18 +17,20 @@ const cases = [
   { id: 'zenith-aviation', name: 'Zenith Aviation', tag: 'Luxury Web', color: '#1E3A8A' },
 ];
 
-const UploadSlot = ({ label, currentUrl, onUpload, uploading }) => (
+const UploadSlot = ({ label, currentUrl, onUpload, uploading, progress, accentColor }) => (
   <div style={{ marginBottom: '1.25rem' }}>
-    <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.6rem' }}>
-      {label}
+    <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.6rem', display: 'flex', justifyContent: 'space-between' }}>
+      <span>{label}</span>
+      {uploading && <span style={{ color: accentColor }}>{progress}%</span>}
     </div>
     <div style={{
-      width: '100%', height: '160px', borderRadius: '12px',
+      width: '100%', height: '180px', borderRadius: '16px',
       border: currentUrl ? 'none' : '1.5px dashed rgba(255,255,255,0.15)',
       background: currentUrl ? 'transparent' : 'rgba(255,255,255,0.03)',
-      overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'
+      overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      transition: 'all 0.3s ease'
     }}>
-      {currentUrl ? (
+      {currentUrl && !uploading ? (
         <>
           <img src={currentUrl} alt={label} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           <div style={{
@@ -39,22 +41,38 @@ const UploadSlot = ({ label, currentUrl, onUpload, uploading }) => (
             onMouseEnter={e => e.currentTarget.style.opacity = 1}
             onMouseLeave={e => e.currentTarget.style.opacity = 0}
           >
-            <label style={{ cursor: 'pointer', background: 'white', color: 'black', padding: '0.5rem 1.25rem', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 700 }}>
-              Change Image
+            <label style={{ cursor: 'pointer', background: 'white', color: 'black', padding: '0.6rem 1.4rem', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800 }}>
+              Replace Image
               <input type="file" hidden accept="image/*" onChange={onUpload} />
             </label>
           </div>
         </>
       ) : (
-        <label style={{ cursor: 'pointer', textAlign: 'center', padding: '1rem' }}>
-          {uploading
-            ? <Loader2 size={28} style={{ color: 'rgba(255,255,255,0.3)', animation: 'spin 1s linear infinite' }} />
-            : <Upload size={28} style={{ color: 'rgba(255,255,255,0.3)', marginBottom: '0.5rem', display: 'block', margin: '0 auto 0.5rem' }} />
-          }
-          <div style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)' }}>
-            {uploading ? 'Uploading...' : 'Click to upload image'}
-          </div>
-          <input type="file" hidden accept="image/*" onChange={onUpload} />
+        <label style={{ cursor: 'pointer', textAlign: 'center', padding: '2rem', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          {uploading ? (
+            <div style={{ width: '100%', padding: '0 2rem' }}>
+              <div style={{ position: 'relative', width: '100%', height: '6px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', overflow: 'hidden', marginBottom: '1rem' }}>
+                <div style={{ 
+                  position: 'absolute', top: 0, left: 0, height: '100%', 
+                  background: accentColor, width: `${progress}%`,
+                  transition: 'width 0.3s ease'
+                }} />
+              </div>
+              <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', fontWeight: 600 }}>
+                Uploading... {progress}%
+              </div>
+            </div>
+          ) : (
+            <>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                <Upload size={20} style={{ color: 'rgba(255,255,255,0.4)' }} />
+              </div>
+              <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>
+                Click to upload
+              </div>
+              <input type="file" hidden accept="image/*" onChange={onUpload} />
+            </>
+          )}
         </label>
       )}
     </div>
@@ -64,6 +82,7 @@ const UploadSlot = ({ label, currentUrl, onUpload, uploading }) => (
 const CaseStudyCard = ({ cs }) => {
   const [images, setImages] = useState({ heroUrl: '', resultUrl: '' });
   const [uploading, setUploading] = useState({ hero: false, result: false });
+  const [progress, setProgress] = useState({ hero: 0, result: 0 });
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
@@ -77,17 +96,24 @@ const CaseStudyCard = ({ cs }) => {
     const file = e.target.files[0];
     if (!file) return;
     
-    if (file.size > 10 * 1024 * 1024) {
-      alert("File is too large. Max size is 10MB.");
+    if (file.size > 15 * 1024 * 1024) {
+      alert("File is too large. Max size is 15MB.");
       return;
     }
 
     setUploading(prev => ({ ...prev, [type]: true }));
+    setProgress(prev => ({ ...prev, [type]: 0 }));
+
     try {
-      const url = await uploadImage(file);
+      const url = await uploadImage(file, (p) => {
+        setProgress(prev => ({ ...prev, [type]: p }));
+      });
+      
       const updated = { ...images, [`${type}Url`]: url };
       setImages(updated);
+      
       await setDoc(doc(db, 'case_study_images', cs.id), updated, { merge: true });
+      
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
@@ -99,35 +125,44 @@ const CaseStudyCard = ({ cs }) => {
 
   return (
     <div style={{
-      background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
-      borderRadius: '16px', padding: '1.75rem', marginBottom: '1.25rem'
+      background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)',
+      borderRadius: '24px', padding: '2rem', marginBottom: '2rem'
     }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <div>
-          <div style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: cs.color, marginBottom: '0.3rem' }}>
-            {cs.tag}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: `${cs.color}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: cs.color, fontSize: '1.2rem', fontWeight: 800 }}>
+            {cs.name.charAt(0)}
           </div>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'white' }}>{cs.name}</h3>
+          <div>
+            <div style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.15em', color: cs.color, marginBottom: '0.2rem' }}>
+              {cs.tag}
+            </div>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white', letterSpacing: '-0.02em' }}>{cs.name}</h3>
+          </div>
         </div>
         {saved && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#22c55e', fontSize: '0.8rem', fontWeight: 600 }}>
-            <CheckCircle2 size={16} /> Saved
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#22c55e', fontSize: '0.85rem', fontWeight: 700, background: 'rgba(34, 197, 94, 0.1)', padding: '0.5rem 1rem', borderRadius: '100px' }}>
+            <CheckCircle2 size={16} /> All Changes Saved
           </div>
         )}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
         <UploadSlot
-          label="Hero / Cover Image"
+          label="Hero / Cover Visual"
           currentUrl={images.heroUrl}
           onUpload={(e) => handleUpload(e, 'hero')}
           uploading={uploading.hero}
+          progress={progress.hero}
+          accentColor={cs.color}
         />
         <UploadSlot
-          label="Results / Mockup Image"
+          label="Results / Outcome Mockup"
           currentUrl={images.resultUrl}
           onUpload={(e) => handleUpload(e, 'result')}
           uploading={uploading.result}
+          progress={progress.result}
+          accentColor={cs.color}
         />
       </div>
     </div>
@@ -137,21 +172,16 @@ const CaseStudyCard = ({ cs }) => {
 const CaseStudiesManager = () => {
   return (
     <div className="admin-content-wrap">
-      <div style={{ marginBottom: '2.5rem' }}>
-        <h1 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.5rem' }}>Manage 10 Masterpiece Case Studies</h1>
-        <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem' }}>
-          Upload cinematic images for your new world-class case studies. These will automatically appear on the <strong style={{ color: 'white' }}>/case-studies</strong> page.
+      <div style={{ marginBottom: '3rem' }}>
+        <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.75rem', letterSpacing: '-0.03em' }}>Premium Case Studies</h1>
+        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1rem', maxWidth: '600px', lineHeight: 1.6 }}>
+          Bring your success stories to life with cinematic visuals. Progress tracking enabled for large file uploads.
         </p>
       </div>
 
-      <div style={{ background: 'rgba(232,25,44,0.08)', border: '1px solid rgba(232,25,44,0.2)', borderRadius: '12px', padding: '1.25rem', marginBottom: '2rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-        <div style={{ fontSize: '1.5rem' }}>✨</div>
-        <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>
-          <strong>Professional Tip:</strong> Use the prompts provided in the image guide to generate consistent, high-end visuals. Hero images should be artistic/atmospheric, and Result images should be professional mockups.
-        </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+        {cases.map(cs => <CaseStudyCard key={cs.id} cs={cs} />)}
       </div>
-
-      {cases.map(cs => <CaseStudyCard key={cs.id} cs={cs} />)}
     </div>
   );
 };
