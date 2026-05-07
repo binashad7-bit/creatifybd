@@ -4,6 +4,7 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { TextReveal, ImageReveal, FadeReveal, StaggerReveal } from './MotionReveal';
 
 const CATS = [
   { key: 'all', label: 'All Work', label_bn: 'সব কাজ' },
@@ -105,33 +106,33 @@ function Counter({ target, duration = 1200 }) {
 // ── Work Card ─────────────────────────────────────────────────────────────────
 function WorkCard({ item, onClick }) {
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.4 }}
-      className="wk-card wk-card--vis"
-      onClick={() => onClick(item)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onClick(item)}
-      data-cursor="View"
-    >
-      <div className="wk-card-img-wrap">
-        <img src={item.imageUrl} alt={item.title} className="wk-card-img" loading="lazy" />
-        <div className="wk-card-overlay">
-          <div className="wk-card-overlay-inner">
-            <span className="wk-cat-tag">{CAT_DISPLAY[item.category] || item.category}</span>
-            <h3 className="wk-card-title">{item.title}</h3>
-            <div className="wk-view-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              View
+    <FadeReveal>
+      <motion.div
+        layout
+        className="wk-card wk-card--vis"
+        onClick={() => onClick(item)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => e.key === 'Enter' && onClick(item)}
+        data-cursor="View"
+      >
+        <div className="wk-card-img-wrap">
+          <ImageReveal>
+            <img src={item.imageUrl} alt={item.title} className="wk-card-img" loading="lazy" />
+          </ImageReveal>
+          <div className="wk-card-overlay">
+            <div className="wk-card-overlay-inner">
+              <span className="wk-cat-tag">{CAT_DISPLAY[item.category] || item.category}</span>
+              <h3 className="wk-card-title">{item.title}</h3>
+              <div className="wk-view-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </FadeReveal>
   );
 }
 
@@ -212,88 +213,95 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
 
         <div className="wk-inner">
           {!fullPage && (
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="wk-header"
-            >
-              <div className="wk-eyebrow">
-                <span className="wk-eyebrow-dot" />
-                {lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}
-              </div>
-              <h2 className="wk-heading">
+            <div className="wk-header">
+              <FadeReveal>
+                <div className="wk-eyebrow">
+                  <span className="wk-eyebrow-dot" />
+                  {lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}
+                </div>
+              </FadeReveal>
+              <TextReveal className="wk-heading">
                 {lang === 'bn'
-                  ? <><span className="wk-heading-line">সৃজনশীলতা যেখানে</span><span className="wk-heading-red"> ফলাফল</span> আনে</>
-                  : <><span className="wk-heading-line">Creativity that</span><span className="wk-heading-red"> drives</span> results</>
+                  ? 'সৃজনশীলতা যেখানে ফলাফল আনে'
+                  : 'Creativity that drives results'
                 }
-              </h2>
-              <div className="wk-stats-row">
-                <div className="wk-stat">
-                  <strong><Counter target={items.length} />+</strong>
-                  <span>{lang === 'bn' ? 'প্রজেক্ট' : 'Projects'}</span>
+              </TextReveal>
+              <FadeReveal delay={0.4}>
+                <div className="wk-stats-row">
+                  <div className="wk-stat">
+                    <strong><Counter target={items.length} />+</strong>
+                    <span>{lang === 'bn' ? 'প্রজেক্ট' : 'Projects'}</span>
+                  </div>
+                  <div className="wk-stat-div" />
+                  <div className="wk-stat">
+                    <strong><Counter target={50} />+</strong>
+                    <span>{lang === 'bn' ? 'সন্তুষ্ট ক্লায়েন্ট' : 'Happy Clients'}</span>
+                  </div>
+                  <div className="wk-stat-div" />
+                  <div className="wk-stat">
+                    <strong><Counter target={5} /></strong>
+                    <span>{lang === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}</span>
+                  </div>
                 </div>
-                <div className="wk-stat-div" />
-                <div className="wk-stat">
-                  <strong><Counter target={50} />+</strong>
-                  <span>{lang === 'bn' ? 'সন্তুষ্ট ক্লায়েন্ট' : 'Happy Clients'}</span>
-                </div>
-                <div className="wk-stat-div" />
-                <div className="wk-stat">
-                  <strong><Counter target={5} /></strong>
-                  <span>{lang === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}</span>
-                </div>
-              </div>
-            </motion.div>
+              </FadeReveal>
+            </div>
           )}
 
           {!highlight && (
-            <div className="wk-filter-bar" role="tablist">
-              {availableCats.map(cat => (
-                <button
-                  key={cat.key}
-                  role="tab"
-                  aria-selected={activeFilter === cat.key}
-                  className={`wk-filter-btn${activeFilter === cat.key ? ' wk-filter-btn--active' : ''}`}
-                  onClick={() => handleFilterChange(cat.key)}
-                >
-                  {lang === 'bn' ? cat.label_bn : cat.label}
-                  {activeFilter === cat.key && (
-                    <motion.span 
-                      layoutId="filter-count"
-                      className="wk-filter-count"
-                    >
-                      {cat.key === 'all' ? items.length : items.filter(i => i.category === cat.key).length}
-                    </motion.span>
-                  )}
-                </button>
-              ))}
-            </div>
+            <FadeReveal delay={0.2}>
+              <div className="wk-filter-bar" role="tablist">
+                {availableCats.map(cat => (
+                  <button
+                    key={cat.key}
+                    role="tab"
+                    aria-selected={activeFilter === cat.key}
+                    className={`wk-filter-btn${activeFilter === cat.key ? ' wk-filter-btn--active' : ''}`}
+                    onClick={() => handleFilterChange(cat.key)}
+                  >
+                    {lang === 'bn' ? cat.label_bn : cat.label}
+                    {activeFilter === cat.key && (
+                      <motion.span 
+                        layoutId="filter-count"
+                        className="wk-filter-count"
+                      >
+                        {cat.key === 'all' ? items.length : items.filter(i => i.category === cat.key).length}
+                      </motion.span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </FadeReveal>
           )}
 
-          <motion.div layout className="wk-grid">
-            <AnimatePresence mode="popLayout">
-              {displayItems.map((item) => (
-                <WorkCard
-                  key={item.id}
-                  item={item}
-                  onClick={openLightbox}
-                />
-              ))}
-            </AnimatePresence>
-            {displayItems.length === 0 && (
-              <div className="wk-empty">
-                <span>No projects in this category yet.</span>
-              </div>
-            )}
-          </motion.div>
+          <div className="wk-grid-wrap">
+            <StaggerReveal>
+              <motion.div layout className="wk-grid">
+                <AnimatePresence mode="popLayout">
+                  {displayItems.map((item) => (
+                    <WorkCard
+                      key={item.id}
+                      item={item}
+                      onClick={openLightbox}
+                    />
+                  ))}
+                </AnimatePresence>
+                {displayItems.length === 0 && (
+                  <div className="wk-empty">
+                    <span>No projects in this category yet.</span>
+                  </div>
+                )}
+              </motion.div>
+            </StaggerReveal>
+          </div>
 
           {highlight && (
-            <div className="wk-footer" style={{ marginTop: '4rem', textAlign: 'center' }}>
-              <Link to="/work" className="btn-red">
-                {lang === 'bn' ? 'সব কাজ দেখুন →' : 'View Full Portfolio →'}
-              </Link>
-            </div>
+            <FadeReveal delay={0.4}>
+              <div className="wk-footer" style={{ marginTop: '4rem', textAlign: 'center' }}>
+                <Link to="/work" className="btn-red">
+                  {lang === 'bn' ? 'সব কাজ দেখুন →' : 'View Full Portfolio →'}
+                </Link>
+              </div>
+            </FadeReveal>
           )}
         </div>
       </section>
