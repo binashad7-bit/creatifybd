@@ -13,9 +13,10 @@ const CaseStudies = ({ highlight = false }) => {
   const { lang } = useLanguage();
 
   useEffect(() => {
-    const q = query(collection(db, 'portfolio'), where('hidden', '==', false), limit(3));
+    const q = query(collection(db, 'portfolio'), limit(10));
     const unsub = onSnapshot(q, (snap) => {
-      setCases(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      const allItems = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setCases(allItems.filter(item => item.hidden !== true).slice(0, 3));
       setLoading(false);
     });
     return () => unsub();
@@ -103,10 +104,14 @@ const ParallaxImage = ({ src, alt }) => {
   return (
     <motion.img 
       ref={ref}
-      src={src} 
+      src={src || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
       alt={alt} 
       className="duck-cs-img" 
-      style={{ y, scale: 1.2 }} // Initial scale for movement room
+      style={{ y, scale: 1.2 }} 
+      onError={(e) => {
+        e.target.onerror = null;
+        e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop';
+      }}
     />
   );
 };

@@ -2034,7 +2034,7 @@ footer {
 }
 
 .mobile-menu-inner a {
-  font-family: " Outfit\, sans-serif;
+  font-family: "Outfit", sans-serif;
  font-size: 2.5rem;
  font-weight: 700;
  color: white;
@@ -2141,7 +2141,7 @@ nav.scrolled {
   font-size: 1.1rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.8);
-  font-family: " DM Sans\, sans-serif;
+  font-family: "DM Sans", sans-serif;
  font-style: italic;
  flex-grow: 1;
 }
@@ -2167,7 +2167,7 @@ nav.scrolled {
 }
 
 .testi-name-v2 {
- font-family: \Outfit\, sans-serif;
+  font-family: "Outfit", sans-serif;
  font-weight: 700;
  font-size: 1.1rem;
 }
