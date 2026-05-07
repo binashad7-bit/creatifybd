@@ -96,7 +96,7 @@ const CaseStudies = () => {
                   </FadeReveal>
                 </div>
                 <div className="duck-cs-visual" style={{ flex: 1 }}>
-                  <ImageReveal delay={1.5}>
+                  <ImageReveal delay={0.6}>
                     <div className="duck-cs-img-wrap" style={{ borderRadius: '32px', overflow: 'hidden', height: '420px', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
                       <ParallaxImage src={heroImg} alt={project.title} />
                     </div>

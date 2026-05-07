@@ -2531,3 +2531,15 @@ footer {
 .dropdown-desc { font-size: 0.75rem; color: rgba(0,0,0,0.4); }
 .mobile-sub-group { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
 .mobile-sub-title { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 0.5rem; opacity: 0.7; }
+
+/* --- PREMIUM DROPDOWN ENHANCEMENTS --- */
+.premium-dropdown { width: 340px !important; padding: 0.75rem !important; transform-origin: top center; }
+.dropdown-icon-box { width: 40px; height: 40px; border-radius: 12px; background: rgba(0,0,0,0.03); display: flex; align-items: center; justify-content: center; color: var(--red); transition: all 0.3s ease; }
+.dropdown-item:hover .dropdown-icon-box { background: var(--red); color: #fff; }
+.dropdown-content { flex: 1; margin-left: 1rem; }
+.dropdown-arrow { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; color: var(--red); }
+.dropdown-item:hover .dropdown-arrow { opacity: 1; transform: translateX(0); }
+.dropdown-divider { height: 1px; background: rgba(0,0,0,0.05); margin: 0.4rem 0.8rem; }
+.dropdown-item { flex-direction: row !important; align-items: center !important; }
+.dropdown-label { font-size: 1rem !important; margin-bottom: 0.1rem !important; }
+.dropdown-desc { font-size: 0.7rem !important; opacity: 0.6; }
