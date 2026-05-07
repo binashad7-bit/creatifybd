@@ -2545,6 +2545,14 @@ footer {
 .dropdown-desc { font-size: 0.7rem !important; opacity: 0.6; }
 
 /* --- MINIMALIST DROPDOWN STYLES --- */
-.nav-minimal-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 200px; background: #fff; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.04); padding: 0.6rem; z-index: 1000; margin-top: 0.8rem; overflow: hidden; }
+.nav-minimal-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 220px; background: #fff; border-radius: 16px; box-shadow: 0 15px 45px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); padding: 0.6rem; z-index: 1000; margin-top: 1.2rem; overflow: hidden; pointer-events: auto; }
 .minimal-dropdown-item { display: block; padding: 0.8rem 1.2rem; border-radius: 10px; font-size: 0.9rem; font-weight: 600; color: rgba(0,0,0,0.7); text-decoration: none; transition: all 0.2s ease; }
 .minimal-dropdown-item:hover { background: rgba(0,0,0,0.03); color: var(--red); transform: translateX(5px); }
+
+/* --- MOBILE NAV OVERLAP FIX --- */
+.mobile-menu-overlay { z-index: 9999 !important; background: rgba(255,255,255,0.98); backdrop-filter: blur(15px); }
+.mobile-menu-inner { padding: 8rem 2rem 4rem !important; display: flex; flex-direction: column; gap: 1.2rem !important; }
+.mobile-menu-inner a { font-size: 2.2rem !important; font-weight: 800 !important; color: #000 !important; }
+.mobile-sub-group { margin: 1.5rem 0 !important; }
+.mobile-sub-group a { font-size: 1.6rem !important; margin-bottom: 0.5rem; }
+.mobile-sub-title { font-size: 0.75rem !important; margin-bottom: 0.8rem !important; color: var(--red); font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; }

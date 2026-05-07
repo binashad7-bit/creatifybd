@@ -12,11 +12,15 @@ const Pricing = ({ highlight = false, fullPage = false }) => {
   const { lang } = useLanguage();
 
   useEffect(() => {
-    const q = query(collection(db, 'pricing'), where('hidden', '==', false), orderBy('order', 'asc'));
-    const unsub = onSnapshot(q, (snap) => {
+    const unsub = onSnapshot(collection(db, 'pricing'), (snap) => {
       const data = { social: [], branding: [], web: [], video: [] };
-      snap.docs.forEach(doc => {
-        const item = { id: doc.id, ...doc.data() };
+      const allItems = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      
+      // Filter and sort in JS to avoid index requirements
+      const filtered = allItems.filter(item => item.hidden !== true);
+      const sorted = filtered.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+      sorted.forEach(item => {
         if (data[item.category]) data[item.category].push(item);
       });
       setPricingData(data);
