@@ -2517,3 +2517,17 @@ footer {
 .duck-cs-info { flex: 1; }
 .duck-cs-visual { flex: 1.2; }
 .duck-cs-img-wrap { border-radius: 40px; overflow: hidden; height: 550px; }
+
+/* --- NAVBAR DROPDOWN STYLES --- */
+.nav-dropdown-trigger { position: relative; display: flex; align-items: center; }
+.nav-link-wrap { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: rgba(0,0,0,0.6); font-weight: 600; padding: 0.5rem 0; transition: color 0.3s ease; }
+.nav-link-wrap.active { color: var(--red); }
+.dropdown-chevron { transition: transform 0.3s ease; opacity: 0.5; }
+.dropdown-chevron.open { transform: rotate(180deg); }
+.nav-dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 280px; background: #fff; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); padding: 1rem; z-index: 1000; margin-top: 1rem; }
+.dropdown-item { display: flex; flex-direction: column; padding: 1rem 1.2rem; border-radius: 12px; transition: all 0.2s ease; text-decoration: none; }
+.dropdown-item:hover { background: rgba(0,0,0,0.02); }
+.dropdown-label { font-size: 0.95rem; font-weight: 700; color: #000; margin-bottom: 0.2rem; }
+.dropdown-desc { font-size: 0.75rem; color: rgba(0,0,0,0.4); }
+.mobile-sub-group { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
+.mobile-sub-title { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 0.5rem; opacity: 0.7; }

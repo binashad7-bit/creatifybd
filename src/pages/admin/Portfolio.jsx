@@ -8,6 +8,7 @@ const PortfolioManager = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [syncing, setSyncing] = useState(false);
@@ -27,12 +28,24 @@ const PortfolioManager = () => {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    
+    if (file.size > 20 * 1024 * 1024) {
+      alert("File is too large. Max size is 20MB.");
+      return;
+    }
+
     setUploading(true);
+    setProgress(0);
     try {
-      const url = await uploadImage(file);
+      const url = await uploadImage(file, (p) => {
+        setProgress(p);
+      });
       setFormData({ ...formData, imageUrl: url });
-    } catch (err) { alert('Upload failed'); }
+    } catch (err) { 
+      alert('Upload failed: ' + (err.message || 'Unknown error')); 
+    }
     setUploading(false);
+    setProgress(0);
   };
 
   const handleSubmit = async (e) => {
@@ -57,7 +70,7 @@ const PortfolioManager = () => {
   };
 
   return (
-    <div>
+    <div className="admin-content-wrap">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
         <div>
           <h1 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '0.5rem' }}>Manage Portfolio</h1>
@@ -68,22 +81,26 @@ const PortfolioManager = () => {
         </button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
-        {items.map((item) => (
-          <div key={item.id} className="admin-card" style={{ padding: '0', overflow: 'hidden', position: 'relative' }}>
-            <img src={item.imageUrl} alt={item.title} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
-            <div style={{ padding: '1.25rem' }}>
-              <div style={{ fontSize: '0.7rem', color: '#E8192C', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.3rem' }}>{item.category}</div>
-              <h4 style={{ fontWeight: '700', marginBottom: '1rem' }}>{item.title}</h4>
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
-                <button onClick={() => { setEditingId(item.id); setFormData({ ...item }); setIsModalOpen(true); }} className="admin-btn" style={{ flex: 1, background: 'rgba(255,255,255,0.05)', color: '#fff' }}>Edit</button>
-                <button onClick={() => handleDelete(item.id)} className="admin-btn" style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }}><Trash2 size={16} /></button>
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}><Loader2 className="animate-spin" size={40} /></div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          {items.map((item) => (
+            <div key={item.id} className="admin-card" style={{ padding: '0', overflow: 'hidden', position: 'relative' }}>
+              <img src={item.imageUrl} alt={item.title} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+              <div style={{ padding: '1.25rem' }}>
+                <div style={{ fontSize: '0.7rem', color: '#E8192C', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.3rem' }}>{item.category}</div>
+                <h4 style={{ fontWeight: '700', marginBottom: '1rem' }}>{item.title}</h4>
+                <div style={{ display: 'flex', gap: '0.75rem' }}>
+                  <button onClick={() => { setEditingId(item.id); setFormData({ ...item }); setIsModalOpen(true); }} className="admin-btn" style={{ flex: 1, background: 'rgba(255,255,255,0.05)', color: '#fff' }}>Edit</button>
+                  <button onClick={() => handleDelete(item.id)} className="admin-btn" style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }}><Trash2 size={16} /></button>
+                </div>
               </div>
+              {item.hidden && <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.6)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.6rem' }}>HIDDEN</div>}
             </div>
-            {item.hidden && <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.6)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.6rem' }}>HIDDEN</div>}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {isModalOpen && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem' }}>
@@ -92,9 +109,9 @@ const PortfolioManager = () => {
             <h2 style={{ marginBottom: '1.5rem' }}>{editingId ? 'Edit Portfolio Item' : 'Add Portfolio Item'}</h2>
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: '1.5rem' }}>
-                <label style={{ display: 'block', marginBottom: '0.5rem' }}>Portfolio Image</label>
-                <div style={{ width: '100%', height: '200px', border: '2px dashed var(--admin-border)', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-                  {formData.imageUrl ? (
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', fontWeight: 600 }}>Portfolio Image</label>
+                <div style={{ width: '100%', height: '220px', border: '2px dashed rgba(255,255,255,0.1)', borderRadius: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', background: 'rgba(255,255,255,0.02)' }}>
+                  {formData.imageUrl && !uploading ? (
                     <>
                       <img src={formData.imageUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: '0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity=1} onMouseLeave={e => e.currentTarget.style.opacity=0}>
@@ -105,17 +122,30 @@ const PortfolioManager = () => {
                       </div>
                     </>
                   ) : (
-                    <label style={{ cursor: 'pointer', textAlign: 'center' }}>
-                      {uploading ? <Loader2 className="animate-spin" /> : <Upload size={32} style={{ color: 'var(--admin-text-dim)', marginBottom: '0.5rem' }} />}
-                      <div style={{ color: 'var(--admin-text-dim)', fontSize: '0.8rem' }}>{uploading ? 'Uploading to ImgBB...' : 'Click to upload (Full Res)'}</div>
-                      <input type="file" hidden onChange={handleFileChange} accept="image/*" />
+                    <label style={{ cursor: 'pointer', textAlign: 'center', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                      {uploading ? (
+                        <div style={{ width: '100%', padding: '0 2rem' }}>
+                          <div style={{ width: '100%', height: '6px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', overflow: 'hidden', marginBottom: '1rem' }}>
+                            <div style={{ width: `${progress}%`, height: '100%', background: 'var(--red)', transition: 'width 0.3s ease' }} />
+                          </div>
+                          <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', fontWeight: 600 }}>Uploading... {progress}%</div>
+                        </div>
+                      ) : (
+                        <>
+                          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                            <Upload size={24} style={{ color: 'rgba(255,255,255,0.3)' }} />
+                          </div>
+                          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem', fontWeight: 500 }}>Click to upload high-res image</div>
+                          <input type="file" hidden onChange={handleFileChange} accept="image/*" />
+                        </>
+                      )}
                     </label>
                   )}
                 </div>
               </div>
-              <div style={{ marginBottom: '1rem' }}><label>Project Title</label><input className="admin-input" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} placeholder="e.g. Fashion Brand Identity" required /></div>
-              <div style={{ marginBottom: '1.5rem' }}><label>Category</label><input className="admin-input" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} placeholder="e.g. Branding / Photography" required /></div>
-              <button type="submit" className="admin-btn" style={{ width: '100%' }} disabled={uploading}>{editingId ? 'Update Item' : 'Publish to Portfolio'}</button>
+              <div style={{ marginBottom: '1rem' }}><label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '0.5rem' }}>Project Title</label><input className="admin-input" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} placeholder="e.g. Fashion Brand Identity" required /></div>
+              <div style={{ marginBottom: '1.5rem' }}><label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '0.5rem' }}>Category</label><input className="admin-input" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} placeholder="e.g. Branding / Photography" required /></div>
+              <button type="submit" className="admin-btn" style={{ width: '100%', padding: '1rem', fontWeight: 800 }} disabled={uploading}>{editingId ? 'Update Item' : 'Publish to Portfolio'}</button>
             </form>
           </div>
         </div>
