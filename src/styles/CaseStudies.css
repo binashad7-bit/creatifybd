@@ -1,9 +1,9 @@
-/* --- PREMIUM CASE STUDIES PAGE STYLES --- */
+/* --- PREMIUM CASE STUDIES PAGE STYLES (LIGHT THEME) --- */
 :root {
-  --cs-bg: #000000;
-  --cs-text: #ffffff;
-  --cs-muted: rgba(255, 255, 255, 0.4);
-  --cs-border: rgba(255, 255, 255, 0.1);
+  --cs-bg: #ffffff;
+  --cs-text: #0f0f0f;
+  --cs-muted: rgba(0, 0, 0, 0.5);
+  --cs-border: rgba(0, 0, 0, 0.08);
   --cs-accent: #E8192C;
 }
 
@@ -24,7 +24,7 @@
   align-items: center;
   text-align: center;
   position: relative;
-  background: radial-gradient(circle at 50% 50%, rgba(232, 25, 44, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(232, 25, 44, 0.03) 0%, transparent 70%);
   padding: 0 5%;
 }
 
@@ -36,7 +36,7 @@
   letter-spacing: -0.07em;
   margin: 2rem 0;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--cs-text);
 }
 
 .premium-cs-sub {
@@ -44,8 +44,7 @@
   color: var(--cs-muted);
   max-width: 600px;
   line-height: 1.6;
-  font-weight: 300;
-  letter-spacing: -0.01em;
+  font-weight: 400;
 }
 
 /* Scroll Hint */
@@ -60,12 +59,13 @@
   font-size: 0.7rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
+  color: var(--cs-text);
 }
 
 .cs-mouse {
   width: 26px;
   height: 42px;
-  border: 2px solid rgba(255,255,255,0.2);
+  border: 2px solid rgba(0,0,0,0.1);
   border-radius: 20px;
   position: relative;
 }
@@ -123,7 +123,7 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 2rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .cs-hero-title {
@@ -133,12 +133,12 @@
   line-height: 0.9;
   letter-spacing: -0.05em;
   margin-bottom: 1.5rem;
-  color: #fff;
+  color: var(--cs-text);
 }
 
 .cs-tagline {
   font-size: 1.4rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-bottom: 4rem;
   line-height: 1.3;
 }
@@ -164,8 +164,8 @@
 .cs-sec-body {
   font-size: 1.15rem;
   line-height: 1.7;
-  color: rgba(255,255,255,0.8);
-  font-weight: 300;
+  color: rgba(0,0,0,0.7);
+  font-weight: 400;
 }
 
 .cs-metrics-staggered {
@@ -179,12 +179,12 @@
   padding: 2.5rem;
   border: 1px solid var(--cs-border);
   border-radius: 30px;
-  background: rgba(255,255,255,0.02);
+  background: rgba(0,0,0,0.01);
   transition: background 0.4s ease, transform 0.4s ease;
 }
 
 .cs-metric-pill:hover {
-  background: rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.03);
   transform: translateY(-5px);
 }
 
@@ -205,18 +205,18 @@
 
 .cs-quote-wrap {
   padding: 3rem;
-  background: rgba(255,255,255,0.03);
+  background: rgba(0,0,0,0.02);
   border-radius: 30px;
   border-left: 4px solid var(--cs-accent);
 }
 
 .cs-quote-text {
   font-size: 1.4rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
   margin-bottom: 1.5rem;
   font-style: italic;
-  color: #fff;
+  color: var(--cs-text);
 }
 
 .cs-quote-author {
@@ -238,8 +238,8 @@
   height: 85vh;
   border-radius: 50px;
   overflow: hidden;
-  background: #0a0a0a;
-  box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+  background: #f5f5f5;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.05);
 }
 
 .cs-parallax-slot.secondary {
@@ -260,7 +260,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,255,255,0.03);
+  color: rgba(0,0,0,0.03);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.4em;
@@ -270,7 +270,7 @@
 .premium-cs-cta {
   padding: 15rem 10%;
   text-align: center;
-  background: linear-gradient(to bottom, #000, #080808);
+  background: #fafafa;
 }
 
 .cs-cta-big {
@@ -280,10 +280,11 @@
   letter-spacing: -0.06em;
   line-height: 0.85;
   margin-bottom: 4rem;
+  color: var(--cs-text);
 }
 
 .cs-cta-big .stroke {
-  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+  -webkit-text-stroke: 1px rgba(0,0,0,0.2);
   color: transparent;
 }
 
@@ -300,111 +301,25 @@
   .cs-metrics-staggered { grid-template-columns: 1fr; }
 }
 
-/* --- HOME PAGE CASE STUDIES --- */
-.home-cs-section {
-  padding: 15rem 0;
-  background: #000;
-}
-
-.home-cs-header {
-  margin-bottom: 8rem;
-  text-align: center;
-}
-
-.home-cs-h2 {
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 10vw, 7rem);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.9;
-}
-
-.home-cs-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  margin-bottom: 8rem;
-}
-
-.home-cs-card {
-  height: 750px;
-  border-radius: 50px;
+/* --- HOME PAGE CASE STUDIES (LIGHT THEME) --- */
+.duck-cs-section {
+  padding: 12rem 0;
+  background: #ffffff;
   overflow: hidden;
-  position: relative;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  background: #0a0a0a;
 }
 
-.home-cs-card:hover {
-  transform: scale(0.96);
+.duck-cs-title {
+  color: #0f0f0f !important;
 }
 
-.home-cs-visual {
-  width: 100%;
-  height: 100%;
-  position: relative;
+.duck-cs-desc {
+  color: rgba(0,0,0,0.6) !important;
 }
 
-.home-cs-overlay {
-  position: absolute;
-  inset: 0;
-  padding: 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  transition: opacity 0.5s ease;
+.duck-cs-link {
+  color: #0f0f0f !important;
 }
 
-.home-cs-title {
-  font-family: var(--font-display);
-  font-size: 3.5rem;
-  font-weight: 900;
-  line-height: 0.9;
-  margin-bottom: 1.5rem;
-  color: #fff;
-}
-
-.home-cs-sector {
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
+.duck-cs-num {
   color: var(--red);
-  margin-bottom: 1.5rem;
-  display: block;
-}
-
-.home-cs-tagline {
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.6);
-  font-weight: 300;
-  max-width: 80%;
-}
-
-.home-cs-arrow {
-  position: absolute;
-  top: 4rem;
-  right: 4rem;
-  width: 70px;
-  height: 70px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000;
-  transform: translate(40px, -40px);
-  opacity: 0;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.home-cs-card:hover .home-cs-arrow {
-  transform: translate(0,0);
-  opacity: 1;
-}
-
-@media (max-width: 1100px) {
-  .home-cs-grid { grid-template-columns: 1fr; }
-  .home-cs-card { height: 600px; }
 }
