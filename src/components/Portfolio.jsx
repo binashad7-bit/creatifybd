@@ -65,7 +65,15 @@ function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
         animate={{ scale: 1, opacity: 1 }}
         className="pf-lb-content"
       >
-        <img src={item.imageUrl} alt={item.title} className="pf-lb-img" />
+        <img 
+          src={item.imageUrl || item.image || item.imgUrl || item.img || item.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
+          alt={item.title} 
+          className="pf-lb-img" 
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop';
+          }}
+        />
         <div className="pf-lb-meta">
           <span className="pf-lb-cat">{CAT_DISPLAY[item.category] || item.category}</span>
           <h3 className="pf-lb-title">{item.title}</h3>
@@ -119,12 +127,13 @@ function WorkCard({ item, onClick }) {
         <div className="wk-card-img-wrap">
           <ImageReveal>
             <img 
-              src={item.imageUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop'} 
+              src={item.imageUrl || item.image || item.imgUrl || item.img || item.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
               alt={item.title} 
               className="wk-card-img" 
               loading="lazy"
               onError={(e) => {
-                e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop';
+                e.target.onerror = null;
+                e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop';
               }}
             />
           </ImageReveal>

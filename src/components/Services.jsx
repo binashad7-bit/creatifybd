@@ -52,7 +52,20 @@ const Services = ({ highlight = false, fullPage = false }) => {
               <FadeReveal key={service.id}>
                 <div className="service-card">
                   <div className="service-img">
-                    <div className={`service-img-bg ${service.bg || 's1'}`}>{service.icon}</div>
+                    {service.imageUrl || service.image ? (
+                      <img 
+                        src={service.imageUrl || service.image} 
+                        alt={service.title} 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    <div className={`service-img-bg ${service.bg || 's1'}`} style={{ display: (service.imageUrl || service.image) ? 'none' : 'flex' }}>
+                      {service.icon}
+                    </div>
                   </div>
                   <div className="service-body">
                     <h3>{(lang === 'bn' && service.title_bn) ? service.title_bn : service.title}</h3>
