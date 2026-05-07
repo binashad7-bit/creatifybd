@@ -1,94 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 const CustomCursor = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  const [cursorText, setCursorText] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-
-  // Snappier spring configuration
-  const springConfig = { damping: 30, stiffness: 400, mass: 0.5 };
-  const quickSpring = { damping: 20, stiffness: 600, mass: 0.2 };
   
-  const dotX = useSpring(0, quickSpring);
-  const dotY = useSpring(0, quickSpring);
-  const ringX = useSpring(0, springConfig);
-  const ringY = useSpring(0, springConfig);
+  // Motion values for smooth tracking
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Spring physics configuration for that premium "lag" feel
+  const springConfig = { stiffness: 150, damping: 25, mass: 0.5 };
+  const cursorX = useSpring(mouseX, springConfig);
+  const cursorY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    const moveCursor = (e) => {
-      dotX.set(e.clientX);
-      dotY.set(e.clientY);
-      ringX.set(e.clientX);
-      ringY.set(e.clientY);
+    const handleMouseMove = (e) => {
       if (!isVisible) setIsVisible(true);
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
 
     const handleMouseOver = (e) => {
-      const target = e.target.closest('[data-cursor]');
-      if (target) {
+      const target = e.target;
+      // Check for clickable elements
+      if (
+        target.tagName === 'A' || 
+        target.tagName === 'BUTTON' || 
+        target.closest('a') || 
+        target.closest('button') ||
+        target.getAttribute('role') === 'button' ||
+        target.classList.contains('pf-lb-nav') ||
+        target.getAttribute('data-cursor') === 'View' ||
+        target.getAttribute('data-cursor') === 'Click'
+      ) {
         setIsHovered(true);
-        setCursorText(target.getAttribute('data-cursor') || "");
       } else {
         setIsHovered(false);
-        setCursorText("");
       }
     };
 
-    window.addEventListener('mousemove', moveCursor);
+    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseover', handleMouseOver);
 
     return () => {
-      window.removeEventListener('mousemove', moveCursor);
+      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, [dotX, dotY, ringX, ringY, isVisible]);
+  }, [mouseX, mouseY, isVisible]);
 
-  if (!isVisible) return null;
+  if (typeof window === 'undefined') return null;
 
   return (
-    <>
-      {/* Main Snappy Dot */}
-      <motion.div
-        className="cursor-dot"
-        style={{
-          x: dotX,
-          y: dotY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-      />
-      
-      {/* Delayed Fluid Ring */}
-      <motion.div
-        className="cursor-ring"
-        style={{
-          x: ringX,
-          y: ringY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-        animate={{
-          width: isHovered ? 90 : 40,
-          height: isHovered ? 90 : 40,
-          backgroundColor: isHovered ? 'rgba(232, 25, 44, 0.9)' : 'transparent',
-          borderColor: isHovered ? 'transparent' : 'rgba(232, 25, 44, 0.5)',
-          scale: isHovered ? 1.2 : 1,
-        }}
-        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-      >
-        {isHovered && (
-          <motion.span
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="cursor-text"
-          >
-            {cursorText}
-          </motion.span>
-        )}
-      </motion.div>
-    </>
+    <motion.div
+      className={`custom-cursor-main ${isHovered ? 'cursor-hover' : ''}`}
+      style={{
+        x: cursorX,
+        y: cursorY,
+        opacity: isVisible ? 1 : 0,
+      }}
+    >
+      {/* The Cursor Dot/Ring is styled via CSS for that blend mode effect */}
+    </motion.div>
   );
 };
 
