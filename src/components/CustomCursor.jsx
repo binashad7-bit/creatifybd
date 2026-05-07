@@ -5,14 +5,13 @@ const CustomCursor = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   
-  // Motion values for real-time tracking (no spring for zero delay)
+  // Motion values for real-time tracking
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!isVisible) setIsVisible(true);
-      // Setting values directly for instant response
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
@@ -49,9 +48,11 @@ const CustomCursor = () => {
     <motion.div
       className={`custom-cursor-main ${isHovered ? 'cursor-hover' : ''}`}
       style={{
-        x: mouseX,
-        y: mouseY,
+        left: mouseX,
+        top: mouseY,
         opacity: isVisible ? 1 : 0,
+        translateX: "-50%",
+        translateY: "-50%",
       }}
     />
   );
