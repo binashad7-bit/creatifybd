@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase/config';
+import { db, auth } from '../../firebase/config';
 import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { uploadImage } from '../../utils/imgbb';
 import { Upload, Loader2, CheckCircle2, Image as ImageIcon } from 'lucide-react';
@@ -105,6 +105,8 @@ const CaseStudyCard = ({ cs }) => {
     setProgress(prev => ({ ...prev, [type]: 0 }));
 
     try {
+      if (!auth.currentUser) throw new Error("Authentication failed. Please re-login.");
+
       const url = await uploadImage(file, (p) => {
         setProgress(prev => ({ ...prev, [type]: p }));
       });

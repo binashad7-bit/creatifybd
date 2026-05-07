@@ -1,27 +1,13 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // ── Helper: only authenticated admins can write ──
     function isAdmin() {
       return request.auth != null;
     }
-
-    // ── Contact Messages ──
-    // Anyone can submit a contact form (create only).
-    // Only authenticated admins can read or delete messages.
     match /messages/{message} {
-      allow create: if
-        request.resource.data.keys().hasAll(['name', 'contact', 'service', 'project']) &&
-        request.resource.data.name is string &&
-        request.resource.data.name.size() > 0 &&
-        request.resource.data.name.size() < 200;
+      allow create: if request.resource.data.name is string && request.resource.data.name.size() > 0;
       allow read, delete: if isAdmin();
-      allow update: if false; // Messages are immutable once submitted
     }
-
-    // ── Website Content (Services, Portfolio, Testimonials, Pricing) ──
-    // Publicly readable; only admins can create/update/delete.
     match /services/{id} {
       allow read: if true;
       allow write: if isAdmin();
@@ -38,20 +24,13 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAdmin();
     }
-
-    // ── Site Settings ──
-    // Publicly readable (for language / SEO sync).
-    // Only admins can modify.
     match /settings/{id} {
       allow read: if true;
       allow write: if isAdmin();
     }
-
-    // 🔥 Case Study Assets 🔥
     match /case_study_images/{id} {
       allow read: if true;
       allow write: if isAdmin();
     }
-
   }
 }
