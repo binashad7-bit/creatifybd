@@ -10,6 +10,7 @@ import PortfolioPage from './pages/public/PortfolioPage';
 import ProcessPage from './pages/public/ProcessPage';
 import PricingPage from './pages/public/PricingPage';
 import ContactPage from './pages/public/ContactPage';
+import CaseStudiesPage from './pages/public/CaseStudiesPage';
 import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -72,6 +73,7 @@ function AppContent() {
           <Route path="/process" element={<PageWrapper><ProcessPage /></PageWrapper>} />
           <Route path="/pricing" element={<PageWrapper><PricingPage /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
+          <Route path="/case-studies" element={<PageWrapper><CaseStudiesPage /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
           <Route 
             path="/admin/*" 
