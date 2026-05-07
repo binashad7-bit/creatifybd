@@ -58,29 +58,21 @@ export const TextReveal = ({ children, className = '', delay = 0 }) => {
 };
 
 /**
- * ImageReveal: Advanced creative mask reveal with scaling.
+ * ImageReveal: Duck.design style directional slide & scale reveal.
  */
 export const ImageReveal = ({ children, delay = 0 }) => {
   return (
-    <div className="image-reveal-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: 'inherit' }}>
+    <div className="image-reveal-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: 'inherit', width: '100%', height: '100%' }}>
       <motion.div
-        initial={{ y: "100%" }}
-        whileInView={{ y: "-100%" }}
+        initial={{ y: "100%", scale: 1.2, opacity: 0 }}
+        whileInView={{ y: 0, scale: 1, opacity: 1 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay }}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'var(--red)',
-          zIndex: 2,
+        transition={{ 
+          duration: 1.4, 
+          ease: [0.16, 1, 0.3, 1], // Custom Duck Design Cubic Easing
+          delay 
         }}
-      />
-      <motion.div
-        initial={{ opacity: 0, scale: 1.2 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: delay + 0.2 }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', willChange: 'transform, opacity' }}
       >
         {children}
       </motion.div>
