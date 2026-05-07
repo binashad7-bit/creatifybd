@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { Toaster } from 'react-hot-toast';
 import { LanguageProvider } from './context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
@@ -93,6 +94,27 @@ function App() {
         <Router>
           <AppContent />
         </Router>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#1a1a1a',
+              color: '#fff',
+              borderRadius: '12px',
+              border: '1px solid #333',
+              padding: '12px 16px',
+              fontSize: '0.875rem',
+              fontFamily: 'DM Sans, sans-serif',
+            },
+            success: {
+              iconTheme: { primary: '#E8192C', secondary: '#fff' },
+            },
+            error: {
+              iconTheme: { primary: '#ff4444', secondary: '#fff' },
+            },
+          }}
+        />
       </LanguageProvider>
     </HelmetProvider>
   );

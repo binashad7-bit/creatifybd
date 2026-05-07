@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../utils/translations';
-import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
+import { motion, useSpring, useMotionValue, AnimatePresence, useScroll } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 
 const MagneticLink = ({ children, to, className, onClick }) => {
@@ -51,8 +51,16 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const t = translations[lang].nav;
 
+  // Scroll Progress
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -63,13 +71,15 @@ const Navbar = () => {
     <>
       <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
         <Link to="/" className="nav-logo" data-cursor="Click">Creatify<span className="dot">BD</span></Link>
+        
         <ul className="nav-center">
-          <li><MagneticLink to="/services">{t.services}</MagneticLink></li>
-          <li><MagneticLink to="/work">{t.portfolio}</MagneticLink></li>
-          <li><MagneticLink to="/process">{t.process}</MagneticLink></li>
-          <li><MagneticLink to="/pricing">{t.pricing}</MagneticLink></li>
-          <li><MagneticLink to="/contact">{t.contact}</MagneticLink></li>
+          <li><MagneticLink to="/services" className={pathname === '/services' ? 'active' : ''}>{t.services}</MagneticLink></li>
+          <li><MagneticLink to="/work" className={pathname === '/work' ? 'active' : ''}>{t.portfolio}</MagneticLink></li>
+          <li><MagneticLink to="/process" className={pathname === '/process' ? 'active' : ''}>{t.process}</MagneticLink></li>
+          <li><MagneticLink to="/pricing" className={pathname === '/pricing' ? 'active' : ''}>{t.pricing}</MagneticLink></li>
+          <li><MagneticLink to="/contact" className={pathname === '/contact' ? 'active' : ''}>{t.contact}</MagneticLink></li>
         </ul>
+
         <div className="nav-right">
           <a href="tel:+8801951676600" className="btn-ghost" data-cursor="Call">{t.callUs}</a>
           <Link to="/contact" className="btn-red" data-cursor="Click">{t.cta} →</Link>
@@ -81,6 +91,22 @@ const Navbar = () => {
             <span></span><span></span><span></span>
           </button>
         </div>
+
+        {/* Progress Bar */}
+        <motion.div 
+          className="nav-progress-bar" 
+          style={{ 
+            scaleX, 
+            position: 'absolute', 
+            bottom: 0, 
+            left: 0, 
+            right: 0, 
+            height: '2px', 
+            background: 'var(--red)', 
+            transformOrigin: '0%',
+            opacity: scrolled ? 1 : 0
+          }} 
+        />
       </nav>
 
       <AnimatePresence>
@@ -92,11 +118,11 @@ const Navbar = () => {
             className="mobile-menu-overlay"
           >
             <div className="mobile-menu-inner">
-              <Link to="/services" onClick={toggleMobile}>{t.services}</Link>
-              <Link to="/work" onClick={toggleMobile}>{t.portfolio}</Link>
-              <Link to="/process" onClick={toggleMobile}>{t.process}</Link>
-              <Link to="/pricing" onClick={toggleMobile}>{t.pricing}</Link>
-              <Link to="/contact" onClick={toggleMobile}>{t.contact}</Link>
+              <Link to="/services" onClick={toggleMobile} className={pathname === '/services' ? 'active' : ''}>{t.services}</Link>
+              <Link to="/work" onClick={toggleMobile} className={pathname === '/work' ? 'active' : ''}>{t.portfolio}</Link>
+              <Link to="/process" onClick={toggleMobile} className={pathname === '/process' ? 'active' : ''}>{t.process}</Link>
+              <Link to="/pricing" onClick={toggleMobile} className={pathname === '/pricing' ? 'active' : ''}>{t.pricing}</Link>
+              <Link to="/contact" onClick={toggleMobile} className={pathname === '/contact' ? 'active' : ''}>{t.contact}</Link>
               <div className="mobile-menu-footer">
                 <a href="tel:+8801951676600" className="btn-red" style={{ width: '100%', justifyContent: 'center' }}>{t.callUs}</a>
               </div>

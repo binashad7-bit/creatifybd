@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { db } from '../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { observeElements } from '../utils/reveal';
+import useReveal from '../utils/useReveal';
 
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
@@ -26,10 +26,22 @@ const Home = () => {
     description: "CreatifyBD is a leading creative agency in Dhaka providing social media marketing, professional photography, web development, and branding services for growth-focused businesses.",
     keywords: "creative agency dhaka, digital marketing agency bangladesh, social media management dhaka, product photography bangladesh, web development agency dhaka, marketing agency bangladesh, logo design dhaka, creatifybd"
   });
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  // Trigger reveal observer after Firestore data has loaded
+  useReveal(dataLoaded);
 
   useEffect(() => {
-    setTimeout(observeElements, 500);
-    return () => {};
+    const unsub = onSnapshot(collection(db, 'settings'), (snap) => {
+      const siteDoc = snap.docs.find(d => d.id === 'site');
+      if (siteDoc) {
+        const d = siteDoc.data();
+        if (d.seo_title) setSeo(prev => ({ ...prev, title: d.seo_title }));
+        if (d.seo_description) setSeo(prev => ({ ...prev, description: d.seo_description }));
+      }
+      setDataLoaded(true);
+    });
+    return () => unsub();
   }, []);
 
   return (

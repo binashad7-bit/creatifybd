@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { db } from '../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useLanguage } from '../context/LanguageContext';
@@ -6,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { TextReveal, FadeReveal } from './MotionReveal';
 
 const Contact = ({ highlight = false, fullPage = false }) => {
-  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
@@ -22,16 +23,19 @@ const Contact = ({ highlight = false, fullPage = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await addDoc(collection(db, 'messages'), {
         ...formData,
         timestamp: serverTimestamp()
       });
-      setSubmitted(true);
+      toast.success(lang === 'bn' ? "✓ মেসেজ পাঠানো হয়েছে! আমরা শীঘ্রই যোগাযোগ করব।" : "✓ Message sent! We'll reply within a few hours.");
       setFormData({ name: '', contact: '', business: '', service: '', project: '' });
-      setTimeout(() => setSubmitted(false), 4000);
     } catch (error) {
-      console.error("Error submitting message: ", error);
+      console.error('Error submitting message:', error);
+      toast.error(lang === 'bn' ? 'মেসেজ পাঠানো সম্ভব হয়নি। আবার চেষ্টা করুন।' : 'Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,6 +89,9 @@ const Contact = ({ highlight = false, fullPage = false }) => {
                     <option>Product Photography</option>
                     <option>Video Production</option>
                     <option>Website Design & Development</option>
+                    <option>Advertising Campaigns</option>
+                    <option>Thumbnail / Poster Design</option>
+                    <option>Multiple Services</option>
                   </select>
                 </div>
                 <div className="fg">
@@ -94,14 +101,20 @@ const Contact = ({ highlight = false, fullPage = false }) => {
                 <button 
                   type="submit"
                   className="btn-red" 
-                  style={{ width: '100%', justifyContent: 'center', padding: '0.85rem', fontSize: '0.95rem', borderRadius: '12px', background: submitted ? '#15803d' : '' }}
-                  disabled={submitted}
+                  style={{ width: '100%', justifyContent: 'center', padding: '0.85rem', fontSize: '0.95rem', borderRadius: '12px', opacity: loading ? 0.7 : 1 }}
+                  disabled={loading}
                 >
-                  {submitted ? (lang === 'bn' ? "✓ মেসেজ পাঠানো হয়েছে!" : "✓ Message Sent!") : (lang === 'bn' ? "মেসেজ পাঠান →" : "Send Message →")}
+                  {loading ? (lang === 'bn' ? 'পাঠানো হচ্ছে...' : 'Sending...') : (lang === 'bn' ? "মেসেজ পাঠান →" : "Send Message →")}
                 </button>
               </form>
             </div>
           </FadeReveal>
+              >
+                {loading ? 'Sending...' : 'Send Message →'}
+              </button>
+            </form>
+          </div>
+>>>>>>> Stashed changes
         </div>
         
         {highlight && (

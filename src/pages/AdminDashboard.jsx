@@ -21,6 +21,7 @@ import ServicesManager from './admin/Services';
 import PortfolioManager from './admin/Portfolio';
 import MessagesList from './admin/Messages';
 import TestimonialsManager from './admin/Testimonials';
+import SettingsManager from './admin/Settings';
 
 const AdminDashboard = () => {
   const location = useLocation();
@@ -93,7 +94,7 @@ const AdminDashboard = () => {
           <Route path="portfolio" element={<PortfolioManager />} />
           <Route path="testimonials" element={<TestimonialsManager />} />
           <Route path="messages" element={<MessagesList />} />
-          <Route path="settings" element={<div className="admin-card"><h2>Settings</h2><p style={{color: 'var(--adm-dim)'}}>System settings coming soon.</p></div>} />
+          <Route path="settings" element={<SettingsManager />} />
         </Routes>
       </main>
     </div>
