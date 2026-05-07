@@ -155,10 +155,11 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
   const { lang } = useLanguage();
 
   useEffect(() => {
-    const q = query(collection(db, 'portfolio'), orderBy('title'));
-    const unsub = onSnapshot(q, (snap) => {
+    const unsub = onSnapshot(collection(db, 'portfolio'), (snap) => {
       const allItems = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setItems(allItems.filter(item => item.hidden !== true));
+      // Sort in JS instead of Firestore query to avoid index requirements
+      const sorted = allItems.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+      setItems(sorted.filter(item => item.hidden !== true));
       setLoading(false);
     });
     return () => unsub();

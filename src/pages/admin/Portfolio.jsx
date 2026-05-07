@@ -15,9 +15,10 @@ const PortfolioManager = () => {
   const [formData, setFormData] = useState({ title: '', category: '', imageUrl: '', hidden: false });
 
   useEffect(() => {
-    const q = query(collection(db, 'portfolio'), orderBy('title'));
-    const unsub = onSnapshot(q, (snap) => {
-      setItems(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    const unsub = onSnapshot(collection(db, 'portfolio'), (snap) => {
+      const allItems = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const sorted = allItems.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+      setItems(sorted);
       setLoading(false);
       setSyncing(true);
       setTimeout(() => setSyncing(false), 2000);

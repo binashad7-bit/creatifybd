@@ -5,6 +5,21 @@ import { motion } from 'framer-motion';
  * TextReveal: Animates text word by word using a masked reveal effect.
  */
 export const TextReveal = ({ children, className = '', delay = 0 }) => {
+  // If children is not a string (e.g. contains nested spans or is null), render it directly without word-by-word animation
+  if (typeof children !== 'string') {
+    return (
+      <motion.h2
+        className={`text-reveal-container ${className}`}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay }}
+      >
+        {children}
+      </motion.h2>
+    );
+  }
+
   const words = children.split(' ');
 
   const container = {

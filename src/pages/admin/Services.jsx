@@ -11,9 +11,10 @@ const ServicesManager = () => {
   const [formData, setFormData] = useState({ title: '', desc: '', price: '', icon: '📱', bg: 's1', hidden: false });
 
   useEffect(() => {
-    const q = query(collection(db, 'services'), orderBy('title'));
-    const unsub = onSnapshot(q, (snap) => {
-      setServices(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    const unsub = onSnapshot(collection(db, 'services'), (snap) => {
+      const allItems = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const sorted = allItems.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+      setServices(sorted);
       setLoading(false);
     });
     return () => unsub();
