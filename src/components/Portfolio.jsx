@@ -340,8 +340,8 @@ const Portfolio = () => {
               className="cs-heading"
             >
               {lang === 'bn'
-                ? <>প্রজেক্ট <span>শোকেস</span></>
-                : <>Project <span>Showcase</span></>
+                ? <>প্রজেক্ট <span>শোকেস ও কেস স্টাডি</span></>
+                : <>Project Showcase & <span>Case Studies</span></>
               }
             </motion.h2>
             <motion.p 
