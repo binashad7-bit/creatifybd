@@ -60,36 +60,55 @@ const Navbar = () => {
   });
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 100);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleMobile = () => setIsMobileOpen(!isMobileOpen);
 
+  const isActive = (path) => pathname === path || pathname.startsWith(path + '/');
+
   return (
     <>
       <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
-        <Link to="/" className="nav-logo" data-cursor="Click">Creatify<span className="dot">BD</span></Link>
-        
-        <ul className="nav-center">
-          <li><MagneticLink to="/services" className={pathname === '/services' ? 'active' : ''}>{t.services}</MagneticLink></li>
-          <li><MagneticLink to="/work" className={pathname === '/work' ? 'active' : ''}>{t.portfolio}</MagneticLink></li>
-          <li><MagneticLink to="/process" className={pathname === '/process' ? 'active' : ''}>{t.process}</MagneticLink></li>
-          <li><MagneticLink to="/pricing" className={pathname === '/pricing' ? 'active' : ''}>{t.pricing}</MagneticLink></li>
-          <li><MagneticLink to="/contact" className={pathname === '/contact' ? 'active' : ''}>{t.contact}</MagneticLink></li>
-        </ul>
+        <div className="nav-container-inner">
+          <Link to="/" className="nav-logo" data-cursor="Click">Creatify<span className="dot">BD</span></Link>
+          
+          <ul className="nav-center">
+            {[
+              { path: '/services', label: t.services },
+              { path: '/work', label: t.portfolio },
+              { path: '/process', label: t.process },
+              { path: '/pricing', label: t.pricing },
+              { path: '/contact', label: t.contact }
+            ].map((item) => (
+              <li key={item.path}>
+                <MagneticLink to={item.path} className={isActive(item.path) ? 'active' : ''}>
+                  {item.label}
+                  {isActive(item.path) && (
+                    <motion.div
+                      layoutId="activePill"
+                      className="nav-active-pill"
+                      transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+                    />
+                  )}
+                </MagneticLink>
+              </li>
+            ))}
+          </ul>
 
-        <div className="nav-right">
-          <a href="tel:+8801951676600" className="btn-ghost" data-cursor="Call">{t.callUs}</a>
-          <Link to="/contact" className="btn-red" data-cursor="Click">{t.cta} →</Link>
-          <button 
-            className={`hamburger-btn ${isMobileOpen ? 'active' : ''}`} 
-            onClick={toggleMobile} 
-            aria-label="Menu"
-          >
-            <span></span><span></span><span></span>
-          </button>
+          <div className="nav-right">
+            <a href="tel:+8801951676600" className="btn-ghost" data-cursor="Call">{t.callUs}</a>
+            <Link to="/contact" className="btn-red" data-cursor="Click">{t.cta} →</Link>
+            <button 
+              className={`hamburger-btn ${isMobileOpen ? 'active' : ''}`} 
+              onClick={toggleMobile} 
+              aria-label="Menu"
+            >
+              <span></span><span></span><span></span>
+            </button>
+          </div>
         </div>
 
         {/* Progress Bar */}
@@ -118,11 +137,11 @@ const Navbar = () => {
             className="mobile-menu-overlay"
           >
             <div className="mobile-menu-inner">
-              <Link to="/services" onClick={toggleMobile} className={pathname === '/services' ? 'active' : ''}>{t.services}</Link>
-              <Link to="/work" onClick={toggleMobile} className={pathname === '/work' ? 'active' : ''}>{t.portfolio}</Link>
-              <Link to="/process" onClick={toggleMobile} className={pathname === '/process' ? 'active' : ''}>{t.process}</Link>
-              <Link to="/pricing" onClick={toggleMobile} className={pathname === '/pricing' ? 'active' : ''}>{t.pricing}</Link>
-              <Link to="/contact" onClick={toggleMobile} className={pathname === '/contact' ? 'active' : ''}>{t.contact}</Link>
+              <Link to="/services" onClick={toggleMobile} className={isActive('/services') ? 'active' : ''}>{t.services}</Link>
+              <Link to="/work" onClick={toggleMobile} className={isActive('/work') ? 'active' : ''}>{t.portfolio}</Link>
+              <Link to="/process" onClick={toggleMobile} className={isActive('/process') ? 'active' : ''}>{t.process}</Link>
+              <Link to="/pricing" onClick={toggleMobile} className={isActive('/pricing') ? 'active' : ''}>{t.pricing}</Link>
+              <Link to="/contact" onClick={toggleMobile} className={isActive('/contact') ? 'active' : ''}>{t.contact}</Link>
               <div className="mobile-menu-footer">
                 <a href="tel:+8801951676600" className="btn-red" style={{ width: '100%', justifyContent: 'center' }}>{t.callUs}</a>
               </div>
