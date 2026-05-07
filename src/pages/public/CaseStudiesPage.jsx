@@ -188,8 +188,17 @@ const CaseStudyItem = ({ cs, index, images }) => {
   const csImages = images[cs.id] || {};
 
   return (
-    <div className={`premium-cs-item ${isOdd ? 'is-odd' : 'is-even'}`}>
-      <div className="cs-sticky-info">
+    <div 
+      className="premium-cs-item"
+      style={{
+        display: 'grid',
+        gridTemplateColumns: isOdd ? '1.5fr 1fr' : '1fr 1.5fr',
+        gap: '10%',
+        padding: '15vh 10%',
+        borderBottom: '1px solid rgba(0,0,0,0.08)'
+      }}
+    >
+      <div className="cs-sticky-info" style={{ order: isOdd ? 2 : 1 }}>
         <FadeReveal delay={0.2}>
           <div className="cs-num-badge" style={{ border: `1px solid ${cs.color}40`, color: cs.color }}>
             {cs.num} — {cs.sector}
@@ -230,7 +239,7 @@ const CaseStudyItem = ({ cs, index, images }) => {
         </div>
       </div>
 
-      <div className="cs-visual-scroll">
+      <div className="cs-visual-scroll" style={{ order: isOdd ? 1 : 2 }}>
         <div className="cs-parallax-slot">
           {csImages.heroUrl ? (
             <ParallaxImage src={csImages.heroUrl} alt={`${cs.client} hero`} className="cs-large-img" />
