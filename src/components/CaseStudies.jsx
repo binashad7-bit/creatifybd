@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase/config';
 import { collection, onSnapshot, query, where, limit } from 'firebase/firestore';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { ArrowRight } from 'lucide-react';
@@ -93,12 +93,12 @@ const CaseStudies = ({ highlight = false }) => {
 // Helper component for parallax effect
 const ParallaxImage = ({ src, alt }) => {
   const ref = React.useRef(null);
-  const { scrollYProgress } = motion.useScroll({
+  const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   });
   
-  const y = motion.useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const y = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
   return (
     <motion.img 
