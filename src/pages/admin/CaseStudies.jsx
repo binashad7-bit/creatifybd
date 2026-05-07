@@ -5,11 +5,16 @@ import { uploadImage } from '../../utils/imgbb';
 import { Upload, Loader2, CheckCircle2, Image as ImageIcon } from 'lucide-react';
 
 const cases = [
-  { id: 'nestnook', name: 'NestNook', tag: 'Branding + Social Media', color: '#E8572A' },
-  { id: 'ironedge', name: 'IronEdge Fitness', tag: 'Video Production + Ads', color: '#0EA5E9' },
-  { id: 'zaraa', name: 'Zaraa Collections', tag: 'Complete Digital Overhaul', color: '#D946EF' },
-  { id: 'bytebox', name: 'ByteBox Tech', tag: 'B2B Branding + Web', color: '#10B981' },
-  { id: 'chulkata', name: 'Chulkata', tag: 'Social Media + Photography', color: '#F59E0B' },
+  { id: 'veldt-co', name: 'Veldt & Co.', tag: 'Branding + Digital', color: '#4A5D4E' },
+  { id: 'aura-labs', name: 'Aura Labs', tag: 'UI/UX + Motion', color: '#6366F1' },
+  { id: 'lumina-watch', name: 'Lumina Watchmaking', tag: 'Product Photography', color: '#B45309' },
+  { id: 'nomad-brews', name: 'Nomad Brews', tag: 'Social Media + Identity', color: '#78350F' },
+  { id: 'vertex-fintech', name: 'Vertex FinTech', tag: 'FinTech Overhaul', color: '#2DD4BF' },
+  { id: 'solis-energy', name: 'Solis Energy', tag: 'Corporate + Video', color: '#EAB308' },
+  { id: 'kyber-sec', name: 'Kyber Security', tag: '3D Motion + Web', color: '#F43F5E' },
+  { id: 'echo-skincare', name: 'Echo Skincare', tag: 'Packaging + Growth', color: '#EC4899' },
+  { id: 'arcane-spirits', name: 'Arcane Spirits', tag: 'Campaign + Visuals', color: '#8B5CF6' },
+  { id: 'zenith-aviation', name: 'Zenith Aviation', tag: 'Luxury Web', color: '#1E3A8A' },
 ];
 
 const UploadSlot = ({ label, currentUrl, onUpload, uploading }) => (
@@ -102,11 +107,6 @@ const CaseStudyCard = ({ cs }) => {
             <CheckCircle2 size={16} /> Saved
           </div>
         )}
-        {(images.heroUrl && images.resultUrl) && !saved && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>
-            <ImageIcon size={14} /> Both images uploaded
-          </div>
-        )}
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
@@ -129,18 +129,18 @@ const CaseStudyCard = ({ cs }) => {
 
 const CaseStudiesManager = () => {
   return (
-    <div>
+    <div className="admin-layout-content">
       <div style={{ marginBottom: '2.5rem' }}>
-        <h1 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.5rem' }}>Case Studies</h1>
+        <h1 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.5rem' }}>Manage 10 Masterpiece Case Studies</h1>
         <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem' }}>
-          Upload Hero and Results images for each case study. Images will appear on the <strong style={{ color: 'white' }}>/case-studies</strong> page automatically.
+          Upload cinematic images for your new world-class case studies. These will automatically appear on the <strong style={{ color: 'white' }}>/case-studies</strong> page.
         </p>
       </div>
 
-      <div style={{ background: 'rgba(232,25,44,0.08)', border: '1px solid rgba(232,25,44,0.2)', borderRadius: '12px', padding: '1rem 1.25rem', marginBottom: '2rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-        <div style={{ fontSize: '1rem' }}>💡</div>
-        <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>
-          Upload <strong style={{ color: 'white' }}>Hero Image</strong> — a beautiful product/brand photo (e.g. flat lay, cinematic shot) and <strong style={{ color: 'white' }}>Results Image</strong> — a mockup showing the outcome (e.g. phone showing Instagram grid, laptop showing website). Recommended size: 1200×800px minimum.
+      <div style={{ background: 'rgba(232,25,44,0.08)', border: '1px solid rgba(232,25,44,0.2)', borderRadius: '12px', padding: '1.25rem', marginBottom: '2rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+        <div style={{ fontSize: '1.5rem' }}>✨</div>
+        <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>
+          <strong>Professional Tip:</strong> Use the prompts provided in the image guide to generate consistent, high-end visuals. Hero images should be artistic/atmospheric, and Result images should be professional mockups.
         </div>
       </div>
 
