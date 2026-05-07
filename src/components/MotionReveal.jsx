@@ -62,17 +62,15 @@ export const TextReveal = ({ children, className = '', delay = 0 }) => {
  */
 export const ImageReveal = ({ children, delay = 0 }) => {
   return (
-    <div className="image-reveal-wrap">
-      <motion.div
-        initial={{ clipPath: "inset(100% 0% 0% 0%)", scale: 1.2 }}
-        whileInView={{ clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay }}
-        className="image-reveal-inner"
-      >
-        {children}
-      </motion.div>
-    </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 1, delay }}
+      style={{ width: '100%', height: '100%' }}
+    >
+      {children}
+    </motion.div>
   );
 };
 

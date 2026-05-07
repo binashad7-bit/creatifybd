@@ -67,11 +67,9 @@ const CaseStudies = ({ highlight = false }) => {
               </div>
               
               <div className="duck-cs-visual">
-                <ImageReveal delay={0.4}>
                   <div className="duck-cs-img-wrap" style={{ overflow: 'hidden' }}>
-                    <ParallaxImage src={project.imageUrl} alt={project.title} />
+                    <ParallaxImage src={project.imageUrl || project.image || project.imgUrl} alt={project.title} />
                   </div>
-                </ImageReveal>
               </div>
             </div>
           ))}
