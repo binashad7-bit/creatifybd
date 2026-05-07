@@ -105,6 +105,9 @@ export const StaggerReveal = ({ children, delay = 0 }) => {
 export const FadeReveal = ({ children, delay = 0 }) => {
   return (
     <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
       variants={{
         hidden: { opacity: 0, y: 40, skewY: 2 },
         visible: { opacity: 1, y: 0, skewY: 0 }
@@ -113,5 +116,23 @@ export const FadeReveal = ({ children, delay = 0 }) => {
     >
       {children}
     </motion.div>
+  );
+};
+
+/**
+ * ParallaxImage: A simple parallax effect on image scroll.
+ */
+export const ParallaxImage = ({ src, alt, className = '' }) => {
+  return (
+    <div className={`parallax-wrap ${className}`} style={{ overflow: 'hidden', width: '100%', height: '100%' }}>
+      <motion.img
+        src={src}
+        alt={alt}
+        style={{ width: '100%', height: '120%', objectFit: 'cover', y: '-10%' }}
+        whileInView={{ y: '0%' }}
+        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: false }}
+      />
+    </div>
   );
 };
