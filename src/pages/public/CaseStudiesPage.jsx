@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { useLanguage } from '../../context/LanguageContext';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CustomCursor from '../../components/CustomCursor';
+import '../../styles/CaseStudies.css';
 import { TextReveal, FadeReveal, ImageReveal, ParallaxImage } from '../../components/MotionReveal';
 
 const caseStudies = [
@@ -190,7 +191,7 @@ const CaseStudyItem = ({ cs, index, images }) => {
     <div className={`premium-cs-item ${isEven ? 'even' : 'odd'}`}>
       <div className="cs-sticky-info">
         <FadeReveal delay={0.2}>
-          <div className="cs-num-badge" style={{ background: `${cs.color}15`, color: cs.color }}>
+          <div className="cs-num-badge" style={{ border: `1px solid ${cs.color}40`, color: cs.color }}>
             {cs.num} — {cs.sector}
           </div>
         </FadeReveal>
@@ -205,27 +206,27 @@ const CaseStudyItem = ({ cs, index, images }) => {
 
         <div className="cs-narrative-box">
           <div className="cs-narrative-section">
-            <h4 className="cs-sec-head">The Challenge</h4>
+            <span className="cs-sec-head">Challenge</span>
             <p className="cs-sec-body">{cs.challenge}</p>
           </div>
           <div className="cs-narrative-section">
-            <h4 className="cs-sec-head">Strategy</h4>
+            <span className="cs-sec-head">Strategic Narrative</span>
             <p className="cs-sec-body">{cs.approach}</p>
           </div>
         </div>
 
         <div className="cs-metrics-staggered">
           {cs.results.map((r, i) => (
-            <div key={i} className="cs-metric-pill" style={{ borderColor: `${cs.color}20` }}>
+            <div key={i} className="cs-metric-pill" style={{ borderColor: `${cs.color}30` }}>
               <div className="cs-metric-val" style={{ color: cs.color }}>{r.val}</div>
               <div className="cs-metric-lab">{r.label}</div>
             </div>
           ))}
         </div>
 
-        <div className="cs-quote-wrap" style={{ borderLeft: `2px solid ${cs.color}` }}>
+        <div className="cs-quote-wrap" style={{ borderLeftColor: cs.color }}>
           <p className="cs-quote-text">"{cs.quote}"</p>
-          <span className="cs-quote-author" style={{ color: cs.color }}>— {cs.author}</span>
+          <cite className="cs-quote-author" style={{ color: cs.color }}>— {cs.author}</cite>
         </div>
       </div>
 
@@ -234,14 +235,14 @@ const CaseStudyItem = ({ cs, index, images }) => {
           {csImages.heroUrl ? (
             <ParallaxImage src={csImages.heroUrl} alt={`${cs.client} hero`} className="cs-large-img" />
           ) : (
-            <div className="cs-placeholder-luxury">Hero Image Pending</div>
+            <div className="cs-placeholder-luxury">Visual Masterpiece Pending</div>
           )}
         </div>
         <div className="cs-parallax-slot secondary">
           {csImages.resultUrl ? (
             <ParallaxImage src={csImages.resultUrl} alt={`${cs.client} result`} className="cs-large-img" />
           ) : (
-            <div className="cs-placeholder-luxury">Result Image Pending</div>
+            <div className="cs-placeholder-luxury">Strategic Outcome Pending</div>
           )}
         </div>
       </div>
@@ -266,29 +267,25 @@ const CaseStudiesPage = () => {
     <div className="premium-cs-page">
       <CustomCursor />
       <Helmet>
-        <title>Selected Case Studies — CreatifyBD | World-Class Digital Strategy</title>
-        <meta name="description" content="A deep dive into 10 masterpieces of branding, UI/UX, and digital strategy by CreatifyBD." />
+        <title>Case Studies — CreatifyBD | Digital Strategy & Design</title>
+        <meta name="description" content="A deep dive into 10 world-class case studies from CreatifyBD. Strategic design that redefines industries." />
       </Helmet>
       <Navbar />
 
       <header className="premium-cs-header">
-        <div className="container">
-          <FadeReveal>
-            <div className="eyebrow" style={{ color: 'var(--red)' }}>Global Portfolio</div>
-          </FadeReveal>
-          <TextReveal className="premium-cs-h1">
-            {lang === 'bn' ? 'সাফল্যের নতুন সংজ্ঞা' : 'Success, Engineered.'}
-          </TextReveal>
-          <FadeReveal delay={0.4}>
-            <p className="premium-cs-sub">
-              Explore 10 world-class case studies. A deep dive into how we solve complex business problems through strategic design and technical excellence.
-            </p>
-          </FadeReveal>
-        </div>
+        <FadeReveal>
+          <div className="eyebrow" style={{ color: 'var(--red)', letterSpacing: '0.5em' }}>Selected Works</div>
+        </FadeReveal>
+        <TextReveal className="premium-cs-h1">
+          {lang === 'bn' ? 'সাফল্যের আখ্যান' : 'Impact. Made.'}
+        </TextReveal>
+        <FadeReveal delay={0.4}>
+          <p className="premium-cs-sub">
+            Explore 10 masterpieces where strategy meets absolute creativity. We don't just build websites; we engineer digital experiences that redefine industries and scale brands.
+          </p>
+        </FadeReveal>
         <div className="cs-header-scroll-hint">
-          <div className="cs-mouse">
-            <div className="cs-wheel"></div>
-          </div>
+          <div className="cs-mouse"><div className="cs-wheel"></div></div>
           <span>Scroll to explore</span>
         </div>
       </header>
@@ -301,10 +298,12 @@ const CaseStudiesPage = () => {
 
       <section className="premium-cs-cta">
         <div className="container">
-          <TextReveal className="cs-cta-big">Ready to make history?</TextReveal>
+          <TextReveal className="cs-cta-big">
+            READY TO BE <span className="stroke">THE NEXT?</span>
+          </TextReveal>
           <FadeReveal delay={0.4}>
-            <p className="cs-cta-text">Let's build your brand's next masterpiece together.</p>
-            <a href="/contact" className="btn-huge-red">Start Your Story →</a>
+            <p className="cs-cta-text" style={{ fontSize: '1.5rem', marginBottom: '4rem' }}>Let's build your brand's next strategic masterpiece together.</p>
+            <a href="/contact" className="btn-huge-red">Start Consultation →</a>
           </FadeReveal>
         </div>
       </section>
