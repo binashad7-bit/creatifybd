@@ -2365,36 +2365,9 @@ footer {
 
 /* INTRO BAND V2 */
 .intro-band-v2 {
-  padding: 8rem 0;
+  padding: 6rem 0;
   background: #0D0D0D;
   overflow: hidden;
-  position: relative;
-}
-
-.marquee-wrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: var(--red);
-  padding: 0.8rem 0;
-  overflow: hidden;
-  display: flex;
-}
-
-.marquee-content {
-  display: flex;
-  white-space: nowrap;
-  gap: 2rem;
-}
-
-.marquee-content span {
-  font-family: "Outfit", sans-serif;
-  font-weight: 900;
-  font-size: 1.2rem;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 
 .intro-main {
