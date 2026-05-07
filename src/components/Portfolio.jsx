@@ -1,29 +1,41 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { db } from '../firebase/config';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TextReveal, ImageReveal, FadeReveal, StaggerReveal } from './MotionReveal';
 
 const CATS = [
   { key: 'all', label: 'All Work', label_bn: 'সব কাজ' },
+  { key: 'case-study', label: 'Case Studies', label_bn: 'কেস স্টাডিজ' },
   { key: 'graphic', label: 'Graphic Design', label_bn: 'গ্রাফিক ডিজাইন' },
   { key: 'branding', label: 'Branding', label_bn: 'ব্র্যান্ডিং' },
   { key: 'web', label: 'Web Design', label_bn: 'ওয়েব ডিজাইন' },
   { key: 'video', label: 'Video', label_bn: 'ভিডিও' },
-  { key: 'ai', label: 'AI Art', label_bn: 'এআই আর্ট' },
 ];
 
 const CAT_DISPLAY = {
+  'case-study': 'Case Study',
   graphic: 'Graphic Design',
   branding: 'Branding',
   web: 'Web Design',
   video: 'Video',
-  ai: 'AI Art',
 };
 
-// ── Lightbox ─────────────────────────────────────────────────────────────────
+const masterpieceData = [
+  { id: 'veldt-co', title: 'Veldt & Co.', category: 'case-study', isMasterpiece: true },
+  { id: 'aura-labs', title: 'Aura Labs', category: 'case-study', isMasterpiece: true },
+  { id: 'lumina-watch', title: 'Lumina Watchmaking', category: 'case-study', isMasterpiece: true },
+  { id: 'nomad-brews', title: 'Nomad Brews', category: 'case-study', isMasterpiece: true },
+  { id: 'vertex-fintech', title: 'Vertex FinTech', category: 'case-study', isMasterpiece: true },
+  { id: 'solis-energy', title: 'Solis Energy', category: 'case-study', isMasterpiece: true },
+  { id: 'kyber-sec', title: 'Kyber Security', category: 'case-study', isMasterpiece: true },
+  { id: 'echo-skincare', title: 'Echo Skincare', category: 'case-study', isMasterpiece: true },
+  { id: 'arcane-spirits', title: 'Arcane Spirits', category: 'case-study', isMasterpiece: true },
+  { id: 'zenith-aviation', title: 'Zenith Aviation', category: 'case-study', isMasterpiece: true },
+];
+
 function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
   useEffect(() => {
     const handler = (e) => {
@@ -69,10 +81,6 @@ function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
           src={item.imageUrl || item.image || item.imgUrl || item.img || item.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
           alt={item.title} 
           className="pf-lb-img" 
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop';
-          }}
         />
         <div className="pf-lb-meta">
           <span className="pf-lb-cat">{CAT_DISPLAY[item.category] || item.category}</span>
@@ -83,7 +91,6 @@ function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
   );
 }
 
-// ── Animated Number Counter ───────────────────────────────────────────────────
 function Counter({ target, duration = 1200 }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
@@ -111,18 +118,27 @@ function Counter({ target, duration = 1200 }) {
   return <span ref={ref}>{count}</span>;
 }
 
-// ── Work Card ─────────────────────────────────────────────────────────────────
 function WorkCard({ item, onClick }) {
+  const navigate = useNavigate();
+  
+  const handleClick = () => {
+    if (item.isMasterpiece) {
+      navigate('/case-studies');
+    } else {
+      onClick(item);
+    }
+  };
+
   return (
     <FadeReveal>
       <motion.div
         layout
-        className="wk-card wk-card--vis"
-        onClick={() => onClick(item)}
+        className={`wk-card wk-card--vis ${item.isMasterpiece ? 'masterpiece-card' : ''}`}
+        onClick={handleClick}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && onClick(item)}
-        data-cursor="View"
+        onKeyDown={(e) => e.key === 'Enter' && handleClick()}
+        data-cursor={item.isMasterpiece ? "Case Study" : "View"}
       >
         <div className="wk-card-img-wrap">
           <ImageReveal>
@@ -131,19 +147,18 @@ function WorkCard({ item, onClick }) {
               alt={item.title} 
               className="wk-card-img" 
               loading="lazy"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop';
-              }}
             />
           </ImageReveal>
           <div className="wk-card-overlay">
             <div className="wk-card-overlay-inner">
-              <span className="wk-cat-tag">{CAT_DISPLAY[item.category] || item.category}</span>
+              <span className="wk-cat-tag">{item.isMasterpiece ? 'Featured Masterpiece' : (CAT_DISPLAY[item.category] || item.category)}</span>
               <h3 className="wk-card-title">{item.title}</h3>
               <div className="wk-view-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                View
+                {item.isMasterpiece ? (
+                  <><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Read Case Study</>
+                ) : (
+                  <><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View Project</>
+                )}
               </div>
             </div>
           </div>
@@ -153,7 +168,6 @@ function WorkCard({ item, onClick }) {
   );
 }
 
-// ── Main Component ────────────────────────────────────────────────────────────
 const Portfolio = ({ highlight = false, fullPage = false }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -163,13 +177,29 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
   const { lang } = useLanguage();
 
   useEffect(() => {
-    const q = query(collection(db, 'portfolio'));
-    const unsub = onSnapshot(q, (snap) => {
-      const allItems = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setItems(allItems.filter(item => item.hidden !== true));
-      setLoading(false);
+    // Fetch regular portfolio items
+    const q = query(collection(db, 'portfolio'), orderBy('title'));
+    const unsubPortfolio = onSnapshot(q, (snap) => {
+      const portfolioItems = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })).filter(i => i.hidden !== true);
+      
+      // Fetch masterpiece images
+      const unsubMasterpieces = onSnapshot(collection(db, 'case_study_images'), (mSnap) => {
+        const mImages = {};
+        mSnap.docs.forEach(d => mImages[d.id] = d.data());
+
+        const masterpieces = masterpieceData.map(m => ({
+          ...m,
+          imageUrl: mImages[m.id]?.heroUrl || mImages[m.id]?.resultUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'
+        }));
+
+        setItems([...masterpieces, ...portfolioItems]);
+        setLoading(false);
+      });
+
+      return () => unsubMasterpieces();
     });
-    return () => unsub();
+    
+    return () => unsubPortfolio();
   }, []);
 
   const filteredItems = activeFilter === 'all'
@@ -183,43 +213,26 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
     return items.some(i => i.category === c.key);
   });
 
-  const handleFilterChange = (key) => {
-    setActiveFilter(key);
-  };
-
+  const handleFilterChange = (key) => setActiveFilter(key);
   const openLightbox = useCallback((item) => {
     const idx = displayItems.findIndex(i => i.id === item.id);
     setLightboxItem(item);
     setLightboxIndex(idx);
   }, [displayItems]);
-
-  const closeLightbox = useCallback(() => {
-    setLightboxItem(null);
-    setLightboxIndex(null);
-  }, []);
-
+  const closeLightbox = useCallback(() => { setLightboxItem(null); setLightboxIndex(null); }, []);
   const goPrev = useCallback(() => {
     const newIdx = lightboxIndex - 1;
-    if (newIdx >= 0) {
-      setLightboxItem(displayItems[newIdx]);
-      setLightboxIndex(newIdx);
-    }
+    if (newIdx >= 0) { setLightboxItem(displayItems[newIdx]); setLightboxIndex(newIdx); }
   }, [lightboxIndex, displayItems]);
-
   const goNext = useCallback(() => {
     const newIdx = lightboxIndex + 1;
-    if (newIdx < displayItems.length) {
-      setLightboxItem(displayItems[newIdx]);
-      setLightboxIndex(newIdx);
-    }
+    if (newIdx < displayItems.length) { setLightboxItem(displayItems[newIdx]); setLightboxIndex(newIdx); }
   }, [lightboxIndex, displayItems]);
 
   if (loading && items.length === 0) {
     return (
       <section className="wk-section" id="portfolio">
-        <div className="wk-loading">
-          <div className="wk-loading-dots"><span/><span/><span/></div>
-        </div>
+        <div className="wk-loading"><div className="wk-loading-dots"><span/><span/><span/></div></div>
       </section>
     );
   }
@@ -228,38 +241,22 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
     <>
       <section className={`wk-section ${fullPage ? 'full-page-section' : ''}`} id="portfolio">
         {!fullPage && <div className="wk-grain" aria-hidden="true" />}
-
         <div className="wk-inner">
           {!fullPage && (
             <div className="wk-header">
               <FadeReveal>
-                <div className="wk-eyebrow">
-                  <span className="wk-eyebrow-dot" />
-                  {lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}
-                </div>
+                <div className="wk-eyebrow"><span className="wk-eyebrow-dot" />{lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}</div>
               </FadeReveal>
               <TextReveal className="wk-heading">
-                {lang === 'bn'
-                  ? 'সৃজনশীলতা যেখানে ফলাফল আনে'
-                  : 'Creativity that drives results'
-                }
+                {lang === 'bn' ? 'সৃজনশীলতা যেখানে ফলাফল আনে' : 'Creativity that drives results'}
               </TextReveal>
               <FadeReveal delay={0.4}>
                 <div className="wk-stats-row">
-                  <div className="wk-stat">
-                    <strong><Counter target={items.length} />+</strong>
-                    <span>{lang === 'bn' ? 'প্রজেক্ট' : 'Projects'}</span>
-                  </div>
+                  <div className="wk-stat"><strong><Counter target={items.length} />+</strong><span>{lang === 'bn' ? 'প্রজেক্ট' : 'Projects'}</span></div>
                   <div className="wk-stat-div" />
-                  <div className="wk-stat">
-                    <strong><Counter target={50} />+</strong>
-                    <span>{lang === 'bn' ? 'সন্তুষ্ট ক্লায়েন্ট' : 'Happy Clients'}</span>
-                  </div>
+                  <div className="wk-stat"><strong><Counter target={50} />+</strong><span>{lang === 'bn' ? 'সন্তুষ্ট ক্লায়েন্ট' : 'Happy Clients'}</span></div>
                   <div className="wk-stat-div" />
-                  <div className="wk-stat">
-                    <strong><Counter target={5} /></strong>
-                    <span>{lang === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}</span>
-                  </div>
+                  <div className="wk-stat"><strong><Counter target={5} /></strong><span>{lang === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}</span></div>
                 </div>
               </FadeReveal>
             </div>
@@ -278,10 +275,7 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
                   >
                     {lang === 'bn' ? cat.label_bn : cat.label}
                     {activeFilter === cat.key && (
-                      <motion.span 
-                        layoutId="filter-count"
-                        className="wk-filter-count"
-                      >
+                      <motion.span layoutId="filter-count" className="wk-filter-count">
                         {cat.key === 'all' ? items.length : items.filter(i => i.category === cat.key).length}
                       </motion.span>
                     )}
@@ -296,18 +290,9 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
               <motion.div layout className="wk-grid">
                 <AnimatePresence mode="popLayout">
                   {displayItems.map((item) => (
-                    <WorkCard
-                      key={item.id}
-                      item={item}
-                      onClick={openLightbox}
-                    />
+                    <WorkCard key={item.id} item={item} onClick={openLightbox} />
                   ))}
                 </AnimatePresence>
-                {displayItems.length === 0 && (
-                  <div className="wk-empty">
-                    <span>No projects in this category yet.</span>
-                  </div>
-                )}
               </motion.div>
             </StaggerReveal>
           </div>
@@ -315,9 +300,7 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
           {highlight && (
             <FadeReveal delay={0.4}>
               <div className="wk-footer" style={{ marginTop: '4rem', textAlign: 'center' }}>
-                <Link to="/work" className="btn-red">
-                  {lang === 'bn' ? 'সব কাজ দেখুন →' : 'View Full Portfolio →'}
-                </Link>
+                <Link to="/work" className="btn-red">{lang === 'bn' ? 'সব কাজ দেখুন →' : 'View Full Portfolio →'}</Link>
               </div>
             </FadeReveal>
           )}
