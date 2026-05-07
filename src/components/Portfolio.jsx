@@ -163,9 +163,10 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
   const { lang } = useLanguage();
 
   useEffect(() => {
-    const q = query(collection(db, 'portfolio'), where('hidden', '==', false));
+    const q = query(collection(db, 'portfolio'));
     const unsub = onSnapshot(q, (snap) => {
-      setItems(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      const allItems = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setItems(allItems.filter(item => item.hidden !== true));
       setLoading(false);
     });
     return () => unsub();

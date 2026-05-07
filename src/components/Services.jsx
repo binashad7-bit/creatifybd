@@ -11,9 +11,10 @@ const Services = ({ highlight = false, fullPage = false }) => {
   const { lang } = useLanguage();
 
   useEffect(() => {
-    const q = query(collection(db, 'services'), where('hidden', '==', false));
+    const q = query(collection(db, 'services'));
     const unsub = onSnapshot(q, (snap) => {
-      setServices(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      const allItems = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setServices(allItems.filter(item => item.hidden !== true));
       setLoading(false);
     });
     return () => unsub();
