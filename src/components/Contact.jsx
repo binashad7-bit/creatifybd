@@ -39,6 +39,24 @@ const Contact = ({ highlight = false, fullPage = false }) => {
     }
   };
 
+  const formFields = [
+    { name: 'name', label: lang === 'bn' ? 'আপনার নাম' : 'Your Name', placeholder: 'Mohammad Ali', type: 'text', required: true, half: true },
+    { name: 'contact', label: lang === 'bn' ? 'ফোন / ইমেইল' : 'Phone / Email', placeholder: '01XXXXXXXXX', type: 'text', required: true, half: true },
+    { name: 'business', label: lang === 'bn' ? 'প্রতিষ্ঠানের নাম' : 'Business Name', placeholder: 'Your Company Name', type: 'text' },
+    { 
+      name: 'service', 
+      label: lang === 'bn' ? 'সার্ভিস বাছাই করুন' : 'Service Needed', 
+      type: 'select', 
+      required: true,
+      options: [
+        'Social Media Management', 'Branding & Logo Design', 'Product Photography', 
+        'Video Production', 'Website Design & Development', 'Advertising Campaigns', 
+        'Thumbnail / Poster Design', 'Multiple Services'
+      ]
+    },
+    { name: 'project', label: lang === 'bn' ? 'প্রজেক্ট সম্পর্কে বিস্তারিত' : 'Tell Us About Your Project', placeholder: 'Briefly describe what you need help with...', type: 'textarea', required: true }
+  ];
+
   return (
     <section className={`section contact-section ${fullPage ? 'full-page-section' : ''}`} id="contact">
       <div className="container">
@@ -67,48 +85,52 @@ const Contact = ({ highlight = false, fullPage = false }) => {
             </div>
           )}
           
-          <FadeReveal delay={0.5} style={{ width: '100%' }}>
-            <div className={`contact-form-card`} style={fullPage ? { maxWidth: '800px', margin: '0 auto' } : {}}>
-              <h3>{lang === 'bn' ? 'আমাদের মেসেজ পাঠান' : 'Send Us a Message'}</h3>
-              <p>{lang === 'bn' ? 'আমরা খুব দ্রুত রিপ্লাই দিয়ে থাকি।' : 'We typically respond within a few hours.'}</p>
-              <form onSubmit={handleSubmit}>
-                <div className="form-row">
-                  <div className="fg"><label>{lang === 'bn' ? 'আপনার নাম' : 'Your Name'}</label><input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Mohammad Ali" required /></div>
-                  <div className="fg"><label>{lang === 'bn' ? 'ফোন / ইমেইল' : 'Phone / Email'}</label><input type="text" name="contact" value={formData.contact} onChange={handleChange} placeholder="01XXXXXXXXX" required /></div>
+          <div className="contact-form-wrap">
+            <FadeReveal delay={0.3}>
+              <div className={`contact-form-card`} style={fullPage ? { maxWidth: '800px', margin: '0 auto' } : {}}>
+                <div className="form-header">
+                  <h3>{lang === 'bn' ? 'আমাদের মেসেজ পাঠান' : 'Send Us a Message'}</h3>
+                  <p>{lang === 'bn' ? 'আমরা খুব দ্রুত রিপ্লাই দিয়ে থাকি।' : 'We typically respond within a few hours.'}</p>
                 </div>
-                <div className="fg">
-                  <label>{lang === 'bn' ? 'প্রতিষ্ঠানের নাম' : 'Business Name'}</label>
-                  <input type="text" name="business" value={formData.business} onChange={handleChange} placeholder="Your Company Name" />
-                </div>
-                <div className="fg">
-                  <label>{lang === 'bn' ? 'সার্ভিস বাছাই করুন' : 'Service Needed'}</label>
-                  <select name="service" value={formData.service} onChange={handleChange} required>
-                    <option value="">{lang === 'bn' ? 'সিলেক্ট করুন...' : 'Select a service...'}</option>
-                    <option>Social Media Management</option>
-                    <option>Branding & Logo Design</option>
-                    <option>Product Photography</option>
-                    <option>Video Production</option>
-                    <option>Website Design & Development</option>
-                    <option>Advertising Campaigns</option>
-                    <option>Thumbnail / Poster Design</option>
-                    <option>Multiple Services</option>
-                  </select>
-                </div>
-                <div className="fg">
-                  <label>{lang === 'bn' ? 'প্রজেক্ট সম্পর্কে বিস্তারিত' : 'Tell Us About Your Project'}</label>
-                  <textarea name="project" value={formData.project} onChange={handleChange} placeholder="Briefly describe what you need help with..." required></textarea>
-                </div>
-                <button 
-                  type="submit"
-                  className="btn-red" 
-                  style={{ width: '100%', justifyContent: 'center', padding: '0.85rem', fontSize: '0.95rem', borderRadius: '12px', opacity: loading ? 0.7 : 1 }}
-                  disabled={loading}
-                >
-                  {loading ? (lang === 'bn' ? 'পাঠানো হচ্ছে...' : 'Sending...') : (lang === 'bn' ? "মেসেজ পাঠান →" : "Send Message →")}
-                </button>
-              </form>
-            </div>
-          </FadeReveal>
+                
+                <form onSubmit={handleSubmit}>
+                  <div className="form-grid-inner">
+                    {formFields.map((field, idx) => (
+                      <FadeReveal key={field.name} delay={0.4 + (idx * 0.1)} className={`fg ${field.half ? 'fg-half' : 'fg-full'}`}>
+                        <label>{field.label}</label>
+                        {field.type === 'select' ? (
+                          <div className="select-wrap">
+                            <select name={field.name} value={formData[field.name]} onChange={handleChange} required={field.required}>
+                              <option value="">{lang === 'bn' ? 'সিলেক্ট করুন...' : 'Select a service...'}</option>
+                              {field.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                            </select>
+                          </div>
+                        ) : field.type === 'textarea' ? (
+                          <textarea name={field.name} value={formData[field.name]} onChange={handleChange} placeholder={field.placeholder} required={field.required}></textarea>
+                        ) : (
+                          <input type={field.type} name={field.name} value={formData[field.name]} onChange={handleChange} placeholder={field.placeholder} required={field.required} />
+                        )}
+                      </FadeReveal>
+                    ))}
+                  </div>
+
+                  <FadeReveal delay={1.0}>
+                    <button 
+                      type="submit"
+                      className="btn-submit-premium" 
+                      disabled={loading}
+                    >
+                      <span className="btn-text">
+                        {loading ? (lang === 'bn' ? 'পাঠানো হচ্ছে...' : 'Sending...') : (lang === 'bn' ? "মেসেজ পাঠান" : "Send Message")}
+                      </span>
+                      {!loading && <span className="btn-icon">→</span>}
+                      {loading && <div className="btn-loader"></div>}
+                    </button>
+                  </FadeReveal>
+                </form>
+              </div>
+            </FadeReveal>
+          </div>
         </div>
         
         {highlight && (
