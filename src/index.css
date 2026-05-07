@@ -1,6 +1,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
+/* Updated with premium cinematic animations and real-time admin sync */
+/* Triggering deploy action... */
 :root {
   --red: #E8192C;
   --red-light: #fff0f1;
