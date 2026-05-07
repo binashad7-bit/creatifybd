@@ -2727,58 +2727,92 @@ footer {
 }
 
 .cs-img-placeholder {
-  width: 100%;
-  height: 260px;
-  border-radius: 16px;
-  border: 1px dashed rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.02);
+  color: var(--white);
+  margin-bottom: 0.75rem;
+}
+
+.cs-quote-author {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.cs-visual-scroll {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+  gap: 4rem;
 }
 
-.cs-img-placeholder span { font-size: 2rem; opacity: 0.4; }
-.cs-img-placeholder p { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
-
-.cs-two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
+.cs-parallax-slot {
+  width: 100%;
+  height: 70vh;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #0a0a0a;
 }
 
-.cs-section-label {
+.cs-parallax-slot.secondary {
+  height: 50vh;
+  width: 85%;
+}
+
+.cs-large-img {
+  width: 100%;
+  height: 100%;
+}
+
+.cs-placeholder-luxury {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+  justify-content: center;
+  background: rgba(255,255,255,0.02);
+  color: rgba(255,255,255,0.1);
+  font-size: 0.8rem;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 1rem;
+  letter-spacing: 0.2em;
 }
 
-.cs-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-
-.cs-body-text {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.65);
-  line-height: 1.8;
-  font-weight: 300;
+.premium-cs-cta {
+  padding: 10rem 0;
+  text-align: center;
+  background: linear-gradient(to bottom, #000, #0a0a0a);
 }
 
-.cs-results-section { margin-bottom: 2.5rem; }
+.cs-cta-big {
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
 
-.cs-section-label-plain {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+.cs-cta-text {
+  font-size: 1.2rem;
   color: rgba(255,255,255,0.4);
-  margin-bottom: 1rem;
+  margin-bottom: 3.5rem;
+}
+
+@media (max-width: 1100px) {
+  .premium-cs-item {
+    grid-template-columns: 1fr !important;
+    gap: 3rem;
+    padding-top: 5rem;
+  }
+  .cs-sticky-info {
+    position: relative;
+    top: 0;
+    order: 1 !important;
+  }
+  .cs-visual-scroll {
+    order: 2 !important;
+  }
+  .cs-parallax-slot {
+    height: 50vh;
+  }
+  .cs-parallax-slot.secondary {
+    width: 100%;
+  }
 }
 
 .cs-results-grid {
