@@ -1,147 +1,161 @@
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import { useLanguage } from '../context/LanguageContext';
 import { db } from '../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { useLanguage } from '../context/LanguageContext';
-import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, CheckCircle2, MessageSquare, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { TextReveal, FadeReveal } from './MotionReveal';
 
-const Contact = ({ highlight = false, fullPage = false }) => {
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    contact: '',
-    business: '',
-    service: '',
-    project: ''
-  });
+const Contact = () => {
   const { lang } = useLanguage();
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', service: '', budget: '', message: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await addDoc(collection(db, 'messages'), {
-        ...formData,
-        timestamp: serverTimestamp()
-      });
-      toast.success(lang === 'bn' ? "✓ মেসেজ পাঠানো হয়েছে! আমরা শীঘ্রই যোগাযোগ করব।" : "✓ Message sent! We'll reply within a few hours.");
-      setFormData({ name: '', contact: '', business: '', service: '', project: '' });
-    } catch (error) {
-      console.error('Error submitting message:', error);
-      toast.error(lang === 'bn' ? 'মেসেজ পাঠানো সম্ভব হয়নি। আবার চেষ্টা করুন।' : 'Failed to send message. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+      await addDoc(collection(db, 'messages'), { ...formData, timestamp: serverTimestamp() });
+      setSubmitted(true);
+    } catch (err) { alert('Failed to send message. Please try again.'); }
+    setLoading(false);
   };
 
-  const formFields = [
-    { name: 'name', label: lang === 'bn' ? 'আপনার নাম' : 'Your Name', placeholder: 'Mohammad Ali', type: 'text', required: true, half: true },
-    { name: 'contact', label: lang === 'bn' ? 'ফোন / ইমেইল' : 'Phone / Email', placeholder: '01XXXXXXXXX', type: 'text', required: true, half: true },
-    { name: 'business', label: lang === 'bn' ? 'প্রতিষ্ঠানের নাম' : 'Business Name', placeholder: 'Your Company Name', type: 'text' },
-    { 
-      name: 'service', 
-      label: lang === 'bn' ? 'সার্ভিস বাছাই করুন' : 'Service Needed', 
-      type: 'select', 
-      required: true,
-      options: [
-        'Social Media Management', 'Branding & Logo Design', 'Product Photography', 
-        'Video Production', 'Website Design & Development', 'Advertising Campaigns', 
-        'Thumbnail / Poster Design', 'Multiple Services'
-      ]
-    },
-    { name: 'project', label: lang === 'bn' ? 'প্রজেক্ট সম্পর্কে বিস্তারিত' : 'Tell Us About Your Project', placeholder: 'Briefly describe what you need help with...', type: 'textarea', required: true }
-  ];
-
   return (
-    <section className={`section contact-section ${fullPage ? 'full-page-section' : ''}`} id="contact">
+    <section className="contact-premium-section" style={{ background: '#fff', padding: '12rem 0' }}>
       <div className="container">
-        <div className="contact-grid">
-          {!fullPage && (
-            <div className="contact-info">
-              <FadeReveal>
-                <div className="eyebrow">{lang === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}</div>
-              </FadeReveal>
-              <TextReveal className="section-h">
-                {lang === 'bn' ? 'চলুন দারুণ কিছু করি' : "Let's Build Something Great"}
-              </TextReveal>
-              <FadeReveal delay={0.4}>
-                <p>{lang === 'bn' ? 'আপনার প্রজেক্ট নিয়ে আমাদের সাথে কথা বলুন। আমরা আপনার বাজেট এবং ব্যবসার জন্য সঠিক প্ল্যান তৈরি করব।' : 'Have a project in mind? Tell us what you need and we\'ll put together the perfect plan for your business and budget.'}</p>
-                <div className="contact-links">
-                  <a href="tel:+8801951676600" className="clink">
-                    <div className="clink-icon">📞</div>
-                    <div className="clink-info"><small>{lang === 'bn' ? 'কল করুন' : 'Call Us'}</small><strong>+880 01951 676600</strong></div>
-                  </a>
-                  <a href="mailto:creatifybd@gmail.com" className="clink">
-                    <div className="clink-icon">✉️</div>
-                    <div className="clink-info"><small>{lang === 'bn' ? 'ইমেইল' : 'Email'}</small><strong>creatifybd@gmail.com</strong></div>
-                  </a>
-                </div>
-              </FadeReveal>
-            </div>
-          )}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '10%', alignItems: 'start' }}>
           
-          <div className="contact-form-wrap">
-            <FadeReveal delay={0.3}>
-              <div className={`contact-form-card`} style={fullPage ? { maxWidth: '800px', margin: '0 auto' } : {}}>
-                <div className="form-header">
-                  <h3>{lang === 'bn' ? 'আমাদের মেসেজ পাঠান' : 'Send Us a Message'}</h3>
-                  <p>{lang === 'bn' ? 'আমরা খুব দ্রুত রিপ্লাই দিয়ে থাকি।' : 'We typically respond within a few hours.'}</p>
-                </div>
-                
-                <form onSubmit={handleSubmit}>
-                  <div className="form-grid-inner">
-                    {formFields.map((field, idx) => (
-                      <FadeReveal key={field.name} delay={0.4 + (idx * 0.1)} className={`fg ${field.half ? 'fg-half' : 'fg-full'}`}>
-                        <label>{field.label}</label>
-                        {field.type === 'select' ? (
-                          <div className="select-wrap">
-                            <select name={field.name} value={formData[field.name]} onChange={handleChange} required={field.required}>
-                              <option value="">{lang === 'bn' ? 'সিলেক্ট করুন...' : 'Select a service...'}</option>
-                              {field.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                            </select>
-                          </div>
-                        ) : field.type === 'textarea' ? (
-                          <textarea name={field.name} value={formData[field.name]} onChange={handleChange} placeholder={field.placeholder} required={field.required}></textarea>
-                        ) : (
-                          <input type={field.type} name={field.name} value={formData[field.name]} onChange={handleChange} placeholder={field.placeholder} required={field.required} />
-                        )}
-                      </FadeReveal>
-                    ))}
+          <div className="contact-info-panel">
+            <FadeReveal>
+              <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>{lang === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}</div>
+            </FadeReveal>
+            <TextReveal className="contact-h1" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', fontWeight: 900, color: '#000', lineHeight: 0.9, marginBottom: '3rem' }}>
+              {lang === 'bn' ? 'আসুন নতুন কিছু তৈরি করি' : "Let's build something great."}
+            </TextReveal>
+            
+            <FadeReveal delay={0.4}>
+              <div className="contact-methods" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', marginTop: '4rem' }}>
+                <div style={{ display: 'flex', gap: '1.5rem' }}>
+                  <div style={{ width: '50px', height: '50px', borderRadius: '12px', background: 'rgba(232, 25, 44, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--red)' }}><MessageSquare size={24} /></div>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.4, marginBottom: '0.4rem' }}>Email Us</div>
+                    <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#000' }}>hello@creatifybd.com</div>
                   </div>
-
-                  <FadeReveal delay={1.0}>
-                    <button 
-                      type="submit"
-                      className="btn-submit-premium" 
-                      disabled={loading}
-                    >
-                      <span className="btn-text">
-                        {loading ? (lang === 'bn' ? 'পাঠানো হচ্ছে...' : 'Sending...') : (lang === 'bn' ? "মেসেজ পাঠান" : "Send Message")}
-                      </span>
-                      {!loading && <span className="btn-icon">→</span>}
-                      {loading && <div className="btn-loader"></div>}
-                    </button>
-                  </FadeReveal>
-                </form>
+                </div>
+                <div style={{ display: 'flex', gap: '1.5rem' }}>
+                  <div style={{ width: '50px', height: '50px', borderRadius: '12px', background: 'rgba(232, 25, 44, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--red)' }}><Phone size={24} /></div>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.4, marginBottom: '0.4rem' }}>Call Us</div>
+                    <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#000' }}>+880 1951 676600</div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: '1.5rem' }}>
+                  <div style={{ width: '50px', height: '50px', borderRadius: '12px', background: 'rgba(232, 25, 44, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--red)' }}><MapPin size={24} /></div>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.4, marginBottom: '0.4rem' }}>Location</div>
+                    <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#000' }}>Dhaka, Bangladesh</div>
+                  </div>
+                </div>
               </div>
             </FadeReveal>
           </div>
+
+          <div className="contact-form-card" style={{ background: '#fcfcfc', padding: '4rem', borderRadius: '48px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 40px 100px rgba(0,0,0,0.03)' }}>
+            <AnimatePresence mode="wait">
+              {!submitted ? (
+                <motion.form 
+                  key="form"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  onSubmit={handleSubmit}
+                >
+                  <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '3rem', color: '#000' }}>Start a Discovery Session</h3>
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                    <div className="form-group">
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>What's your name?</label>
+                      <input 
+                        type="text" required className="luxury-input" 
+                        value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>Email Address</label>
+                      <input 
+                        type="email" required className="luxury-input" 
+                        value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})}
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                    <div className="form-group">
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>Interested In</label>
+                      <select 
+                        className="luxury-input" required
+                        value={formData.service} onChange={e => setFormData({...formData, service: e.target.value})}
+                      >
+                        <option value="">Select a service</option>
+                        <option value="web">Web Design & Dev</option>
+                        <option value="branding">Branding & Identity</option>
+                        <option value="marketing">Digital Marketing</option>
+                        <option value="video">Video Production</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>Monthly Budget</label>
+                      <select 
+                        className="luxury-input" required
+                        value={formData.budget} onChange={e => setFormData({...formData, budget: e.target.value})}
+                      >
+                        <option value="">Select budget range</option>
+                        <option value="5k-10k">৳5,000 - ৳10,000</option>
+                        <option value="10k-30k">৳10,000 - ৳30,000</option>
+                        <option value="30k-50k">৳30,000 - ৳50,000</option>
+                        <option value="50k+">৳50,000+</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="form-group" style={{ marginBottom: '2.5rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>Tell us about your project</label>
+                    <textarea 
+                      required className="luxury-input" style={{ height: '120px', paddingTop: '1rem' }}
+                      value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}
+                      placeholder="Share your vision..."
+                    />
+                  </div>
+
+                  <button 
+                    type="submit" disabled={loading} className="btn-huge-red" 
+                    style={{ width: '100%', justifyContent: 'center', border: 'none', cursor: 'pointer' }}
+                  >
+                    {loading ? 'Initiating...' : 'Send Inquiry'} <Send size={18} style={{ marginLeft: '1rem' }} />
+                  </button>
+                </motion.form>
+              ) : (
+                <motion.div 
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="success-message"
+                  style={{ textAlign: 'center', padding: '4rem 0' }}
+                >
+                  <CheckCircle2 size={80} color="var(--red)" style={{ marginBottom: '2rem' }} />
+                  <h3 style={{ fontSize: '2rem', fontWeight: 900, color: '#000', marginBottom: '1rem' }}>Inquiry Received.</h3>
+                  <p style={{ color: 'rgba(0,0,0,0.5)', fontSize: '1.1rem' }}>Our strategy team will review your project and get back to you within 24 hours.</p>
+                  <button onClick={() => setSubmitted(false)} className="btn-red" style={{ marginTop: '2.5rem' }}>Send Another Inquiry</button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
         </div>
-        
-        {highlight && (
-          <FadeReveal delay={0.8}>
-            <div style={{ marginTop: '3rem', textAlign: 'center' }}>
-              <Link to="/contact" className="btn-outline-red">
-                {lang === 'bn' ? 'সব যোগাযোগের তথ্য' : 'Full Contact Details'}
-              </Link>
-            </div>
-          </FadeReveal>
-        )}
       </div>
     </section>
   );

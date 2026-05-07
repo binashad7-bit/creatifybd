@@ -2556,3 +2556,13 @@ footer {
 .mobile-sub-group { margin: 1.5rem 0 !important; }
 .mobile-sub-group a { font-size: 1.6rem !important; margin-bottom: 0.5rem; }
 .mobile-sub-title { font-size: 0.75rem !important; margin-bottom: 0.8rem !important; color: var(--red); font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; }
+
+/* --- LUXURY UI COMPONENTS --- */
+.luxury-input { width: 100%; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; padding: 1.2rem 1.5rem; font-size: 1rem; color: #000; transition: all 0.3s ease; outline: none; appearance: none; }
+.luxury-input:focus { border-color: var(--red); box-shadow: 0 0 0 4px rgba(232, 25, 44, 0.05); background: #fff; }
+.luxury-input::placeholder { color: rgba(0,0,0,0.2); }
+.btn-huge-red { display: inline-flex; align-items: center; background: var(--red); color: #fff; padding: 1.5rem 3.5rem; border-radius: 100px; font-weight: 800; font-size: 1.1rem; text-decoration: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 20px 40px rgba(232, 25, 44, 0.2); }
+.btn-huge-red:hover { transform: translateY(-5px); box-shadow: 0 30px 60px rgba(232, 25, 44, 0.3); }
+.service-card-premium:hover .service-arrow { background: var(--red) !important; color: #fff !important; transform: rotate(45deg); }
+.service-arrow { transition: all 0.4s ease; }
+.service-card-premium:hover .service-arrow svg { stroke: #fff; }
