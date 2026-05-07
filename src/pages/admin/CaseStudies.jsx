@@ -76,6 +76,12 @@ const CaseStudyCard = ({ cs }) => {
   const handleUpload = async (e, type) => {
     const file = e.target.files[0];
     if (!file) return;
+    
+    if (file.size > 10 * 1024 * 1024) {
+      alert("File is too large. Max size is 10MB.");
+      return;
+    }
+
     setUploading(prev => ({ ...prev, [type]: true }));
     try {
       const url = await uploadImage(file);
@@ -83,9 +89,10 @@ const CaseStudyCard = ({ cs }) => {
       setImages(updated);
       await setDoc(doc(db, 'case_study_images', cs.id), updated, { merge: true });
       setSaved(true);
-      setTimeout(() => setSaved(false), 2500);
+      setTimeout(() => setSaved(false), 3000);
     } catch (err) {
-      alert('Upload failed. Please try again.');
+      console.error('Case Study Upload Error:', err);
+      alert(`Upload failed: ${err.message || 'Firebase error'}`);
     }
     setUploading(prev => ({ ...prev, [type]: false }));
   };
@@ -129,7 +136,7 @@ const CaseStudyCard = ({ cs }) => {
 
 const CaseStudiesManager = () => {
   return (
-    <div className="admin-layout-content">
+    <div className="admin-content-wrap">
       <div style={{ marginBottom: '2.5rem' }}>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.5rem' }}>Manage 10 Masterpiece Case Studies</h1>
         <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem' }}>

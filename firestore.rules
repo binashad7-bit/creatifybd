@@ -47,5 +47,11 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // 🔥 Case Study Assets 🔥
+    match /case_study_images/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
   }
 }
