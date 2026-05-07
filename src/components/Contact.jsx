@@ -109,12 +109,6 @@ const Contact = ({ highlight = false, fullPage = false }) => {
               </form>
             </div>
           </FadeReveal>
-              >
-                {loading ? 'Sending...' : 'Send Message →'}
-              </button>
-            </form>
-          </div>
->>>>>>> Stashed changes
         </div>
         
         {highlight && (
