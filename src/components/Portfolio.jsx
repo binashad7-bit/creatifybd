@@ -3,6 +3,7 @@ import { db } from '../firebase/config';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const CATS = [
   { key: 'all', label: 'All Work', label_bn: 'সব কাজ' },
@@ -134,41 +135,8 @@ function WorkCard({ item, onClick }) {
   );
 }
 
-// ── Case Study Card ───────────────────────────────────────────────────────────
-function CaseCard({ item, index, onClick }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="cs-card cs-card--vis"
-      onClick={() => onClick(item, index)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onClick(item, index)}
-      data-cursor="View"
-    >
-      <div className="cs-card-img-wrap">
-        <img src={item.imageUrl} alt={item.title} className="cs-card-img" loading="lazy" />
-        <div className="cs-card-badge">{CAT_DISPLAY[item.category] || item.category}</div>
-        <div className="cs-card-num">0{index + 1}</div>
-      </div>
-      <div className="cs-card-body">
-        <h3 className="cs-card-title">{item.title}</h3>
-        <div className="cs-card-arrow">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
-          </svg>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 // ── Main Component ────────────────────────────────────────────────────────────
-const Portfolio = () => {
+const Portfolio = ({ highlight = false, fullPage = false }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('all');
@@ -189,6 +157,8 @@ const Portfolio = () => {
     ? items
     : items.filter(i => i.category === activeFilter);
 
+  const displayItems = highlight ? filteredItems.slice(0, 6) : filteredItems;
+
   const availableCats = CATS.filter(c => {
     if (c.key === 'all') return true;
     return items.some(i => i.category === c.key);
@@ -199,10 +169,10 @@ const Portfolio = () => {
   };
 
   const openLightbox = useCallback((item) => {
-    const idx = filteredItems.findIndex(i => i.id === item.id);
+    const idx = displayItems.findIndex(i => i.id === item.id);
     setLightboxItem(item);
     setLightboxIndex(idx);
-  }, [filteredItems]);
+  }, [displayItems]);
 
   const closeLightbox = useCallback(() => {
     setLightboxItem(null);
@@ -212,21 +182,18 @@ const Portfolio = () => {
   const goPrev = useCallback(() => {
     const newIdx = lightboxIndex - 1;
     if (newIdx >= 0) {
-      setLightboxItem(filteredItems[newIdx]);
+      setLightboxItem(displayItems[newIdx]);
       setLightboxIndex(newIdx);
     }
-  }, [lightboxIndex, filteredItems]);
+  }, [lightboxIndex, displayItems]);
 
   const goNext = useCallback(() => {
     const newIdx = lightboxIndex + 1;
-    if (newIdx < filteredItems.length) {
-      setLightboxItem(filteredItems[newIdx]);
+    if (newIdx < displayItems.length) {
+      setLightboxItem(displayItems[newIdx]);
       setLightboxIndex(newIdx);
     }
-  }, [lightboxIndex, filteredItems]);
-
-  // Case studies: pick top 8 for the horizontal scroll
-  const caseStudies = items.slice(0, 8);
+  }, [lightboxIndex, displayItems]);
 
   if (loading && items.length === 0) {
     return (
@@ -240,70 +207,73 @@ const Portfolio = () => {
 
   return (
     <>
-      {/* ── SECTION 1: OUR WORK ─────────────────────────────────────────── */}
-      <section className="wk-section" id="portfolio">
-        <div className="wk-grain" aria-hidden="true" />
+      <section className={`wk-section ${fullPage ? 'full-page-section' : ''}`} id="portfolio">
+        {!fullPage && <div className="wk-grain" aria-hidden="true" />}
 
         <div className="wk-inner">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="wk-header"
-          >
-            <div className="wk-eyebrow">
-              <span className="wk-eyebrow-dot" />
-              {lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}
-            </div>
-            <h2 className="wk-heading">
-              {lang === 'bn'
-                ? <><span className="wk-heading-line">সৃজনশীলতা যেখানে</span><span className="wk-heading-red"> ফলাফল</span> আনে</>
-                : <><span className="wk-heading-line">Creativity that</span><span className="wk-heading-red"> drives</span> results</>
-              }
-            </h2>
-            <div className="wk-stats-row">
-              <div className="wk-stat">
-                <strong><Counter target={items.length} />+</strong>
-                <span>{lang === 'bn' ? 'প্রজেক্ট' : 'Projects'}</span>
+          {!fullPage && (
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="wk-header"
+            >
+              <div className="wk-eyebrow">
+                <span className="wk-eyebrow-dot" />
+                {lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}
               </div>
-              <div className="wk-stat-div" />
-              <div className="wk-stat">
-                <strong><Counter target={50} />+</strong>
-                <span>{lang === 'bn' ? 'সন্তুষ্ট ক্লায়েন্ট' : 'Happy Clients'}</span>
+              <h2 className="wk-heading">
+                {lang === 'bn'
+                  ? <><span className="wk-heading-line">সৃজনশীলতা যেখানে</span><span className="wk-heading-red"> ফলাফল</span> আনে</>
+                  : <><span className="wk-heading-line">Creativity that</span><span className="wk-heading-red"> drives</span> results</>
+                }
+              </h2>
+              <div className="wk-stats-row">
+                <div className="wk-stat">
+                  <strong><Counter target={items.length} />+</strong>
+                  <span>{lang === 'bn' ? 'প্রজেক্ট' : 'Projects'}</span>
+                </div>
+                <div className="wk-stat-div" />
+                <div className="wk-stat">
+                  <strong><Counter target={50} />+</strong>
+                  <span>{lang === 'bn' ? 'সন্তুষ্ট ক্লায়েন্ট' : 'Happy Clients'}</span>
+                </div>
+                <div className="wk-stat-div" />
+                <div className="wk-stat">
+                  <strong><Counter target={5} /></strong>
+                  <span>{lang === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}</span>
+                </div>
               </div>
-              <div className="wk-stat-div" />
-              <div className="wk-stat">
-                <strong><Counter target={5} /></strong>
-                <span>{lang === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}</span>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          )}
 
-          <div className="wk-filter-bar" role="tablist">
-            {availableCats.map(cat => (
-              <button
-                key={cat.key}
-                role="tab"
-                aria-selected={activeFilter === cat.key}
-                className={`wk-filter-btn${activeFilter === cat.key ? ' wk-filter-btn--active' : ''}`}
-                onClick={() => handleFilterChange(cat.key)}
-              >
-                {lang === 'bn' ? cat.label_bn : cat.label}
-                {activeFilter === cat.key && (
-                  <motion.span 
-                    layoutId="filter-count"
-                    className="wk-filter-count"
-                  >
-                    {cat.key === 'all' ? items.length : items.filter(i => i.category === cat.key).length}
-                  </motion.span>
-                )}
-              </button>
-            ))}
-          </div>
+          {!highlight && (
+            <div className="wk-filter-bar" role="tablist">
+              {availableCats.map(cat => (
+                <button
+                  key={cat.key}
+                  role="tab"
+                  aria-selected={activeFilter === cat.key}
+                  className={`wk-filter-btn${activeFilter === cat.key ? ' wk-filter-btn--active' : ''}`}
+                  onClick={() => handleFilterChange(cat.key)}
+                >
+                  {lang === 'bn' ? cat.label_bn : cat.label}
+                  {activeFilter === cat.key && (
+                    <motion.span 
+                      layoutId="filter-count"
+                      className="wk-filter-count"
+                    >
+                      {cat.key === 'all' ? items.length : items.filter(i => i.category === cat.key).length}
+                    </motion.span>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
 
           <motion.div layout className="wk-grid">
             <AnimatePresence mode="popLayout">
-              {filteredItems.map((item) => (
+              {displayItems.map((item) => (
                 <WorkCard
                   key={item.id}
                   item={item}
@@ -311,80 +281,20 @@ const Portfolio = () => {
                 />
               ))}
             </AnimatePresence>
-            {filteredItems.length === 0 && (
+            {displayItems.length === 0 && (
               <div className="wk-empty">
                 <span>No projects in this category yet.</span>
               </div>
             )}
           </motion.div>
-        </div>
-      </section>
 
-      {/* ── SECTION 2: CASE STUDIES ─────────────────────────────────────── */}
-      <section className="cs-section" id="case-studies">
-        <div className="cs-header-wrap">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="cs-eyebrow"
-          >
-            <span className="cs-eyebrow-line" />
-            {lang === 'bn' ? 'ফিচার্ড প্রজেক্ট' : 'Featured Projects'}
-          </motion.div>
-          <div className="cs-header-row">
-            <motion.h2 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="cs-heading"
-            >
-              {lang === 'bn'
-                ? <>প্রজেক্ট <span>শোকেস ও কেস স্টাডি</span></>
-                : <>Project Showcase & <span>Case Studies</span></>
-              }
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="cs-subhead"
-            >
-              {lang === 'bn'
-                ? 'আমাদের সেরা কাজগুলো একনজরে দেখুন।'
-                : 'A curated selection of our most impactful creative work.'}
-            </motion.p>
-          </div>
-        </div>
-
-        <div className="cs-scroll-outer">
-          <div className="cs-scroll-track">
-            {caseStudies.map((item, i) => (
-              <CaseCard
-                key={item.id}
-                item={item}
-                index={i}
-                onClick={openLightbox}
-              />
-            ))}
-          </div>
-          <div className="cs-scroll-hint" aria-hidden="true">
-            <span>Scroll</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </div>
-        </div>
-
-        <div className="cs-footer">
-          <motion.a 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href="#contact" 
-            className="cs-cta-btn"
-          >
-            {lang === 'bn' ? 'প্রজেক্ট শুরু করুন' : 'Start a Project'}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </motion.a>
+          {highlight && (
+            <div className="wk-footer" style={{ marginTop: '4rem', textAlign: 'center' }}>
+              <Link to="/work" className="btn-red">
+                {lang === 'bn' ? 'সব কাজ দেখুন →' : 'View Full Portfolio →'}
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
@@ -396,7 +306,7 @@ const Portfolio = () => {
             onPrev={goPrev}
             onNext={goNext}
             hasPrev={lightboxIndex > 0}
-            hasNext={lightboxIndex < filteredItems.length - 1}
+            hasNext={lightboxIndex < displayItems.length - 1}
           />
         )}
       </AnimatePresence>

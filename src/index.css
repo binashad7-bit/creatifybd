@@ -1688,3 +1688,214 @@ footer {
   .footer-top { grid-template-columns: 1fr; }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   DUCK DESIGN STYLE CASE STUDIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.duck-cs-section {
+  background: var(--white);
+  padding: 10rem 0;
+  overflow: hidden;
+}
+
+.cs-intro {
+  margin-bottom: 6rem;
+}
+
+.duck-h {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  margin-top: 1rem;
+}
+
+.duck-cs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.duck-cs-item {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.duck-cs-item.reverse {
+  direction: rtl;
+}
+
+.duck-cs-item.reverse .duck-cs-info {
+  direction: ltr;
+}
+
+.duck-cs-info {
+  position: relative;
+}
+
+.duck-cs-num {
+  font-family: var(--font-display);
+  font-size: 8rem;
+  font-weight: 900;
+  color: rgba(232, 25, 44, 0.05);
+  line-height: 1;
+  position: absolute;
+  top: -2rem;
+  left: -2rem;
+  z-index: -1;
+}
+
+.duck-cs-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+  color: var(--black);
+}
+
+.duck-cs-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.duck-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 1rem;
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--gray-500);
+}
+
+.duck-cs-desc {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--gray-500);
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+  font-weight: 300;
+}
+
+.duck-cs-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--black);
+  text-decoration: none;
+  border-bottom: 2px solid var(--red);
+  padding-bottom: 0.5rem;
+  transition: all 0.3s;
+}
+
+.duck-cs-link:hover {
+  gap: 1.5rem;
+  color: var(--red);
+}
+
+.duck-cs-visual {
+  position: relative;
+}
+
+.duck-cs-img-wrap {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--gray-100);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+}
+
+.duck-cs-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.duck-cs-item:hover .duck-cs-img {
+  transform: scale(1.05);
+}
+
+.duck-cs-footer {
+  margin-top: 8rem;
+  text-align: center;
+}
+
+.btn-huge-red {
+  display: inline-block;
+  padding: 1.5rem 4rem;
+  background: var(--red);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 20px 40px rgba(232, 25, 44, 0.2);
+}
+
+.btn-huge-red:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 60px rgba(232, 25, 44, 0.3);
+}
+
+@media (max-width: 991px) {
+  .duck-cs-item {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .duck-cs-item.reverse {
+    direction: ltr;
+  }
+  .duck-cs-num {
+    font-size: 5rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DEDICATED PAGE STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.page-header {
+  padding: 12rem 0 6rem;
+  background: var(--black);
+  color: white;
+  text-align: center;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 300;
+}
+
+.full-page-section {
+  padding-top: 6rem !important;
+  margin-top: 0 !important;
+  border-top: none !important;
+}
+

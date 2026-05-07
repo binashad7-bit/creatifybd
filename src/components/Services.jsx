@@ -3,8 +3,9 @@ import { db } from '../firebase/config';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { observeElements } from '../utils/reveal';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from 'react-router-dom';
 
-const Services = () => {
+const Services = ({ highlight = false, fullPage = false }) => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const { lang } = useLanguage();
@@ -19,24 +20,28 @@ const Services = () => {
     return () => unsub();
   }, []);
 
+  const displayServices = highlight ? services.slice(0, 4) : services;
+
   if (loading && services.length === 0) return (
     <section className="section services-section" id="services" style={{ minHeight: '400px' }}></section>
   );
 
   return (
-    <section className="section services-section" id="services">
-      <div className="container">
-        <div className="services-header sr">
-          <div>
-            <div className="eyebrow">{lang === 'bn' ? 'আমরা যা করি' : 'What We Do'}</div>
-            <h2 className="section-h">{lang === 'bn' ? <>আমাদের <span className="red">সার্ভিসসমূহ</span></> : <>Our <span className="red">Services</span></>}</h2>
+    <section className={`section services-section ${fullPage ? 'full-page-section' : ''}`} id="services">
+      {!fullPage && (
+        <div className="container">
+          <div className="services-header sr">
+            <div>
+              <div className="eyebrow">{lang === 'bn' ? 'আমরা যা করি' : 'What We Do'}</div>
+              <h2 className="section-h">{lang === 'bn' ? <>আমাদের <span className="red">সার্ভিসসমূহ</span></> : <>Our <span className="red">Services</span></>}</h2>
+            </div>
+            <Link to="/services" className="btn-red">{lang === 'bn' ? 'সব সার্ভিস দেখুন →' : 'View All Services →'}</Link>
           </div>
-          <a href="#contact" className="btn-red">{lang === 'bn' ? 'ফ্রি কোট নিন →' : 'Get a Free Quote →'}</a>
         </div>
-      </div>
+      )}
       <div className="services-scroll-wrap sr sr-delay-1">
         <div className="services-row">
-          {services.map((service) => (
+          {displayServices.map((service) => (
             <div key={service.id} className="service-card">
               <div className="service-img">
                 <div className={`service-img-bg ${service.bg || 's1'}`}>{service.icon}</div>
@@ -50,6 +55,11 @@ const Services = () => {
           ))}
         </div>
       </div>
+      {highlight && (
+        <div className="container" style={{ marginTop: '3rem', textAlign: 'center' }}>
+          <Link to="/services" className="btn-outline-red">{lang === 'bn' ? 'সবগুলো দেখুন' : 'Explore All Services'}</Link>
+        </div>
+      )}
     </section>
   );
 };

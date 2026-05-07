@@ -1,0 +1,29 @@
+import React from 'react';
+import Navbar from '../../components/Navbar';
+import Process from '../../components/Process';
+import Footer from '../../components/Footer';
+import CustomCursor from '../../components/CustomCursor';
+import { motion } from 'framer-motion';
+
+const ProcessPage = () => {
+  return (
+    <div className="process-page">
+      <CustomCursor />
+      <Navbar />
+      <div className="page-header">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="container"
+        >
+          <h1 className="page-title">How We <span className="red">Work</span></h1>
+          <p className="page-subtitle">A systematic, 4-step approach to turning your vision into a digital masterpiece.</p>
+        </motion.div>
+      </div>
+      <Process fullPage={true} />
+      <Footer />
+    </div>
+  );
+};
+
+export default ProcessPage;

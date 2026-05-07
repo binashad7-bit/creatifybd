@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../utils/translations';
-import { motion, useSpring, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 
-const MagneticLink = ({ children, href, className }) => {
+const MagneticLink = ({ children, to, className, onClick }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -25,16 +26,21 @@ const MagneticLink = ({ children, href, className }) => {
   };
 
   return (
-    <motion.a
-      href={href}
-      className={className}
+    <motion.div
       style={{ x, y }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      data-cursor="Click"
+      className="magnetic-wrap"
     >
-      {children}
-    </motion.a>
+      <Link
+        to={to}
+        className={className}
+        onClick={onClick}
+        data-cursor="Click"
+      >
+        {children}
+      </Link>
+    </motion.div>
   );
 };
 
@@ -42,6 +48,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { lang } = useLanguage();
+  const { pathname } = useLocation();
   const t = translations[lang].nav;
 
   useEffect(() => {
@@ -55,28 +62,28 @@ const Navbar = () => {
   return (
     <>
       <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
-        <a href="#" className="nav-logo">Creatify<span className="dot">BD</span></a>
+        <Link to="/" className="nav-logo">Creatify<span className="dot">BD</span></Link>
         <ul className="nav-center">
-          <li><MagneticLink href="#services">{t.services}</MagneticLink></li>
-          <li><MagneticLink href="#portfolio">{t.portfolio}</MagneticLink></li>
-          <li><MagneticLink href="#process">{t.process}</MagneticLink></li>
-          <li><MagneticLink href="#pricing">{t.pricing}</MagneticLink></li>
-          <li><MagneticLink href="#contact">{t.contact}</MagneticLink></li>
+          <li><MagneticLink to="/services">{t.services}</MagneticLink></li>
+          <li><MagneticLink to="/work">{t.portfolio}</MagneticLink></li>
+          <li><MagneticLink to="/process">{t.process}</MagneticLink></li>
+          <li><MagneticLink to="/pricing">{t.pricing}</MagneticLink></li>
+          <li><MagneticLink to="/contact">{t.contact}</MagneticLink></li>
         </ul>
         <div className="nav-right">
-          <MagneticLink href="tel:+8801951676600" className="btn-ghost">{t.callUs}</MagneticLink>
-          <MagneticLink href="#contact" className="btn-red">{t.cta} →</MagneticLink>
+          <a href="tel:+8801951676600" className="btn-ghost" data-cursor="Click">{t.callUs}</a>
+          <Link to="/contact" className="btn-red" data-cursor="Click">{t.cta} →</Link>
           <button className="hamburger-btn" onClick={toggleMobile} aria-label="Menu">
             <span></span><span></span><span></span>
           </button>
         </div>
       </nav>
       <div className="mobile-menu" id="mobileMenu" style={{ display: isMobileOpen ? 'flex' : 'none' }}>
-        <a href="#services" onClick={toggleMobile}>Services</a>
-        <a href="#portfolio" onClick={toggleMobile}>Our Work</a>
-        <a href="#process" onClick={toggleMobile}>Process</a>
-        <a href="#pricing" onClick={toggleMobile}>Pricing</a>
-        <a href="#contact" onClick={toggleMobile}>Contact</a>
+        <Link to="/services" onClick={toggleMobile}>Services</Link>
+        <Link to="/work" onClick={toggleMobile}>Our Work</Link>
+        <Link to="/process" onClick={toggleMobile}>Process</Link>
+        <Link to="/pricing" onClick={toggleMobile}>Pricing</Link>
+        <Link to="/contact" onClick={toggleMobile}>Contact</Link>
       </div>
     </>
   );

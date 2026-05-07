@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { db } from '../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useLanguage } from '../context/LanguageContext';
+import { Link } from 'react-router-dom';
 
-const Contact = () => {
+const Contact = ({ highlight = false, fullPage = false }) => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -11,6 +13,7 @@ const Contact = () => {
     service: '',
     project: ''
   });
+  const { lang } = useLanguage();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,66 +31,56 @@ const Contact = () => {
       setTimeout(() => setSubmitted(false), 4000);
     } catch (error) {
       console.error("Error submitting message: ", error);
-      alert("Failed to send message. Please try again.");
     }
   };
 
   return (
-    <section className="section contact-section" id="contact">
+    <section className={`section contact-section ${fullPage ? 'full-page-section' : ''}`} id="contact">
       <div className="container">
         <div className="contact-grid">
-          <div className="contact-info sr">
-            <div className="eyebrow">Get In Touch</div>
-            <h2 className="section-h">Let's Build <span className="red">Something Great</span></h2>
-            <p>Have a project in mind? Tell us what you need and we'll put together the perfect plan for your business and budget.</p>
-            <div className="contact-links">
-              <a href="tel:+8801951676600" className="clink">
-                <div className="clink-icon">📞</div>
-                <div className="clink-info"><small>Call Us</small><strong>+880 01951 676600</strong></div>
-              </a>
-              <a href="mailto:creatifybd@gmail.com" className="clink">
-                <div className="clink-icon">✉️</div>
-                <div className="clink-info"><small>Email</small><strong>creatifybd@gmail.com</strong></div>
-              </a>
-              <a href="https://facebook.com/creatifybd" target="_blank" rel="noreferrer" className="clink">
-                <div className="clink-icon">📘</div>
-                <div className="clink-info"><small>Facebook</small><strong>@creatifybd</strong></div>
-              </a>
-              <a href="https://instagram.com/creatifybd" target="_blank" rel="noreferrer" className="clink">
-                <div className="clink-icon">📸</div>
-                <div className="clink-info"><small>Instagram</small><strong>@creatifybd</strong></div>
-              </a>
+          {!fullPage && (
+            <div className="contact-info sr">
+              <div className="eyebrow">{lang === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}</div>
+              <h2 className="section-h">{lang === 'bn' ? <>চলুন <span className="red">দারুণ কিছু</span> করি</> : <>Let's Build <span className="red">Something Great</span></>}</h2>
+              <p>{lang === 'bn' ? 'আপনার প্রজেক্ট নিয়ে আমাদের সাথে কথা বলুন। আমরা আপনার বাজেট এবং ব্যবসার জন্য সঠিক প্ল্যান তৈরি করব।' : 'Have a project in mind? Tell us what you need and we\'ll put together the perfect plan for your business and budget.'}</p>
+              <div className="contact-links">
+                <a href="tel:+8801951676600" className="clink">
+                  <div className="clink-icon">📞</div>
+                  <div className="clink-info"><small>{lang === 'bn' ? 'কল করুন' : 'Call Us'}</small><strong>+880 01951 676600</strong></div>
+                </a>
+                <a href="mailto:creatifybd@gmail.com" className="clink">
+                  <div className="clink-icon">✉️</div>
+                  <div className="clink-info"><small>{lang === 'bn' ? 'ইমেইল' : 'Email'}</small><strong>creatifybd@gmail.com</strong></div>
+                </a>
+              </div>
             </div>
-          </div>
-          <div className="contact-form-card sr sr-delay-1">
-            <h3>Send Us a Message</h3>
-            <p>We typically respond within a few hours.</p>
+          )}
+          <div className={`contact-form-card sr ${!fullPage ? 'sr-delay-1' : ''}`} style={fullPage ? { maxWidth: '800px', margin: '0 auto' } : {}}>
+            <h3>{lang === 'bn' ? 'আমাদের মেসেজ পাঠান' : 'Send Us a Message'}</h3>
+            <p>{lang === 'bn' ? 'আমরা খুব দ্রুত রিপ্লাই দিয়ে থাকি।' : 'We typically respond within a few hours.'}</p>
             <form onSubmit={handleSubmit}>
               <div className="form-row">
-                <div className="fg"><label>Your Name</label><input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Mohammad Ali" required /></div>
-                <div className="fg"><label>Phone / Email</label><input type="text" name="contact" value={formData.contact} onChange={handleChange} placeholder="01XXXXXXXXX" required /></div>
+                <div className="fg"><label>{lang === 'bn' ? 'আপনার নাম' : 'Your Name'}</label><input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Mohammad Ali" required /></div>
+                <div className="fg"><label>{lang === 'bn' ? 'ফোন / ইমেইল' : 'Phone / Email'}</label><input type="text" name="contact" value={formData.contact} onChange={handleChange} placeholder="01XXXXXXXXX" required /></div>
               </div>
               <div className="fg">
-                <label>Business Name</label>
+                <label>{lang === 'bn' ? 'প্রতিষ্ঠানের নাম' : 'Business Name'}</label>
                 <input type="text" name="business" value={formData.business} onChange={handleChange} placeholder="Your Company Name" />
               </div>
               <div className="fg">
-                <label>Service Needed</label>
+                <label>{lang === 'bn' ? 'সার্ভিস বাছাই করুন' : 'Service Needed'}</label>
                 <select name="service" value={formData.service} onChange={handleChange} required>
-                  <option value="">Select a service...</option>
+                  <option value="">{lang === 'bn' ? 'সিলেক্ট করুন...' : 'Select a service...'}</option>
                   <option>Social Media Management</option>
                   <option>Branding & Logo Design</option>
                   <option>Product Photography</option>
                   <option>Video Production</option>
                   <option>Website Design & Development</option>
-                  <option>Advertising Campaigns</option>
-                  <option>Thumbnail / Poster Design</option>
-                  <option>Multiple Services</option>
                 </select>
               </div>
               <div className="fg">
-                <label>Tell Us About Your Project</label>
-                <textarea name="project" value={formData.project} onChange={handleChange} placeholder="Briefly describe your business and what you need help with..." required></textarea>
+                <label>{lang === 'bn' ? 'প্রজেক্ট সম্পর্কে বিস্তারিত' : 'Tell Us About Your Project'}</label>
+                <textarea name="project" value={formData.project} onChange={handleChange} placeholder="Briefly describe what you need help with..." required></textarea>
               </div>
               <button 
                 type="submit"
@@ -95,11 +88,18 @@ const Contact = () => {
                 style={{ width: '100%', justifyContent: 'center', padding: '0.85rem', fontSize: '0.95rem', borderRadius: '12px', background: submitted ? '#15803d' : '' }}
                 disabled={submitted}
               >
-                {submitted ? "✓ Message Sent! We'll reply soon." : "Send Message →"}
+                {submitted ? (lang === 'bn' ? "✓ মেসেজ পাঠানো হয়েছে!" : "✓ Message Sent!") : (lang === 'bn' ? "মেসেজ পাঠান →" : "Send Message →")}
               </button>
             </form>
           </div>
         </div>
+        {highlight && (
+          <div style={{ marginTop: '3rem', textAlign: 'center' }}>
+            <Link to="/contact" className="btn-outline-red">
+              {lang === 'bn' ? 'সব যোগাযোগের তথ্য' : 'Full Contact Details'}
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

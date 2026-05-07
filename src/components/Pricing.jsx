@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase/config';
 import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore';
 import { observeElements } from '../utils/reveal';
+import { useLanguage } from '../context/LanguageContext';
+import { Link } from 'react-router-dom';
 
-const Pricing = () => {
+const Pricing = ({ highlight = false, fullPage = false }) => {
   const [pricingData, setPricingData] = useState({ social: [], branding: [], web: [], video: [] });
   const [activeTab, setActiveTab] = useState('social');
   const [loading, setLoading] = useState(true);
+  const { lang } = useLanguage();
 
   useEffect(() => {
     const q = query(collection(db, 'pricing'), where('hidden', '==', false), orderBy('order', 'asc'));
@@ -26,6 +29,7 @@ const Pricing = () => {
   if (loading && pricingData.social.length === 0) return <section className="section pricing-section" id="pricing" style={{ minHeight: '400px' }}></section>;
 
   const activePlans = pricingData[activeTab] || [];
+  const displayPlans = highlight ? activePlans.slice(0, 3) : activePlans;
 
   const tabLabels = {
     social: { en: 'Social Media', bn: 'সোশ্যাল মিডিয়া' },
@@ -35,13 +39,15 @@ const Pricing = () => {
   };
 
   return (
-    <section className="section pricing-section" id="pricing">
+    <section className={`section pricing-section ${fullPage ? 'full-page-section' : ''}`} id="pricing">
       <div className="container">
-        <div className="pricing-header sr">
-          <div className="eyebrow" style={{ justifyContent: 'center' }}>{lang === 'bn' ? 'সাশ্রয়ী প্যাকেজ' : 'Pricing'}</div>
-          <h2 className="section-h">{lang === 'bn' ? <>স্বচ্ছ এবং <span className="red">সাশ্রয়ী প্যাকেজসমূহ</span></> : <>Clear, Affordable <span className="red">Packages</span></>}</h2>
-          <p className="section-sub">{lang === 'bn' ? 'কোনো লুকানো খরচ নেই। আপনার ব্যবসার প্রয়োজন অনুযায়ী সঠিক প্যাকেজটি বেছে নিন।' : "No hidden costs. No contracts. Just great work at the right price."}</p>
-        </div>
+        {!fullPage && (
+          <div className="pricing-header sr">
+            <div className="eyebrow" style={{ justifyContent: 'center' }}>{lang === 'bn' ? 'সাশ্রয়ী প্যাকেজ' : 'Pricing'}</div>
+            <h2 className="section-h">{lang === 'bn' ? <>স্বচ্ছ এবং <span className="red">সাশ্রয়ী প্যাকেজসমূহ</span></> : <>Clear, Affordable <span className="red">Packages</span></>}</h2>
+            <p className="section-sub">{lang === 'bn' ? 'কোনো লুকানো খরচ নেই। আপনার ব্যবসার প্রয়োজন অনুযায়ী সঠিক প্যাকেজটি বেছে নিন।' : "No hidden costs. No contracts. Just great work at the right price."}</p>
+          </div>
+        )}
         <div className="pricing-tabs sr">
           {['social', 'branding', 'web', 'video'].map(tab => (
             <button
@@ -55,7 +61,7 @@ const Pricing = () => {
         </div>
 
         <div className="pricebox active sr">
-          {activePlans.map((plan, index) => (
+          {displayPlans.map((plan, index) => (
             <div key={plan.id || index} className={`price-card ${plan.featured ? 'featured' : ''}`}>
               {plan.featured && <div className="popular-badge">{lang === 'bn' ? 'জনপ্রিয়' : 'Most Popular'}</div>}
               <div className="price-tier">{(lang === 'bn' && plan.tier_bn) ? plan.tier_bn : plan.tier}</div>
@@ -68,15 +74,18 @@ const Pricing = () => {
                   : plan.features?.map((feat, i) => <li key={i}>{feat}</li>)
                 }
               </ul>
-              <a href="#contact" className="btn-red price-cta">{lang === 'bn' ? 'শুরু করুন →' : 'Get Started →'}</a>
+              <Link to="/contact" className="btn-red price-cta">{lang === 'bn' ? 'শুরু করুন →' : 'Get Started →'}</Link>
             </div>
           ))}
-          {activePlans.length === 0 && (
-            <div style={{ textAlign: 'center', width: '100%', padding: '2rem', color: 'rgba(255,255,255,0.4)' }}>
-              {lang === 'bn' ? 'এই ক্যাটাগরির প্যাকেজ শীঘ্রই আসছে।' : 'Plans coming soon for this category.'}
-            </div>
-          )}
         </div>
+
+        {highlight && (
+          <div style={{ marginTop: '3rem', textAlign: 'center' }}>
+            <Link to="/pricing" className="btn-outline-red">
+              {lang === 'bn' ? 'সব প্যাকেজ দেখুন' : 'View All Pricing Plans'}
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

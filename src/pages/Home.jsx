@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Clients from '../components/Clients';
 import IntroBand from '../components/IntroBand';
+import CaseStudies from '../components/CaseStudies';
 import Services from '../components/Services';
 import Portfolio from '../components/Portfolio';
 import Process from '../components/Process';
@@ -27,15 +28,8 @@ const Home = () => {
   });
 
   useEffect(() => {
-    // Initial reveal for static sections
     setTimeout(observeElements, 500);
-
-    // Optional: Fetch real-time SEO settings from Firestore
-    const unsub = onSnapshot(collection(db, 'settings'), (snap) => {
-      // SEO logic can be added here
-    });
-
-    return () => unsub();
+    return () => {};
   }, []);
 
   return (
@@ -46,33 +40,32 @@ const Home = () => {
         <meta name="description" content={seo.description} />
         <meta name="keywords" content={seo.keywords} />
         <link rel="canonical" href="https://creatify-bd.web.app" />
-        
-        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://creatify-bd.web.app" />
         <meta property="og:title" content={seo.title} />
         <meta property="og:description" content={seo.description} />
-        <meta property="og:image" content="https://creatify-bd.web.app/og-image.jpg" />
-
-        {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://creatify-bd.web.app" />
-        <meta property="twitter:title" content={seo.title} />
-        <meta property="twitter:description" content={seo.description} />
       </Helmet>
 
       <Navbar />
       <Hero />
-      <Clients />
       <IntroBand />
-      <Services />
-      <Portfolio />
-      <Process />
+      
+      {/* Featured Case Studies - Duck Design Style */}
+      <CaseStudies highlight={true} />
+      
+      <Clients />
+      
+      {/* Highlights for other sections */}
+      <Services highlight={true} />
       <Features />
-      <Pricing />
+      <Portfolio highlight={true} />
+      <Process highlight={true} />
+      <Pricing highlight={true} />
+      
       <Testimonials />
       <CTABand />
-      <Contact />
+      <Contact highlight={true} />
       <Footer />
     </div>
   );
