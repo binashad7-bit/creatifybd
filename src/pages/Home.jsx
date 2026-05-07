@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { db } from '../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import useReveal from '../utils/useReveal';
@@ -19,12 +18,13 @@ import CTABand from '../components/CTABand';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import CustomCursor from '../components/CustomCursor';
+import SEO from '../components/SEO';
 
 const Home = () => {
   const [seo, setSeo] = useState({
-    title: "CreatifyBD — Creative Agency & Digital Marketing in Dhaka, Bangladesh",
-    description: "CreatifyBD is a leading creative agency in Dhaka providing social media marketing, professional photography, web development, and branding services for growth-focused businesses.",
-    keywords: "creative agency dhaka, digital marketing agency bangladesh, social media management dhaka, product photography bangladesh, web development agency dhaka, marketing agency bangladesh, logo design dhaka, creatifybd"
+    title: "Best Creative Agency in Dhaka & Digital Marketing Bangladesh",
+    description: "CreatifyBD is the premier digital marketing and creative agency in Dhaka. We specialize in world-class branding, high-performance web development, and strategic social media marketing.",
+    keywords: "digital marketing agency dhaka, best creative agency bangladesh, social media management dhaka, web design bangladesh, branding agency dhaka, creatifybd"
   });
   const [dataLoaded, setDataLoaded] = useState(false);
 
@@ -47,17 +47,11 @@ const Home = () => {
   return (
     <div className="App">
       <CustomCursor />
-      <Helmet>
-        <title>{seo.title}</title>
-        <meta name="description" content={seo.description} />
-        <meta name="keywords" content={seo.keywords} />
-        <link rel="canonical" href="https://creatify-bd.web.app" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://creatify-bd.web.app" />
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta property="twitter:card" content="summary_large_image" />
-      </Helmet>
+      <SEO 
+        title={seo.title} 
+        description={seo.description} 
+        keywords={seo.keywords}
+      />
 
       <Navbar />
       <Hero />

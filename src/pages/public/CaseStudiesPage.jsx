@@ -9,6 +9,7 @@ import Footer from '../../components/Footer';
 import CustomCursor from '../../components/CustomCursor';
 import '../../styles/CaseStudies.css';
 import { TextReveal, FadeReveal, ImageReveal, ParallaxImage } from '../../components/MotionReveal';
+import SEO from '../../components/SEO';
 
 const caseStudies = [
   {
@@ -275,10 +276,12 @@ const CaseStudiesPage = () => {
   return (
     <div className="premium-cs-page">
       <CustomCursor />
-      <Helmet>
-        <title>Case Studies — CreatifyBD | Digital Strategy & Design</title>
-        <meta name="description" content="A deep dive into 10 world-class case studies from CreatifyBD. Strategic design that redefines industries." />
-      </Helmet>
+      <SEO 
+        title={lang === 'bn' ? 'সাফল্যের আখ্যান — কেস স্টাডিজ' : 'Case Studies | Strategic Design & Digital Impact'} 
+        description="Explore 10 world-class case studies from CreatifyBD. We don't just build websites; we engineer digital experiences that redefine industries and scale brands."
+        keywords="case studies bangladesh, digital strategy case studies, best web design portfolio dhaka, agency impact stories"
+        url="https://creatify-bd.web.app/case-studies"
+      />
       <Navbar />
 
       <header className="premium-cs-header">
