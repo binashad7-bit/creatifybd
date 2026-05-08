@@ -7,6 +7,12 @@ const Hero = () => {
   const { lang } = useLanguage();
   const t = translations[lang].hero;
 
+  return (
+    <section className="hero">
+      <FadeReveal delay={0.2}>
+        <div className="hero-eyebrow">{t.eyebrow}</div>
+      </FadeReveal>
+      
       <TextReveal className="hero-main-title" delay={0.4}>
         <span dangerouslySetInnerHTML={{ __html: t.title }} />
       </TextReveal>
@@ -21,6 +27,7 @@ const Hero = () => {
           <a href="#portfolio" className="btn-outline-dark">{t.cta2}</a>
         </div>
       </FadeReveal>
+
 
       <div className="hero-mockup">
         <ImageReveal delay={0.4}>
