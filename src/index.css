@@ -16,9 +16,17 @@ html { scroll-behavior: smooth; }
   --gray-50: #fafaf8;
   --white: #ffffff;
   --border: #e8e8e4;
-  --font-display: 'Bricolage Grotesque', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
   --font-bn: 'Hind Siliguri', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--black);
 }
 
 body {
@@ -28,7 +36,9 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   cursor: none !important; /* Hide default cursor */
+  letter-spacing: -0.01em;
 }
+
 
 /* ─── CUSTOM CURSOR ─── */
 .custom-cursor-main {
@@ -298,10 +308,10 @@ nav.scrolled .nav-active-pill {
 
 .hero h1 {
   font-family: var(--font-display);
-  font-size: clamp(3.2rem, 8vw, 7.2rem);
+  font-size: clamp(3.2rem, 8.5vw, 7.5rem);
   font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.05em;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
   color: var(--black);
   max-width: 1000px;
   margin-bottom: 0.5rem;
@@ -498,21 +508,21 @@ nav.scrolled .nav-active-pill {
 
 h2.section-h {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
   color: var(--black);
 }
 h2.section-h .red { color: var(--red); }
 
 .section-sub {
-  margin-top: 1rem;
-  font-size: 1rem;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
   color: var(--gray-500);
-  max-width: 480px;
-  line-height: 1.7;
-  font-weight: 300;
+  max-width: 520px;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 /* ─── INTRO BAND ─── */

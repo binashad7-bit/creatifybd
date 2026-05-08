@@ -87,7 +87,7 @@ const Hero = () => {
                   </div>
                 </div>
                 <div className="mock-card span3" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: "'DM Sans',sans-serif" }}>Brand Visibility Growth</div>
+                  <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Brand Visibility Growth</div>
                   <div style={{ flex: 1, height: '4px', background: 'rgba(255,255,255,0.07)', borderRadius: '2px', overflow: 'hidden' }}>
                     <div style={{ width: '74%', height: '100%', background: 'var(--red)', borderRadius: '2px' }}></div>
                   </div>
