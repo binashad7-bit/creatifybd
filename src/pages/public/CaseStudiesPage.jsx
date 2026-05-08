@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
@@ -8,259 +7,145 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CustomCursor from '../../components/CustomCursor';
 import '../../styles/CaseStudies.css';
-import { TextReveal, FadeReveal, ImageReveal, ParallaxImage } from '../../components/MotionReveal';
 import SEO from '../../components/SEO';
 
 const caseStudies = [
   {
-    id: "veldt-co",
-    num: "01",
-    client: "Veldt & Co.",
-    sector: "Luxe Sustainability",
-    tagline: "Conscious Craftsmanship, Redefined.",
-    challenge: "Veldt & Co. had a disconnect between their premium sustainable products and their digital identity. They needed to justify a high-end price point while maintaining an authentic eco-conscious narrative in a cluttered market.",
-    approach: "We engineered an 'Editorial Commerce' experience. By treating every product as a museum piece, we used generous whitespace, earth-toned palettes, and macro-cinematography to tell a story of longevity and soul, rather than just utility.",
+    id: "graphic-design-apex",
+    category: "Graphic Design",
+    client: "Apex Streetwear",
+    title: "Redefining Urban Visual Identity",
     results: [
-      { val: "140%", label: "Revenue Growth" },
-      { val: "22m", label: "Avg Session" },
-      { val: "Top 5", label: "Design Awards" },
+      { val: "+120%", label: "Brand Recall" },
+      { val: "Top 10", label: "Global Trends" }
     ],
-    color: "#E8572A",
-    quote: "They captured the soul of our brand. Our customers now see us as a movement, not just a store.",
-    author: "Marcus Thorne, Founder"
+    imageKey: "apex_hero",
+    color: "#000000"
   },
   {
-    id: "aura-labs",
-    num: "02",
-    client: "Aura Labs",
-    sector: "AI & Healthcare",
-    tagline: "Intelligence with a Human Pulse.",
-    challenge: "Aura Labs' groundbreaking AI tool was masked by a clinical, intimidating interface. Medical professionals found the data hard to trust because the 'black box' of AI logic wasn't transparently communicated.",
-    approach: "We implemented a 'Glassmorphic' UI system focusing on 'Visual Logic.' By using depth, transparency, and subtle motion, we made complex diagnostic paths feel intuitive, fostering trust between doctor and machine.",
-    results: [
-      { val: "65%", label: "Time Saved" },
-      { val: "92%", label: "Trust Index" },
-      { val: "$1.2M", label: "Series A" },
-    ],
-    color: "#6366F1",
-    quote: "They took complex algorithms and turned them into a tool doctors love. Design is now our biggest advantage.",
-    author: "Dr. Elena Vance, CTO"
-  },
-  {
-    id: "lumina-watch",
-    num: "03",
-    client: "Lumina Watchmaking",
-    sector: "High Horology",
-    tagline: "The Architecture of Time.",
-    challenge: "Boutique watchmakers often struggle against heritage brands. Lumina needed to showcase the 'tactile luxury' of their movements that traditional photography simply couldn't capture.",
-    approach: "We pioneered a hybrid approach of 8K macro-cinematography and 3D digital twins. We dissected the watch in mid-air via interactive web components, allowing users to feel the precision of 200+ moving parts.",
-    results: [
-      { val: "3.5M", label: "Global Reach" },
-      { val: "210%", label: "Pre-orders" },
-      { val: "58%", label: "Social Lift" },
-    ],
-    color: "#B45309",
-    quote: "The 3D visuals were so realistic that clients were trying to touch their screens. Truly world-class.",
-    author: "Julian Mercer, Creative Lead"
-  },
-  {
-    id: "nomad-brews",
-    num: "04",
-    client: "Nomad Brews",
-    sector: "Artisanal Lifestyle",
-    tagline: "Culture, Poured into Every Cup.",
-    challenge: "Expanding from an indie shop to a regional chain often kills 'soul.' Nomad needed a brand system that felt hyper-local in every city while maintaining a globally recognizable aesthetic.",
-    approach: "We developed a 'Modular Identity'—a visual language that adapts its DNA to local architecture and street art. We overhauled their social presence to focus on the 'Third Space' lifestyle, building a tribe of 45k+ digital nomads.",
-    results: [
-      { val: "12", label: "Cities Opened" },
-      { val: "45k", label: "New Tribe" },
-      { val: "30%", label: "Footfall" },
-    ],
-    color: "#78350F",
-    quote: "They didn't just give us a logo; they gave us a culture. Every shop feels like it has always belonged.",
-    author: "Sarah Chen, CEO"
-  },
-  {
-    id: "vertex-fintech",
-    num: "05",
-    client: "Vertex FinTech",
-    sector: "Digital Economy",
-    tagline: "Finance, but make it personal.",
-    challenge: "Vertex felt like 'just another bank.' They were losing younger users to platforms that felt more 'human' and less 'transactional.'",
-    approach: "We redesigned the banking experience around 'Micro-wins.' We replaced cold numbers with progress-driven animations and a neon-dark aesthetic that feels more like a gaming ecosystem than a ledger.",
-    results: [
-      { val: "500k", label: "New Users" },
-      { val: "4.8", label: "App Rating" },
-      { val: "75%", label: "Retention" },
-    ],
-    color: "#2DD4BF",
-    quote: "They understood that banking is emotional. They made money management feel like a game you want to win.",
-    author: "Rashed Ahmed, Product Head"
-  },
-  {
-    id: "solis-energy",
-    num: "06",
-    client: "Solis Energy",
-    sector: "Renewable Tech",
-    tagline: "The Future of Power, Visualized.",
-    challenge: "Solis's technical spec-heavy communication was boring investors. They needed to pivot from 'solar panels' to 'visionary energy infrastructure.'",
-    approach: "We produced a cinematic brand film titled 'The First Light,' using drone-led CG overlays to visualize energy grids. We positioned them as the 'Tesla of Solar' through a Sun-Gold and Deep-Blue brand overhaul.",
-    results: [
-      { val: "3", label: "National Wins" },
-      { val: "1.5M", label: "Video Views" },
-      { val: "Global", label: "Innovation Award" },
-    ],
-    color: "#EAB308",
-    quote: "Our pitches used to be about wires. Now they are about the future of our children. A massive shift.",
-    author: "Robert Glass, VP of Sales"
-  },
-  {
-    id: "kyber-sec",
-    num: "07",
-    client: "Kyber Security",
-    sector: "Cybersecurity",
-    tagline: "Quiet Strength for a Loud World.",
-    challenge: "In an industry of fear, Kyber wanted to stand for peace. They needed to look impenetrable yet modern, avoiding the 'scare-tactics' tropes of their competitors.",
-    approach: "We used Brutalist digital architecture—heavy, monolithic 3D shapes and a Ruby-Red palette. The web experience feels like descending into a high-security vault, making 'safety' a tangible aesthetic experience.",
+    id: "marketing-luxe",
+    category: "Digital Marketing",
+    client: "Luxe Real Estate",
+    title: "400% Lead Growth via Targeted Funnels",
     results: [
       { val: "400%", label: "Lead Growth" },
-      { val: "Top 1%", label: "Design Rank" },
-      { val: "14", label: "Mega Partners" },
+      { val: "3.5x", label: "ROAS" }
     ],
-    color: "#F43F5E",
-    quote: "They made security look cool. Our clients don't just feel safe; they feel like they have the best tech.",
-    author: "Samiul Haque, CEO"
+    imageKey: "luxe_hero",
+    color: "#D4AF37"
   },
   {
-    id: "echo-skincare",
-    num: "08",
-    client: "Echo Skincare",
-    sector: "Clean Beauty",
-    tagline: "Nature's Rhythm, Amplified.",
-    challenge: "Echo's superior ingredients were hidden behind pharmacy-grade packaging. They weren't winning the 'shelf-war' in luxury boutiques or the 'feed-war' on Instagram.",
-    approach: "We designed a soft-touch packaging system with light-refractive holographic labels. We launched a 'Zero-Retouch' campaign, building a high-trust community through science-backed, artistic social content.",
+    id: "web-design-finflow",
+    category: "Website Design",
+    client: "FinFlow SaaS",
+    title: "Crafting a High-Conversion SaaS Experience",
     results: [
-      { val: "48h", label: "Sold Out" },
-      { val: "50k+", label: "Organic Growth" },
-      { val: "85%", label: "Repurchase" },
+      { val: "65%", label: "Conversion Lift" },
+      { val: "0.8s", label: "Load Time" }
     ],
-    color: "#EC4899",
-    quote: "The packaging is so beautiful people are keeping the boxes. Our digital presence now matches our quality.",
-    author: "Tania Rahman, Founder"
+    imageKey: "finflow_hero",
+    color: "#6366F1"
   },
   {
-    id: "arcane-spirits",
-    num: "09",
-    client: "Arcane Spirits",
-    sector: "Ultra-Premium Beverage",
-    tagline: "The Mystery of the Midnight Pour.",
-    challenge: "Launching a limited reserve requires mystery, not just ads. Arcane needed to create a 'Secret Society' feel to drive high-value pre-orders.",
-    approach: "We built a password-protected digital gateway hidden behind cryptic social teasers. The visuals used 'Chiaroscuro' lighting—deep shadows and golden highlights—to emphasize rarity and craft.",
+    id: "video-editing-velocity",
+    category: "Video Editing",
+    client: "Velocity Sports",
+    title: "Cinematic Content: 2M+ Organic Views",
     results: [
-      { val: "100%", label: "Allocation Filled" },
-      { val: "2.4M", label: "Impressions" },
-      { val: "$250k+", label: "Pre-Launch Revenue" },
+      { val: "2.2M", label: "Organic Views" },
+      { val: "85%", label: "Watch Time" }
     ],
-    color: "#8B5CF6",
-    quote: "For luxury, what you don't show is as important as what you do. The mystery was our best salesperson.",
-    author: "Arthur Sterling, Brand Mgr"
+    imageKey: "velocity_hero",
+    color: "#E8192C"
   },
   {
-    id: "zenith-aviation",
-    num: "10",
-    client: "Zenith Aviation",
-    sector: "Private Aviation",
-    tagline: "Seamless Luxury, Above the Clouds.",
-    challenge: "Zenith's booking platform felt like a standard airline site. Their UHNW clients expected a digital experience as bespoke as their private cabin service.",
-    approach: "We built a 'Frictionless Luxury' portal with conversational AI and high-fidelity 3D jet tours. No forms, no friction—just a 'Midnight Blue' and 'Cloud White' interface optimized for elite global travel.",
+    id: "branding-ecosphere",
+    category: "Branding Design",
+    client: "EcoSphere Tech",
+    title: "Building a Sustainable Global Legacy",
     results: [
-      { val: "45%", label: "Booking Lift" },
-      { val: "Top 5", label: "Travel Awards" },
-      { val: "$50k+", label: "Avg Transaction" },
+      { val: "Series B", label: "Funding Secured" },
+      { val: "Global", label: "Impact Award" }
     ],
-    color: "#1E3A8A",
-    quote: "Finally, a site that understands our clients. Fast, beautiful, and discreet. The digital equivalent of first class.",
-    author: "Capt. Victor Thorne, Director"
+    imageKey: "ecosphere_hero",
+    color: "#10B981"
+  },
+  {
+    id: "marketing-nexus",
+    category: "Digital Marketing",
+    client: "Nexus E-commerce",
+    title: "Scaling a Fashion Startup to $1M ARR",
+    results: [
+      { val: "$1M+", label: "Annual Revenue" },
+      { val: "250k", label: "Active Users" }
+    ],
+    imageKey: "nexus_hero",
+    color: "#EC4899"
+  },
+  {
+    id: "web-design-quantum",
+    category: "Website Design",
+    client: "Quantum Robotics",
+    title: "Futuristic Portal for Deep Tech Innovation",
+    results: [
+      { val: "92%", label: "Trust Index" },
+      { val: "14", label: "Industry Awards" }
+    ],
+    imageKey: "quantum_hero",
+    color: "#8B5CF6"
+  },
+  {
+    id: "graphic-design-vibe",
+    category: "Graphic Design",
+    client: "Vibe Beverage Co.",
+    title: "Minimalist Packaging for a Gen-Z Audience",
+    results: [
+      { val: "100%", label: "Retail Uptake" },
+      { val: "50k", label: "Social Shares" }
+    ],
+    imageKey: "vibe_hero",
+    color: "#F59E0B"
   }
 ];
 
-const CaseStudyItem = ({ cs, index, images }) => {
-  const isOdd = index % 2 !== 0;
-  const csImages = images[cs.id] || {};
+const categories = ["All", "Graphic Design", "Digital Marketing", "Website Design", "Video Editing", "Branding Design"];
 
+const CaseStudyCard = ({ study, image }) => {
   return (
-    <div 
-      className="premium-cs-item"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: isOdd ? '1.5fr 1fr' : '1fr 1.5fr',
-        gap: '10%',
-        padding: '15vh 10%',
-        borderBottom: '1px solid rgba(0,0,0,0.08)'
-      }}
+    <motion.div 
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="cs-card-wrapper"
     >
-      <div className="cs-sticky-info" style={{ order: isOdd ? 2 : 1 }}>
-        <FadeReveal delay={0.2}>
-          <div className="cs-num-badge" style={{ border: `1px solid ${cs.color}40`, color: cs.color }}>
-            {cs.num} — {cs.sector}
-          </div>
-        </FadeReveal>
-        
-        <TextReveal className="cs-hero-title">
-          {cs.client}
-        </TextReveal>
-
-        <FadeReveal delay={0.4}>
-          <h3 className="cs-tagline" style={{ color: cs.color }}>{cs.tagline}</h3>
-        </FadeReveal>
-
-        <div className="cs-narrative-box">
-          <div className="cs-narrative-section">
-            <span className="cs-sec-head">Challenge</span>
-            <p className="cs-sec-body">{cs.challenge}</p>
-          </div>
-          <div className="cs-narrative-section">
-            <span className="cs-sec-head">Strategic Narrative</span>
-            <p className="cs-sec-body">{cs.approach}</p>
-          </div>
-        </div>
-
-        <div className="cs-metrics-staggered">
-          {cs.results.map((r, i) => (
-            <div key={i} className="cs-metric-pill" style={{ borderColor: `${cs.color}30` }}>
-              <div className="cs-metric-val" style={{ color: cs.color }}>{r.val}</div>
-              <div className="cs-metric-lab">{r.label}</div>
+      <div className="cs-card-visual">
+        <div className="cs-card-tag">{study.category}</div>
+        {image ? (
+          <img src={image} alt={study.title} className="cs-card-img" />
+        ) : (
+          <div className="cs-placeholder-luxury">Project Showcase</div>
+        )}
+        <div className="cs-results-overlay">
+          {study.results.map((res, i) => (
+            <div key={i} className="cs-overlay-item">
+              <span className="cs-overlay-val">{res.val}</span>
+              <span className="cs-overlay-lab">{res.label}</span>
             </div>
           ))}
         </div>
-
-        <div className="cs-quote-wrap" style={{ borderLeftColor: cs.color }}>
-          <p className="cs-quote-text">"{cs.quote}"</p>
-          <cite className="cs-quote-author" style={{ color: cs.color }}>— {cs.author}</cite>
-        </div>
       </div>
-
-      <div className="cs-visual-scroll" style={{ order: isOdd ? 1 : 2 }}>
-        <div className="cs-parallax-slot">
-          {csImages.heroUrl ? (
-            <ParallaxImage src={csImages.heroUrl} alt={`${cs.client} hero`} className="cs-large-img" />
-          ) : (
-            <div className="cs-placeholder-luxury">Visual Masterpiece Pending</div>
-          )}
-        </div>
-        <div className="cs-parallax-slot secondary">
-          {csImages.resultUrl ? (
-            <ParallaxImage src={csImages.resultUrl} alt={`${cs.client} result`} className="cs-large-img" />
-          ) : (
-            <div className="cs-placeholder-luxury">Strategic Outcome Pending</div>
-          )}
-        </div>
+      <div className="cs-card-info">
+        <span className="cs-card-client">{study.client}</span>
+        <h3 className="cs-card-title">{study.title}</h3>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const CaseStudiesPage = () => {
+  const [activeFilter, setActiveFilter] = useState("All");
   const [images, setImages] = useState({});
   const { lang } = useLanguage();
 
@@ -273,51 +158,83 @@ const CaseStudiesPage = () => {
     return () => unsub();
   }, []);
 
+  const filteredStudies = useMemo(() => {
+    if (activeFilter === "All") return caseStudies;
+    return caseStudies.filter(s => s.category === activeFilter);
+  }, [activeFilter]);
+
   return (
     <div className="premium-cs-page">
       <CustomCursor />
       <SEO 
-        title={lang === 'bn' ? 'সাফল্যের আখ্যান — কেস স্টাডিজ' : 'Case Studies | Strategic Design & Digital Impact'} 
-        description="Explore 10 world-class case studies from CreatifyBD. We don't just build websites; we engineer digital experiences that redefine industries and scale brands."
-        keywords="case studies bangladesh, digital strategy case studies, best web design portfolio dhaka, agency impact stories"
+        title={lang === 'bn' ? 'সাফল্যের আখ্যান — কেস স্টাডিজ' : 'Our Case Studies | Strategic Impact & Creative Excellence'} 
+        description="Discover how CreatifyBD delivers measurable growth for global brands through strategic design, performance marketing, and cutting-edge web experiences."
+        keywords="case studies, web design portfolio, digital marketing results, branding success stories"
         url="https://creatify-bd.web.app/case-studies"
       />
       <Navbar />
 
       <header className="premium-cs-header">
-        <FadeReveal>
-          <div className="eyebrow" style={{ color: 'var(--red)', letterSpacing: '0.5em' }}>Selected Works</div>
-        </FadeReveal>
-        <TextReveal className="premium-cs-h1">
-          {lang === 'bn' ? 'সাফল্যের আখ্যান' : 'Impact. Made.'}
-        </TextReveal>
-        <FadeReveal delay={0.4}>
-          <p className="premium-cs-sub">
-            Explore 10 masterpieces where strategy meets absolute creativity. We don't just build websites; we engineer digital experiences that redefine industries and scale brands.
-          </p>
-        </FadeReveal>
-        <div className="cs-header-scroll-hint">
-          <div className="cs-mouse"><div className="cs-wheel"></div></div>
-          <span>Scroll to explore</span>
+        <motion.span 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="eyebrow" 
+          style={{ color: 'var(--cs-accent)' }}
+        >
+          {lang === 'bn' ? 'নির্বাচিত কাজ' : 'Selected Impact'}
+        </motion.span>
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="premium-cs-h1"
+        >
+          {lang === 'bn' ? 'সাফল্যের আখ্যান' : 'Real Results. Real Impact.'}
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="premium-cs-sub"
+        >
+          {lang === 'bn' 
+            ? 'আমরা কেবল ডিজাইন করি না, আমরা এমন ডিজিটাল অভিজ্ঞতা তৈরি করি যা ব্যবসার প্রবৃদ্ধি নিশ্চিত করে।' 
+            : "We don't just create visuals; we engineer digital experiences that drive measurable growth and redefine industry standards."}
+        </motion.p>
+
+        <div className="cs-filter-bar">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              className={`filter-chip ${activeFilter === cat ? 'active' : ''}`}
+              onClick={() => setActiveFilter(cat)}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </header>
 
-      <div className="premium-cs-container">
-        {caseStudies.map((cs, idx) => (
-          <CaseStudyItem key={cs.id} cs={cs} index={idx} images={images} />
-        ))}
+      <div className="premium-cs-grid">
+        <AnimatePresence mode="popLayout">
+          {filteredStudies.map((study) => (
+            <CaseStudyCard 
+              key={study.id} 
+              study={study} 
+              image={images[study.id]?.heroUrl} 
+            />
+          ))}
+        </AnimatePresence>
       </div>
 
       <section className="premium-cs-cta">
-        <div className="container">
-          <TextReveal className="cs-cta-big">
-            READY TO BE <span className="stroke">THE NEXT?</span>
-          </TextReveal>
-          <FadeReveal delay={0.4}>
-            <p className="cs-cta-text" style={{ fontSize: '1.5rem', marginBottom: '4rem' }}>Let's build your brand's next strategic masterpiece together.</p>
-            <a href="/contact" className="btn-huge-red">Start Consultation →</a>
-          </FadeReveal>
-        </div>
+        <h2 className="cs-cta-big">
+          Ready to Scale <br />
+          <span style={{ color: 'var(--cs-accent)' }}>Your Brand?</span>
+        </h2>
+        <a href="/contact" className="btn-huge-dark">
+          {lang === 'bn' ? 'পরামর্শ শুরু করুন →' : 'Start Your Project →'}
+        </a>
       </section>
 
       <Footer />
@@ -326,3 +243,4 @@ const CaseStudiesPage = () => {
 };
 
 export default CaseStudiesPage;
+
