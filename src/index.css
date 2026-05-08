@@ -698,11 +698,20 @@ h2.section-h .red { color: var(--red); }
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .wk-section {
-  background: #080808;
+  background: var(--section-bg);
   position: relative;
   padding: 7rem 0 6rem;
   overflow: hidden;
 }
+
+.dark-section .wk-loading-dots span {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.wk-loading-dots span {
+  background: rgba(0, 0, 0, 0.1);
+}
+
 
 /* Subtle noise grain overlay */
 .wk-grain {
@@ -760,7 +769,7 @@ h2.section-h .red { color: var(--red); }
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: var(--section-subtext);
   margin-bottom: 1.5rem;
 }
 .wk-eyebrow-dot {
@@ -779,7 +788,7 @@ h2.section-h .red { color: var(--red); }
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.05;
-  color: var(--white);
+  color: var(--section-text);
   margin-bottom: 2.5rem;
 }
 .wk-heading-line { display: block; }
@@ -803,13 +812,13 @@ h2.section-h .red { color: var(--red); }
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 800;
-  color: white;
+  color: var(--section-text);
   line-height: 1;
   letter-spacing: -0.04em;
 }
 .wk-stat span {
   font-size: 0.72rem;
-  color: rgba(255,255,255,0.35);
+  color: var(--section-subtext);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 500;

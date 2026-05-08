@@ -126,9 +126,34 @@ const Overview = () => {
       ];
       for (const pr of pricing) await addDoc(collection(db, 'pricing'), pr);
 
-      alert('Demo data seeded successfully! All sections are now live.');
+      // Seed Settings
+      await setDoc(doc(db, 'settings', 'site'), {
+        site_name: 'CreatifyBD',
+        site_title: 'Digital Marketing & Creative Agency in Dhaka',
+        primary_color: '#E8192C',
+        secondary_color: '#a8101e',
+        lang: 'en'
+      }, { merge: true });
+
+      await setDoc(doc(db, 'settings', 'content'), {
+        hero: {
+          theme: 'light',
+          eyebrow: 'BD BASED IN DHAKA, BANGLADESH',
+          title: 'Your Creative Partner for Digital <span class="wavy-text">Growth</span>',
+          desc: 'Affordable, high-quality digital marketing for startups & small businesses.',
+          cta1: 'Start a Project',
+          cta2: 'See Our Work'
+        },
+        process: { theme: 'light' },
+        contact: { theme: 'light' }
+      }, { merge: true });
+
+      alert('Demo data seeded successfully! All sections and settings are now live.');
       window.location.reload();
-    } catch (err) { alert('Seeding failed: ' + err.message); }
+    } catch (err) { 
+      console.error(err);
+      alert('Seeding failed: ' + err.message); 
+    }
   };
 
   useEffect(() => {

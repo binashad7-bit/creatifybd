@@ -147,7 +147,7 @@ function WorkCard({ item, onClick }) {
 }
 
 // ── Main Component ────────────────────────────────────────────────────────────
-const Portfolio = ({ highlight = false, fullPage = false }) => {
+const Portfolio = ({ highlight = false, fullPage = false, theme = 'light' }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('all');
@@ -195,7 +195,7 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
 
   if (loading && items.length === 0) {
     return (
-      <section className="wk-section" id="portfolio">
+      <section className={`wk-section ${theme === 'dark' ? 'dark-section' : ''}`} id="portfolio">
         <div className="wk-loading"><div className="wk-loading-dots"><span/><span/><span/></div></div>
       </section>
     );
@@ -203,7 +203,8 @@ const Portfolio = ({ highlight = false, fullPage = false }) => {
 
   return (
     <>
-      <section className={`wk-section ${fullPage ? 'full-page-section' : ''}`} id="portfolio">
+      <section className={`wk-section ${fullPage ? 'full-page-section' : ''} ${theme === 'dark' ? 'dark-section' : ''}`} id="portfolio">
+
         {!fullPage && <div className="wk-grain" aria-hidden="true" />}
         <div className="wk-inner">
           {!fullPage && (

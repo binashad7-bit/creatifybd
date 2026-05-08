@@ -29,7 +29,7 @@ const SettingsManager = () => {
   const [settings, setSettings] = useState(defaultSettings);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(null); // name of field being uploaded
+  const [uploading, setUploading] = useState(defaultSettings); // name of field being uploaded
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -38,6 +38,8 @@ const SettingsManager = () => {
         const snap = await getDoc(ref);
         if (snap.exists()) {
           setSettings({ ...defaultSettings, ...snap.data() });
+        } else {
+          setSettings(defaultSettings);
         }
       } catch (err) {
         toast.error('Failed to load settings.');

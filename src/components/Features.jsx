@@ -1,14 +1,15 @@
 import React from 'react';
 
-const Features = () => {
+const Features = ({ theme = 'light' }) => {
   return (
-    <section className="section features-section" id="why">
+    <section className={`section features-section ${theme === 'dark' ? 'dark-section' : ''}`} id="why">
       <div className="container">
         <div className="features-grid">
           <div>
             <div className="eyebrow sr">Why CreatifyBD</div>
             <h2 className="section-h sr sr-delay-1">Built for <span className="red">Bangladesh.</span><br />Built for Growth.</h2>
-            <p className="section-sub sr sr-delay-1">We're not just another agency. We understand the local market deeply and we're obsessed with your results.</p>
+            <p className="section-sub sr sr-delay-1" style={{ color: 'var(--section-subtext)' }}>We're not just another agency. We understand the local market deeply and we're obsessed with your results.</p>
+
             <div className="feature-list" style={{ marginTop: '2.5rem' }}>
               <div className="feature-item sr">
                 <div className="feature-icon-wrap">🎯</div>

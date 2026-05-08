@@ -24,6 +24,8 @@ export const SettingsProvider = ({ children }) => {
            document.documentElement.style.setProperty('--red-dark', data.secondary_color);
         }
       }
+    }, (err) => {
+      console.error("Settings Fetch Error:", err);
     });
 
     // Listen to section content (Hero, Process, etc.)
@@ -32,7 +34,11 @@ export const SettingsProvider = ({ children }) => {
         setContent(snap.data());
       }
       setLoading(false);
+    }, (err) => {
+      console.error("Content Fetch Error:", err);
+      setLoading(false);
     });
+
 
     return () => {
       unsubSettings();

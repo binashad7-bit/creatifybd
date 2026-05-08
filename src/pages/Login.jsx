@@ -17,8 +17,16 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/admin');
     } catch (err) {
-      setError('Invalid credentials. Please try again.');
+      console.error("Login error:", err);
+      if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        setError('Invalid email or password.');
+      } else if (err.code === 'auth/too-many-requests') {
+        setError('Too many failed attempts. Please try again later.');
+      } else {
+        setError(err.message || 'Login failed. Please check your connection.');
+      }
     }
+
   };
 
   return (

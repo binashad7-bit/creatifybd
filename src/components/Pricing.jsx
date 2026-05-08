@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
 import { TextReveal, FadeReveal, StaggerReveal } from './MotionReveal';
 
-const Pricing = ({ highlight = false, fullPage = false }) => {
+const Pricing = ({ highlight = false, fullPage = false, theme = 'light' }) => {
   const [pricingData, setPricingData] = useState({ social: [], branding: [], web: [], video: [] });
   const [activeTab, setActiveTab] = useState('social');
   const [loading, setLoading] = useState(true);
@@ -42,7 +42,7 @@ const Pricing = ({ highlight = false, fullPage = false }) => {
   };
 
   return (
-    <section className={`section pricing-section ${fullPage ? 'full-page-section' : ''}`} id="pricing">
+    <section className={`section pricing-section ${fullPage ? 'full-page-section' : ''} ${theme === 'dark' ? 'dark-section' : ''}`} id="pricing">
       <div className="container">
         {!fullPage && (
           <div className="pricing-header text-center">
@@ -53,10 +53,13 @@ const Pricing = ({ highlight = false, fullPage = false }) => {
               {lang === 'bn' ? 'স্বচ্ছ প্যাকেজসমূহ' : 'Transparent Pricing'}
             </TextReveal>
             <FadeReveal delay={0.4}>
-              <p className="section-sub">{lang === 'bn' ? 'কোনো লুকানো খরচ নেই। আপনার ব্যবসার প্রয়োজন অনুযায়ী সঠিক প্যাকেজটি বেছে নিন।' : "No hidden costs. No contracts. Just great work at the right price."}</p>
+              <p className="section-sub" style={{ color: 'var(--section-subtext)' }}>
+                {lang === 'bn' ? 'কোনো লুকানো খরচ নেই। আপনার ব্যবসার প্রয়োজন অনুযায়ী সঠিক প্যাকেজটি বেছে নিন।' : "No hidden costs. No contracts. Just great work at the right price."}
+              </p>
             </FadeReveal>
           </div>
         )}
+
         <FadeReveal delay={0.5}>
           <div className="pricing-tabs">
             {['social', 'branding', 'web', 'video'].map(tab => (
