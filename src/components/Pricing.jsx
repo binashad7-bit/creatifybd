@@ -45,7 +45,7 @@ const Pricing = ({ highlight = false, fullPage = false }) => {
     <section className={`section pricing-section ${fullPage ? 'full-page-section' : ''}`} id="pricing">
       <div className="container">
         {!fullPage && (
-          <div className="pricing-header">
+          <div className="pricing-header text-center">
             <FadeReveal>
               <div className="eyebrow" style={{ justifyContent: 'center' }}>{lang === 'bn' ? 'সাশ্রয়ী প্যাকেজ' : 'Pricing'}</div>
             </FadeReveal>

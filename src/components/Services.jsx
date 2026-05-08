@@ -29,7 +29,7 @@ const Services = ({ highlight = false, fullPage = false }) => {
     <section className={`section services-section ${fullPage ? 'full-page-section' : ''}`} id="services" style={{ background: '#fff' }}>
       <div className="container">
         {!fullPage && (
-          <div className="services-header" style={{ marginBottom: '6rem', textAlign: 'center' }}>
+          <div className="services-header text-center" style={{ marginBottom: '6rem' }}>
             <FadeReveal>
               <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>{lang === 'bn' ? 'আমরা যা অফার করি' : 'Our Expertise'}</div>
             </FadeReveal>
