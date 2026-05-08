@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { TextReveal, ImageReveal, FadeReveal, StaggerReveal } from './MotionReveal';
+import OptimizedImage from './OptimizedImage';
 
 const CATS = [
   { key: 'all', label: 'All Work', label_bn: 'সব কাজ' },
@@ -65,10 +66,11 @@ function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
         animate={{ scale: 1, opacity: 1 }}
         className="pf-lb-content"
       >
-        <img 
+        <OptimizedImage 
           src={item.imageUrl || item.image || item.imgUrl || item.img || item.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
           alt={item.title} 
           className="pf-lb-img" 
+          priority={true}
         />
         <div className="pf-lb-meta">
           <span className="pf-lb-cat">{CAT_DISPLAY[item.category] || item.category}</span>
@@ -122,11 +124,10 @@ function WorkCard({ item, onClick }) {
       >
         <div className="wk-card-img-wrap">
           <ImageReveal>
-            <img 
+            <OptimizedImage 
               src={item.imageUrl || item.image || item.imgUrl || item.img || item.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
               alt={item.title} 
               className="wk-card-img" 
-              loading="lazy"
             />
           </ImageReveal>
           <div className="wk-card-overlay">

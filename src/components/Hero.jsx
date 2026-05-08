@@ -31,7 +31,7 @@ const Hero = () => {
       </FadeReveal>
 
       <div className="hero-mockup">
-        <ImageReveal delay={1.2}>
+        <ImageReveal delay={0.4}>
           <div className="hero-mockup-inner">
             <div className="mock-bar">
               <div className="mock-dot" style={{ background: '#ff5f57' }}></div>

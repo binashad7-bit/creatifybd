@@ -7,6 +7,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CustomCursor from '../../components/CustomCursor';
+import OptimizedImage from '../../components/OptimizedImage';
 import '../../styles/CaseStudies.css';
 import SEO from '../../components/SEO';
 
@@ -124,7 +125,7 @@ const CaseStudyCard = ({ study, image }) => {
         <div className="cs-card-visual">
           <div className="cs-card-tag">{study.category}</div>
           {image ? (
-            <img src={image} alt={study.title} className="cs-card-img" />
+            <OptimizedImage src={image} alt={study.title} className="cs-card-img" />
           ) : (
             <div className="cs-placeholder-luxury">Project Showcase</div>
           )}

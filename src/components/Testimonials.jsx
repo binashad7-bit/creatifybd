@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import { TextReveal, FadeReveal, ImageReveal } from './MotionReveal';
+import OptimizedImage from './OptimizedImage';
 
 const Testimonials = () => {
   const [items, setItems] = useState([]);
@@ -61,7 +62,7 @@ const Testimonials = () => {
 
               <div className="editorial-visual">
                 <div className="editorial-img-wrap">
-                  <img 
+                  <OptimizedImage 
                     src={items[active].imageUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop'} 
                     alt={items[active].name} 
                     className="editorial-img"

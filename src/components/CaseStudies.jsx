@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { ArrowRight } from 'lucide-react';
 import { TextReveal, ImageReveal, FadeReveal } from './MotionReveal';
+import OptimizedImage from './OptimizedImage';
 
 const masterpieces = [
   { id: 'veldt-co', title: 'Veldt & Co.', sector: 'Luxe Sustainability', tagline: 'Conscious Craftsmanship, Redefined.' },
@@ -21,13 +22,17 @@ const ParallaxImage = ({ src, alt }) => {
   });
   const y = useTransform(scrollYProgress, [0, 1], [-50, 50]);
   return (
-    <motion.img 
+    <motion.div 
       ref={ref}
-      src={src} 
-      alt={alt} 
       className="duck-cs-img" 
       style={{ y, scale: 1.15 }} 
-    />
+    >
+      <OptimizedImage 
+        src={src} 
+        alt={alt} 
+        objectFit="cover"
+      />
+    </motion.div>
   );
 };
 
@@ -87,7 +92,7 @@ const CaseStudies = () => {
                   </FadeReveal>
                 </div>
                 <div className="duck-cs-visual">
-                  <ImageReveal delay={0.6}>
+                  <ImageReveal delay={0.2}>
                     <div className="duck-cs-img-wrap">
                       <ParallaxImage src={heroImg} alt={project.title} />
                     </div>

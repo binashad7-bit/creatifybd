@@ -9,6 +9,7 @@ import Footer from '../../components/Footer';
 import CustomCursor from '../../components/CustomCursor';
 import SEO from '../../components/SEO';
 import { useLanguage } from '../../context/LanguageContext';
+import OptimizedImage from '../../components/OptimizedImage';
 import '../../styles/CaseStudies.css';
 
 const CaseStudyDetailPage = () => {
@@ -76,7 +77,11 @@ const CaseStudyDetailPage = () => {
           className="cs-detail-hero-visual"
         >
           {projectImages.heroUrl ? (
-            <img src={projectImages.heroUrl} alt={study.client} />
+            <OptimizedImage 
+              src={projectImages.heroUrl} 
+              alt={study.client} 
+              priority={true}
+            />
           ) : (
             <div className="cs-placeholder-luxury">Strategic Vision</div>
           )}
@@ -117,17 +122,17 @@ const CaseStudyDetailPage = () => {
         <div className="cs-gallery-masonry">
           {projectImages.mobileUrl && (
             <div className="cs-gallery-item mobile">
-              <img src={projectImages.mobileUrl} alt="Mobile View" />
+              <OptimizedImage src={projectImages.mobileUrl} alt="Mobile View" />
             </div>
           )}
           {projectImages.desktopUrl && (
             <div className="cs-gallery-item desktop">
-              <img src={projectImages.desktopUrl} alt="Desktop View" />
+              <OptimizedImage src={projectImages.desktopUrl} alt="Desktop View" />
             </div>
           )}
           {projectImages.brandingUrl && (
             <div className="cs-gallery-item branding">
-              <img src={projectImages.brandingUrl} alt="Branding View" />
+              <OptimizedImage src={projectImages.brandingUrl} alt="Branding View" />
             </div>
           )}
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import OptimizedImage from './OptimizedImage';
 
 /**
  * TextReveal: Animates text word by word using a masked reveal effect.
@@ -140,14 +141,18 @@ export const FadeReveal = ({ children, delay = 0 }) => {
 export const ParallaxImage = ({ src, alt, className = '' }) => {
   return (
     <div className={`parallax-wrap ${className}`} style={{ overflow: 'hidden', width: '100%', height: '100%' }}>
-      <motion.img
-        src={src}
-        alt={alt}
-        style={{ width: '100%', height: '120%', objectFit: 'cover', y: '-10%' }}
+      <motion.div
+        style={{ width: '100%', height: '120%', y: '-10%' }}
         whileInView={{ y: '0%' }}
         transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
         viewport={{ once: false }}
-      />
+      >
+        <OptimizedImage 
+          src={src} 
+          alt={alt} 
+          objectFit="cover"
+        />
+      </motion.div>
     </div>
   );
 };
