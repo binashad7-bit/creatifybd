@@ -23,10 +23,25 @@ export const SettingsProvider = ({ children }) => {
         if (data.secondary_color) {
            document.documentElement.style.setProperty('--red-dark', data.secondary_color);
         }
+
+        // Dynamically update Favicon (title bar icon)
+        if (data.favicon_url) {
+          const selectors = ['link[rel="icon"]', 'link[rel="shortcut icon"]', 'link[rel*="icon"][sizes="32x32"]', 'link[rel*="icon"][sizes="16x16"]'];
+          selectors.forEach(sel => {
+            const el = document.querySelector(sel);
+            if (el) el.href = data.favicon_url;
+          });
+        }
+
+        // Dynamically update browser tab title
+        if (data.seo_title) {
+          document.title = data.seo_title;
+        }
       }
     }, (err) => {
       console.error("Settings Fetch Error:", err);
     });
+
 
     // Listen to section content (Hero, Process, etc.)
     const unsubContent = onSnapshot(doc(db, 'settings', 'content'), (snap) => {
