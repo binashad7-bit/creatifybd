@@ -204,16 +204,18 @@ const CaseStudiesPage = () => {
             : "We don't just create visuals; we engineer digital experiences that drive measurable growth and redefine industry standards."}
         </motion.p>
 
-        <div className="cs-filter-bar">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`filter-chip ${activeFilter === cat ? 'active' : ''}`}
-              onClick={() => setActiveFilter(cat)}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="cs-filter-scroll">
+          <div className="cs-filter-bar">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                className={`filter-chip ${activeFilter === cat ? 'active' : ''}`}
+                onClick={() => setActiveFilter(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 

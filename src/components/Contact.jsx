@@ -23,46 +23,46 @@ const Contact = () => {
   };
 
   return (
-    <section className="contact-premium-section" style={{ background: '#fff', padding: '12rem 0' }}>
+    <section className="contact-premium-section" id="contact">
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '10%', alignItems: 'start' }}>
+        <div className="contact-grid-wrap">
           
           <div className="contact-info-panel">
             <FadeReveal>
               <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>{lang === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}</div>
             </FadeReveal>
-            <TextReveal className="contact-h1" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', fontWeight: 900, color: '#000', lineHeight: 0.9, marginBottom: '3rem' }}>
+            <TextReveal className="contact-h1">
               {lang === 'bn' ? 'আসুন নতুন কিছু তৈরি করি' : "Let's build something great."}
             </TextReveal>
             
             <FadeReveal delay={0.4}>
-              <div className="contact-methods" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', marginTop: '4rem' }}>
-                <div style={{ display: 'flex', gap: '1.5rem' }}>
-                  <div style={{ width: '50px', height: '50px', borderRadius: '12px', background: 'rgba(232, 25, 44, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--red)' }}><MessageSquare size={24} /></div>
+              <div className="contact-methods">
+                <div className="contact-method-item">
+                  <div className="method-icon"><MessageSquare size={24} /></div>
                   <div>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.4, marginBottom: '0.4rem' }}>Email Us</div>
-                    <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#000' }}>hello@creatifybd.com</div>
+                    <div className="method-label">Email Us</div>
+                    <div className="method-val">hello@creatifybd.com</div>
                   </div>
                 </div>
-                <div style={{ display: 'flex', gap: '1.5rem' }}>
-                  <div style={{ width: '50px', height: '50px', borderRadius: '12px', background: 'rgba(232, 25, 44, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--red)' }}><Phone size={24} /></div>
+                <div className="contact-method-item">
+                  <div className="method-icon"><Phone size={24} /></div>
                   <div>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.4, marginBottom: '0.4rem' }}>Call Us</div>
-                    <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#000' }}>+880 1951 676600</div>
+                    <div className="method-label">Call Us</div>
+                    <div className="method-val">+880 1951 676600</div>
                   </div>
                 </div>
-                <div style={{ display: 'flex', gap: '1.5rem' }}>
-                  <div style={{ width: '50px', height: '50px', borderRadius: '12px', background: 'rgba(232, 25, 44, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--red)' }}><MapPin size={24} /></div>
+                <div className="contact-method-item">
+                  <div className="method-icon"><MapPin size={24} /></div>
                   <div>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.4, marginBottom: '0.4rem' }}>Location</div>
-                    <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#000' }}>Dhaka, Bangladesh</div>
+                    <div className="method-label">Location</div>
+                    <div className="method-val">Dhaka, Bangladesh</div>
                   </div>
                 </div>
               </div>
             </FadeReveal>
           </div>
 
-          <div className="contact-form-card" style={{ background: '#fcfcfc', padding: '4rem', borderRadius: '48px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 40px 100px rgba(0,0,0,0.03)' }}>
+          <div className="contact-form-card">
             <AnimatePresence mode="wait">
               {!submitted ? (
                 <motion.form 
@@ -72,11 +72,11 @@ const Contact = () => {
                   exit={{ opacity: 0, scale: 0.95 }}
                   onSubmit={handleSubmit}
                 >
-                  <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '3rem', color: '#000' }}>Start a Discovery Session</h3>
+                  <h3 className="form-title">Start a Discovery Session</h3>
                   
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                  <div className="form-row-2">
                     <div className="form-group">
-                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>What's your name?</label>
+                      <label className="luxury-label">What's your name?</label>
                       <input 
                         type="text" required className="luxury-input" 
                         value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
@@ -84,7 +84,7 @@ const Contact = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>Email Address</label>
+                      <label className="luxury-label">Email Address</label>
                       <input 
                         type="email" required className="luxury-input" 
                         value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})}
@@ -93,9 +93,9 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                  <div className="form-row-2">
                     <div className="form-group">
-                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>Interested In</label>
+                      <label className="luxury-label">Interested In</label>
                       <select 
                         className="luxury-input" required
                         value={formData.service} onChange={e => setFormData({...formData, service: e.target.value})}
@@ -108,7 +108,7 @@ const Contact = () => {
                       </select>
                     </div>
                     <div className="form-group">
-                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>Monthly Budget</label>
+                      <label className="luxury-label">Monthly Budget</label>
                       <select 
                         className="luxury-input" required
                         value={formData.budget} onChange={e => setFormData({...formData, budget: e.target.value})}
@@ -122,8 +122,8 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="form-group" style={{ marginBottom: '2.5rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.6 }}>Tell us about your project</label>
+                  <div className="form-group-full">
+                    <label className="luxury-label">Tell us about your project</label>
                     <textarea 
                       required className="luxury-input" style={{ height: '120px', paddingTop: '1rem' }}
                       value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}
@@ -132,8 +132,7 @@ const Contact = () => {
                   </div>
 
                   <button 
-                    type="submit" disabled={loading} className="btn-huge-red" 
-                    style={{ width: '100%', justifyContent: 'center', border: 'none', cursor: 'pointer' }}
+                    type="submit" disabled={loading} className="btn-huge-red w-full" 
                   >
                     {loading ? 'Initiating...' : 'Send Inquiry'} <Send size={18} style={{ marginLeft: '1rem' }} />
                   </button>
@@ -144,11 +143,10 @@ const Contact = () => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="success-message"
-                  style={{ textAlign: 'center', padding: '4rem 0' }}
                 >
                   <CheckCircle2 size={80} color="var(--red)" style={{ marginBottom: '2rem' }} />
-                  <h3 style={{ fontSize: '2rem', fontWeight: 900, color: '#000', marginBottom: '1rem' }}>Inquiry Received.</h3>
-                  <p style={{ color: 'rgba(0,0,0,0.5)', fontSize: '1.1rem' }}>Our strategy team will review your project and get back to you within 24 hours.</p>
+                  <h3 className="success-title">Inquiry Received.</h3>
+                  <p className="success-desc">Our strategy team will review your project and get back to you within 24 hours.</p>
                   <button onClick={() => setSubmitted(false)} className="btn-red" style={{ marginTop: '2.5rem' }}>Send Another Inquiry</button>
                 </motion.div>
               )}
@@ -158,6 +156,7 @@ const Contact = () => {
         </div>
       </div>
     </section>
+
   );
 };
 

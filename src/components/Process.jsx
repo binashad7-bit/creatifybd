@@ -27,60 +27,46 @@ const Process = ({ highlight = false, fullPage = false }) => {
   ];
 
   return (
-    <section className={`section process-section ${fullPage ? 'full-page-section' : ''}`} id="process" ref={containerRef} style={{ background: '#fff', position: 'relative' }}>
+    <section className={`section process-section ${fullPage ? 'full-page-section' : ''}`} id="process" ref={containerRef}>
       <div className="container">
         {!fullPage && (
-          <div className="process-header" style={{ textAlign: 'center', marginBottom: '8rem' }}>
+          <div className="process-header">
             <FadeReveal>
               <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>{lang === 'bn' ? 'আমাদের কাজের পদ্ধতি' : 'Our Workflow'}</div>
             </FadeReveal>
-            <TextReveal className="section-h" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, color: '#000' }}>
+            <TextReveal className="section-h">
               {lang === 'bn' ? 'নিখুঁত প্রসেস' : 'The Path to Excellence.'}
             </TextReveal>
             <FadeReveal delay={0.4}>
-              <p className="section-sub" style={{ color: 'rgba(0,0,0,0.6)', maxWidth: '600px', margin: '2rem auto' }}>{lang === 'bn' ? 'একটি সুশৃঙ্খল পদ্ধতির মাধ্যমে আমরা আপনার স্বপ্নকে বাস্তবে রূপান্তর করি।' : 'A proven 4-step framework designed to deliver consistent, high-end results with precision.'}</p>
+              <p className="section-sub">{lang === 'bn' ? 'একটি সুশৃঙ্খল পদ্ধতির মাধ্যমে আমরা আপনার স্বপ্নকে বাস্তবে রূপান্তর করি।' : 'A proven 4-step framework designed to deliver consistent, high-end results with precision.'}</p>
             </FadeReveal>
           </div>
         )}
 
-        <div className="timeline-container" style={{ position: 'relative', maxWidth: '1000px', margin: '0 auto' }}>
+        <div className="timeline-container">
           {/* Animated Progress Line */}
-          <div className="timeline-line" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 0, bottom: 0, width: '2px', background: 'rgba(232, 25, 44, 0.05)' }}></div>
+          <div className="timeline-line"></div>
           <motion.div 
             className="timeline-progress" 
             style={{ 
-              position: 'absolute', 
-              left: '50%', 
-              transform: 'translateX(-50%)', 
-              top: 0, 
-              width: '2px', 
-              background: 'var(--red)', 
               scaleY, 
               originY: 0,
-              boxShadow: '0 0 15px rgba(232, 25, 44, 0.3)'
             }}
           ></motion.div>
           
           <div className="timeline-steps">
             {steps.map((step, idx) => (
-              <div key={idx} className="process-step-v2" style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center', 
-                marginBottom: '10rem',
-                flexDirection: idx % 2 === 0 ? 'row' : 'row-reverse',
-                position: 'relative'
-              }}>
-                <div className="process-content-v2" style={{ width: '45%', padding: '3rem', background: '#fff', borderRadius: '32px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 10px 40px rgba(0,0,0,0.02)', position: 'relative' }}>
+              <div key={idx} className={`process-step-v2 ${idx % 2 !== 0 ? 'reverse' : ''}`}>
+                <div className="process-content-v2">
                   <motion.div 
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
                   >
-                    <div className="step-num" style={{ position: 'absolute', top: '-1rem', right: idx % 2 === 0 ? '-1rem' : 'auto', left: idx % 2 !== 0 ? '-1rem' : 'auto', fontSize: '6rem', fontWeight: 900, color: 'rgba(232, 25, 44, 0.05)', zIndex: 0 }}>{step.num}</div>
-                    <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '1.2rem', color: '#000', position: 'relative', zIndex: 1 }}>{step.title}</h3>
-                    <p style={{ color: 'rgba(0,0,0,0.6)', lineHeight: 1.6, fontSize: '1.05rem', position: 'relative', zIndex: 1 }}>{step.desc}</p>
+                    <div className={`step-num ${idx % 2 !== 0 ? 'left' : 'right'}`}>{step.num}</div>
+                    <h3 className="process-step-title">{step.title}</h3>
+                    <p className="process-step-desc">{step.desc}</p>
                   </motion.div>
                 </div>
 
@@ -89,31 +75,16 @@ const Process = ({ highlight = false, fullPage = false }) => {
                   initial={{ scale: 0.5, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
-                  style={{ 
-                    position: 'absolute', 
-                    left: '50%', 
-                    transform: 'translateX(-50%)', 
-                    width: '60px', 
-                    height: '60px', 
-                    background: '#fff', 
-                    border: '2px solid var(--red)', 
-                    borderRadius: '50%', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    fontSize: '1.5rem', 
-                    zIndex: 10,
-                    boxShadow: '0 0 0 10px #fff'
-                  }}
                 >
                   {step.icon}
                 </motion.div>
 
-                <div style={{ width: '45%' }}></div>
+                <div className="process-spacer"></div>
               </div>
             ))}
           </div>
         </div>
+
 
         {highlight && (
           <FadeReveal delay={0.8}>
