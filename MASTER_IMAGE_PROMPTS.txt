@@ -58,7 +58,18 @@ This guide provides high-precision prompts for every visual asset needed to make
 
 ---
 
-## SECTION 3: TESTIMONIAL AVATARS (Place in Firebase or /public/avatars)
+## SECTION 3: SERVICES & EXPERTISE (Icons/Visuals)
+
+1. SOCIAL MEDIA MANAGEMENT: A professional flat lay of multiple high-end smartphones and tablets displaying vibrant, engaging social media analytics and creative content. Modern, tech-focused aesthetic.
+2. BRANDING & LOGO DESIGN: A creative workspace with a high-end monitor showing a vector logo being designed, surrounded by color swatches and typography sketches.
+3. PRODUCT PHOTOGRAPHY: A professional studio setup with high-end cameras, softbox lighting, and a luxury product (like a watch or perfume) being photographed. 
+4. VIDEO PRODUCTION: A cinematic film set with a high-end cinema camera on a gimbal, professional lighting, and a creative director monitoring the shot.
+5. WEBSITE DEVELOPMENT: A clean, minimalist developer desk with dual monitors showing high-quality code (React/JS) and a premium website preview.
+
+---
+
+## SECTION 4: TESTIMONIAL AVATARS
+ (Place in Firebase or /public/avatars)
 
 1. CEO FEMALE (Sarah Jenkins): Professional, friendly portrait of a female CEO in a modern office, 40s, stylish.
 2. FOUNDER MALE (Rahat Ahmed): Young, energetic South Asian entrepreneur in a creative studio, 20s, casual-smart.
