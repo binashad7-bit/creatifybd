@@ -1,6 +1,10 @@
+import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { db, storage } from '../../firebase/config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Globe, Phone, Mail, Share2, AtSign, Search, Save, RefreshCw, Upload, Palette, Image as ImageIcon } from 'lucide-react';
+
 
 const defaultSettings = {
   site_name: 'CreatifyBD',
