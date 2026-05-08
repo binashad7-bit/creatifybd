@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase/config';
-import { collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { getData, addData, updateData, deleteData } from '../../firebase/services';
 import { uploadImage } from '../../utils/imgbb';
 import { Plus, Edit2, Trash2, X, Image as ImageIcon, Upload, Loader2, CloudCheck } from 'lucide-react';
 
@@ -11,19 +10,21 @@ const PortfolioManager = () => {
   const [progress, setProgress] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
-  const [syncing, setSyncing] = useState(false);
   const [formData, setFormData] = useState({ title: '', category: '', imageUrl: '', hidden: false });
 
-  useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'portfolio'), (snap) => {
-      const allItems = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      const sorted = allItems.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
-      setItems(sorted);
+  const fetchItems = async () => {
+    try {
+      const data = await getData('portfolio');
+      setItems(data || []);
+    } catch (err) {
+      // Error handled by service
+    } finally {
       setLoading(false);
-      setSyncing(true);
-      setTimeout(() => setSyncing(false), 2000);
-    });
-    return () => unsub();
+    }
+  };
+
+  useEffect(() => {
+    fetchItems();
   }, []);
 
   const handleFileChange = async (e) => {
@@ -54,21 +55,24 @@ const PortfolioManager = () => {
     if (!formData.imageUrl) return alert('Please upload an image first');
     try {
       if (editingId) {
-        await updateDoc(doc(db, 'portfolio', editingId), formData);
+        await updateData('portfolio', editingId, formData);
       } else {
-        await addDoc(collection(db, 'portfolio'), formData);
+        await addData('portfolio', formData);
       }
       setIsModalOpen(false);
       setEditingId(null);
       setFormData({ title: '', category: '', imageUrl: '', hidden: false });
+      fetchItems(); // Refresh list
     } catch (err) { console.error(err); }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Delete this portfolio item?')) {
-      await deleteDoc(doc(db, 'portfolio', id));
+      await deleteData('portfolio', id);
+      fetchItems(); // Refresh list
     }
   };
+
 
   return (
     <div className="admin-content-wrap">

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { db } from '../firebase/config';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { sendMessage } from '../firebase/services';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2, MessageSquare, Phone, MapPin, Loader2 } from 'lucide-react';
 import { TextReveal, FadeReveal } from './MotionReveal';
@@ -22,7 +21,7 @@ const Contact = ({ theme = 'light' }) => {
     setLoading(true);
     const toastId = toast.loading(lang === 'bn' ? 'পাঠানো হচ্ছে...' : 'Sending your inquiry...');
     try {
-      await addDoc(collection(db, 'messages'), { ...formData, timestamp: serverTimestamp() });
+      await sendMessage(formData);
       setSubmitted(true);
       toast.success(lang === 'bn' ? 'ধন্যবাদ! আমরা শীঘ্রই যোগাযোগ করব।' : 'Success! We will contact you soon.', { id: toastId });
     } catch (err) { 
@@ -31,6 +30,7 @@ const Contact = ({ theme = 'light' }) => {
     }
     setLoading(false);
   };
+
 
   return (
     <section className={`contact-premium-section ${theme === 'dark' ? 'dark-section' : ''}`} id="contact">

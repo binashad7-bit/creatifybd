@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { db } from '../../firebase/config';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-
+import { getSettings, updateSettings } from '../../firebase/services';
+import { uploadImage } from '../../utils/imgbb';
 import { Globe, Phone, Mail, Share2, AtSign, Search, Save, RefreshCw, Upload, Palette, Image as ImageIcon } from 'lucide-react';
-
 
 const defaultSettings = {
   site_name: 'CreatifyBD',
@@ -29,20 +27,17 @@ const SettingsManager = () => {
   const [settings, setSettings] = useState(defaultSettings);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(defaultSettings); // name of field being uploaded
+  const [uploading, setUploading] = useState(null);
 
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const ref = doc(db, 'settings', 'site');
-        const snap = await getDoc(ref);
-        if (snap.exists()) {
-          setSettings({ ...defaultSettings, ...snap.data() });
-        } else {
-          setSettings(defaultSettings);
+        const data = await getSettings('site');
+        if (data) {
+          setSettings({ ...defaultSettings, ...data });
         }
       } catch (err) {
-        toast.error('Failed to load settings.');
+        // Error handled by service
       } finally {
         setLoading(false);
       }
@@ -58,42 +53,32 @@ const SettingsManager = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Logos are small, so we use Base64 to bypass Storage billing/verification issues
     setUploading(fieldName);
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = async () => {
-      const base64String = reader.result;
-      try {
-        // Save to state first
-        const updatedSettings = { ...settings, [fieldName]: base64String };
-        setSettings(updatedSettings);
-        
-        // Also save to Firestore immediately for this field
-        await setDoc(doc(db, 'settings', 'site'), { [fieldName]: base64String }, { merge: true });
-        
-        toast.success(`${fieldName.replace('_', ' ')} updated!`);
-      } catch (err) {
-        console.error(err);
-        toast.error('Failed to save image.');
-      } finally {
-        setUploading(null);
-      }
-    };
-    reader.onerror = () => {
-      toast.error('File reading failed.');
+    try {
+      // Use ImgBB for all uploads as requested. Smart compression is handled in the utility.
+      const downloadURL = await uploadImage(file);
+      
+      const updatedSettings = { ...settings, [fieldName]: downloadURL };
+      setSettings(updatedSettings);
+      
+      await updateSettings({ [fieldName]: downloadURL }, 'site');
+      toast.success(`${fieldName.replace('_', ' ')} updated!`);
+    } catch (err) {
+      console.error(err);
+      toast.error('Upload failed. Please try again.');
+    } finally {
       setUploading(null);
-    };
+    }
   };
 
 
   const handleSave = async () => {
     setSaving(true);
     try {
-      await setDoc(doc(db, 'settings', 'site'), settings, { merge: true });
+      await updateSettings(settings, 'site');
       toast.success('Settings saved successfully!');
     } catch (err) {
-      toast.error('Failed to save settings.');
+      // Error handled by service
     } finally {
       setSaving(false);
     }
@@ -254,4 +239,3 @@ const SettingField = ({ label, name, value, onChange, placeholder = '', isTextar
 );
 
 export default SettingsManager;
-

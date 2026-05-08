@@ -92,16 +92,19 @@ function AppContent() {
 }
 
 import { SettingsProvider } from './context/SettingsContext';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
     <HelmetProvider>
-      <SettingsProvider>
-        <LanguageProvider>
-          <Router>
-            <AppContent />
-          </Router>
-          <Toaster
+      <AuthProvider>
+        <SettingsProvider>
+          <LanguageProvider>
+            <Router>
+              <AppContent />
+            </Router>
+            <Toaster
+
             position="top-right"
             toastOptions={{
               duration: 4000,
@@ -124,9 +127,11 @@ function App() {
           />
         </LanguageProvider>
       </SettingsProvider>
+      </AuthProvider>
     </HelmetProvider>
   );
 }
+
 
 
 export default App;

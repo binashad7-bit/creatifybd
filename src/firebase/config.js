@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getAnalytics, isSupported } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
@@ -14,13 +14,21 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
+// Initialize Firebase (Singleton pattern)
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
+// Initialize Services
 const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
+// Analytics (with support check)
+let analytics = null;
+isSupported().then(yes => {
+  if (yes) analytics = getAnalytics(app);
+});
+
 export { db, auth, storage, analytics };
 export default app;
+
 

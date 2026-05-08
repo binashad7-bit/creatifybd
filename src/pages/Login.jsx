@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase/config';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useAuth } from '../context/AuthContext';
 import { Lock, Mail, ArrowRight } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setIsSubmitting(true);
+    
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await login(email, password);
       navigate('/admin');
     } catch (err) {
       console.error("Login error:", err);
@@ -25,9 +28,11 @@ const Login = () => {
       } else {
         setError(err.message || 'Login failed. Please check your connection.');
       }
+    } finally {
+      setIsSubmitting(false);
     }
-
   };
+
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f0f0f', padding: '2rem' }}>
@@ -74,10 +79,29 @@ const Login = () => {
 
           <button 
             type="submit" 
-            style={{ width: '100%', background: '#E8192C', color: '#fff', padding: '1rem', borderRadius: '12px', border: 'none', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', transition: 'all 0.2s' }}
+            disabled={isSubmitting}
+            style={{ 
+              width: '100%', 
+              background: isSubmitting ? '#a0a0a0' : '#E8192C', 
+              color: '#fff', 
+              padding: '1rem', 
+              borderRadius: '12px', 
+              border: 'none', 
+              fontWeight: '700', 
+              fontSize: '0.95rem', 
+              cursor: isSubmitting ? 'not-allowed' : 'pointer', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              gap: '0.5rem', 
+              transition: 'all 0.2s',
+              opacity: isSubmitting ? 0.7 : 1
+            }}
           >
-            Login to Dashboard <ArrowRight size={18} />
+            {isSubmitting ? 'Authenticating...' : 'Login to Dashboard'} 
+            {!isSubmitting && <ArrowRight size={18} />}
           </button>
+
         </form>
       </div>
     </div>

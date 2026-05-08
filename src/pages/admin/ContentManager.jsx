@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { db } from '../../firebase/config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-
-import { Layout, Type, Image as ImageIcon, Save, RefreshCw, Upload, Sparkles, Box, MessageSquare } from 'lucide-react';
+import { uploadImage } from '../../utils/imgbb';
+import { Layout, Type, Image as ImageIcon, Save, RefreshCw, Upload, Sparkles, Box, MessageSquare, Loader2 } from 'lucide-react';
 
 const defaultContent = {
   hero: {
@@ -40,6 +40,8 @@ const ContentManager = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState('hero');
+  const [uploadingMockup, setUploadingMockup] = useState(false);
+  const [mockupProgress, setMockupProgress] = useState(0);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -72,13 +74,19 @@ const ContentManager = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = async () => {
-      const base64 = reader.result;
-      handleUpdate(section, field, base64);
-      toast.success('Image updated locally. Click Save to publish.');
-    };
+    setUploadingMockup(true);
+    setMockupProgress(0);
+    try {
+      const url = await uploadImage(file, (p) => setMockupProgress(Math.round(p)));
+      handleUpdate(section, field, url);
+      toast.success('Mockup uploaded! Click Save to publish.');
+    } catch (err) {
+      console.error(err);
+      toast.error('Upload failed. Please try again.');
+    } finally {
+      setUploadingMockup(false);
+      setMockupProgress(0);
+    }
   };
 
   const handleSave = async () => {
@@ -144,15 +152,24 @@ const ContentManager = () => {
             <div style={{ marginTop: '1rem' }}>
               <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--adm-dim)', marginBottom: '0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>Hero Image / Mockup</label>
               <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '12px', border: '1px solid #222' }}>
-                <div style={{ width: '120px', height: '80px', background: '#000', borderRadius: '8px', overflow: 'hidden', border: '1px solid #333' }}>
-                  <img src={content.hero.mockup_primary} alt="Mockup" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <div style={{ width: '120px', height: '80px', background: '#000', borderRadius: '8px', overflow: 'hidden', border: '1px solid #333', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {uploadingMockup ? (
+                    <div style={{ textAlign: 'center', color: '#E8192C', fontSize: '0.7rem', fontWeight: 700 }}>
+                      <Loader2 size={20} style={{ animation: 'spin 1s linear infinite', marginBottom: '4px' }} />
+                      <div>{mockupProgress}%</div>
+                    </div>
+                  ) : (
+                    <img src={content.hero.mockup_primary} alt="Mockup" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                  )}
                 </div>
                 <div style={{ flex: 1 }}>
                    <div style={{ position: 'relative' }}>
-                    <input type="file" onChange={(e) => handleImageUpload(e, 'hero', 'mockup_primary')} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer' }} accept="image/*" />
-                    <button className="admin-btn-secondary" style={{ marginBottom: '0.5rem' }}><Upload size={14} /> Upload New Mockup</button>
+                    <input type="file" onChange={(e) => handleImageUpload(e, 'hero', 'mockup_primary')} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: uploadingMockup ? 'not-allowed' : 'pointer' }} accept="image/*" disabled={uploadingMockup} />
+                    <button className="admin-btn-secondary" style={{ marginBottom: '0.5rem', opacity: uploadingMockup ? 0.5 : 1 }}>
+                      {uploadingMockup ? <><Loader2 size={14} /> Uploading {mockupProgress}%</> : <><Upload size={14} /> Upload New Mockup</>}
+                    </button>
                   </div>
-                  <p style={{ fontSize: '0.65rem', color: 'var(--adm-dim)' }}>Recommended: Transparent PNG or high-res JPG.</p>
+                  <p style={{ fontSize: '0.65rem', color: 'var(--adm-dim)' }}>PNG format preserved. Large files auto-compressed.</p>
                 </div>
               </div>
             </div>
