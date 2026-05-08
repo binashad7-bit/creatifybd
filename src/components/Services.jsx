@@ -26,7 +26,7 @@ const Services = ({ highlight = false, fullPage = false }) => {
   if (loading && services.length === 0) return null;
 
   return (
-    <section className={`section services-section ${fullPage ? 'full-page-section' : ''}`} id="services" style={{ background: '#fff', padding: '10rem 0' }}>
+    <section className={`section services-section ${fullPage ? 'full-page-section' : ''}`} id="services" style={{ background: '#fff' }}>
       <div className="container">
         {!fullPage && (
           <div className="services-header" style={{ marginBottom: '6rem', textAlign: 'center' }}>

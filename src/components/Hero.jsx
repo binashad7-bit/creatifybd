@@ -25,8 +25,8 @@ const Hero = () => {
       
       <FadeReveal delay={1}>
         <div className="hero-actions">
-          <a href="#contact" className="btn-red" style={{ fontSize: '0.95rem', padding: '0.75rem 1.75rem' }}>{t.cta1}</a>
-          <a href="#portfolio" className="btn-outline-dark" style={{ padding: '0.75rem 1.75rem', fontSize: '0.95rem' }}>{t.cta2}</a>
+          <a href="#contact" className="btn-red">{t.cta1}</a>
+          <a href="#portfolio" className="btn-outline-dark">{t.cta2}</a>
         </div>
       </FadeReveal>
 

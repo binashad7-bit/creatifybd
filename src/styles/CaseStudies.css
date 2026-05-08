@@ -457,3 +457,46 @@
   justify-content: center;
   gap: 2rem;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CASE STUDIES MOBILE OVERRIDES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .premium-cs-header { padding: 8rem 1.5rem 4rem; }
+  .premium-cs-h1 { font-size: 2.8rem; }
+  
+  .cs-filter-bar { gap: 0.5rem; margin: 2rem 0 3rem; }
+  .filter-chip { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
+  
+  .premium-cs-grid { gap: 2.5rem; padding-bottom: 5rem; }
+  .cs-card-visual { aspect-ratio: 1/1; border-radius: 16px; margin-bottom: 1rem; }
+  .cs-card-tag { top: 1rem; left: 1rem; padding: 0.4rem 0.8rem; font-size: 0.6rem; }
+  .cs-card-title { font-size: 1.4rem; }
+  
+  /* Detail Page */
+  .cs-detail-hero { padding: 100px 1.5rem 3rem; }
+  .cs-detail-h1 { font-size: 3rem; margin-bottom: 3rem; }
+  .cs-detail-meta { flex-wrap: wrap; gap: 0.5rem; }
+  .cs-meta-pill { padding: 0.4rem 1rem; font-size: 0.65rem; }
+  
+  .cs-detail-hero-visual { aspect-ratio: 16/9; margin-top: 2rem; }
+  
+  .cs-detail-narrative { padding: 4rem 0; }
+  .cs-text-large { font-size: 1.6rem; }
+  .cs-narrative-block { margin-bottom: 3rem; }
+  .cs-narrative-block p { font-size: 1.05rem; }
+  
+  .cs-detail-kpis { gap: 1rem; margin-top: 3rem; }
+  .cs-kpi-card { padding: 2rem; border-radius: 20px; }
+  .cs-kpi-val { font-size: 2.5rem; }
+  
+  .cs-gallery-masonry { gap: 1rem; }
+  .cs-gallery-item { border-radius: 20px; }
+  
+  .cs-detail-testimonial { padding: 6rem 1.5rem; }
+  .cs-big-quote { font-size: 1.8rem; margin-bottom: 2rem; }
+  
+  .cs-detail-footer { padding: 8rem 1.5rem; }
+  .cs-footer-next { font-size: 2.5rem; }
+}
