@@ -4,6 +4,8 @@ import { translations } from '../utils/translations';
 import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
+import { useSettings } from '../context/SettingsContext';
+
 
 const MagneticLink = ({ children, to, className, onClick }) => {
   const mouseX = useMotionValue(0);
@@ -46,7 +48,9 @@ const MagneticLink = ({ children, to, className, onClick }) => {
 };
 
 const Navbar = () => {
+  const { settings } = useSettings();
   const [scrolled, setScrolled] = useState(false);
+
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [workDropdown, setWorkDropdown] = useState(false);
   const { lang } = useLanguage();
@@ -79,9 +83,9 @@ const Navbar = () => {
       <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
         <div className="nav-container-inner">
           <Link to="/" className="nav-logo" data-cursor="Click" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <img src="/favicon.png" alt="CreatifyBD" style={{ height: '52px', width: 'auto' }} />
+            <img src={settings?.logo_url || '/favicon.png'} alt={settings?.site_name || 'CreatifyBD'} style={{ height: '52px', width: 'auto' }} />
             <span style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#000' }}>
-              Creatify<span style={{ color: 'var(--red)' }}>BD</span>
+              {settings?.site_name?.split('BD')[0] || 'Creatify'}<span style={{ color: 'var(--red)' }}>BD</span>
             </span>
           </Link>
           

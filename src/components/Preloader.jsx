@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSettings } from '../context/SettingsContext';
 
 const Preloader = ({ onComplete }) => {
+  const { settings } = useSettings();
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -40,8 +42,9 @@ const Preloader = ({ onComplete }) => {
               animate={{ opacity: 1, y: 0 }}
               className="preloader-brand"
             >
-              <img src="/favicon.png" alt="CreatifyBD" style={{ height: '120px', marginBottom: '2rem' }} />
+              <img src={settings?.loading_logo_url || '/favicon.png'} alt="Loading..." style={{ height: '120px', marginBottom: '2rem' }} />
             </motion.div>
+
             <div className="preloader-progress">
               <div className="preloader-bar" style={{ width: `${count}%` }}></div>
             </div>

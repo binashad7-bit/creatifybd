@@ -2,9 +2,12 @@ import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { TextReveal, FadeReveal } from './MotionReveal';
 import { Link } from 'react-router-dom';
+import { useSettings } from '../context/SettingsContext';
 
 const Footer = () => {
   const { lang } = useLanguage();
+  const { settings, content } = useSettings();
+  const contact = content?.contact || {};
 
   return (
     <footer className="footer-v2">
@@ -13,9 +16,9 @@ const Footer = () => {
           <div className="footer-brand">
             <FadeReveal>
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '2.5rem' }}>
-                <img src="/favicon.png" alt="CreatifyBD Icon" style={{ height: '45px', width: 'auto' }} />
+                <img src={settings?.logo_url || '/favicon.png'} alt={settings?.site_name || 'CreatifyBD'} style={{ height: '45px', width: 'auto' }} />
                 <span style={{ fontSize: '1.8rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#000' }}>
-                  Creatify<span style={{ color: 'var(--red)' }}>BD</span>
+                  {settings?.site_name?.split('BD')[0] || 'Creatify'}<span style={{ color: 'var(--red)' }}>BD</span>
                 </span>
               </div>
               <p>
@@ -23,6 +26,7 @@ const Footer = () => {
                   ? 'ঢাকার অন্যতম শীর্ষস্থানীয় ডিজিটাল মার্কেটিং এবং ক্রিয়েটিভ এজেন্সি। আপনার ব্যবসার অনলাইন প্রবৃদ্ধি নিশ্চিত করাই আমাদের লক্ষ্য।' 
                   : 'Leading digital marketing and creative agency based in Dhaka, Bangladesh. Helping businesses grow their online presence since day one.'}
               </p>
+
               <div className="footer-social">
                 <a href="https://facebook.com/creatifybd" className="f-social-btn" target="_blank" rel="noreferrer">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>

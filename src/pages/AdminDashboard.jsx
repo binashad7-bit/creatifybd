@@ -23,6 +23,7 @@ import MessagesList from './admin/Messages';
 import TestimonialsManager from './admin/Testimonials';
 import CaseStudiesManager from './admin/CaseStudies';
 import SettingsManager from './admin/Settings';
+import ContentManager from './admin/ContentManager';
 
 const AdminDashboard = () => {
   const location = useLocation();
@@ -37,12 +38,13 @@ const AdminDashboard = () => {
 
   const navItems = [
     { path: '/admin', label: 'Overview', icon: <LayoutDashboard size={18} /> },
+    { path: '/admin/content', label: 'Page Content', icon: <Activity size={18} /> },
     { path: '/admin/services', label: 'Services', icon: <Briefcase size={18} /> },
     { path: '/admin/portfolio', label: 'Portfolio', icon: <ImageIcon size={18} /> },
     { path: '/admin/case-studies', label: 'Case Studies', icon: <Briefcase size={18} /> },
     { path: '/admin/testimonials', label: 'Testimonials', icon: <Star size={18} /> },
     { path: '/admin/messages', label: 'Messages', icon: <MessageSquare size={18} /> },
-    { path: '/admin/settings', label: 'Settings', icon: <Settings size={18} /> },
+    { path: '/admin/settings', label: 'Branding & SEO', icon: <Settings size={18} /> },
   ];
 
   return (
@@ -92,6 +94,7 @@ const AdminDashboard = () => {
       <main className="admin-content">
         <Routes>
           <Route index element={<Overview />} />
+          <Route path="content" element={<ContentManager />} />
           <Route path="services" element={<ServicesManager />} />
           <Route path="portfolio" element={<PortfolioManager />} />
           <Route path="case-studies" element={<CaseStudiesManager />} />
@@ -100,6 +103,7 @@ const AdminDashboard = () => {
           <Route path="settings" element={<SettingsManager />} />
         </Routes>
       </main>
+
     </div>
   );
 };

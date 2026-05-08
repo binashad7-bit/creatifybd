@@ -2,31 +2,36 @@ import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../utils/translations';
 import { TextReveal, FadeReveal, ImageReveal } from './MotionReveal';
+import { useSettings } from '../context/SettingsContext';
 
 const Hero = () => {
   const { lang } = useLanguage();
+  const { content } = useSettings();
   const t = translations[lang].hero;
+  
+  const heroContent = content?.hero || {};
 
   return (
     <section className="hero">
       <FadeReveal delay={0.2}>
-        <div className="hero-eyebrow">{t.eyebrow}</div>
+        <div className="hero-eyebrow">{heroContent.eyebrow || t.eyebrow}</div>
       </FadeReveal>
       
       <TextReveal className="hero-main-title" delay={0.4}>
-        <span dangerouslySetInnerHTML={{ __html: t.title }} />
+        <span dangerouslySetInnerHTML={{ __html: heroContent.title || t.title }} />
       </TextReveal>
       
       <FadeReveal delay={0.8}>
-        <p className="hero-sub">{t.desc}</p>
+        <p className="hero-sub">{heroContent.desc || t.desc}</p>
       </FadeReveal>
       
       <FadeReveal delay={1}>
         <div className="hero-actions">
-          <a href="#contact" className="btn-red">{t.cta1}</a>
-          <a href="#portfolio" className="btn-outline-dark">{t.cta2}</a>
+          <a href="#contact" className="btn-red">{heroContent.cta1 || t.cta1}</a>
+          <a href="#portfolio" className="btn-outline-dark">{heroContent.cta2 || t.cta2}</a>
         </div>
       </FadeReveal>
+
 
 
       <div className="hero-mockup">
