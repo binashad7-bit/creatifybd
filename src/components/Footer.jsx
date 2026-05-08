@@ -12,7 +12,12 @@ const Footer = () => {
         <div className="footer-top">
           <div className="footer-brand">
             <FadeReveal>
-              <img src="/logo.png" alt="CreatifyBD" style={{ height: '50px', marginBottom: '2rem', filter: 'brightness(1.1)' }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '2.5rem' }}>
+                <img src="/favicon.png" alt="CreatifyBD Icon" style={{ height: '45px', width: 'auto' }} />
+                <span style={{ fontSize: '1.8rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#000' }}>
+                  Creatify<span style={{ color: 'var(--red)' }}>BD</span>
+                </span>
+              </div>
               <p>
                 {lang === 'bn' 
                   ? 'ঢাকার অন্যতম শীর্ষস্থানীয় ডিজিটাল মার্কেটিং এবং ক্রিয়েটিভ এজেন্সি। আপনার ব্যবসার অনলাইন প্রবৃদ্ধি নিশ্চিত করাই আমাদের লক্ষ্য।' 
