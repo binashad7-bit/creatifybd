@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { db, storage } from '../../firebase/config';
+import { db } from '../../firebase/config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 import { Layout, Type, Image as ImageIcon, Save, RefreshCw, Upload, Sparkles, Box, MessageSquare } from 'lucide-react';
 
 const defaultContent = {
@@ -68,7 +68,21 @@ const ContentManager = () => {
     }));
   };
 
+  const handleImageUpload = async (e, section, field) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const base64 = reader.result;
+      handleUpdate(section, field, base64);
+      toast.success('Image updated locally. Click Save to publish.');
+    };
+  };
+
   const handleSave = async () => {
+
     setSaving(true);
     try {
       await setDoc(doc(db, 'settings', 'content'), content, { merge: true });
@@ -126,7 +140,24 @@ const ContentManager = () => {
               <CMSField label="Primary CTA Label" value={content.hero.cta1} onChange={(v) => handleUpdate('hero', 'cta1', v)} />
               <CMSField label="Secondary CTA Label" value={content.hero.cta2} onChange={(v) => handleUpdate('hero', 'cta2', v)} />
             </div>
+            
+            <div style={{ marginTop: '1rem' }}>
+              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--adm-dim)', marginBottom: '0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>Hero Image / Mockup</label>
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '12px', border: '1px solid #222' }}>
+                <div style={{ width: '120px', height: '80px', background: '#000', borderRadius: '8px', overflow: 'hidden', border: '1px solid #333' }}>
+                  <img src={content.hero.mockup_primary} alt="Mockup" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </div>
+                <div style={{ flex: 1 }}>
+                   <div style={{ position: 'relative' }}>
+                    <input type="file" onChange={(e) => handleImageUpload(e, 'hero', 'mockup_primary')} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer' }} accept="image/*" />
+                    <button className="admin-btn-secondary" style={{ marginBottom: '0.5rem' }}><Upload size={14} /> Upload New Mockup</button>
+                  </div>
+                  <p style={{ fontSize: '0.65rem', color: 'var(--adm-dim)' }}>Recommended: Transparent PNG or high-res JPG.</p>
+                </div>
+              </div>
+            </div>
           </div>
+
         )}
 
         {activeTab === 'process' && (

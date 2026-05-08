@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { db, storage } from '../../firebase/config';
+import { db } from '../../firebase/config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 import { Globe, Phone, Mail, Share2, AtSign, Search, Save, RefreshCw, Upload, Palette, Image as ImageIcon } from 'lucide-react';
 
 
@@ -58,20 +58,34 @@ const SettingsManager = () => {
     const file = e.target.files[0];
     if (!file) return;
 
+    // Logos are small, so we use Base64 to bypass Storage billing/verification issues
     setUploading(fieldName);
-    try {
-      const storageRef = ref(storage, `site/branding/${fieldName}_${Date.now()}`);
-      await uploadBytes(storageRef, file);
-      const url = await getDownloadURL(storageRef);
-      setSettings({ ...settings, [fieldName]: url });
-      toast.success(`${fieldName.replace('_', ' ')} uploaded!`);
-    } catch (err) {
-      console.error(err);
-      toast.error('Upload failed.');
-    } finally {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const base64String = reader.result;
+      try {
+        // Save to state first
+        const updatedSettings = { ...settings, [fieldName]: base64String };
+        setSettings(updatedSettings);
+        
+        // Also save to Firestore immediately for this field
+        await setDoc(doc(db, 'settings', 'site'), { [fieldName]: base64String }, { merge: true });
+        
+        toast.success(`${fieldName.replace('_', ' ')} updated!`);
+      } catch (err) {
+        console.error(err);
+        toast.error('Failed to save image.');
+      } finally {
+        setUploading(null);
+      }
+    };
+    reader.onerror = () => {
+      toast.error('File reading failed.');
       setUploading(null);
-    }
+    };
   };
+
 
   const handleSave = async () => {
     setSaving(true);
