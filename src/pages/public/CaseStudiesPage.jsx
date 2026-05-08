@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '../../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
@@ -112,35 +113,36 @@ const categories = ["All", "Graphic Design", "Digital Marketing", "Website Desig
 
 const CaseStudyCard = ({ study, image }) => {
   return (
-    <motion.div 
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="cs-card-wrapper"
-    >
-      <div className="cs-card-visual">
-        <div className="cs-card-tag">{study.category}</div>
-        {image ? (
-          <img src={image} alt={study.title} className="cs-card-img" />
-        ) : (
-          <div className="cs-placeholder-luxury">Project Showcase</div>
-        )}
-        <div className="cs-results-overlay">
-          {study.results.map((res, i) => (
-            <div key={i} className="cs-overlay-item">
-              <span className="cs-overlay-val">{res.val}</span>
-              <span className="cs-overlay-lab">{res.label}</span>
-            </div>
-          ))}
+    <Link to={`/case-study/${study.id}`} className="cs-card-wrapper">
+      <motion.div 
+        layout
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="cs-card-visual">
+          <div className="cs-card-tag">{study.category}</div>
+          {image ? (
+            <img src={image} alt={study.title} className="cs-card-img" />
+          ) : (
+            <div className="cs-placeholder-luxury">Project Showcase</div>
+          )}
+          <div className="cs-results-overlay">
+            {study.results.map((res, i) => (
+              <div key={i} className="cs-overlay-item">
+                <span className="cs-overlay-val">{res.val}</span>
+                <span className="cs-overlay-lab">{res.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="cs-card-info">
-        <span className="cs-card-client">{study.client}</span>
-        <h3 className="cs-card-title">{study.title}</h3>
-      </div>
-    </motion.div>
+        <div className="cs-card-info">
+          <span className="cs-card-client">{study.client}</span>
+          <h3 className="cs-card-title">{study.title}</h3>
+        </div>
+      </motion.div>
+    </Link>
   );
 };
 

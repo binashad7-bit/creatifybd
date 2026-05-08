@@ -11,6 +11,7 @@ import ProcessPage from './pages/public/ProcessPage';
 import PricingPage from './pages/public/PricingPage';
 import ContactPage from './pages/public/ContactPage';
 import CaseStudiesPage from './pages/public/CaseStudiesPage';
+import CaseStudyDetailPage from './pages/public/CaseStudyDetailPage';
 import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -74,6 +75,7 @@ function AppContent() {
           <Route path="/pricing" element={<PageWrapper><PricingPage /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
           <Route path="/case-studies" element={<PageWrapper><CaseStudiesPage /></PageWrapper>} />
+          <Route path="/case-study/:id" element={<PageWrapper><CaseStudyDetailPage /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
           <Route 
             path="/admin/*" 
