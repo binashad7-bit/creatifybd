@@ -26,12 +26,78 @@ html { scroll-behavior: smooth; }
   --section-subtext: rgba(0, 0, 0, 0.6);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   AUTOMATIC CONTRAST SYSTEM - Light/Dark Background Detection
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 .dark-section {
   --section-bg: var(--black);
   --section-text: var(--white);
   --section-subtext: rgba(255, 255, 255, 0.6);
   background: var(--section-bg) !important;
   color: var(--section-text) !important;
+}
+
+/* Automatic color inheritance - EVERY element inherits from parent */
+.dark-section *,
+.dark-section *::before,
+.dark-section *::after {
+  color: inherit;
+}
+
+/* Force specific text elements to use section variables */
+.dark-section h1,
+.dark-section h2,
+.dark-section h3,
+.dark-section h4,
+.dark-section h5,
+.dark-section h6,
+.dark-section p,
+.dark-section span,
+.dark-section div,
+.dark-section a,
+.dark-section li,
+.dark-section label,
+.dark-section strong,
+.dark-section em {
+  color: var(--section-text);
+}
+
+/* Subtext/Muted text uses lighter color */
+.dark-section p,
+.dark-section .section-sub,
+.dark-section .eyebrow,
+.dark-section .service-card-premium p,
+.dark-section .process-step-desc,
+.dark-section .price-desc,
+.dark-section .price-tier,
+.dark-section .price-features li,
+.dark-section .author-role {
+  color: var(--section-subtext) !important;
+}
+
+/* Links inherit but can have special styling */
+.dark-section a:not(.btn-red):not(.btn-outline-red):not(.btn-ghost) {
+  color: var(--section-text);
+}
+
+/* Buttons keep their specific colors */
+.dark-section .btn-red {
+  color: #fff !important;
+}
+
+/* Form elements */
+.dark-section input,
+.dark-section textarea,
+.dark-section select {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--white) !important;
+}
+
+.dark-section input::placeholder,
+.dark-section textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -3213,6 +3279,332 @@ html, body {
 
 .dark-section nav.scrolled .nav-center a:hover {
   color: var(--white) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPREHENSIVE AUTOMATIC CONTRAST - ALL COMPONENTS
+   Any section with .dark-section class gets automatic white text
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Force ALL text elements in dark sections to be white/light */
+.dark-section,
+.dark-section .section,
+.dark-section [class*="-section"] {
+  color: var(--white) !important;
+}
+
+.dark-section *:is(h1, h2, h3, h4, h5, h6, p, span, div, a, li, label, strong, em, small) {
+  color: inherit;
+}
+
+/* Specific targeting for stubborn elements */
+.dark-section [style*="color: #000"],
+.dark-section [style*="color: #000000"],
+.dark-section [style*="color: black"],
+.dark-section [style*="color: rgb(0, 0, 0)"] {
+  color: var(--white) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SERVICES SECTION - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .services-section,
+.dark-section .services-section .service-card-premium,
+.dark-section .services-section .service-card-premium * {
+  color: var(--white);
+}
+
+.dark-section .service-card-premium {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-section .service-card-premium h3,
+.dark-section .service-card-premium .service-icon {
+  color: var(--white) !important;
+}
+
+.dark-section .service-card-premium p,
+.dark-section .service-card-premium .service-price {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark-section .service-arrow {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRICING SECTION - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .pricing-section,
+.dark-section .pricing-section *:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white);
+}
+
+.dark-section .price-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-section .price-card h3,
+.dark-section .price-card .price-tier,
+.dark-section .price-card .price-amount {
+  color: var(--white) !important;
+}
+
+.dark-section .price-card p,
+.dark-section .price-card .price-desc,
+.dark-section .price-card li,
+.dark-section .price-card .price-features li {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark-section .price-divider {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark-section .ptab {
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-section .ptab:hover {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-section .ptab.active {
+  color: var(--white);
+  background: var(--red);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PROCESS SECTION - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .process-section,
+.dark-section .process-section *:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white);
+}
+
+.dark-section .process-content-v2 {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-section .process-content-v2 h3,
+.dark-section .process-step-title {
+  color: var(--white) !important;
+}
+
+.dark-section .process-content-v2 p,
+.dark-section .process-step-desc {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark-section .process-icon-wrap {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--red);
+}
+
+.dark-section .step-num {
+  color: rgba(232, 25, 44, 0.15) !important;
+}
+
+.dark-section .timeline-line {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PORTFOLIO SECTION - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .wk-section,
+.dark-section .wk-section *:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white);
+}
+
+.dark-section .wk-filter-btn {
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-section .wk-filter-btn:hover,
+.dark-section .wk-filter-btn.wk-filter-btn--active {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-section .wk-card-title {
+  color: var(--white) !important;
+}
+
+.dark-section .wk-cat-tag {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TESTIMONIALS SECTION - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .testimonials-editorial,
+.dark-section .testimonials-editorial *:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white);
+}
+
+.dark-section .editorial-quote-text {
+  color: var(--white) !important;
+}
+
+.dark-section .author-name {
+  color: var(--white) !important;
+}
+
+.dark-section .author-role {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark-section .editorial-quote-icon {
+  color: var(--red);
+  opacity: 0.3;
+}
+
+.dark-section .editorial-nav-dot {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark-section .editorial-nav-dot.active {
+  background: var(--red);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CASE STUDIES SECTION - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .duck-cs-section,
+.dark-section .duck-cs-section *:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white);
+}
+
+.dark-section .duck-cs-title {
+  color: var(--white) !important;
+}
+
+.dark-section .duck-cs-desc {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark-section .duck-cs-link {
+  color: var(--white);
+}
+
+.dark-section .duck-cs-link:hover {
+  color: var(--red);
+}
+
+.dark-section .duck-tag {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONTACT SECTION - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .contact-premium-section,
+.dark-section .contact-premium-section *:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white);
+}
+
+.dark-section .contact-form-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-section .contact-methods .method-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.dark-section .contact-methods .method-val {
+  color: var(--white);
+}
+
+.dark-section .luxury-input {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--white) !important;
+}
+
+.dark-section .luxury-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CTA BAND & FOOTER - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .cta-section,
+.dark-section .cta-section *:is(h1, h2, h3, h4, h5, h6, p) {
+  color: var(--white);
+}
+
+.dark-section .footer-v2,
+.dark-section .footer-v2 *:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white);
+}
+
+.dark-section .footer-v2 p,
+.dark-section .footer-v2 a:not(.btn-red) {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-section .footer-v2 a:hover {
+  color: var(--white);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FEATURES & INTRO BAND - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .features-section,
+.dark-section .features-section *:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white);
+}
+
+.dark-section .intro-band,
+.dark-section .intro-band *:is(h1, h2, h3, h4, h5, h6, p) {
+  color: var(--white);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HERO SECTION - Automatic Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dark-section .hero,
+.dark-section .hero *:is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white);
+}
+
+.dark-section .hero-eyebrow {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-section .hero-sub {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark-section .hero .btn-outline-dark {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark-section .hero .btn-outline-dark:hover {
+  background: var(--white);
+  color: var(--black);
 }
 
 /* Dark section fixes for service cards */
