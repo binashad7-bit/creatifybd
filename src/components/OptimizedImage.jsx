@@ -46,7 +46,7 @@ const OptimizedImage = ({
       {/* Error State */}
       {error && (
         <div className="opt-img-error" style={{
-          position: absolute,
+          position: 'absolute',
           inset: 0,
           display: 'flex',
           alignItems: 'center',

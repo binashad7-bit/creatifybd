@@ -10,6 +10,8 @@ const Preloader = ({ onComplete }) => {
   useEffect(() => {
     const duration = 2000; // 2 seconds
     const start = Date.now();
+    let hideTimeout;
+    let completeTimeout;
     
     const interval = setInterval(() => {
       const elapsed = Date.now() - start;
@@ -18,14 +20,18 @@ const Preloader = ({ onComplete }) => {
       
       if (progress >= 1) {
         clearInterval(interval);
-        setTimeout(() => {
+        hideTimeout = setTimeout(() => {
           setIsVisible(false);
-          setTimeout(onComplete, 800); // Wait for exit animation
+          completeTimeout = setTimeout(onComplete, 800); // Wait for exit animation
         }, 500);
       }
     }, 20);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(hideTimeout);
+      clearTimeout(completeTimeout);
+    };
   }, [onComplete]);
 
   return (

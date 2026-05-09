@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
 import { Plus, Edit2, Trash2, X, Star } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 const TestimonialsManager = () => {
   const [items, setItems] = useState([]);
@@ -12,10 +13,16 @@ const TestimonialsManager = () => {
 
   const fetchItems = async () => {
     setLoading(true);
-    const q = query(collection(db, 'testimonials'), orderBy('name'));
-    const snap = await getDocs(q);
-    setItems(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-    setLoading(false);
+    try {
+      const q = query(collection(db, 'testimonials'), orderBy('name'));
+      const snap = await getDocs(q);
+      setItems(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    } catch (err) {
+      console.error('Failed to fetch testimonials:', err);
+      toast.error('Failed to load testimonials');
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => { fetchItems(); }, []);
@@ -32,7 +39,10 @@ const TestimonialsManager = () => {
       setEditingId(null);
       setFormData({ name: '', role: '', text: '', stars: 5, hidden: false });
       fetchItems();
-    } catch (err) { console.error(err); }
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to save testimonial. Please try again.');
+    }
   };
 
   const handleDelete = async (id) => {

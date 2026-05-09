@@ -38,7 +38,7 @@ function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
       document.removeEventListener('keydown', handler);
       document.body.style.overflow = '';
     };
-  }, [hasPrev, hasNext]);
+  }, [hasPrev, hasNext, onClose, onPrev, onNext]);
 
   return (
     <motion.div 

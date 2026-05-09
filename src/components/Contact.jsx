@@ -6,7 +6,7 @@ import { Send, CheckCircle2, MessageSquare, Phone, MapPin, Loader2 } from 'lucid
 import { TextReveal, FadeReveal } from './MotionReveal';
 import toast from 'react-hot-toast';
 
-const Contact = ({ theme = 'light' }) => {
+const Contact = () => {
   const { lang } = useLanguage();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -24,16 +24,13 @@ const Contact = ({ theme = 'light' }) => {
       await sendMessage(formData);
       setSubmitted(true);
       toast.success(lang === 'bn' ? 'ধন্যবাদ! আমরা শীঘ্রই যোগাযোগ করব।' : 'Success! We will contact you soon.', { id: toastId });
-    } catch (err) { 
+    } catch (err) {
       console.error(err);
-      toast.error(lang === 'bn' ? 'ব্যর্থ হয়েছে। আবার চেষ্টা করুন।' : 'Failed to send. Please try again.', { id: toastId }); 
+      toast.error(lang === 'bn' ? 'ব্যর্থ হয়েছে। আবার চেষ্টা করুন।' : 'Failed to send. Please try again.', { id: toastId });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
-
-
-  // Force light theme - dark theme disabled
-  const forcedTheme = 'light';
 
   return (
     <section className="contact-premium-section" id="contact">

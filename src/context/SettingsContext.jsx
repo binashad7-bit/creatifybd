@@ -40,6 +40,7 @@ export const SettingsProvider = ({ children }) => {
       }
     }, (err) => {
       console.error("Settings Fetch Error:", err);
+      setLoading(false);
     });
 
 
