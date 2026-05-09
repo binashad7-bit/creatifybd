@@ -41,8 +41,11 @@ const Pricing = ({ highlight = false, fullPage = false, theme = 'light' }) => {
     video: { en: 'Video Production', bn: 'ভিডিও প্রোডাকশন' }
   };
 
+  // Force light theme - dark theme disabled for better UX
+  const forcedTheme = 'light';
+
   return (
-    <section className={`section pricing-section ${fullPage ? 'full-page-section' : ''} ${theme === 'dark' ? 'dark-section' : ''}`} id="pricing">
+    <section className={`section pricing-section ${fullPage ? 'full-page-section' : ''}`} id="pricing">
       <div className="container">
         {!fullPage && (
           <div className="pricing-header text-center">

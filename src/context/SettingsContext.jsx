@@ -49,13 +49,10 @@ export const SettingsProvider = ({ children }) => {
         const data = snap.data();
         setContent(data);
         
-        // Check if any section has dark theme and apply to body
-        const hasDarkSection = Object.values(data).some(section => section?.theme === 'dark');
-        if (hasDarkSection) {
-          document.body.setAttribute('data-theme', 'dark');
-        } else {
-          document.body.removeAttribute('data-theme');
-        }
+        // Force light theme for all sections (remove dark theme)
+        // All pages now use light background like homepage
+        document.body.removeAttribute('data-theme');
+        document.body.style.background = 'var(--white)';
       }
       setLoading(false);
     }, (err) => {

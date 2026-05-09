@@ -26,9 +26,12 @@ const Process = ({ highlight = false, fullPage = false, theme = 'light' }) => {
     { num: '04', icon: '🚀', title: lang === 'bn' ? 'লঞ্চ ও অপ্টিমাইজেশন' : 'Growth & Support', desc: lang === 'bn' ? 'প্রজেক্ট লঞ্চ করার পর নিয়মিত পারফরম্যান্স ট্র্যাক এবং ধারাবাহিক উন্নতি নিশ্চিত করি।' : 'We monitor results post-launch and continuously refine strategies for maximum ROI.' }
   ];
 
+  // Force light theme - dark theme disabled
+  const forcedTheme = 'light';
+
   return (
     <section 
-      className={`section process-section ${fullPage ? 'full-page-section' : ''} ${theme === 'dark' ? 'dark-section' : ''}`} 
+      className={`section process-section ${fullPage ? 'full-page-section' : ''}`} 
       id="process" 
       ref={containerRef}
     >

@@ -7,6 +7,8 @@ import { ArrowUpRight } from 'lucide-react';
 import { TextReveal, FadeReveal, StaggerReveal } from './MotionReveal';
 
 const Services = ({ highlight = false, fullPage = false, theme = 'light' }) => {
+  // Force light theme - dark theme disabled
+  const forcedTheme = 'light';
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const { lang } = useLanguage();
@@ -27,7 +29,7 @@ const Services = ({ highlight = false, fullPage = false, theme = 'light' }) => {
 
   return (
     <section 
-      className={`section services-section ${fullPage ? 'full-page-section' : ''} ${theme === 'dark' ? 'dark-section' : ''}`} 
+      className={`section services-section ${fullPage ? 'full-page-section' : ''}`} 
       id="services"
     >
       <div className="container">

@@ -48,8 +48,11 @@ const CaseStudies = ({ theme = 'light' }) => {
     return () => unsub();
   }, []);
 
+  // Force light theme - dark theme disabled
+  const forcedTheme = 'light';
+
   return (
-    <section className={`duck-cs-section ${theme === 'dark' ? 'dark-section' : ''}`} id="case-studies">
+    <section className="duck-cs-section" id="case-studies">
 
       <div className="container">
         <div className="cs-intro">

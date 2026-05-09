@@ -195,7 +195,7 @@ const Portfolio = ({ highlight = false, fullPage = false, theme = 'light' }) => 
 
   if (loading && items.length === 0) {
     return (
-      <section className={`wk-section ${theme === 'dark' ? 'dark-section' : ''}`} id="portfolio">
+      <section className="wk-section" id="portfolio">
         <div className="wk-loading"><div className="wk-loading-dots"><span/><span/><span/></div></div>
       </section>
     );
@@ -203,7 +203,8 @@ const Portfolio = ({ highlight = false, fullPage = false, theme = 'light' }) => 
 
   return (
     <>
-      <section className={`wk-section ${fullPage ? 'full-page-section' : ''} ${theme === 'dark' ? 'dark-section' : ''}`} id="portfolio">
+      {/* Force light theme - all sections use light background */}
+      <section className={`wk-section ${fullPage ? 'full-page-section' : ''}`} id="portfolio">
 
         {!fullPage && <div className="wk-grain" aria-hidden="true" />}
         <div className="wk-inner">

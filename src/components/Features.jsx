@@ -1,8 +1,11 @@
 import React from 'react';
 
 const Features = ({ theme = 'light' }) => {
+  // Force light theme - dark theme disabled
+  const forcedTheme = 'light';
+
   return (
-    <section className={`section features-section ${theme === 'dark' ? 'dark-section' : ''}`} id="why">
+    <section className="section features-section" id="why">
       <div className="container">
         <div className="features-grid">
           <div>

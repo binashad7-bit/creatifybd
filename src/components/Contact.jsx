@@ -32,8 +32,11 @@ const Contact = ({ theme = 'light' }) => {
   };
 
 
+  // Force light theme - dark theme disabled
+  const forcedTheme = 'light';
+
   return (
-    <section className={`contact-premium-section ${theme === 'dark' ? 'dark-section' : ''}`} id="contact">
+    <section className="contact-premium-section" id="contact">
 
       <div className="container">
         <div className="contact-grid-wrap">
