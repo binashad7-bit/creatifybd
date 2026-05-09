@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { LanguageProvider } from './context/LanguageContext';
+import { SettingsProvider } from './context/SettingsContext';
+import { AuthProvider } from './context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import Home from './pages/Home';
-import ServicesPage from './pages/public/ServicesPage';
-import PortfolioPage from './pages/public/PortfolioPage';
-import ProcessPage from './pages/public/ProcessPage';
-import PricingPage from './pages/public/PricingPage';
-import ContactPage from './pages/public/ContactPage';
-import CaseStudiesPage from './pages/public/CaseStudiesPage';
-import CaseStudyDetailPage from './pages/public/CaseStudyDetailPage';
-import Login from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard';
-import ProtectedRoute from './components/ProtectedRoute';
 import Lenis from 'lenis';
 import Preloader from './components/Preloader';
+import ProtectedRoute from './components/ProtectedRoute';
+import ErrorBoundary from './components/ErrorBoundary';
+
+// Lazy load pages for better performance
+const Home = lazy(() => import('./pages/Home'));
+const ServicesPage = lazy(() => import('./pages/public/ServicesPage'));
+const PortfolioPage = lazy(() => import('./pages/public/PortfolioPage'));
+const ProcessPage = lazy(() => import('./pages/public/ProcessPage'));
+const PricingPage = lazy(() => import('./pages/public/PricingPage'));
+const ContactPage = lazy(() => import('./pages/public/ContactPage'));
+const CaseStudiesPage = lazy(() => import('./pages/public/CaseStudiesPage'));
+const CaseStudyDetailPage = lazy(() => import('./pages/public/CaseStudyDetailPage'));
+const Login = lazy(() => import('./pages/Login'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -91,47 +96,70 @@ function AppContent() {
   );
 }
 
-import { SettingsProvider } from './context/SettingsContext';
-import { AuthProvider } from './context/AuthContext';
+// Loading fallback for lazy-loaded components
+const PageLoadingFallback = () => (
+  <div style={{
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'var(--black, #0f0f0f)'
+  }}>
+    <div style={{
+      width: '40px',
+      height: '40px',
+      border: '3px solid rgba(232,25,44,0.2)',
+      borderTopColor: '#E8192C',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }} />
+    <style>{`
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    `}</style>
+  </div>
+);
 
 function App() {
   return (
-    <HelmetProvider>
-      <AuthProvider>
-        <SettingsProvider>
-          <LanguageProvider>
-            <Router>
-              <AppContent />
-            </Router>
-            <Toaster
-
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#1a1a1a',
-                color: '#fff',
-                borderRadius: '12px',
-                border: '1px solid #333',
-                padding: '12px 16px',
-                fontSize: '0.875rem',
-                fontFamily: 'DM Sans, sans-serif',
-              },
-              success: {
-                iconTheme: { primary: '#E8192C', secondary: '#fff' },
-              },
-              error: {
-                iconTheme: { primary: '#ff4444', secondary: '#fff' },
-              },
-            }}
-          />
-        </LanguageProvider>
-      </SettingsProvider>
-      </AuthProvider>
-    </HelmetProvider>
+    <ErrorBoundary>
+      <HelmetProvider>
+        <AuthProvider>
+          <SettingsProvider>
+            <LanguageProvider>
+              <Router>
+                <Suspense fallback={<PageLoadingFallback />}>
+                  <AppContent />
+                </Suspense>
+                <Toaster
+                  position="top-right"
+                  toastOptions={{
+                    duration: 4000,
+                    style: {
+                      background: '#1a1a1a',
+                      color: '#fff',
+                      borderRadius: '12px',
+                      border: '1px solid #333',
+                      padding: '12px 16px',
+                      fontSize: '0.875rem',
+                      fontFamily: 'DM Sans, sans-serif',
+                    },
+                    success: {
+                      iconTheme: { primary: '#E8192C', secondary: '#fff' },
+                    },
+                    error: {
+                      iconTheme: { primary: '#ff4444', secondary: '#fff' },
+                    },
+                  }}
+                />
+              </Router>
+            </LanguageProvider>
+          </SettingsProvider>
+        </AuthProvider>
+      </HelmetProvider>
+    </ErrorBoundary>
   );
 }
-
-
 
 export default App;

@@ -1522,6 +1522,31 @@ h2.section-h .red { color: var(--red); }
 .price-features li::before { content: '✓'; color: var(--red); font-weight: 700; flex-shrink: 0; }
 .price-cta { display: block; text-align: center; }
 
+/* Dark section fixes for pricing */
+.dark-section .price-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-section .price-card.featured {
+  background: linear-gradient(160deg, rgba(232,25,44,0.1) 0%, rgba(255,255,255,0.05) 60%);
+  border-color: var(--red);
+}
+
+.dark-section .price-amount {
+  color: var(--white);
+}
+
+.dark-section .price-tier,
+.dark-section .price-desc,
+.dark-section .price-features li {
+  color: var(--section-subtext);
+}
+
+.dark-section .price-divider {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .pricebox { display: none; }
 .pricebox.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
 
@@ -2556,8 +2581,28 @@ footer {
 .process-content-v2 { width: 45%; padding: 2.5rem; background: white; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 10px 40px rgba(0,0,0,0.03); transition: all 0.4s ease; }
 .process-step-v2:hover .process-content-v2 { transform: translateY(-10px); border-color: var(--red); box-shadow: 0 20px 60px rgba(232, 25, 44, 0.08); }
 .process-icon-wrap { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: white; border: 2px solid var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; z-index: 5; box-shadow: 0 0 0 8px white; }
-.process-content-v2 h3 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; color: var(--black); }
-.process-content-v2 p { font-size: 1.1rem; color: var(--gray-500); line-height: 1.6; }
+.process-content-v2 h3 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; color: var(--section-text, var(--black)); transition: color 0.3s ease; }
+.process-content-v2 p { font-size: 1.1rem; color: var(--section-subtext, var(--gray-500)); line-height: 1.6; transition: color 0.3s ease; }
+
+/* Dark section fixes for process v2 */
+.dark-section .process-content-v2 {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-section .process-content-v2:hover {
+  border-color: var(--red);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-section .process-icon-wrap {
+  background: var(--black);
+  box-shadow: 0 0 0 8px var(--black);
+}
+
+.dark-section .process-step-v2 .step-num {
+  color: rgba(232, 25, 44, 0.08);
+}
 .process-step-v2 .step-num { position: absolute; font-family: var(--font-display); font-size: 8rem; font-weight: 900; color: rgba(0,0,0,0.03); top: -2rem; z-index: -1; }
 .process-step-v2:nth-child(odd) .step-num { right: 0; }
 .process-step-v2:nth-child(even) .step-num { left: 0; }
@@ -2935,11 +2980,12 @@ html, body {
   font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3.5rem); 
   font-weight: 800; 
-  color: #000; 
+  color: var(--section-text, #000); 
   line-height: 1.05; 
   margin-bottom: 3.5rem; 
   font-style: italic; 
   letter-spacing: -0.02em; 
+  transition: color 0.3s ease;
 }
 
 .editorial-quote-icon { 
@@ -2963,16 +3009,18 @@ html, body {
 .author-name { 
   font-size: 1.2rem; 
   font-weight: 900; 
-  color: #000; 
+  color: var(--section-text, #000); 
+  transition: color 0.3s ease;
 }
 
 .author-role { 
   font-size: 0.85rem; 
-  color: rgba(0,0,0,0.4); 
+  color: var(--section-subtext, rgba(0,0,0,0.4)); 
   font-weight: 700; 
   text-transform: uppercase; 
   letter-spacing: 0.1em; 
   margin-top: 0.2rem; 
+  transition: color 0.3s ease;
 }
 
 .editorial-nav { 
@@ -3048,17 +3096,19 @@ html, body {
   font-size: 1.8rem; 
   font-weight: 800; 
   margin-bottom: 1.2rem; 
-  color: #000; 
+  color: var(--section-text, #000); 
   position: relative; 
   z-index: 1; 
+  transition: color 0.3s ease;
 }
 
 .process-step-desc { 
-  color: rgba(0,0,0,0.6); 
+  color: var(--section-subtext, rgba(0,0,0,0.6)); 
   line-height: 1.6; 
   font-size: 1.05rem; 
   position: relative; 
   z-index: 1; 
+  transition: color 0.3s ease;
 }
 
 .step-num { 
@@ -3128,16 +3178,76 @@ html, body {
 .service-card-premium h3 {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #000;
+  color: var(--section-text, #000);
   margin-bottom: 1.2rem;
+  transition: color 0.3s ease;
 }
 
 .service-card-premium p {
-  color: rgba(0,0,0,0.5);
+  color: var(--section-subtext, rgba(0,0,0,0.5));
   line-height: 1.6;
   font-size: 1.05rem;
   margin-bottom: 2rem;
   flex: 1;
+  transition: color 0.3s ease;
+}
+
+/* Dark section fixes for navbar */
+.dark-section nav.scrolled {
+  background: rgba(15, 15, 15, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark-section nav.scrolled .nav-logo {
+  color: var(--white) !important;
+}
+
+.dark-section nav.scrolled .nav-logo span {
+  color: var(--white) !important;
+}
+
+.dark-section nav.scrolled .nav-center a {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark-section nav.scrolled .nav-center a:hover {
+  color: var(--white) !important;
+}
+
+/* Dark section fixes for service cards */
+.dark-section .service-card-premium {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-section .service-card-premium:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--red) !important;
+}
+
+.dark-section .service-arrow {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+}
+
+/* Dark section testimonials fix */
+.dark-section .editorial-header .eyebrow {
+  color: var(--red) !important;
+}
+
+/* Dark section - duck cs fixes */
+.dark-section .duck-cs-link {
+  color: var(--white);
+}
+
+.dark-section .duck-cs-link:hover {
+  color: var(--red);
+}
+
+/* Dark section CTA band */
+.dark-section .cta-section {
+  background: linear-gradient(135deg, rgba(232,25,44,0.15) 0%, rgba(0,0,0,0) 100%);
 }
 
 .service-arrow {

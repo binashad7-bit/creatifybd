@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import DOMPurify from 'dompurify';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../utils/translations';
 import { TextReveal, FadeReveal, ImageReveal } from './MotionReveal';
@@ -11,6 +12,15 @@ const Hero = () => {
   
   const heroContent = content?.hero || {};
 
+  // Sanitize HTML content to prevent XSS attacks
+  const sanitizedTitle = useMemo(() => {
+    const rawHtml = heroContent.title || t.title;
+    return DOMPurify.sanitize(rawHtml, {
+      ALLOWED_TAGS: ['span', 'br', 'strong', 'em'],
+      ALLOWED_ATTR: ['class']
+    });
+  }, [heroContent.title, t.title]);
+
   return (
     <section className="hero">
       <FadeReveal delay={0.2}>
@@ -18,7 +28,7 @@ const Hero = () => {
       </FadeReveal>
       
       <TextReveal className="hero-main-title" delay={0.4}>
-        <span dangerouslySetInnerHTML={{ __html: heroContent.title || t.title }} />
+        <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
       </TextReveal>
       
       <FadeReveal delay={0.8}>
