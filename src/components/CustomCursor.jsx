@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
 
 const CustomCursor = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  
-  // Motion values for real-time tracking
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const cursorRef = useRef(null);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!isVisible) setIsVisible(true);
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
+      if (cursorRef.current) {
+        cursorRef.current.style.left = `${e.clientX}px`;
+        cursorRef.current.style.top = `${e.clientY}px`;
+      }
     };
 
     const handleMouseOver = (e) => {
@@ -40,19 +38,20 @@ const CustomCursor = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, [isVisible]);
 
   if (typeof window === 'undefined') return null;
 
   return (
-    <motion.div
+    <div
+      ref={cursorRef}
       className={`custom-cursor-main ${isHovered ? 'cursor-hover' : ''}`}
       style={{
-        left: mouseX,
-        top: mouseY,
         opacity: isVisible ? 1 : 0,
-        translateX: "-50%",
-        translateY: "-50%",
+        position: 'fixed',
+        pointerEvents: 'none',
+        zIndex: 9999,
+        transform: 'translate(-50%, -50%)',
       }}
     />
   );
