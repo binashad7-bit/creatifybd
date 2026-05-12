@@ -3863,11 +3863,11 @@ html, body {
 }
 
 /* Ensure active text is ALWAYS RED and non-active is WHITE on dark header */
-:is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .nav-center a {
+:is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .nav-center :is(a, .nav-link-wrap) {
   color: rgba(255, 255, 255, 0.8) !important;
 }
 
-:is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .nav-center a.active {
+:is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .nav-center :is(a, .nav-link-wrap).active {
   color: var(--red) !important;
 }
 
