@@ -3880,6 +3880,25 @@ html, body {
   background: var(--white);
 }
 
+:is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .nav-minimal-dropdown {
+  background: rgba(15, 15, 15, 0.98) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(25px) !important;
+}
+
+:is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .minimal-dropdown-item {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+:is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .minimal-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: var(--white) !important;
+}
+
+:is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .dropdown-chevron {
+  color: var(--white) !important;
+}
+
 /* Page Header Text Fix - Inherit properly from dark-section */
 .page-header.dark-section * {
   color: var(--white);
