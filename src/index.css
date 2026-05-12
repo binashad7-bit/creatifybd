@@ -248,18 +248,21 @@ body {
 .custom-cursor-main {
   width: 10px;
   height: 10px;
-  background-color: #ffffff !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  mix-blend-mode: difference !important;
+  backdrop-filter: invert(1) !important;
+  -webkit-backdrop-filter: invert(1) !important;
   transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1), 
               height 0.4s cubic-bezier(0.19, 1, 0.22, 1), 
               opacity 0.4s ease;
+  z-index: 10000 !important;
 }
 
 .custom-cursor-main.cursor-hover {
   width: 60px;
   height: 60px;
-  background-color: #ffffff !important;
+  background-color: transparent !important;
 }
 
 /* ─── UTILITIES ─── */
