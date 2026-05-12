@@ -123,7 +123,7 @@ body[data-theme="dark"] nav:not(.scrolled) .nav-logo span {
 }
 
 body[data-theme="dark"] nav:not(.scrolled) .nav-logo img.nav-logo-img {
-  filter: invert(1) hue-rotate(180deg) brightness(1.2);
+  filter: invert(1) hue-rotate(180deg);
 }
 
 body[data-theme="dark"] nav:not(.scrolled) .nav-center a {
@@ -3854,7 +3854,7 @@ html, body {
 }
 
 :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .nav-logo img.nav-logo-img {
-  filter: invert(1) hue-rotate(180deg) brightness(1.2);
+  filter: invert(1) hue-rotate(180deg);
 }
 
 :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page, .case-studies-page, .portfolio-page, .premium-cs-page) nav:not(.scrolled) .nav-center {
