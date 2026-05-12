@@ -199,6 +199,17 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <svg style={{ visibility: 'hidden', position: 'absolute', width: 0, height: 0 }}>
+        <filter id="black-to-white">
+          <feColorMatrix type="matrix" values="
+            0 0 0 0 1
+            -1 0 0 1 0
+            -1 0 0 1 0
+            0 0 0 1 0
+          " />
+        </filter>
+      </svg>
     </>
   );
 };
