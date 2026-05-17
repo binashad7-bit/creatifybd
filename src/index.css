@@ -1784,7 +1784,7 @@ h2.section-h .red { color: var(--red); }
 }
 
 .pricebox { display: none; }
-.pricebox.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.pricebox.active { display: block; animation: fadeIn 0.4s ease; }
 
 /* ─── TESTIMONIALS ─── */
 .testimonials-section { background: var(--white); overflow: hidden; }
