@@ -2,11 +2,16 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import Process from '../../components/Process';
 import Footer from '../../components/Footer';
+import SEO from '../../components/SEO';
 import { motion } from 'framer-motion';
 
 const ProcessPage = () => {
   return (
     <div className="process-page">
+      <SEO 
+        title="About Us & Our Process | CreatifyBD"
+        description="Learn about our systematic, 4-step approach to turning your vision into a digital masterpiece."
+      />
       <Navbar />
       <div className="page-header dark-section">
         <motion.div 

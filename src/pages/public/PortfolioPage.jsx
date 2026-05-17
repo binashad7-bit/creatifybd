@@ -2,11 +2,16 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import Portfolio from '../../components/Portfolio';
 import Footer from '../../components/Footer';
+import SEO from '../../components/SEO';
 import { motion } from 'framer-motion';
 
 const PortfolioPage = () => {
   return (
     <div className="portfolio-page">
+      <SEO 
+        title="Our Work & Portfolio | CreatifyBD"
+        description="Explore our collection of premium graphic design, branding, and digital marketing projects delivered with excellence."
+      />
       <Navbar />
       <div className="page-header dark-section">
         <motion.div 

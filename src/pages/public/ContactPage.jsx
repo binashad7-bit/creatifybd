@@ -2,11 +2,16 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import Contact from '../../components/Contact';
 import Footer from '../../components/Footer';
+import SEO from '../../components/SEO';
 import { motion } from 'framer-motion';
 
 const ContactPage = () => {
   return (
     <div className="contact-page">
+      <SEO 
+        title="Contact Us | CreatifyBD"
+        description="Ready to start your next project? Get in touch with our team today and let's build something great."
+      />
       <Navbar />
       <div className="page-header dark-section">
         <motion.div 

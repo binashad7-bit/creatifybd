@@ -23,6 +23,7 @@ const CaseStudiesPage = lazy(() => import('./pages/public/CaseStudiesPage'));
 const CaseStudyDetailPage = lazy(() => import('./pages/public/CaseStudyDetailPage'));
 const Login = lazy(() => import('./pages/Login'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -93,6 +94,7 @@ function AppContent() {
               </ProtectedRoute>
             } 
           />
+          <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
         </Routes>
       </AnimatePresence>
     </>

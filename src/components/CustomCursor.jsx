@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 const CustomCursor = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const cursorRef = useRef(null);
 
   useEffect(() => {
@@ -29,6 +30,12 @@ const CustomCursor = () => {
       } else {
         setIsHovered(false);
       }
+
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT') {
+        setIsTyping(true);
+      } else {
+        setIsTyping(false);
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -45,9 +52,9 @@ const CustomCursor = () => {
   return (
     <div
       ref={cursorRef}
-      className={`custom-cursor-main ${isHovered ? 'cursor-hover' : ''}`}
+      className={`custom-cursor-main ${isHovered ? 'cursor-hover' : ''} ${isTyping ? 'cursor-typing' : ''}`}
       style={{
-        opacity: isVisible ? 1 : 0,
+        opacity: isVisible ? (isTyping ? 0 : 1) : 0,
         position: 'fixed',
         pointerEvents: 'none',
         zIndex: 999999,
