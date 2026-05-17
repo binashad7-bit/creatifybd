@@ -16,7 +16,7 @@ const Footer = () => {
           <div className="footer-brand">
             <FadeReveal>
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '2.5rem' }}>
-                <img src={settings?.logo_url || '/favicon.png'} alt={settings?.site_name || 'CreatifyBD'} style={{ height: '45px', width: 'auto' }} />
+                <img src={settings?.logo_url || '/favicon.png'} alt={settings?.site_name || 'CreatifyBD'} style={{ height: '45px', width: 'auto', filter: 'url(#black-to-white)' }} />
                 <span style={{ fontSize: '1.8rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#fff' }}>
                   {settings?.site_name?.split('BD')[0] || 'Creatify'}<span style={{ color: 'var(--red)' }}>BD</span>
                 </span>
