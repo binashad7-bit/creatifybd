@@ -99,9 +99,10 @@ export const ImageReveal = ({ children, delay = 0 }) => {
 /**
  * StaggerReveal: Container for staggered child animations.
  */
-export const StaggerReveal = ({ children, delay = 0 }) => {
+export const StaggerReveal = ({ children, delay = 0, className = "" }) => {
   return (
     <motion.div
+      className={className}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
