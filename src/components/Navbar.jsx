@@ -47,7 +47,7 @@ const MagneticLink = ({ children, to, className, onClick }) => {
   );
 };
 
-const Navbar = () => {
+const Navbar = ({ theme = 'dark' }) => {
   const { settings } = useSettings();
   const [scrolled, setScrolled] = useState(false);
 
@@ -80,7 +80,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
+      <nav id="navbar" className={`${scrolled ? 'scrolled' : ''} theme-${theme}`}>
         <div className="nav-container-inner">
           <Link to="/" className="nav-logo" data-cursor="Click" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <img src={settings?.logo_url || '/favicon.png'} alt={settings?.site_name || 'CreatifyBD'} className="nav-logo-img" style={{ height: '52px', width: 'auto' }} />

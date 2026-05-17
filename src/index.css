@@ -354,6 +354,16 @@ nav {
   position: relative;
 }
 
+nav.theme-light:not(.scrolled) .nav-link-wrap span,
+nav.theme-light:not(.scrolled) .nav-logo-text,
+nav.theme-light:not(.scrolled) a {
+  color: var(--black);
+}
+nav.theme-light:not(.scrolled) .dropdown-chevron,
+nav.theme-light:not(.scrolled) .mobile-toggle {
+  color: var(--black);
+}
+
 nav.scrolled {
   height: 68px;
   top: 20px;

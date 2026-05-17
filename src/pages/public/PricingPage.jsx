@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 const PricingPage = () => {
   return (
     <div className="pricing-page">
-      <Navbar />
+      <Navbar theme="light" />
       <div style={{ paddingTop: '80px' }}>
         <Pricing fullPage={false} />
       </div>
