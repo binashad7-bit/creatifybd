@@ -255,7 +255,7 @@ body {
   transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1), 
               height 0.3s cubic-bezier(0.19, 1, 0.22, 1), 
               opacity 0.3s ease;
-  z-index: 10000 !important;
+  z-index: 99999 !important;
 }
 
 .custom-cursor-main.cursor-hover {
