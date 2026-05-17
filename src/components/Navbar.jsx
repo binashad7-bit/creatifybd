@@ -180,6 +180,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            style={{ pointerEvents: isMobileOpen ? 'auto' : 'none' }}
             className="mobile-menu-overlay"
           >
             <div className="mobile-menu-inner">
@@ -190,6 +191,7 @@ const Navbar = () => {
                 <Link to="/case-studies" onClick={toggleMobile} style={{ paddingLeft: '1.5rem' }}>{lang === 'bn' ? 'কেস স্টাডিজ' : 'Case Studies'}</Link>
               </div>
               <Link to="/process" onClick={toggleMobile}>{t.process}</Link>
+              <Link to="/about" onClick={toggleMobile}>{lang === 'bn' ? 'আমাদের সম্পর্কে' : 'About'}</Link>
               <Link to="/pricing" onClick={toggleMobile}>{t.pricing}</Link>
               <Link to="/contact" onClick={toggleMobile}>{t.contact}</Link>
               <div className="mobile-menu-footer">

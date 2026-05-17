@@ -31,7 +31,24 @@ const Pricing = ({ highlight = false, fullPage = false, theme = 'light' }) => {
 
   if (loading && pricingData.social.length === 0) return <section className="section pricing-section" id="pricing" style={{ minHeight: '400px' }}></section>;
 
-  const activePlans = pricingData[activeTab] || [];
+  const fallbackPricing = {
+    social: [
+      { id: 's1', tier: 'Basic', tier_bn: 'বেসিক', price: '15,000', desc: 'Perfect for small businesses', desc_bn: 'ছোট ব্যবসার জন্য', features: ['15 Social Posts/mo', 'Basic Page Moderation', 'Monthly Report'], features_bn: ['১৫টি সোশ্যাল পোস্ট', 'বেসিক পেজ মডারেশন', 'মাসিক রিপোর্ট'] },
+      { id: 's2', tier: 'Standard', tier_bn: 'স্ট্যান্ডার্ড', price: '25,000', desc: 'For growing brands', desc_bn: 'বর্ধিষ্ণু ব্র্যান্ডের জন্য', features: ['20 Social Posts/mo', 'Ad Campaign Setup', 'Monthly Report'], features_bn: ['২০টি সোশ্যাল পোস্ট', 'অ্যাড ক্যাম্পেইন সেটআপ', 'মাসিক রিপোর্ট'], featured: true }
+    ],
+    branding: [
+      { id: 'b1', tier: 'Startup', tier_bn: 'স্টার্টআপ', price: '20,000', desc: 'Essential branding', desc_bn: 'প্রাথমিক ব্র্যান্ডিং', features: ['Logo Design (2 Concepts)', 'Color Palette', 'Brand Guidelines'], features_bn: ['লোগো ডিজাইন', 'কালার প্যালেট', 'ব্র্যান্ড গাইডলাইন'] }
+    ],
+    web: [
+      { id: 'w1', tier: 'Landing Page', tier_bn: 'ল্যান্ডিং পেজ', price: '30,000', desc: 'Single page website', desc_bn: 'সিঙ্গেল পেজ ওয়েবসাইট', features: ['Custom Design', 'Mobile Responsive', 'Contact Form'], features_bn: ['কাস্টম ডিজাইন', 'মোবাইল রেসপন্সিভ', 'কন্টাক্ট ফর্ম'] }
+    ],
+    video: [
+      { id: 'v1', tier: 'Short Promo', tier_bn: 'শর্ট প্রোমো', price: '15,000', desc: 'Up to 30 seconds', desc_bn: '৩০ সেকেন্ড পর্যন্ত', features: ['Script Writing', 'Motion Graphics', 'Background Music'], features_bn: ['স্ক্রিপ্ট রাইটিং', 'মোশন গ্রাফিক্স', 'ব্যাকগ্রাউন্ড মিউজিক'] }
+    ]
+  };
+
+  const currentPlans = pricingData[activeTab]?.length > 0 ? pricingData[activeTab] : fallbackPricing[activeTab];
+  const activePlans = currentPlans || [];
   const displayPlans = highlight ? activePlans.slice(0, 3) : activePlans;
 
   const tabLabels = {

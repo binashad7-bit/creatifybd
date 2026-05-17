@@ -110,7 +110,7 @@ function Counter({ target, duration = 1200 }) {
 }
 
 // ── Work Card ─────────────────────────────────────────────────────────────────
-const WorkCard = React.forwardRef(({ item, onClick }, ref) => {
+const WorkCard = React.forwardRef(({ item, onClick, priority = false }, ref) => {
   return (
     <FadeReveal>
       <motion.div
@@ -129,6 +129,7 @@ const WorkCard = React.forwardRef(({ item, onClick }, ref) => {
               src={item.imageUrl || item.image || item.imgUrl || item.img || item.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
               alt={item.title} 
               className="wk-card-img" 
+              priority={priority}
             />
           </ImageReveal>
           <div className="wk-card-overlay">
@@ -258,8 +259,8 @@ const Portfolio = ({ highlight = false, fullPage = false, theme = 'light' }) => 
             <StaggerReveal>
               <motion.div layout className="wk-grid">
                 <AnimatePresence mode="popLayout">
-                  {displayItems.map((item) => (
-                    <WorkCard key={item.id} item={item} onClick={openLightbox} />
+                  {displayItems.map((item, index) => (
+                    <WorkCard key={item.id} item={item} onClick={openLightbox} priority={index < 6} />
                   ))}
                 </AnimatePresence>
               </motion.div>

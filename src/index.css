@@ -1,5 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 
 /* Updated with premium cinematic animations and real-time admin sync */
 /* Triggering deploy action... */
@@ -248,21 +248,21 @@ body {
 .custom-cursor-main {
   width: 10px;
   height: 10px;
-  background-color: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: white !important;
   border-radius: 50%;
-  backdrop-filter: invert(1) !important;
-  -webkit-backdrop-filter: invert(1) !important;
-  transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1), 
-              height 0.4s cubic-bezier(0.19, 1, 0.22, 1), 
-              opacity 0.4s ease;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1), 
+              height 0.3s cubic-bezier(0.19, 1, 0.22, 1), 
+              opacity 0.3s ease;
   z-index: 10000 !important;
 }
 
 .custom-cursor-main.cursor-hover {
   width: 60px;
   height: 60px;
-  background-color: transparent !important;
+  background-color: white !important;
+  opacity: 0.8;
 }
 
 /* ─── UTILITIES ─── */
@@ -1027,31 +1027,36 @@ h2.section-h .red { color: var(--red); }
 .wk-filter-bar {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
   margin-bottom: 3rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
+.wk-filter-bar::-webkit-scrollbar { display: none; }
 .wk-filter-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1.1rem;
   border-radius: 100px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid var(--border);
   background: transparent;
-  color: rgba(255,255,255,0.45);
+  color: var(--gray-500);
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.22s;
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 .wk-filter-btn:hover {
-  border-color: rgba(255,255,255,0.3);
-  color: rgba(255,255,255,0.85);
-  background: rgba(255,255,255,0.05);
+  border-color: var(--black);
+  color: var(--black);
+  background: var(--gray-50);
 }
 .wk-filter-btn--active {
   background: var(--red);
@@ -1439,7 +1444,7 @@ h2.section-h .red { color: var(--red); }
   cursor: pointer;
   color: white;
   transition: all 0.2s;
-  z-index: 1;
+  z-index: 100;
 }
 .pf-lb-close:hover { background: var(--red); border-color: var(--red); }
 .pf-lb-nav {
@@ -1457,7 +1462,7 @@ h2.section-h .red { color: var(--red); }
   cursor: pointer;
   color: white;
   transition: all 0.2s;
-  z-index: 1;
+  z-index: 100;
 }
 .pf-lb-nav:hover { background: white; color: black; }
 .pf-lb-prev { left: 1.5rem; }
@@ -2850,7 +2855,7 @@ footer {
 .dropdown-desc { font-size: 0.7rem !important; opacity: 0.6; }
 
 /* --- MINIMALIST DROPDOWN STYLES --- */
-.nav-minimal-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 220px; background: #fff; border-radius: 16px; box-shadow: 0 15px 45px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); padding: 0.6rem; z-index: 1000; margin-top: 1.2rem; overflow: hidden; pointer-events: auto; }
+.nav-minimal-dropdown { position: absolute; top: 100%; right: 0; transform: none; width: 180px; background: #fff; border-radius: 16px; box-shadow: 0 15px 45px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); padding: 0.6rem; z-index: 9999; margin-top: 1.2rem; overflow: hidden; pointer-events: auto; }
 .minimal-dropdown-item { display: block; padding: 0.8rem 1.2rem; border-radius: 10px; font-size: 0.9rem; font-weight: 600; color: rgba(0,0,0,0.7); text-decoration: none; transition: all 0.2s ease; }
 .minimal-dropdown-item:hover { background: rgba(0,0,0,0.03); color: var(--red); transform: translateX(5px); }
 
@@ -2979,7 +2984,7 @@ footer {
   /* Intro Pillars */
   .intro-pillars-v2 { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
   .pillar-v2 { padding: 2rem !important; }
-  .intro-title-v2 { font-size: 2.2rem !important; margin-bottom: 2.5rem !important; }
+  .intro-title-v2 { font-size: 2.2rem !important; margin-bottom: 2.5rem !important; line-height: 1.3 !important; }
 
   /* Contact Fixes */
   .contact-premium-section { padding: 4rem 0 !important; }

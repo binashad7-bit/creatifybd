@@ -84,7 +84,7 @@ const CaseStudies = ({ theme = 'light' }) => {
                   </TextReveal>
                   <FadeReveal delay={0.5}>
                     <div className="duck-cs-tags">
-                      <span className="duck-tag">{project.sector}</span>
+                      {project.sector && <span className="duck-tag">{project.sector}</span>}
                     </div>
                     <p className="duck-cs-desc">
                       {project.tagline}

@@ -81,6 +81,7 @@ function AppContent() {
           <Route path="/process" element={<PageWrapper><ProcessPage /></PageWrapper>} />
           <Route path="/pricing" element={<PageWrapper><PricingPage /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
+          <Route path="/about" element={<PageWrapper><ProcessPage /></PageWrapper>} />
           <Route path="/case-studies" element={<PageWrapper><CaseStudiesPage /></PageWrapper>} />
           <Route path="/case-study/:id" element={<PageWrapper><CaseStudyDetailPage /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />

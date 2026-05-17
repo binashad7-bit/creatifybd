@@ -114,34 +114,26 @@ const categories = ["All", "Graphic Design", "Digital Marketing", "Website Desig
 const CaseStudyCard = ({ study, image }) => {
   return (
     <Link to={`/case-study/${study.id}`} className="cs-card-wrapper">
-      <motion.div 
-        layout
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className="cs-card-visual">
-          <div className="cs-card-tag">{study.category}</div>
-          <OptimizedImage 
-            src={image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
-            alt={study.title} 
-            className="cs-card-img" 
-          />
-          <div className="cs-results-overlay">
-            {study.results.map((res, i) => (
-              <div key={i} className="cs-overlay-item">
-                <span className="cs-overlay-val">{res.val}</span>
-                <span className="cs-overlay-lab">{res.label}</span>
-              </div>
-            ))}
-          </div>
+      <div className="cs-card-visual">
+        <div className="cs-card-tag">{study.category}</div>
+        <OptimizedImage 
+          src={image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
+          alt={study.title} 
+          className="cs-card-img" 
+        />
+        <div className="cs-results-overlay">
+          {study.results.map((res, i) => (
+            <div key={i} className="cs-overlay-item">
+              <span className="cs-overlay-val">{res.val}</span>
+              <span className="cs-overlay-lab">{res.label}</span>
+            </div>
+          ))}
         </div>
-        <div className="cs-card-info">
-          <span className="cs-card-client">{study.client}</span>
-          <h3 className="cs-card-title">{study.title}</h3>
-        </div>
-      </motion.div>
+      </div>
+      <div className="cs-card-info">
+        <span className="cs-card-client">{study.client}</span>
+        <h3 className="cs-card-title">{study.title}</h3>
+      </div>
     </Link>
   );
 };
@@ -221,11 +213,19 @@ const CaseStudiesPage = () => {
       <div className="premium-cs-grid">
         <AnimatePresence mode="popLayout">
           {filteredStudies.map((study) => (
-            <CaseStudyCard 
-              key={study.id} 
-              study={study} 
-              image={images[study.id]?.heroUrl} 
-            />
+            <motion.div 
+              key={study.id}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <CaseStudyCard 
+                study={study} 
+                image={images[study.id]?.heroUrl} 
+              />
+            </motion.div>
           ))}
         </AnimatePresence>
       </div>
