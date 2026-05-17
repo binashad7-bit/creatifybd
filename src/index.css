@@ -2506,7 +2506,7 @@ footer {
   position: fixed;
   inset: 0;
   background: #0D0D0D;
-  z-index: 9999;
+  z-index: 999998;
   display: flex;
   align-items: center;
   justify-content: center;

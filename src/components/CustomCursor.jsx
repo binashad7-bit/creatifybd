@@ -50,7 +50,7 @@ const CustomCursor = () => {
         opacity: isVisible ? 1 : 0,
         position: 'fixed',
         pointerEvents: 'none',
-        zIndex: 99999,
+        zIndex: 999999,
         transform: 'translate(-50%, -50%)',
       }}
     />
