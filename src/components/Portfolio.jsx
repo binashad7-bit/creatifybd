@@ -118,40 +118,42 @@ const getSpanClass = (index) => {
 // ── Work Card ─────────────────────────────────────────────────────────────────
 const WorkCard = React.forwardRef(({ item, onClick, priority = 0 }, ref) => {
   return (
-    <FadeReveal>
-      <motion.div
-        ref={ref}
-        layout
-        className={`wk-card wk-card--vis ${getSpanClass(priority)}`}
-        onClick={() => onClick(item)}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && onClick(item)}
-        data-cursor="View"
-      >
-        <div className="wk-card-img-wrap">
-          <ImageReveal>
-            <OptimizedImage 
-              src={item.imageUrl || item.image || item.imgUrl || item.img || item.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
-              alt={item.title} 
-              className="wk-card-img" 
-              priority={priority}
-            />
-          </ImageReveal>
-          <div className="wk-card-overlay">
-            <div className="wk-card-overlay-inner">
-              <div>
-                <span className="wk-cat-tag">{CAT_DISPLAY[item.category] || item.category}</span>
-                <h3 className="wk-card-title">{item.title}</h3>
-              </div>
-              <div className="wk-view-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
+    <motion.div
+      ref={ref}
+      layout
+      initial={{ opacity: 0, y: 40, skewY: 2 }}
+      whileInView={{ opacity: 1, y: 0, skewY: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`wk-card wk-card--vis ${getSpanClass(priority)}`}
+      onClick={() => onClick(item)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && onClick(item)}
+      data-cursor="View"
+    >
+      <div className="wk-card-img-wrap">
+        <ImageReveal>
+          <OptimizedImage 
+            src={item.imageUrl || item.image || item.imgUrl || item.img || item.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'} 
+            alt={item.title} 
+            className="wk-card-img" 
+            priority={priority < 6}
+          />
+        </ImageReveal>
+        <div className="wk-card-overlay">
+          <div className="wk-card-overlay-inner">
+            <div>
+              <span className="wk-cat-tag">{CAT_DISPLAY[item.category] || item.category}</span>
+              <h3 className="wk-card-title">{item.title}</h3>
+            </div>
+            <div className="wk-view-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
         </div>
-      </motion.div>
-    </FadeReveal>
+      </div>
+    </motion.div>
   );
 });
 
@@ -214,8 +216,8 @@ const Portfolio = ({ highlight = false, fullPage = false, theme = 'light' }) => 
 
   return (
     <>
-      {/* Force light theme - all sections use light background */}
-      <section className={`wk-section ${fullPage ? 'full-page-section' : ''}`} id="portfolio">
+      {/* Cinematic Dark Theme */}
+      <section className={`wk-section dark-section ${fullPage ? 'full-page-section' : ''}`} id="portfolio" style={{ background: '#0b0b0b', color: '#fff' }}>
 
         {!fullPage && <div className="wk-grain" aria-hidden="true" />}
         <div className="wk-inner">

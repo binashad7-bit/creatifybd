@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Clients from '../components/Clients';
 import IntroBand from '../components/IntroBand';
-import CaseStudies from '../components/CaseStudies';
+
 import Services from '../components/Services';
 import Portfolio from '../components/Portfolio';
 import Process from '../components/Process';
@@ -57,8 +57,6 @@ const Home = () => {
       <Navbar />
       {content?.visibility?.hero !== false && <Hero />}
       <IntroBand />
-      
-      {content?.visibility?.case_studies !== false && <CaseStudies highlight={true} theme={content?.hero?.theme} />}
       
       {content?.visibility?.clients !== false && <Clients />}
       
