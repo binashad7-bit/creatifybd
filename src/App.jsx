@@ -19,8 +19,6 @@ const PortfolioPage = lazy(() => import('./pages/public/PortfolioPage'));
 const ProcessPage = lazy(() => import('./pages/public/ProcessPage'));
 const PricingPage = lazy(() => import('./pages/public/PricingPage'));
 const ContactPage = lazy(() => import('./pages/public/ContactPage'));
-const CaseStudiesPage = lazy(() => import('./pages/public/CaseStudiesPage'));
-const CaseStudyDetailPage = lazy(() => import('./pages/public/CaseStudyDetailPage'));
 const Login = lazy(() => import('./pages/Login'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -83,8 +81,6 @@ function AppContent() {
           <Route path="/pricing" element={<PageWrapper><PricingPage /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
           <Route path="/about" element={<PageWrapper><ProcessPage /></PageWrapper>} />
-          <Route path="/case-studies" element={<PageWrapper><CaseStudiesPage /></PageWrapper>} />
-          <Route path="/case-study/:id" element={<PageWrapper><CaseStudyDetailPage /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
           <Route 
             path="/admin/*" 

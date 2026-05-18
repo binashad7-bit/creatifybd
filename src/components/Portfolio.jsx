@@ -47,6 +47,7 @@ function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
       exit={{ opacity: 0 }}
       className="pf-lightbox" 
       onClick={(e) => e.target === e.currentTarget && onClose()}
+      style={{ backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', background: 'rgba(0,0,0,0.85)' }}
     >
       <button className="pf-lb-close" onClick={onClose} aria-label="Close">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -73,8 +74,7 @@ function Lightbox({ item, onClose, onPrev, onNext, hasPrev, hasNext }) {
           priority={true}
         />
         <div className="pf-lb-meta">
-          <span className="pf-lb-cat">{CAT_DISPLAY[item.category] || item.category}</span>
-          <h3 className="pf-lb-title">{item.title}</h3>
+          <h3 className="pf-lb-title" style={{ fontSize: '2rem', fontWeight: 800 }}>{item.title}</h3>
         </div>
       </motion.div>
     </motion.div>
@@ -109,14 +109,20 @@ function Counter({ target, duration = 1200 }) {
   return <span ref={ref}>{count}</span>;
 }
 
+// ── Helper for Masonry Spans ────────────────────────────────────────────────
+const getSpanClass = (index) => {
+  const pattern = ['span-8', 'span-4', 'span-4', 'span-4', 'span-4', 'span-12', 'span-6', 'span-6'];
+  return pattern[index % pattern.length];
+};
+
 // ── Work Card ─────────────────────────────────────────────────────────────────
-const WorkCard = React.forwardRef(({ item, onClick, priority = false }, ref) => {
+const WorkCard = React.forwardRef(({ item, onClick, priority = 0 }, ref) => {
   return (
     <FadeReveal>
       <motion.div
         ref={ref}
         layout
-        className="wk-card wk-card--vis"
+        className={`wk-card wk-card--vis ${getSpanClass(priority)}`}
         onClick={() => onClick(item)}
         role="button"
         tabIndex={0}
@@ -134,11 +140,12 @@ const WorkCard = React.forwardRef(({ item, onClick, priority = false }, ref) => 
           </ImageReveal>
           <div className="wk-card-overlay">
             <div className="wk-card-overlay-inner">
-              <span className="wk-cat-tag">{CAT_DISPLAY[item.category] || item.category}</span>
-              <h3 className="wk-card-title">{item.title}</h3>
+              <div>
+                <span className="wk-cat-tag">{CAT_DISPLAY[item.category] || item.category}</span>
+                <h3 className="wk-card-title">{item.title}</h3>
+              </div>
               <div className="wk-view-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                View
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </div>
             </div>
           </div>
@@ -260,7 +267,7 @@ const Portfolio = ({ highlight = false, fullPage = false, theme = 'light' }) => 
               <motion.div layout className="wk-grid">
                 <AnimatePresence mode="popLayout">
                   {displayItems.map((item, index) => (
-                    <WorkCard key={item.id} item={item} onClick={openLightbox} priority={index < 6} />
+                    <WorkCard key={item.id} item={item} onClick={openLightbox} priority={index} />
                   ))}
                 </AnimatePresence>
               </motion.div>

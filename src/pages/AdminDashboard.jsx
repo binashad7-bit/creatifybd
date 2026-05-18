@@ -26,7 +26,6 @@ import ServicesManager from './admin/Services';
 import PortfolioManager from './admin/Portfolio';
 import MessagesList from './admin/Messages';
 import TestimonialsManager from './admin/Testimonials';
-import CaseStudiesManager from './admin/CaseStudies';
 import SettingsManager from './admin/Settings';
 import ContentManager from './admin/ContentManager';
 import PricingManager from './admin/PricingManager';
@@ -47,7 +46,6 @@ const AdminDashboard = () => {
     { path: '/admin/content', label: 'Page Content', icon: <Activity size={18} /> },
     { path: '/admin/services', label: 'Services', icon: <Briefcase size={18} /> },
     { path: '/admin/portfolio', label: 'Portfolio', icon: <ImageIcon size={18} /> },
-    { path: '/admin/case-studies', label: 'Case Studies', icon: <Briefcase size={18} /> },
     { path: '/admin/pricing', label: 'Pricing Plans', icon: <CreditCard size={18} /> },
     { path: '/admin/testimonials', label: 'Testimonials', icon: <Star size={18} /> },
     { path: '/admin/messages', label: 'Messages', icon: <MessageSquare size={18} /> },
@@ -161,7 +159,6 @@ const AdminDashboard = () => {
                 <Route path="content" element={<ContentManager />} />
                 <Route path="services" element={<ServicesManager />} />
                 <Route path="portfolio" element={<PortfolioManager />} />
-                <Route path="case-studies" element={<CaseStudiesManager />} />
                 <Route path="pricing" element={<PricingManager />} />
                 <Route path="testimonials" element={<TestimonialsManager />} />
                 <Route path="messages" element={<MessagesList />} />

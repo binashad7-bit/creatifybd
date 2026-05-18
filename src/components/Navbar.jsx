@@ -99,37 +99,13 @@ const Navbar = ({ theme = 'dark' }) => {
               </MagneticLink>
             </li>
 
-            <li 
-              className="nav-dropdown-trigger" 
-              ref={dropdownRef}
-              onMouseEnter={() => setWorkDropdown(true)}
-              onMouseLeave={() => setWorkDropdown(false)}
-            >
-              <div className={`nav-link-wrap ${isActive('/work') || isActive('/case-studies') ? 'active' : ''}`}>
-                <span>{lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}</span>
-                <ChevronDown size={12} className={`dropdown-chevron ${workDropdown ? 'open' : ''}`} />
-                {(isActive('/work') || isActive('/case-studies')) && (
+            <li>
+              <MagneticLink to="/work" className={isActive('/work') ? 'active' : ''}>
+                {lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}
+                {isActive('/work') && (
                   <motion.div layoutId="activePill" className="nav-active-pill" />
                 )}
-              </div>
-              
-              <AnimatePresence>
-                {workDropdown && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.98 }}
-                    className="nav-minimal-dropdown"
-                  >
-                    <Link to="/work" className="minimal-dropdown-item" onClick={() => setWorkDropdown(false)}>
-                      {lang === 'bn' ? 'পোর্টফোলিও' : 'Our Works'}
-                    </Link>
-                    <Link to="/case-studies" className="minimal-dropdown-item" onClick={() => setWorkDropdown(false)}>
-                      {lang === 'bn' ? 'কেস স্টাডিজ' : 'Case Studies'}
-                    </Link>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              </MagneticLink>
             </li>
 
             <li>
@@ -185,11 +161,7 @@ const Navbar = ({ theme = 'dark' }) => {
           >
             <div className="mobile-menu-inner">
               <Link to="/services" onClick={toggleMobile}>{t.services}</Link>
-              <div className="mobile-sub-group">
-                <span className="mobile-sub-title">{lang === 'bn' ? 'কাজ' : 'Our Work'}</span>
-                <Link to="/work" onClick={toggleMobile} style={{ paddingLeft: '1.5rem' }}>{lang === 'bn' ? 'সব কাজ' : 'Our Works'}</Link>
-                <Link to="/case-studies" onClick={toggleMobile} style={{ paddingLeft: '1.5rem' }}>{lang === 'bn' ? 'কেস স্টাডিজ' : 'Case Studies'}</Link>
-              </div>
+              <Link to="/work" onClick={toggleMobile}>{lang === 'bn' ? 'আমাদের কাজ' : 'Our Work'}</Link>
               <Link to="/process" onClick={toggleMobile}>{t.process}</Link>
               <Link to="/about" onClick={toggleMobile}>{lang === 'bn' ? 'আমাদের সম্পর্কে' : 'About'}</Link>
               <Link to="/pricing" onClick={toggleMobile}>{t.pricing}</Link>
