@@ -12,8 +12,12 @@ import {
   User,
   Star,
   Activity,
-  CreditCard
+  CreditCard,
+  Search,
+  Bell,
+  ChevronRight
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import '../admin.css';
 
 // Admin Sub-pages
@@ -50,6 +54,31 @@ const AdminDashboard = () => {
     { path: '/admin/settings', label: 'Branding & SEO', icon: <Settings size={18} /> },
   ];
 
+  const [cmdOpen, setCmdOpen] = React.useState(false);
+  const [cmdQuery, setCmdQuery] = React.useState('');
+
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCmdOpen(prev => !prev);
+      }
+      if (e.key === 'Escape') setCmdOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const filteredNavItems = navItems.filter(item => item.label.toLowerCase().includes(cmdQuery.toLowerCase()));
+
+  const handleCmdNavigate = (path) => {
+    navigate(path);
+    setCmdOpen(false);
+    setCmdQuery('');
+  };
+
+  const currentNavItem = navItems.find(item => item.path === location.pathname) || { label: 'Overview' };
+
   return (
     <div className="admin-layout">
       {/* Sidebar - Changed nav to div to avoid global nav styling conflicts */}
@@ -77,15 +106,6 @@ const AdminDashboard = () => {
         </div>
 
         <div style={{ marginTop: 'auto', borderTop: '1px solid var(--adm-border)', paddingTop: '1.5rem' }}>
-          <div style={{ padding: '0 0.5rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '36px', height: '36px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <User size={18} color="var(--adm-dim)" />
-            </div>
-            <div className="nav-text admin-profile-info" style={{ overflow: 'hidden' }}>
-              <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'white' }}>Admin User</div>
-              <div style={{ fontSize: '0.65rem', color: 'var(--adm-dim)' }}>Online</div>
-            </div>
-          </div>
           <button onClick={handleLogout} className="nav-item" style={{ color: '#ff4444', width: '100%', background: 'none', border: 'none', cursor: 'pointer' }}>
             <span style={{ display: 'flex', alignItems: 'center' }}><LogOut size={18} /></span>
             <span className="nav-text">Sign Out</span>
@@ -93,20 +113,116 @@ const AdminDashboard = () => {
         </div>
       </aside>
 
-      {/* Main Content Area */}
-      <main className="admin-content">
-        <Routes>
-          <Route index element={<Overview />} />
-          <Route path="content" element={<ContentManager />} />
-          <Route path="services" element={<ServicesManager />} />
-          <Route path="portfolio" element={<PortfolioManager />} />
-          <Route path="case-studies" element={<CaseStudiesManager />} />
-          <Route path="pricing" element={<PricingManager />} />
-          <Route path="testimonials" element={<TestimonialsManager />} />
-          <Route path="messages" element={<MessagesList />} />
-          <Route path="settings" element={<SettingsManager />} />
-        </Routes>
-      </main>
+      {/* Main Area */}
+      <div className="admin-main-wrapper">
+        {/* Top Header */}
+        <header className="admin-header">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--adm-dim)', fontSize: '0.9rem', fontWeight: '500' }}>
+            <span>Admin</span>
+            <ChevronRight size={14} />
+            <span style={{ color: 'white' }}>{currentNavItem.label}</span>
+          </div>
+
+          <div className="search-trigger" onClick={() => setCmdOpen(true)}>
+            <Search size={16} />
+            <span>Search or jump to...</span>
+            <span className="cmd-shortcut">⌘K</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <button style={{ background: 'none', border: 'none', color: 'var(--adm-dim)', cursor: 'pointer', display: 'flex' }}>
+              <Bell size={20} />
+            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', paddingLeft: '1.5rem', borderLeft: '1px solid var(--adm-border)' }}>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'white' }}>Admin User</div>
+                <div style={{ fontSize: '0.65rem', color: 'var(--adm-dim)' }}>Administrator</div>
+              </div>
+              <div style={{ width: '36px', height: '36px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <User size={18} color="var(--adm-dim)" />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Main Content Area */}
+        <main className="admin-content">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="page-transition-wrap"
+            >
+              <Routes location={location} key={location.pathname}>
+                <Route index element={<Overview />} />
+                <Route path="content" element={<ContentManager />} />
+                <Route path="services" element={<ServicesManager />} />
+                <Route path="portfolio" element={<PortfolioManager />} />
+                <Route path="case-studies" element={<CaseStudiesManager />} />
+                <Route path="pricing" element={<PricingManager />} />
+                <Route path="testimonials" element={<TestimonialsManager />} />
+                <Route path="messages" element={<MessagesList />} />
+                <Route path="settings" element={<SettingsManager />} />
+              </Routes>
+            </motion.div>
+          </AnimatePresence>
+        </main>
+      </div>
+
+      {/* Command Palette Overlay */}
+      <AnimatePresence>
+        {cmdOpen && (
+          <motion.div 
+            className="cmd-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setCmdOpen(false)}
+          >
+            <motion.div 
+              className="cmd-palette"
+              initial={{ opacity: 0, scale: 0.95, y: -20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -20 }}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="cmd-input-wrap">
+                <Search size={20} color="var(--adm-dim)" />
+                <input 
+                  autoFocus
+                  type="text" 
+                  className="cmd-input" 
+                  placeholder="Search modules..."
+                  value={cmdQuery}
+                  onChange={e => setCmdQuery(e.target.value)}
+                />
+                <div className="cmd-shortcut" style={{ margin: 0 }}>ESC</div>
+              </div>
+              <div className="cmd-list">
+                {filteredNavItems.length > 0 ? (
+                  filteredNavItems.map((item, idx) => (
+                    <div 
+                      key={item.path} 
+                      className={`cmd-item ${idx === 0 ? 'active' : ''}`}
+                      onClick={() => handleCmdNavigate(item.path)}
+                    >
+                      <span className="cmd-icon" style={{ display: 'flex' }}>{item.icon}</span>
+                      <span>{item.label}</span>
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--adm-dim)' }}>
+                    No results found for "{cmdQuery}"
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

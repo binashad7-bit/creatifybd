@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../../firebase/config';
-import { collection, getDocs, query, orderBy, limit, addDoc, serverTimestamp, doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
-import { MessageSquare, Briefcase, Image as ImageIcon, Star, TrendingUp, Database, Trash2, Mail, Phone, Calendar, Globe } from 'lucide-react';
+import { collection, getDocs, query, orderBy, limit, addDoc, doc, setDoc, onSnapshot } from 'firebase/firestore';
+import { MessageSquare, Briefcase, Image as ImageIcon, Star, TrendingUp, Sparkles, Zap, Globe, Clock, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Overview = () => {
   const [stats, setStats] = useState({
@@ -248,7 +249,13 @@ const Overview = () => {
 
       <div className="stat-grid">
         {statCards.map((card, i) => (
-          <div key={i} className="stat-card">
+          <motion.div 
+            key={i} 
+            className="stat-card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+          >
             <div className="stat-icon" style={{ background: `${card.color}15`, color: card.color }}>
               {card.icon}
             </div>
@@ -256,14 +263,19 @@ const Overview = () => {
               <div style={{ fontSize: '0.75rem', color: 'var(--adm-dim)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>{card.label}</div>
               <div style={{ fontSize: '1.75rem', fontWeight: '800', marginTop: '0.25rem' }}>{card.value}</div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '2rem' }}>
-        <div className="admin-card">
+        <motion.div 
+          className="admin-card"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-            <h3 style={{ fontWeight: '700', fontSize: '1.2rem' }}>Recent Inquiries</h3>
+            <h3 style={{ fontWeight: '700', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Clock size={18} color="var(--adm-red)" /> Recent Inquiries</h3>
             <Link to="/admin/messages" style={{ color: 'var(--adm-red)', fontSize: '0.85rem', fontWeight: '700', textDecoration: 'none' }}>View All</Link>
           </div>
           <table className="data-table">
@@ -277,26 +289,45 @@ const Overview = () => {
             <tbody>
               {recentMessages.map((msg) => (
                 <tr key={msg.id}>
-                  <td style={{ fontWeight: '600' }}>{msg.name}</td>
+                  <td style={{ fontWeight: '600', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', color: 'var(--adm-dim)' }}>
+                      {msg.name?.charAt(0).toUpperCase()}
+                    </div>
+                    {msg.name}
+                  </td>
                   <td style={{ color: 'var(--adm-dim)' }}>{msg.service}</td>
-                  <td><span style={{ padding: '0.25rem 0.75rem', borderRadius: '6px', fontSize: '0.75rem', background: 'var(--adm-red-soft)', color: 'var(--adm-red)', fontWeight: '700' }}>New Lead</span></td>
+                  <td>
+                    <span className="badge-status badge-active" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                      <CheckCircle2 size={12} /> New Lead
+                    </span>
+                  </td>
                 </tr>
               ))}
               {recentMessages.length === 0 && <tr><td colSpan="3" style={{ textAlign: 'center', padding: '3rem', color: 'var(--adm-dim)' }}>No recent inquiries.</td></tr>}
             </tbody>
           </table>
-        </div>
+        </motion.div>
 
-        <div className="admin-card" style={{ background: 'linear-gradient(135deg, #E8192C 0%, #a8101e 100%)', border: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2.5rem' }}>
-          <TrendingUp size={40} style={{ marginBottom: '1.5rem', color: 'white' }} />
-          <h3 style={{ fontWeight: '800', fontSize: '1.4rem', marginBottom: '1rem', color: 'white' }}>SEO Pro Tip</h3>
-          <p style={{ fontSize: '1rem', lineHeight: '1.6', color: 'rgba(255,255,255,0.9)', marginBottom: '2rem' }}>
-            To rank #1 for "Creative Agency", ensure you add 5+ high-quality projects to your portfolio. Google prioritizes active portfolios.
+        <motion.div 
+          className="action-widget"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <Sparkles size={40} style={{ marginBottom: '1.5rem', color: 'var(--adm-red)' }} />
+          <h3 style={{ fontWeight: '800', fontSize: '1.4rem', marginBottom: '1rem', color: 'white' }}>Quick Actions</h3>
+          <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--adm-dim)', marginBottom: '2rem' }}>
+            Keep your agency profile active to rank higher on Google. Consider adding your latest successful project.
           </p>
-          <Link to="/admin/portfolio" className="admin-btn" style={{ background: 'white', color: 'var(--adm-red)', width: 'fit-content', padding: '0.75rem 1.5rem' }}>
-            Optimize Portfolio
-          </Link>
-        </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <Link to="/admin/portfolio" className="admin-btn" style={{ textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+              <ImageIcon size={16} /> Add Portfolio Item
+            </Link>
+            <Link to="/admin/services" className="admin-btn-secondary" style={{ textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+              <Briefcase size={16} /> Update Services
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

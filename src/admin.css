@@ -80,10 +80,9 @@
 /* Content Area Fixes */
 .admin-content {
   flex: 1 !important;
-  margin-left: 280px !important;
-  padding: 3rem 4rem !important;
+  padding: 2rem 4rem !important;
   background: radial-gradient(circle at top right, rgba(232, 25, 44, 0.05), transparent 40%), var(--adm-bg) !important;
-  min-height: 100vh !important;
+  min-height: calc(100vh - 80px) !important;
 }
 
 .admin-card {
@@ -293,3 +292,165 @@
   letter-spacing: 0.05em !important;
 }
 
+/* --- Advanced UI Updates --- */
+
+/* Main Wrapper */
+.admin-main-wrapper {
+  flex: 1 !important;
+  margin-left: 280px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+}
+
+/* Header */
+.admin-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 1rem 4rem !important;
+  background: rgba(5, 5, 5, 0.7) !important;
+  backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid var(--adm-border) !important;
+}
+
+.search-trigger {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  background: var(--adm-card) !important;
+  border: 1px solid var(--adm-border) !important;
+  padding: 0.6rem 1.25rem !important;
+  border-radius: 12px !important;
+  color: var(--adm-dim) !important;
+  font-size: 0.85rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  width: 300px !important;
+}
+
+.search-trigger:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+}
+
+.cmd-shortcut {
+  margin-left: auto !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 4px !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Command Palette */
+.cmd-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  padding-top: 10vh !important;
+}
+
+.cmd-palette {
+  background: #111 !important;
+  width: 100% !important;
+  max-width: 600px !important;
+  border-radius: 16px !important;
+  border: 1px solid var(--adm-border) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.cmd-input-wrap {
+  display: flex !important;
+  align-items: center !important;
+  padding: 1.25rem 1.5rem !important;
+  border-bottom: 1px solid var(--adm-border) !important;
+  gap: 1rem !important;
+}
+
+.cmd-input {
+  flex: 1 !important;
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
+  font-size: 1.1rem !important;
+  outline: none !important;
+}
+
+.cmd-input::placeholder {
+  color: var(--adm-dim) !important;
+}
+
+.cmd-list {
+  max-height: 350px !important;
+  overflow-y: auto !important;
+  padding: 0.5rem !important;
+}
+
+.cmd-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  padding: 1rem 1.25rem !important;
+  color: var(--adm-dim) !important;
+  text-decoration: none !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.cmd-item.active, .cmd-item:hover {
+  background: var(--adm-red-soft) !important;
+  color: white !important;
+}
+
+.cmd-item.active .cmd-icon, .cmd-item:hover .cmd-icon {
+  color: var(--adm-red) !important;
+}
+
+/* Updated Sidebar for Glassmorphism */
+.admin-sidebar {
+  background: rgba(10, 10, 10, 0.7) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+/* Action Center Widget */
+.action-widget {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 24px !important;
+  padding: 2.5rem !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.action-widget::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -50% !important;
+  right: -50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: radial-gradient(circle, var(--adm-red-glow) 0%, transparent 60%) !important;
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+}
+
+.page-transition-wrap {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
