@@ -15,6 +15,7 @@ const CaseStudyDetailPage = () => {
   const navigate = useNavigate();
   const { lang } = useLanguage();
   const [study, setStudy] = useState(null);
+  const [images, setImages] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
