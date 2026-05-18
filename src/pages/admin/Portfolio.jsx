@@ -92,7 +92,7 @@ const PortfolioManager = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
           {items.map((item) => (
             <div key={item.id} className="admin-card" style={{ padding: '0', overflow: 'hidden', position: 'relative' }}>
-              <img src={item.imageUrl} alt={item.title} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+              <img src={item.imageUrl} alt={item.title} style={{ width: '100%', height: '200px', objectFit: 'contain', background: '#111', padding: '0.5rem' }} />
               <div style={{ padding: '1.25rem' }}>
                 <div style={{ fontSize: '0.7rem', color: '#E8192C', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.3rem' }}>{item.category}</div>
                 <h4 style={{ fontWeight: '700', marginBottom: '1rem' }}>{item.title}</h4>
@@ -118,7 +118,7 @@ const PortfolioManager = () => {
                 <div style={{ width: '100%', height: '220px', border: '2px dashed rgba(255,255,255,0.1)', borderRadius: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', background: 'rgba(255,255,255,0.02)' }}>
                   {formData.imageUrl && !uploading ? (
                     <>
-                      <img src={formData.imageUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img src={formData.imageUrl} style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#111', padding: '0.5rem' }} />
                       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: '0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity=1} onMouseLeave={e => e.currentTarget.style.opacity=0}>
                         <label style={{ cursor: 'pointer', background: '#fff', color: '#000', padding: '0.5rem 1rem', borderRadius: '8px', fontSize: '0.8rem', fontWeight: '700' }}>
                           Change Image
