@@ -258,11 +258,18 @@ const CaseStudiesManager = () => {
   const [editingData, setEditingData] = useState(null);
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'case_studies'), (snap) => {
-      const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setCases(data.sort((a,b) => (b.createdAt?.toMillis ? b.createdAt.toMillis() : 0) - (a.createdAt?.toMillis ? a.createdAt.toMillis() : 0)));
-      setLoading(false);
-    });
+    const unsub = onSnapshot(
+      collection(db, 'case_studies'), 
+      (snap) => {
+        const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setCases(data.sort((a,b) => (b.createdAt?.toMillis ? b.createdAt.toMillis() : 0) - (a.createdAt?.toMillis ? a.createdAt.toMillis() : 0)));
+        setLoading(false);
+      },
+      (error) => {
+        console.error("Error fetching case studies:", error);
+        setLoading(false);
+      }
+    );
     return () => unsub();
   }, []);
 
