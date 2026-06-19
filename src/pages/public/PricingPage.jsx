@@ -15,6 +15,12 @@ const PricingPage = () => {
       />
       <Navbar theme="light" />
       <div style={{ paddingTop: '80px' }}>
+        <div className="container" style={{ paddingTop: '3rem', textAlign: 'center' }}>
+          <h1 className="page-title">Transparent <span className="red">Pricing</span></h1>
+          <p className="page-subtitle" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+            Clear packages for digital marketing, branding, web development, and video production.
+          </p>
+        </div>
         <Pricing fullPage={false} />
       </div>
       <Footer />

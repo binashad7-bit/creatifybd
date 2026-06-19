@@ -6,6 +6,7 @@ import {
   updateDoc, 
   deleteDoc, 
   doc, 
+  setDoc,
   query, 
   where, 
   orderBy, 
@@ -25,9 +26,15 @@ const handleServiceError = (error, customMsg) => {
 export const sendMessage = async (messageData) => {
   try {
     const docRef = await addDoc(collection(db, 'messages'), {
-      ...messageData,
+      name: messageData.name?.trim() || '',
+      email: messageData.email?.trim() || '',
+      phone: messageData.phone?.trim() || '',
+      service: messageData.service || '',
+      budget: messageData.budget || '',
+      message: messageData.message?.trim() || '',
       createdAt: serverTimestamp(),
-      status: 'unread'
+      status: 'unread',
+      read: false
     });
     return docRef.id;
   } catch (error) {
@@ -63,10 +70,10 @@ export const getSettings = async (docName = 'site') => {
 export const updateSettings = async (settingsData, docName = 'site') => {
   try {
     const docRef = doc(db, 'settings', docName);
-    await updateDoc(docRef, {
+    await setDoc(docRef, {
       ...settingsData,
       updatedAt: serverTimestamp()
-    });
+    }, { merge: true });
   } catch (error) {
     handleServiceError(error, 'Failed to update settings.');
   }
