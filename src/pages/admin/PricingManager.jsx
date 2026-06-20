@@ -165,7 +165,6 @@ const PricingFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
 };
 
 const PricingManager = () => {
-  const [plans, setPlans] = [useState([]), useState(true)]; // Destructuring fix
   const [allPlans, setAllPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);

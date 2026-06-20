@@ -15,7 +15,9 @@ import {
   CreditCard,
   Search,
   Bell,
-  ChevronRight
+  ChevronRight,
+  Menu,
+  X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../admin.css';
@@ -33,6 +35,7 @@ import PricingManager from './admin/PricingManager';
 const AdminDashboard = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
   const handleLogout = async () => {
     if(window.confirm("Sign out of admin panel?")) {
@@ -56,6 +59,17 @@ const AdminDashboard = () => {
   const [cmdQuery, setCmdQuery] = React.useState('');
 
   React.useEffect(() => {
+    setSidebarOpen(false);
+  }, [location.pathname]);
+
+  React.useEffect(() => {
+    document.body.style.overflow = sidebarOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [sidebarOpen]);
+
+  React.useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
@@ -76,11 +90,19 @@ const AdminDashboard = () => {
   };
 
   const currentNavItem = navItems.find(item => item.path === location.pathname) || { label: 'Overview' };
+  const adminEmail = auth.currentUser?.email || 'binashad7@gmail.com';
 
   return (
     <div className="admin-layout">
+      <button
+        type="button"
+        className="admin-sidebar-backdrop"
+        aria-label="Close admin navigation"
+        onClick={() => setSidebarOpen(false)}
+      />
+
       {/* Sidebar - Changed nav to div to avoid global nav styling conflicts */}
-      <aside className="admin-sidebar">
+      <aside className={`admin-sidebar ${sidebarOpen ? 'is-open' : ''}`}>
         <div className="sidebar-logo">
           <div style={{ width: '32px', height: '32px', background: 'var(--adm-red)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <Activity size={16} color="white" />
@@ -88,6 +110,14 @@ const AdminDashboard = () => {
           <span className="logo-text" style={{ fontWeight: '800', fontSize: '1.2rem', color: 'white', whiteSpace: 'nowrap' }}>
             Creatify<span style={{ color: 'var(--adm-red)' }}>Admin</span>
           </span>
+          <button
+            type="button"
+            className="admin-sidebar-close"
+            aria-label="Close admin navigation"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <X size={18} />
+          </button>
         </div>
 
         <div className="sidebar-nav">
@@ -96,6 +126,7 @@ const AdminDashboard = () => {
               key={item.path} 
               to={item.path} 
               className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
+              onClick={() => setSidebarOpen(false)}
             >
               <span style={{ display: 'flex', alignItems: 'center', pointerEvents: 'none' }}>{item.icon}</span>
               <span className="nav-text" style={{ pointerEvents: 'none' }}>{item.label}</span>
@@ -115,6 +146,14 @@ const AdminDashboard = () => {
       <div className="admin-main-wrapper">
         {/* Top Header */}
         <header className="admin-header">
+          <button
+            type="button"
+            className="admin-mobile-menu-btn"
+            aria-label="Open admin navigation"
+            onClick={() => setSidebarOpen(true)}
+          >
+            <Menu size={20} />
+          </button>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--adm-dim)', fontSize: '0.9rem', fontWeight: '500' }}>
             <span>Admin</span>
             <ChevronRight size={14} />
@@ -124,17 +163,17 @@ const AdminDashboard = () => {
           <div className="search-trigger" onClick={() => setCmdOpen(true)}>
             <Search size={16} />
             <span>Search or jump to...</span>
-            <span className="cmd-shortcut">⌘K</span>
+            <span className="cmd-shortcut">Ctrl K</span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-            <button style={{ background: 'none', border: 'none', color: 'var(--adm-dim)', cursor: 'pointer', display: 'flex' }}>
+            <button aria-label="Notifications" style={{ background: 'none', border: 'none', color: 'var(--adm-dim)', cursor: 'pointer', display: 'flex' }}>
               <Bell size={20} />
             </button>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', paddingLeft: '1.5rem', borderLeft: '1px solid var(--adm-border)' }}>
               <div style={{ textAlign: 'right' }}>
                 <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'white' }}>Admin User</div>
-                <div style={{ fontSize: '0.65rem', color: 'var(--adm-dim)' }}>Administrator</div>
+                <div style={{ fontSize: '0.65rem', color: 'var(--adm-dim)' }}>{adminEmail}</div>
               </div>
               <div style={{ width: '36px', height: '36px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <User size={18} color="var(--adm-dim)" />

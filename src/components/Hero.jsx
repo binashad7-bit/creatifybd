@@ -33,8 +33,8 @@ const Hero = () => {
             </div>
           </FadeReveal>
 
-          <TextReveal className="hero-main-title" delay={0.1}>
-            <h1 dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
+          <TextReveal as="h1" className="hero-main-title" delay={0.1}>
+            <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
           </TextReveal>
 
           <FadeReveal delay={0.2}>
@@ -78,7 +78,7 @@ const Hero = () => {
                   alt="CreatifyBD creative growth showcase"
                   className="hero-mockup-img"
                   loading="eager"
-                  fetchPriority="high"
+                  fetchpriority="high"
                 />
               ) : (
                 <div className="hero-mockup-inner">
