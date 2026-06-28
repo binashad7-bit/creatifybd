@@ -35,6 +35,13 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://creatifybd.com/">
 
+    <!-- Noindex for Firebase staging domain -->
+    <script>
+      if (window.location.hostname === 'creatify-bd.web.app') {
+        document.write('<meta name="robots" content="noindex, nofollow">');
+      }
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
