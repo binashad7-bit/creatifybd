@@ -48,10 +48,18 @@ const ClientOrderDetail = () => {
   // Load Order details
   useEffect(() => {
     const fetchOrder = async () => {
-      // Security Check: Verify session authorization
+      // Security Check: Verify session authorization (set by ClientOrdersPortal on successful lookup)
+      // orderId in the URL IS the clientAccessToken (24-char hex)
       const sessionEmail = sessionStorage.getItem(`auth_order_${orderId}`);
       
+      if (!sessionEmail) {
+        toast.error('Session expired. Please re-enter your credentials.');
+        navigate('/client/orders');
+        return;
+      }
+
       try {
+        // Fetch by exact doc ID = clientAccessToken (Firestore allows get, denies list)
         const docRef = doc(db, 'orders', orderId);
         const docSnap = await getDoc(docRef);
 
@@ -59,20 +67,21 @@ const ClientOrderDetail = () => {
           const data = docSnap.data();
           const clientEmail = data.clientInfo?.email || '';
 
-          // Verify if session matching email or redirect
-          if (!sessionEmail || sessionEmail.toLowerCase() !== clientEmail.toLowerCase()) {
-            toast.error('Session expired or unauthorized access.');
+          // Double-check email matches session
+          if (sessionEmail.toLowerCase() !== clientEmail.toLowerCase()) {
+            toast.error('Unauthorized access. Session email mismatch.');
             navigate('/client/orders');
             return;
           }
           setOrder({ id: docSnap.id, ...data });
         } else {
-          toast.error('Order not found.');
+          toast.error('Order not found. Please check your Order ID.');
           navigate('/client/orders');
         }
       } catch (err) {
         console.error('Error fetching order detail:', err);
         toast.error('Failed to load order details.');
+        navigate('/client/orders');
       } finally {
         setLoading(false);
       }
@@ -304,7 +313,7 @@ const ClientOrderDetail = () => {
                             <span className="dl-date">Delivered: {new Date(delivery.createdAt?.seconds * 1000 || Date.now()).toLocaleDateString()}</span>
                           </div>
                           <a 
-                            href={delivery.fileUrl} 
+                            href={delivery.fileUrl || delivery.url} 
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="btn-download-action"

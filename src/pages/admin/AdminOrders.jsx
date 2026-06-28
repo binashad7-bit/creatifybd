@@ -83,8 +83,12 @@ const AdminOrders = () => {
       const deliveryEntry = {
         fileName: file.name,
         fileSize: file.size,
-        url: downloadURL,
-        uploadedAt: new Date().toISOString()
+        fileUrl: downloadURL,   // standardized field — ClientOrderDetail reads this
+        url: downloadURL,       // keep for backward compat
+        title: file.name,
+        notes: '',
+        uploadedAt: new Date().toISOString(),
+        createdAt: { seconds: Math.floor(Date.now() / 1000) }
       };
 
       await updateDoc(doc(db, 'orders', selectedOrder.id), {

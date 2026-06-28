@@ -8,16 +8,27 @@ import toast from 'react-hot-toast';
 
 const OrderSuccessPage = () => {
   const [searchParams] = useSearchParams();
-  const orderId = searchParams.get('orderId') || 'ORD-UNKNOWN';
+  const orderId = searchParams.get('orderId') || '';           // clientAccessToken = doc ID
+  const publicOrderId = searchParams.get('publicOrderId') || 'CBD-UNKNOWN';
   const amount = searchParams.get('amount') || '';
+  const service = searchParams.get('service') || '';
+  const email = searchParams.get('email') || '';
 
-  const [copied, setCopied] = React.useState(false);
+  const [copiedToken, setCopiedToken] = React.useState(false);
+  const [copiedId, setCopiedId] = React.useState(false);
 
-  const handleCopy = () => {
+  const handleCopyToken = () => {
     navigator.clipboard.writeText(orderId);
-    setCopied(true);
+    setCopiedToken(true);
+    toast.success('Tracking Token copied!');
+    setTimeout(() => setCopiedToken(false), 2000);
+  };
+
+  const handleCopyId = () => {
+    navigator.clipboard.writeText(publicOrderId);
+    setCopiedId(true);
     toast.success('Order ID copied!');
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopiedId(false), 2000);
   };
 
   return (
@@ -35,17 +46,31 @@ const OrderSuccessPage = () => {
             <CheckCircle2 size={72} />
           </div>
 
-          <h1 className="success-title">Order Initialized</h1>
+          <h1 className="success-title">Order Initialized!</h1>
           <p className="success-desc-copy">
-            Thank you! Your intake requirements have been saved. Your order is now generated and stands as <strong>Pending Verification</strong> until manual payment validation completes.
+            Your intake requirements are saved. The order is <strong>Pending Payment Verification</strong> — production begins once our team confirms your payment.
           </p>
 
+          {/* Public Order ID — human readable */}
           <div className="order-id-display-box">
-            <span className="lbl">Your Order ID:</span>
+            <span className="lbl">Your Order ID</span>
             <div className="id-row">
-              <code>{orderId}</code>
-              <button type="button" onClick={handleCopy} className="copy-btn-id" aria-label="Copy order ID">
-                {copied ? <Check size={16} /> : <Copy size={16} />}
+              <code style={{ color: '#e8192c', fontSize: '1.2rem', fontWeight: 800 }}>{publicOrderId}</code>
+              <button type="button" onClick={handleCopyId} className="copy-btn-id" aria-label="Copy order ID">
+                {copiedId ? <Check size={16} /> : <Copy size={16} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Tracking Token — private access key */}
+          <div className="order-id-display-box" style={{ background: 'rgba(232,25,44,0.04)', border: '1px solid rgba(232,25,44,0.15)', marginTop: '0.75rem' }}>
+            <span className="lbl" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <ShieldCheck size={14} style={{ color: '#e8192c' }} /> Tracking Token <span style={{ color: '#e8192c', fontSize: '0.7rem' }}>(Save this — needed for portal access)</span>
+            </span>
+            <div className="id-row">
+              <code style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: '#ccc', wordBreak: 'break-all' }}>{orderId}</code>
+              <button type="button" onClick={handleCopyToken} className="copy-btn-id" aria-label="Copy tracking token">
+                {copiedToken ? <Check size={16} /> : <Copy size={16} />}
               </button>
             </div>
           </div>
@@ -57,7 +82,7 @@ const OrderSuccessPage = () => {
               <div className="step-badge num active">01</div>
               <div className="step-text">
                 <h5>Make Manual Payment</h5>
-                <p>Transfer the total due (${amount ? `$${amount}` : 'package price'} USD) using Payoneer or DBBL Bank Transfer.</p>
+                <p>Transfer {amount ? `$${amount}` : 'the package price'} USD via Payoneer or DBBL Bank Transfer. Reference your Order ID: <strong>{publicOrderId}</strong>.</p>
               </div>
             </div>
 
@@ -65,7 +90,7 @@ const OrderSuccessPage = () => {
               <div className="step-badge num active">02</div>
               <div className="step-text">
                 <h5>Submit Proof of Payment</h5>
-                <p>Go to our Payment Proof page, fill in your transaction ID, and upload a screenshot receipt matching Order ID: {orderId}.</p>
+                <p>Click "Proceed to Payment" below, upload your receipt screenshot and transaction ID.</p>
               </div>
             </div>
 
@@ -73,13 +98,13 @@ const OrderSuccessPage = () => {
               <div className="step-badge num">03</div>
               <div className="step-text">
                 <h5>Admin Verification (Within 24 Hours)</h5>
-                <p>Our team verifies submissions manually. Once checked, your order tracking dashboard status shifts to "In Progress" and production starts.</p>
+                <p>Our team verifies manually. Once confirmed, your order tracking status shifts to "In Progress" and production starts.</p>
               </div>
             </div>
           </div>
 
           <div className="success-action-btns">
-            <Link to={`/payment?orderId=${orderId}&amount=${amount}`} className="btn-red">
+            <Link to={`/payment?orderId=${orderId}&publicOrderId=${publicOrderId}&amount=${amount}&service=${encodeURIComponent(service)}&email=${encodeURIComponent(email)}`} className="btn-red">
               Proceed to Payment <ArrowRight size={16} />
             </Link>
             <Link to="/client/orders" className="btn-ghost" style={{ border: '1px solid rgba(255,255,255,0.15)', color: 'white' }}>
@@ -89,7 +114,7 @@ const OrderSuccessPage = () => {
 
           <div className="secure-badge-footer">
             <ShieldCheck size={16} />
-            <span>Escrow Secure Manual Onboarding System</span>
+            <span>Escrow Secure Manual Verification System</span>
           </div>
         </div>
       </div>

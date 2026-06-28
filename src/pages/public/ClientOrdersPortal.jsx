@@ -10,38 +10,53 @@ import toast from 'react-hot-toast';
 
 const ClientOrdersPortal = () => {
   const [email, setEmail] = useState('');
-  const [orderId, setOrderId] = useState('');
+  const [publicOrderId, setPublicOrderId] = useState('');
+  const [trackingToken, setTrackingToken] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLookup = async (e) => {
     e.preventDefault();
     
-    if (!email.trim() || !orderId.trim()) {
-      toast.error('Please enter both Email and Order ID');
+    if (!email.trim() || !publicOrderId.trim() || !trackingToken.trim()) {
+      toast.error('Please fill in all three fields');
       return;
     }
 
+    const token = trackingToken.trim();
+    const pid = publicOrderId.trim().toUpperCase();
+
     setLoading(true);
     try {
-      const docRef = doc(db, 'orders', orderId.trim());
+      // Fetch by exact token (= doc ID). Firestore rules: allow get, deny list
+      const docRef = doc(db, 'orders', token);
       const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const orderData = docSnap.data();
-        const storedEmail = orderData.clientInfo?.email || '';
-
-        if (storedEmail.toLowerCase().trim() === email.toLowerCase().trim()) {
-          // Store verified lookup session
-          sessionStorage.setItem(`auth_order_${orderId.trim()}`, email.toLowerCase().trim());
-          toast.success('Order found! Access granted.');
-          navigate(`/client/orders/${orderId.trim()}`);
-        } else {
-          toast.error('Invalid credentials. The email does not match this Order ID.');
-        }
-      } else {
-        toast.error('Order ID not found. Please verify the ID.');
+      if (!docSnap.exists()) {
+        toast.error('Order not found. Please check your Tracking Token.');
+        return;
       }
+
+      const orderData = docSnap.data();
+      const storedEmail = orderData.clientInfo?.email?.toLowerCase().trim() || '';
+      const storedPublicId = (orderData.publicOrderId || '').toUpperCase();
+
+      // Triple-verify: email + publicOrderId + token (already confirmed by getDoc)
+      if (storedEmail !== email.toLowerCase().trim()) {
+        toast.error('Email does not match this order. Please verify your details.');
+        return;
+      }
+
+      if (storedPublicId !== pid) {
+        toast.error('Order ID does not match. Please verify your Order ID (e.g. CBD-1234567).');
+        return;
+      }
+
+      // All checks passed — store verified session keyed to token
+      sessionStorage.setItem(`auth_order_${token}`, email.toLowerCase().trim());
+      toast.success('Order found! Access granted.');
+      navigate(`/client/orders/${token}`);
+
     } catch (err) {
       console.error('Error fetching order:', err);
       toast.error('An error occurred. Please check your internet connection.');
@@ -68,10 +83,23 @@ const ClientOrdersPortal = () => {
 
           <h2>Track Your <span className="red">Order</span></h2>
           <p className="lookup-intro">
-            Enter the email address used during checkout and your Order ID to view your delivery roadmap.
+            Enter your Order ID, email, and Tracking Token from your order confirmation to access your delivery portal.
           </p>
 
           <form onSubmit={handleLookup} className="lookup-form">
+            <div className="form-group">
+              <label htmlFor="lookup-public-id">Order ID</label>
+              <input 
+                id="lookup-public-id"
+                type="text"
+                required
+                placeholder="e.g. CBD-1234567"
+                className="luxury-input"
+                value={publicOrderId}
+                onChange={e => setPublicOrderId(e.target.value)}
+              />
+            </div>
+
             <div className="form-group">
               <label htmlFor="lookup-email">Email Address</label>
               <input 
@@ -86,16 +114,20 @@ const ClientOrdersPortal = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="lookup-id">Order ID</label>
+              <label htmlFor="lookup-token">Tracking Token</label>
               <input 
-                id="lookup-id"
+                id="lookup-token"
                 type="text"
                 required
-                placeholder="e.g. ZQv7b3Lm5D..."
+                placeholder="Your 24-character access token"
                 className="luxury-input"
-                value={orderId}
-                onChange={e => setOrderId(e.target.value)}
+                value={trackingToken}
+                onChange={e => setTrackingToken(e.target.value)}
+                style={{ fontFamily: 'monospace', fontSize: '0.85rem', letterSpacing: '0.05em' }}
               />
+              <span style={{ fontSize: '0.72rem', color: '#555', marginTop: '0.3rem', display: 'block' }}>
+                Found in your order confirmation email sent by CreatifyBD
+              </span>
             </div>
 
             <button 
