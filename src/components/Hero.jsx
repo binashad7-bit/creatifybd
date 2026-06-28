@@ -59,12 +59,12 @@ const Hero = () => {
           <FadeReveal delay={0.4}>
             <div className="hero-trust">
               <div className="hero-avatars" aria-hidden="true">
-                <span className="avatar-initial">FH</span>
-                <span className="avatar-initial">TS</span>
-                <span className="avatar-initial">GE</span>
+                <span className="avatar-initial">JM</span>
+                <span className="avatar-initial">SR</span>
+                <span className="avatar-initial">AK</span>
               </div>
               <div className="hero-trust-text">
-                <strong>5.0 ★</strong> from 100+ clients
+                <strong>5.0 ★</strong> Trusted by growing brands
               </div>
             </div>
           </FadeReveal>

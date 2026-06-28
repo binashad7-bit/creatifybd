@@ -18,7 +18,9 @@ const StatusBadge = ({ status }) => {
     payment_pending: { color: '#ffc107', icon: Clock, label: 'Payment Pending' },
     payment_submitted: { color: '#00bcd4', icon: FileText, label: 'Payment Submitted' },
     payment_verified: { color: '#4caf50', icon: CheckCircle2, label: 'Payment Verified' },
+    payment_rejected: { color: '#f44336', icon: XCircle, label: 'Payment Rejected' },
     in_progress: { color: '#2196f3', icon: Play, label: 'In Progress' },
+    active: { color: '#2196f3', icon: Play, label: 'In Progress' }, // legacy alias
     draft_shared: { color: '#9c27b0', icon: FileText, label: 'Draft Shared' },
     delivered: { color: '#009688', icon: Check, label: 'Delivered' },
     revision_requested: { color: '#e91e63', icon: CornerUpLeft, label: 'Revision Requested' },
@@ -26,7 +28,7 @@ const StatusBadge = ({ status }) => {
     completed: { color: '#4caf50', icon: CheckCircle2, label: 'Completed' },
     cancelled: { color: '#f44336', icon: Ban, label: 'Cancelled' },
     rejected: { color: '#f44336', icon: XCircle, label: 'Payment Rejected' },
-    // Payment specific
+    // Payment verification specific
     pending: { color: '#ffc107', icon: Clock, label: 'Pending Verification' },
     verified: { color: '#4caf50', icon: CheckCircle2, label: 'Verified' }
   };

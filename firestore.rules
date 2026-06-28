@@ -82,7 +82,7 @@ service cloud.firestore {
         && request.resource.data.phone is string
         && request.resource.data.selectedService is string
         && request.resource.data.paymentMethod is string
-        && request.resource.data.paidAmount is string
+        && (request.resource.data.paidAmount is string || request.resource.data.paidAmount is number)
         && request.resource.data.transactionId is string
         && request.resource.data.proofFileUrl is string
         && request.resource.data.status == "pending"
@@ -112,7 +112,7 @@ service cloud.firestore {
       allow update: if isAdmin()
         && (request.resource.data.diff(resource.data).affectedKeys()
           .hasOnly([
-            'status', 'internalNotes', 'revisionNotes', 'deliveries',
+            'status', 'paymentStatus', 'internalNotes', 'revisionNotes', 'deliveries',
             'drafts', 'updatedAt', 'adminNote',
             'paymentVerifiedAt', 'paymentRejectedAt', 'paymentRejectionNote',
             'paymentProofUrl', 'transactionId'

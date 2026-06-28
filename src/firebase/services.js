@@ -24,18 +24,30 @@ const handleServiceError = (error, customMsg) => {
 
 // --- Messages / Contact Form ---
 export const sendMessage = async (messageData) => {
+  // Basic client-side rate limiting: max 1 submission per 60 seconds per session
+  const lastSentKey = 'creatifybd_last_msg';
+  const lastSent = parseInt(sessionStorage.getItem(lastSentKey) || '0', 10);
+  const now = Date.now();
+  if (now - lastSent < 60000) {
+    const waitSec = Math.ceil((60000 - (now - lastSent)) / 1000);
+    throw new Error(`Please wait ${waitSec}s before sending another message.`);
+  }
+
   try {
     const docRef = await addDoc(collection(db, 'messages'), {
-      name: messageData.name?.trim() || '',
-      email: messageData.email?.trim() || '',
-      phone: messageData.phone?.trim() || '',
+      name: messageData.name?.trim().slice(0, 120) || '',
+      email: messageData.email?.trim().slice(0, 180) || '',
+      phone: messageData.phone?.trim().slice(0, 30) || '',
+      company: messageData.company?.trim().slice(0, 150) || '',
       service: messageData.service || '',
       budget: messageData.budget || '',
-      message: messageData.message?.trim() || '',
+      message: messageData.message?.trim().slice(0, 3000) || '',
       createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
       status: 'unread',
       read: false
     });
+    sessionStorage.setItem(lastSentKey, String(now));
     return docRef.id;
   } catch (error) {
     handleServiceError(error, 'Failed to send message.');

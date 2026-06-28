@@ -94,12 +94,15 @@ const PaymentVerification = () => {
               updatedAt: new Date()
             };
             if (newStatus === 'verified') {
-              orderUpdate.status = 'active';
+              orderUpdate.status = 'in_progress';
+              orderUpdate.paymentStatus = 'verified';
               orderUpdate.paymentVerifiedAt = new Date();
               orderUpdate.paymentProofUrl = payment.proofFileUrl || '';
               orderUpdate.transactionId = payment.transactionId || '';
+              // verifiedBy is set server-side in admin context; store email from auth if available
             } else if (newStatus === 'rejected') {
-              orderUpdate.status = 'payment_pending';
+              orderUpdate.status = 'payment_rejected';
+              orderUpdate.paymentStatus = 'rejected';
               orderUpdate.paymentRejectedAt = new Date();
               orderUpdate.paymentRejectionNote = adminNote || 'Payment rejected by admin';
             }

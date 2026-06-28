@@ -9,6 +9,12 @@
     <priority>1.00</priority>
   </url>
   <url>
+    <loc>https://creatifybd.com/about</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://creatifybd.com/services</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -21,28 +27,10 @@
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://creatifybd.com/pricing</loc>
-    <lastmod>2026-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://creatifybd.com/contact</loc>
-    <lastmod>2026-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://creatifybd.com/work</loc>
+    <loc>https://creatifybd.com/portfolio</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://creatifybd.com/team</loc>
-    <lastmod>2026-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://creatifybd.com/reviews</loc>
@@ -51,16 +39,22 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://creatifybd.com/process</loc>
+    <loc>https://creatifybd.com/team</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.65</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://creatifybd.com/payment</loc>
+    <loc>https://creatifybd.com/contact</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://creatifybd.com/case-studies</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
 
   <!-- ── Service Category Pages ── -->
@@ -89,12 +83,12 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- ── Individual Gig Pages ── -->
+  <!-- ── Social Media Management Gigs ── -->
   <url>
     <loc>https://creatifybd.com/gigs/monthly-social-media-management-small-business</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://creatifybd.com/gigs/facebook-page-management</loc>
@@ -114,6 +108,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
+
+  <!-- ── Graphic Design Gigs ── -->
   <url>
     <loc>https://creatifybd.com/gigs/professional-logo-design</loc>
     <lastmod>2026-06-28</lastmod>
@@ -150,6 +146,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
+
+  <!-- ── Video Editing Gigs ── -->
   <url>
     <loc>https://creatifybd.com/gigs/short-form-reels-editing</loc>
     <lastmod>2026-06-28</lastmod>
@@ -174,6 +172,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
+
+  <!-- ── Website Design Gigs ── -->
+  <url>
+    <loc>https://creatifybd.com/gigs/small-business-website-design</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
   <url>
     <loc>https://creatifybd.com/gigs/landing-page-design</loc>
     <lastmod>2026-06-28</lastmod>
@@ -181,48 +187,16 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://creatifybd.com/gigs/ecommerce-website-design</loc>
+    <loc>https://creatifybd.com/gigs/portfolio-website-design</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://creatifybd.com/gigs/business-website-design</loc>
-    <lastmod>2026-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://creatifybd.com/gigs/website-redesign</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
-  </url>
-
-  <!-- ── Case Studies ── -->
-  <url>
-    <loc>https://creatifybd.com/case-studies</loc>
-    <lastmod>2026-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://creatifybd.com/case-study/graphic-design-apex</loc>
-    <lastmod>2026-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.65</priority>
-  </url>
-  <url>
-    <loc>https://creatifybd.com/case-study/marketing-luxe</loc>
-    <lastmod>2026-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.65</priority>
-  </url>
-  <url>
-    <loc>https://creatifybd.com/case-study/web-design-finflow</loc>
-    <lastmod>2026-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.65</priority>
   </url>
 
   <!-- ── Legal Pages ── -->

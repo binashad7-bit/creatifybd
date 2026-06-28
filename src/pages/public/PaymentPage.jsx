@@ -25,10 +25,13 @@ const PaymentPage = () => {
   const linkedOrderId = searchParams.get('orderId') || '';          // clientAccessToken = doc ID
   const publicOrderId = searchParams.get('publicOrderId') || '';
   const prefillEmail = searchParams.get('email') || '';
+  const prefillAmount = searchParams.get('amount') || '';
+  const expectedAmount = prefillAmount ? parseFloat(prefillAmount) : null;
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [copied, setCopied] = useState(null);
+  const [amountMismatch, setAmountMismatch] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: prefillEmail,
@@ -36,13 +39,13 @@ const PaymentPage = () => {
     companyName: '',
     selectedService: selectedService,
     paymentMethod: 'payoneer',
-    paidAmount: '',
+    paidAmount: prefillAmount,
     currency: 'USD',
     transactionId: '',
     paymentDate: '',
     proofFile: null,
     message: '',
-    invoiceNumber: ''
+    invoiceNumber: publicOrderId || ''
   });
 
   const handleCopy = (text, field) => {
@@ -55,10 +58,10 @@ const PaymentPage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validate file type
-      const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+      // Validate file type — JPG, PNG, WEBP, PDF accepted
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'application/pdf'];
       if (!validTypes.includes(file.type)) {
-        toast.error('Please upload a valid image (JPEG, PNG) or PDF file');
+        toast.error('Please upload a valid file (JPEG, PNG, WEBP, or PDF)');
         return;
       }
       // Validate file size (max 5MB)
@@ -67,6 +70,15 @@ const PaymentPage = () => {
         return;
       }
       setFormData({ ...formData, proofFile: file });
+    }
+  };
+
+  const handleAmountChange = (val) => {
+    setFormData(prev => ({ ...prev, paidAmount: val }));
+    if (expectedAmount !== null && val && parseFloat(val) !== expectedAmount) {
+      setAmountMismatch(true);
+    } else {
+      setAmountMismatch(false);
     }
   };
 
@@ -94,7 +106,9 @@ const PaymentPage = () => {
 
     try {
       // Upload proof file to Firebase Storage
-      const proofFileName = `payment-proofs/${Date.now()}_${formData.proofFile.name}`;
+      // Sanitize file name: strip special chars, keep extension
+      const safeName = formData.proofFile.name.replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 80);
+      const proofFileName = `payment-proofs/${Date.now()}_${safeName}`;
       const storageRef = ref(storage, proofFileName);
       await uploadBytes(storageRef, formData.proofFile);
       const proofFileUrl = await getDownloadURL(storageRef);
@@ -107,15 +121,20 @@ const PaymentPage = () => {
         companyName: formData.companyName || '',
         selectedService: formData.selectedService,
         paymentMethod: formData.paymentMethod,
-        paidAmount: formData.paidAmount,
+        paidAmount: Number(formData.paidAmount) || formData.paidAmount,
         currency: formData.currency,
         transactionId: formData.transactionId,
         paymentDate: formData.paymentDate,
         proofFileUrl: proofFileUrl,
+        proofFileName: safeName,
+        proofFileSize: formData.proofFile.size,
+        proofFileType: formData.proofFile.type,
+        storagePath: proofFileName,
         message: formData.message || '',
         invoiceNumber: formData.invoiceNumber || '',
         linkedOrderId: linkedOrderId || '',       // clientAccessToken = order doc ID
         publicOrderId: publicOrderId || '',       // human-readable CBD-XXXXXXX
+        expectedAmount: expectedAmount,
         status: 'pending',
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
@@ -126,7 +145,7 @@ const PaymentPage = () => {
       // Do NOT update order document here — this prevents spoofing payment status from the frontend
 
       setSubmitted(true);
-      toast.success('Payment proof submitted successfully', { id: toastId });
+      toast.success('Payment proof submitted. Pending manual verification.', { id: toastId });
       setFormData({
         fullName: '',
         email: '',
@@ -446,15 +465,27 @@ const PaymentPage = () => {
                   <div className="form-row-2">
                     <div className="form-group">
                       <label className="luxury-label" htmlFor="paidAmount">Paid Amount *</label>
+                      {expectedAmount && (
+                        <div style={{ fontSize: '0.8rem', color: '#22c55e', marginBottom: '0.25rem', fontWeight: 600 }}>
+                          Expected amount: ${expectedAmount} USD
+                        </div>
+                      )}
                       <input
                         id="paidAmount"
                         type="number"
                         required
                         className="luxury-input"
                         value={formData.paidAmount}
-                        onChange={e => setFormData({ ...formData, paidAmount: e.target.value })}
-                        placeholder="5000"
+                        onChange={e => handleAmountChange(e.target.value)}
+                        placeholder="0.00"
+                        step="0.01"
+                        min="0"
                       />
+                      {amountMismatch && (
+                        <div style={{ fontSize: '0.8rem', color: '#ffc107', marginTop: '0.25rem' }}>
+                          ⚠ Amount does not match expected ${expectedAmount} USD. Proceed only if intentional.
+                        </div>
+                      )}
                     </div>
                     <div className="form-group">
                       <label className="luxury-label" htmlFor="currency">Currency *</label>
@@ -505,13 +536,13 @@ const PaymentPage = () => {
                         type="file"
                         id="proofFile"
                         required
-                        accept="image/jpeg,image/png,image/jpg,application/pdf"
+                        accept="image/jpeg,image/png,image/jpg,image/webp,application/pdf"
                         onChange={handleFileChange}
                         className="file-input"
                       />
                       <label htmlFor="proofFile" className="file-upload-label">
                         <Upload size={20} />
-                        <span>{formData.proofFile ? formData.proofFile.name : 'Choose file (JPEG, PNG, PDF - Max 5MB)'}</span>
+                        <span>{formData.proofFile ? formData.proofFile.name : 'Choose file (JPEG, PNG, WEBP, PDF — Max 5MB)'}</span>
                       </label>
                     </div>
                   </div>
