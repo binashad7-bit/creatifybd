@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import DOMPurify from 'dompurify';
 import { useLanguage } from '../context/LanguageContext';
 import { sendMessage } from '../firebase/services';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,53 +13,74 @@ const Contact = () => {
   const { content } = useSettings();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', service: '', budget: '', message: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    service: '',
+    budget: '',
+    message: ''
+  });
+
+  const cContent = content?.contact || {};
+  const safeHeading = useMemo(() => (
+    cContent.heading
+      ? DOMPurify.sanitize(cContent.heading, {
+          ALLOWED_TAGS: ['span', 'br', 'strong', 'em'],
+          ALLOWED_ATTR: ['class']
+        })
+      : ''
+  ), [cContent.heading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error(lang === 'bn' ? 'সবগুলো ঘর পূরণ করুন' : 'Please fill in all required fields');
+    if (!formData.name || !formData.email || !formData.service || !formData.budget || !formData.message) {
+      toast.error(lang === 'bn' ? 'সব প্রয়োজনীয় ঘর পূরণ করুন' : 'Please fill in all required fields');
       return;
     }
+
     setLoading(true);
     const toastId = toast.loading(lang === 'bn' ? 'পাঠানো হচ্ছে...' : 'Sending your inquiry...');
     try {
       await sendMessage(formData);
       setSubmitted(true);
       toast.success(lang === 'bn' ? 'ধন্যবাদ! আমরা শীঘ্রই যোগাযোগ করব।' : 'Success! We will contact you soon.', { id: toastId });
+      setFormData({ name: '', email: '', phone: '', service: '', budget: '', message: '' });
     } catch (err) {
       console.error(err);
-      toast.error(lang === 'bn' ? 'ব্যর্থ হয়েছে। আবার চেষ্টা করুন।' : 'Failed to send. Please try again.', { id: toastId });
+      toast.error(lang === 'bn' ? 'পাঠানো যায়নি। আবার চেষ্টা করুন।' : 'Failed to send. Please try again.', { id: toastId });
     } finally {
       setLoading(false);
     }
   };
 
-  const cContent = content?.contact || {};
-
   return (
     <section className="contact-premium-section" id="contact">
-
       <div className="container">
         <div className="contact-grid-wrap">
-          
           <div className="contact-info-panel">
             <FadeReveal>
-              <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>{lang === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}</div>
+              <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>
+                {lang === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}
+              </div>
             </FadeReveal>
+
             <TextReveal className="contact-h1">
-              {cContent.heading ? (
-                <span dangerouslySetInnerHTML={{ __html: cContent.heading }} />
+              {safeHeading ? (
+                <span dangerouslySetInnerHTML={{ __html: safeHeading }} />
               ) : (
                 lang === 'bn' ? 'আসুন নতুন কিছু তৈরি করি' : "Let's build something great."
               )}
             </TextReveal>
+
             {cContent.sub && (
               <FadeReveal delay={0.2}>
-                <p style={{ color: 'var(--section-subtext)', marginTop: '1rem', marginBottom: '2rem' }}>{cContent.sub}</p>
+                <p style={{ color: 'var(--section-subtext)', marginTop: '1rem', marginBottom: '2rem' }}>
+                  {cContent.sub}
+                </p>
               </FadeReveal>
             )}
-            
+
             <FadeReveal delay={0.4}>
               <div className="contact-methods">
                 <div className="contact-method-item">
@@ -93,11 +115,16 @@ const Contact = () => {
                 )}
               </div>
             </FadeReveal>
-            
+
             {cContent.office_image && (
               <FadeReveal delay={0.6}>
                 <div style={{ marginTop: '3rem' }}>
-                  <img src={cContent.office_image} alt="Office" style={{ width: '100%', maxWidth: '400px', borderRadius: '16px', objectFit: 'cover' }} />
+                  <img
+                    src={cContent.office_image}
+                    alt="CreatifyBD office"
+                    style={{ width: '100%', maxWidth: '400px', borderRadius: '16px', objectFit: 'cover' }}
+                    loading="lazy"
+                  />
                 </div>
               </FadeReveal>
             )}
@@ -106,7 +133,7 @@ const Contact = () => {
           <div className="contact-form-card">
             <AnimatePresence mode="wait">
               {!submitted ? (
-                <motion.form 
+                <motion.form
                   key="form"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -114,32 +141,57 @@ const Contact = () => {
                   onSubmit={handleSubmit}
                 >
                   <h3 className="form-title">Start a Discovery Session</h3>
-                  
+
                   <div className="form-row-2">
                     <div className="form-group">
-                      <label className="luxury-label">What's your name?</label>
-                      <input 
-                        type="text" required className="luxury-input" 
-                        value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
+                      <label className="luxury-label" htmlFor="contact-name">What's your name?</label>
+                      <input
+                        id="contact-name"
+                        type="text"
+                        required
+                        className="luxury-input"
+                        value={formData.name}
+                        onChange={e => setFormData({ ...formData, name: e.target.value })}
                         placeholder="John Doe"
+                        autoComplete="name"
                       />
                     </div>
                     <div className="form-group">
-                      <label className="luxury-label">Email Address</label>
-                      <input 
-                        type="email" required className="luxury-input" 
-                        value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})}
+                      <label className="luxury-label" htmlFor="contact-email">Email Address</label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        required
+                        className="luxury-input"
+                        value={formData.email}
+                        onChange={e => setFormData({ ...formData, email: e.target.value })}
                         placeholder="john@example.com"
+                        autoComplete="email"
                       />
                     </div>
                   </div>
 
                   <div className="form-row-2">
                     <div className="form-group">
-                      <label className="luxury-label">Interested In</label>
-                      <select 
-                        className="luxury-input" required
-                        value={formData.service} onChange={e => setFormData({...formData, service: e.target.value})}
+                      <label className="luxury-label" htmlFor="contact-phone">Phone / WhatsApp</label>
+                      <input
+                        id="contact-phone"
+                        type="tel"
+                        className="luxury-input"
+                        value={formData.phone}
+                        onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="+880 1XXX XXXXXX"
+                        autoComplete="tel"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="luxury-label" htmlFor="contact-service">Interested In</label>
+                      <select
+                        id="contact-service"
+                        className="luxury-input"
+                        required
+                        value={formData.service}
+                        onChange={e => setFormData({ ...formData, service: e.target.value })}
                       >
                         <option value="">Select a service</option>
                         <option value="web">Web Design & Dev</option>
@@ -148,11 +200,17 @@ const Contact = () => {
                         <option value="video">Video Production</option>
                       </select>
                     </div>
+                  </div>
+
+                  <div className="form-row-2">
                     <div className="form-group">
-                      <label className="luxury-label">Monthly Budget</label>
-                      <select 
-                        className="luxury-input" required
-                        value={formData.budget} onChange={e => setFormData({...formData, budget: e.target.value})}
+                      <label className="luxury-label" htmlFor="contact-budget">Monthly Budget</label>
+                      <select
+                        id="contact-budget"
+                        className="luxury-input"
+                        required
+                        value={formData.budget}
+                        onChange={e => setFormData({ ...formData, budget: e.target.value })}
                       >
                         <option value="">Select budget range</option>
                         <option value="5k-10k">৳5,000 - ৳10,000</option>
@@ -164,17 +222,19 @@ const Contact = () => {
                   </div>
 
                   <div className="form-group-full">
-                    <label className="luxury-label">Tell us about your project</label>
-                    <textarea 
-                      required className="luxury-input" style={{ height: '120px', paddingTop: '1rem' }}
-                      value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}
+                    <label className="luxury-label" htmlFor="contact-message">Tell us about your project</label>
+                    <textarea
+                      id="contact-message"
+                      required
+                      className="luxury-input"
+                      style={{ height: '120px', paddingTop: '1rem' }}
+                      value={formData.message}
+                      onChange={e => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Share your vision..."
                     />
                   </div>
 
-                  <button 
-                    type="submit" disabled={loading} className="btn-huge-red w-full" 
-                  >
+                  <button type="submit" disabled={loading} className="btn-huge-red w-full">
                     {loading ? (
                       <>Processing... <Loader2 size={18} className="animate-spin" style={{ marginLeft: '1rem' }} /></>
                     ) : (
@@ -183,7 +243,7 @@ const Contact = () => {
                   </button>
                 </motion.form>
               ) : (
-                <motion.div 
+                <motion.div
                   key="success"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -192,16 +252,16 @@ const Contact = () => {
                   <CheckCircle2 size={80} color="var(--red)" style={{ marginBottom: '2rem' }} />
                   <h3 className="success-title">Inquiry Received.</h3>
                   <p className="success-desc">Our strategy team will review your project and get back to you within 24 hours.</p>
-                  <button onClick={() => setSubmitted(false)} className="btn-red" style={{ marginTop: '2.5rem' }}>Send Another Inquiry</button>
+                  <button onClick={() => setSubmitted(false)} className="btn-red" style={{ marginTop: '2.5rem' }}>
+                    Send Another Inquiry
+                  </button>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
-
         </div>
       </div>
     </section>
-
   );
 };
 

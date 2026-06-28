@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../../firebase/config';
-import { collection, getDocs, query, orderBy, limit, addDoc, doc, setDoc, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, addDoc, doc, setDoc, onSnapshot } from 'firebase/firestore';
 import { MessageSquare, Briefcase, Image as ImageIcon, Star, TrendingUp, Sparkles, Zap, Globe, Clock, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -172,9 +172,16 @@ const Overview = () => {
           testimonials: tSnap.size
         });
 
-        const q = query(collection(db, 'messages'), orderBy('timestamp', 'desc'), limit(5));
-        const qSnap = await getDocs(q);
-        setRecentMessages(qSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        const qSnap = await getDocs(collection(db, 'messages'));
+        const latestMessages = qSnap.docs
+          .map(doc => ({ id: doc.id, ...doc.data() }))
+          .sort((a, b) => {
+            const timeA = a.createdAt?.toMillis?.() || a.timestamp?.toMillis?.() || 0;
+            const timeB = b.createdAt?.toMillis?.() || b.timestamp?.toMillis?.() || 0;
+            return timeB - timeA;
+          })
+          .slice(0, 5);
+        setRecentMessages(latestMessages);
         
         setLoading(false);
       } catch (err) {
@@ -295,7 +302,7 @@ const Overview = () => {
                     </div>
                     {msg.name}
                   </td>
-                  <td style={{ color: 'var(--adm-dim)' }}>{msg.service}</td>
+                  <td style={{ color: 'var(--adm-dim)' }}>{msg.service || 'Not specified'}</td>
                   <td>
                     <span className="badge-status badge-active" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
                       <CheckCircle2 size={12} /> New Lead

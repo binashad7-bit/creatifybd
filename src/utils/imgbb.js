@@ -1,9 +1,9 @@
 import imageCompression from 'browser-image-compression';
-
-const IMGBB_API_KEY = "eda81cb1f9007c7c706b52672a231770";
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { storage } from '../firebase/config';
 
 /**
- * Uploads an image to ImgBB with smart compression and progress tracking.
+ * Uploads an image to Firebase Storage with smart compression and progress tracking.
  * @param {File} file - The image file to upload.
  * @param {Function} onProgress - Callback for upload progress (0 to 100).
  */
@@ -14,10 +14,10 @@ export const uploadImage = async (file, onProgress) => {
   // If file > 5MB, we compress it to ensure "smooth" upload and avoid ImgBB errors
   if (file.size > 5 * 1024 * 1024) {
     const options = {
-      maxSizeMB: 4, // Target max size
-      maxWidthOrHeight: 4096, // Keep high resolution
+      maxSizeMB: 2,
+      maxWidthOrHeight: 2400,
       useWebWorker: true,
-      fileType: file.type // Try to preserve original type (PNG stays PNG)
+      fileType: file.type
     };
     try {
       fileToUpload = await imageCompression(file, options);
@@ -26,38 +26,39 @@ export const uploadImage = async (file, onProgress) => {
     }
   }
 
+  const extension = fileToUpload.name.split('.').pop() || 'jpg';
+  const safeName = fileToUpload.name
+    .replace(/\.[^.]+$/, '')
+    .replace(/[^a-z0-9-_]+/gi, '-')
+    .replace(/^-+|-+$/g, '')
+    .toLowerCase() || 'image';
+  const uniqueId = `${Date.now()}-${crypto.randomUUID?.() || Math.random().toString(36).slice(2)}`;
+  const storageRef = ref(storage, `uploads/${uniqueId}-${safeName}.${extension}`);
+
   return new Promise((resolve, reject) => {
-    const formData = new FormData();
-    formData.append('image', fileToUpload);
-
-    const xhr = new XMLHttpRequest();
-    
-    xhr.upload.addEventListener('progress', (e) => {
-      if (e.lengthComputable && onProgress) {
-        const percentComplete = Math.round((e.loaded / e.total) * 100);
-        onProgress(percentComplete);
+    const task = uploadBytesResumable(storageRef, fileToUpload, {
+      contentType: fileToUpload.type || 'image/jpeg',
+      customMetadata: {
+        originalName: file.name
       }
     });
 
-    xhr.addEventListener('load', () => {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        try {
-          const response = JSON.parse(xhr.responseText);
-          if (response.success) {
-            resolve(response.data.url);
-          } else {
-            reject(new Error(response.error.message || 'Upload failed'));
-          }
-        } catch (err) {
-          reject(new Error('Invalid response from server'));
+    task.on(
+      'state_changed',
+      (snapshot) => {
+        if (onProgress) {
+          const percentComplete = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          onProgress(percentComplete);
         }
-      } else {
-        reject(new Error(`Server returned status ${xhr.status}`));
+      },
+      (error) => reject(error),
+      async () => {
+        try {
+          resolve(await getDownloadURL(task.snapshot.ref));
+        } catch (error) {
+          reject(error);
+        }
       }
-    });
-
-    xhr.addEventListener('error', () => reject(new Error('Network error')));
-    xhr.open('POST', `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`);
-    xhr.send(formData);
+    );
   });
 };

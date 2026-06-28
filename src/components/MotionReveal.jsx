@@ -5,11 +5,13 @@ import OptimizedImage from './OptimizedImage';
 /**
  * TextReveal: Animates text word by word using a masked reveal effect.
  */
-export const TextReveal = ({ children, className = '', delay = 0 }) => {
+export const TextReveal = ({ children, className = '', delay = 0, as = 'h2' }) => {
+  const MotionTag = motion[as] || motion.h2;
+
   // If children is not a string (e.g. contains nested spans or is null), render it directly without word-by-word animation
   if (typeof children !== 'string') {
     return (
-      <motion.h2
+      <MotionTag
         className={`text-reveal-container ${className}`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -17,7 +19,7 @@ export const TextReveal = ({ children, className = '', delay = 0 }) => {
         transition={{ duration: 0.8, delay }}
       >
         {children}
-      </motion.h2>
+      </MotionTag>
     );
   }
 
@@ -55,7 +57,7 @@ export const TextReveal = ({ children, className = '', delay = 0 }) => {
   };
 
   return (
-    <motion.h2
+    <MotionTag
       className={`text-reveal-container ${className}`}
       variants={container}
       initial="hidden"
@@ -69,7 +71,7 @@ export const TextReveal = ({ children, className = '', delay = 0 }) => {
           </motion.span>
         </span>
       ))}
-    </motion.h2>
+    </MotionTag>
   );
 };
 

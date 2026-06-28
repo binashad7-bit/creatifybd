@@ -14,6 +14,7 @@ const NotFound = () => {
       <SEO 
         title="404 Not Found | CreatifyBD"
         description="The page you are looking for does not exist."
+        noIndex
       />
       <Navbar />
       

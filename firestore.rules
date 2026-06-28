@@ -2,11 +2,33 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAdmin() {
-      return request.auth != null;
+      return request.auth != null
+        && (
+          request.auth.token.admin == true
+          || request.auth.token.email == "binashad7@gmail.com"
+        );
     }
+
+    function isValidMessage() {
+      return request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 120
+        && request.resource.data.email is string
+        && request.resource.data.email.size() > 3
+        && request.resource.data.email.size() <= 180
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0
+        && request.resource.data.message.size() <= 3000
+        && (!("service" in request.resource.data) || request.resource.data.service is string)
+        && (!("budget" in request.resource.data) || request.resource.data.budget is string)
+        && (!("phone" in request.resource.data) || request.resource.data.phone is string)
+        && request.resource.data.status == "unread"
+        && request.resource.data.read == false;
+    }
+
     match /messages/{message} {
-      allow create: if request.resource.data.name is string && request.resource.data.name.size() > 0;
-      allow read, delete: if isAdmin();
+      allow create: if isValidMessage();
+      allow read, update, delete: if isAdmin();
     }
     match /services/{id} {
       allow read: if true;
@@ -35,6 +57,10 @@ service cloud.firestore {
     match /case_studies/{id} {
       allow read: if true;
       allow write: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

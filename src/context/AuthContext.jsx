@@ -21,12 +21,34 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const timeoutId = window.setTimeout(() => {
+      console.warn('Auth state check timed out. Continuing as guest.');
+      setUser(null);
       setLoading(false);
-    });
+    }, 5000);
 
-    return () => unsubscribe();
+    let unsubscribe = () => {};
+    try {
+      unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        window.clearTimeout(timeoutId);
+        setUser(currentUser);
+        setLoading(false);
+      }, (error) => {
+        window.clearTimeout(timeoutId);
+        console.error('Auth state error:', error);
+        setUser(null);
+        setLoading(false);
+      });
+    } catch (error) {
+      window.clearTimeout(timeoutId);
+      console.error('Auth listener failed:', error);
+      setLoading(false);
+    }
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      unsubscribe();
+    };
   }, []);
 
   const login = (email, password) => {

@@ -19,6 +19,9 @@ const PortfolioPage = lazy(() => import('./pages/public/PortfolioPage'));
 const ProcessPage = lazy(() => import('./pages/public/ProcessPage'));
 const PricingPage = lazy(() => import('./pages/public/PricingPage'));
 const ContactPage = lazy(() => import('./pages/public/ContactPage'));
+const CaseStudiesPage = lazy(() => import('./pages/public/CaseStudiesPage'));
+const CaseStudyPage = lazy(() => import('./pages/public/CaseStudyPage'));
+const LegalPage = lazy(() => import('./pages/public/LegalPage'));
 const Login = lazy(() => import('./pages/Login'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -44,7 +47,10 @@ const PageWrapper = ({ children }) => (
 
 function AppContent() {
   const location = useLocation();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    return sessionStorage.getItem('creatify-preloaded') !== 'true';
+  });
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -69,7 +75,10 @@ function AppContent() {
 
   return (
     <>
-      {loading && <Preloader onComplete={() => setLoading(false)} />}
+      {loading && <Preloader onComplete={() => {
+        sessionStorage.setItem('creatify-preloaded', 'true');
+        setLoading(false);
+      }} />}
       <ScrollToTop />
       <CustomCursor />
       <AnimatePresence mode="wait">
@@ -80,6 +89,10 @@ function AppContent() {
           <Route path="/process" element={<PageWrapper><ProcessPage /></PageWrapper>} />
           <Route path="/pricing" element={<PageWrapper><PricingPage /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
+          <Route path="/case-studies" element={<PageWrapper><CaseStudiesPage /></PageWrapper>} />
+          <Route path="/case-study/:slug" element={<PageWrapper><CaseStudyPage /></PageWrapper>} />
+          <Route path="/privacy" element={<PageWrapper><LegalPage type="privacy" /></PageWrapper>} />
+          <Route path="/terms" element={<PageWrapper><LegalPage type="terms" /></PageWrapper>} />
           <Route path="/about" element={<PageWrapper><ProcessPage /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
           <Route 
