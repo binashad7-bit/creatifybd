@@ -1,13 +1,38 @@
 import React, { useMemo, useRef } from 'react';
 import DOMPurify from 'dompurify';
-import { useLanguage } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { TextReveal, FadeReveal } from './MotionReveal';
 import { useSettings } from '../context/SettingsContext';
 
+const defaultSteps = [
+  {
+    num: '01',
+    icon: '01',
+    title: 'Audit & positioning',
+    desc: 'We review your channels, competitors, audience, offer and market before recommending a creative direction.'
+  },
+  {
+    num: '02',
+    icon: '02',
+    title: 'Content strategy',
+    desc: 'We build your monthly content pillars, campaign angles, posting rhythm, visual system and approval workflow.'
+  },
+  {
+    num: '03',
+    icon: '03',
+    title: 'Design, edit & publish',
+    desc: 'Our team produces graphics, reels, ads, captions and supporting web assets with a polished brand standard.'
+  },
+  {
+    num: '04',
+    icon: '04',
+    title: 'Report & optimize',
+    desc: 'We turn analytics into next-month decisions: stronger hooks, better formats, sharper offers and clearer conversion paths.'
+  }
+];
+
 const Process = ({ highlight = false, fullPage = false }) => {
-  const { lang } = useLanguage();
   const { content } = useSettings();
   const containerRef = useRef(null);
 
@@ -22,33 +47,6 @@ const Process = ({ highlight = false, fullPage = false }) => {
     restDelta: 0.001
   });
 
-  const defaultSteps = [
-    {
-      num: '01',
-      icon: '🔍',
-      title: lang === 'bn' ? 'গবেষণা ও পরিকল্পনা' : 'Strategy & Planning',
-      desc: lang === 'bn' ? 'আপনার ব্র্যান্ড, লক্ষ্য ও গ্রাহক বুঝে একটি পরিষ্কার রোডম্যাপ তৈরি করি।' : 'We deep dive into your brand goals and user needs to create a bulletproof roadmap.'
-    },
-    {
-      num: '02',
-      icon: '🎨',
-      title: lang === 'bn' ? 'সৃজনশীল ডিজাইন' : 'Creative Design',
-      desc: lang === 'bn' ? 'আপনার আইডিয়াকে প্রিমিয়াম ভিজ্যুয়াল কনসেপ্ট ও UI ডিজাইনে রূপান্তর করি।' : 'We transform your ideas into high-fidelity premium visual concepts and UI designs.'
-    },
-    {
-      num: '03',
-      icon: '⚙️',
-      title: lang === 'bn' ? 'নিখুঁত বাস্তবায়ন' : 'Expert Execution',
-      desc: lang === 'bn' ? 'নির্ভুল ডিজাইন, কনটেন্ট ও ডেভেলপমেন্টের মাধ্যমে কাজটি বাস্তবে রূপ দিই।' : 'We bring designs to life with pixel-perfect execution and high-performance development.'
-    },
-    {
-      num: '04',
-      icon: '🚀',
-      title: lang === 'bn' ? 'লঞ্চ ও অপ্টিমাইজেশন' : 'Growth & Support',
-      desc: lang === 'bn' ? 'লঞ্চের পর ফলাফল মাপি এবং ধারাবাহিক উন্নতির মাধ্যমে ROI বাড়াই।' : 'We monitor results post-launch and continuously refine strategies for maximum ROI.'
-    }
-  ];
-
   const steps = content?.process?.steps?.length > 0 ? content.process.steps : defaultSteps;
   const safeTitle = useMemo(() => (
     content?.process?.title
@@ -62,20 +60,18 @@ const Process = ({ highlight = false, fullPage = false }) => {
         {!fullPage && (
           <div className="process-header">
             <FadeReveal>
-              <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>
-                {lang === 'bn' ? 'আমাদের কাজের পদ্ধতি' : 'Our Workflow'}
-              </div>
+              <div className="eyebrow">Our Workflow</div>
             </FadeReveal>
             <TextReveal className="section-h">
               {safeTitle ? (
                 <span dangerouslySetInnerHTML={{ __html: safeTitle }} />
               ) : (
-                lang === 'bn' ? 'নিখুঁত প্রসেস' : 'The Path to Excellence.'
+                'A clear system for consistent growth.'
               )}
             </TextReveal>
             <FadeReveal delay={0.4}>
-              <p className="section-sub" style={{ color: 'var(--section-subtext)' }}>
-                {content?.process?.subtitle || (lang === 'bn' ? 'সুশৃঙ্খল পদ্ধতিতে আমরা আপনার ধারণাকে বাস্তবে রূপান্তর করি।' : 'A proven 4-step framework designed to deliver consistent, high-end results with precision.')}
+              <p className="section-sub">
+                {content?.process?.subtitle || 'A monthly operating rhythm that keeps strategy, creative production and performance improvement connected.'}
               </p>
             </FadeReveal>
           </div>
@@ -102,7 +98,7 @@ const Process = ({ highlight = false, fullPage = false }) => {
                 </div>
 
                 <motion.div
-                  className="process-icon-wrap"
+                  className="process-icon-wrap process-icon-number"
                   initial={{ scale: 0.5, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
@@ -129,7 +125,7 @@ const Process = ({ highlight = false, fullPage = false }) => {
           <FadeReveal delay={0.8}>
             <div style={{ marginTop: '4rem', textAlign: 'center' }}>
               <Link to="/process" className="btn-huge-red">
-                {lang === 'bn' ? 'বিস্তারিত প্রসেস দেখুন →' : 'Explore Our Full Workflow →'}
+                Explore Our Full Workflow
               </Link>
             </div>
           </FadeReveal>

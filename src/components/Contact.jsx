@@ -1,15 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import DOMPurify from 'dompurify';
-import { useLanguage } from '../context/LanguageContext';
-import { sendMessage } from '../firebase/services';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Send, CheckCircle2, MessageSquare, Phone, MapPin, Loader2 } from 'lucide-react';
-import { TextReveal, FadeReveal } from './MotionReveal';
+import { AnimatePresence, motion } from 'framer-motion';
+import { CheckCircle2, Clock3, Globe2, Loader2, Mail, MessageSquare, Send } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { sendMessage } from '../firebase/services';
+import { TextReveal, FadeReveal } from './MotionReveal';
 import { useSettings } from '../context/SettingsContext';
 
 const Contact = () => {
-  const { lang } = useLanguage();
   const { content } = useSettings();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -35,20 +33,20 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.service || !formData.budget || !formData.message) {
-      toast.error(lang === 'bn' ? 'সব প্রয়োজনীয় ঘর পূরণ করুন' : 'Please fill in all required fields');
+      toast.error('Please fill in all required fields');
       return;
     }
 
     setLoading(true);
-    const toastId = toast.loading(lang === 'bn' ? 'পাঠানো হচ্ছে...' : 'Sending your inquiry...');
+    const toastId = toast.loading('Sending your inquiry...');
     try {
       await sendMessage(formData);
       setSubmitted(true);
-      toast.success(lang === 'bn' ? 'ধন্যবাদ! আমরা শীঘ্রই যোগাযোগ করব।' : 'Success! We will contact you soon.', { id: toastId });
+      toast.success('Success! We will contact you soon.', { id: toastId });
       setFormData({ name: '', email: '', phone: '', service: '', budget: '', message: '' });
     } catch (err) {
       console.error(err);
-      toast.error(lang === 'bn' ? 'পাঠানো যায়নি। আবার চেষ্টা করুন।' : 'Failed to send. Please try again.', { id: toastId });
+      toast.error('Failed to send. Please try again.', { id: toastId });
     } finally {
       setLoading(false);
     }
@@ -60,74 +58,55 @@ const Contact = () => {
         <div className="contact-grid-wrap">
           <div className="contact-info-panel">
             <FadeReveal>
-              <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>
-                {lang === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}
-              </div>
+              <div className="eyebrow">Get In Touch</div>
             </FadeReveal>
 
             <TextReveal className="contact-h1">
               {safeHeading ? (
                 <span dangerouslySetInnerHTML={{ __html: safeHeading }} />
               ) : (
-                lang === 'bn' ? 'আসুন নতুন কিছু তৈরি করি' : "Let's build something great."
+                'Book a strategy call with our creative team.'
               )}
             </TextReveal>
 
-            {cContent.sub && (
-              <FadeReveal delay={0.2}>
-                <p style={{ color: 'var(--section-subtext)', marginTop: '1rem', marginBottom: '2rem' }}>
-                  {cContent.sub}
-                </p>
-              </FadeReveal>
-            )}
+            <FadeReveal delay={0.2}>
+              <p className="contact-intro-copy">
+                Tell us where you are now, what market you want to win, and which channels need stronger creative. We will reply with a practical next step.
+              </p>
+            </FadeReveal>
 
             <FadeReveal delay={0.4}>
               <div className="contact-methods">
                 <div className="contact-method-item">
-                  <div className="method-icon"><MessageSquare size={24} /></div>
+                  <div className="method-icon"><Mail size={24} /></div>
                   <div>
-                    <div className="method-label">Email Us</div>
+                    <div className="method-label">Email</div>
                     <div className="method-val">hello@creatifybd.com</div>
                   </div>
                 </div>
                 <div className="contact-method-item">
-                  <div className="method-icon"><Phone size={24} /></div>
+                  <div className="method-icon"><MessageSquare size={24} /></div>
                   <div>
-                    <div className="method-label">Call Us</div>
+                    <div className="method-label">WhatsApp</div>
                     <div className="method-val">+880 1951 676600</div>
                   </div>
                 </div>
                 <div className="contact-method-item">
-                  <div className="method-icon"><MapPin size={24} /></div>
+                  <div className="method-icon"><Globe2 size={24} /></div>
                   <div>
-                    <div className="method-label">Location</div>
-                    <div className="method-val">{cContent.address || 'Dhaka, Bangladesh'}</div>
+                    <div className="method-label">Serving</div>
+                    <div className="method-val">USA, Canada, Australia, UK and global clients</div>
                   </div>
                 </div>
-                {cContent.working_hours && (
-                  <div className="contact-method-item">
-                    <div className="method-icon"><CheckCircle2 size={24} /></div>
-                    <div>
-                      <div className="method-label">Working Hours</div>
-                      <div className="method-val">{cContent.working_hours}</div>
-                    </div>
+                <div className="contact-method-item">
+                  <div className="method-icon"><Clock3 size={24} /></div>
+                  <div>
+                    <div className="method-label">Response Time</div>
+                    <div className="method-val">{cContent.working_hours || 'Within 24 business hours'}</div>
                   </div>
-                )}
+                </div>
               </div>
             </FadeReveal>
-
-            {cContent.office_image && (
-              <FadeReveal delay={0.6}>
-                <div style={{ marginTop: '3rem' }}>
-                  <img
-                    src={cContent.office_image}
-                    alt="CreatifyBD office"
-                    style={{ width: '100%', maxWidth: '400px', borderRadius: '16px', objectFit: 'cover' }}
-                    loading="lazy"
-                  />
-                </div>
-              </FadeReveal>
-            )}
           </div>
 
           <div className="contact-form-card">
@@ -140,11 +119,11 @@ const Contact = () => {
                   exit={{ opacity: 0, scale: 0.95 }}
                   onSubmit={handleSubmit}
                 >
-                  <h3 className="form-title">Start a Discovery Session</h3>
+                  <h3 className="form-title">Start a Global Growth Brief</h3>
 
                   <div className="form-row-2">
                     <div className="form-group">
-                      <label className="luxury-label" htmlFor="contact-name">What's your name?</label>
+                      <label className="luxury-label" htmlFor="contact-name">Your name</label>
                       <input
                         id="contact-name"
                         type="text"
@@ -157,7 +136,7 @@ const Contact = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label className="luxury-label" htmlFor="contact-email">Email Address</label>
+                      <label className="luxury-label" htmlFor="contact-email">Email address</label>
                       <input
                         id="contact-email"
                         type="email"
@@ -180,12 +159,12 @@ const Contact = () => {
                         className="luxury-input"
                         value={formData.phone}
                         onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+880 1XXX XXXXXX"
+                        placeholder="+1 555 000 0000"
                         autoComplete="tel"
                       />
                     </div>
                     <div className="form-group">
-                      <label className="luxury-label" htmlFor="contact-service">Interested In</label>
+                      <label className="luxury-label" htmlFor="contact-service">Interested in</label>
                       <select
                         id="contact-service"
                         className="luxury-input"
@@ -194,17 +173,19 @@ const Contact = () => {
                         onChange={e => setFormData({ ...formData, service: e.target.value })}
                       >
                         <option value="">Select a service</option>
-                        <option value="web">Web Design & Dev</option>
-                        <option value="branding">Branding & Identity</option>
-                        <option value="marketing">Digital Marketing</option>
-                        <option value="video">Video Production</option>
+                        <option value="social-media-management">Social Media Management</option>
+                        <option value="graphic-design">Graphic Design</option>
+                        <option value="video-editing">Video Editing</option>
+                        <option value="digital-marketing">Digital Marketing</option>
+                        <option value="website-design">Website Design</option>
+                        <option value="full-creative-retainer">Full Creative Retainer</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="form-row-2">
                     <div className="form-group">
-                      <label className="luxury-label" htmlFor="contact-budget">Monthly Budget</label>
+                      <label className="luxury-label" htmlFor="contact-budget">Monthly budget</label>
                       <select
                         id="contact-budget"
                         className="luxury-input"
@@ -213,16 +194,16 @@ const Contact = () => {
                         onChange={e => setFormData({ ...formData, budget: e.target.value })}
                       >
                         <option value="">Select budget range</option>
-                        <option value="5k-10k">৳5,000 - ৳10,000</option>
-                        <option value="10k-30k">৳10,000 - ৳30,000</option>
-                        <option value="30k-50k">৳30,000 - ৳50,000</option>
-                        <option value="50k+">৳50,000+</option>
+                        <option value="500-1000">USD $500 - $1,000/mo</option>
+                        <option value="1000-2500">USD $1,000 - $2,500/mo</option>
+                        <option value="2500-5000">USD $2,500 - $5,000/mo</option>
+                        <option value="5000-plus">USD $5,000+/mo</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="form-group-full">
-                    <label className="luxury-label" htmlFor="contact-message">Tell us about your project</label>
+                    <label className="luxury-label" htmlFor="contact-message">Tell us about your goals</label>
                     <textarea
                       id="contact-message"
                       required
@@ -230,7 +211,7 @@ const Contact = () => {
                       style={{ height: '120px', paddingTop: '1rem' }}
                       value={formData.message}
                       onChange={e => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Share your vision..."
+                      placeholder="Share your market, current channels, goals and timeline..."
                     />
                   </div>
 
