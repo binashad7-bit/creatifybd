@@ -26,3 +26,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CREATIFY_BD }}'
           channelId: live
           projectId: creatify-bd
+          expires: 30d
+          target: main
