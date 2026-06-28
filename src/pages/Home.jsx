@@ -19,6 +19,7 @@ import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 
+import SmmHighlight from '../components/SmmHighlight';
 import { useSettings } from '../context/SettingsContext';
 
 const Home = () => {
@@ -61,6 +62,7 @@ const Home = () => {
       {content?.visibility?.clients !== false && <Clients />}
       
       {content?.visibility?.services !== false && <Services highlight={true} theme={content?.services?.theme} />}
+      <SmmHighlight />
       {content?.visibility?.features !== false && <Features theme={content?.features?.theme} />}
       {content?.visibility?.portfolio !== false && <Portfolio highlight={true} theme={content?.portfolio?.theme} />}
       {content?.visibility?.process !== false && <Process highlight={true} theme={content?.process?.theme} />}
