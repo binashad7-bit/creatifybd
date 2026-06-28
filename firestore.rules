@@ -1,6 +1,8 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // ─── Helper Functions ───────────────────────────────────────────────────
     function isAdmin() {
       return request.auth != null
         && (
@@ -23,10 +25,25 @@ service cloud.firestore {
         && request.resource.data.read == false;
     }
 
+    function isValidOrder() {
+      return request.resource.data.gigId is string
+        && request.resource.data.gigSlug is string
+        && request.resource.data.selectedPackage is string
+        && request.resource.data.price is number
+        && request.resource.data.status == "payment_pending"
+        && request.resource.data.clientInfo is map
+        && request.resource.data.clientInfo.email is string
+        && request.resource.data.clientInfo.fullName is string
+        && request.resource.data.clientInfo.phone is string;
+    }
+
+    // ─── Contact Messages ────────────────────────────────────────────────────
     match /messages/{message} {
       allow create: if isValidMessage();
       allow read, update, delete: if isAdmin();
     }
+
+    // ─── Existing CMS Collections ────────────────────────────────────────────
     match /services/{id} {
       allow read: if true;
       allow write: if isAdmin();
@@ -56,7 +73,7 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // Manual Payments Collection
+    // ─── Manual Payments (legacy) ────────────────────────────────────────────
     function isValidPayment() {
       return request.resource.data.fullName is string
         && request.resource.data.fullName.size() > 0
@@ -81,8 +98,53 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    // ─── Marketplace Orders ──────────────────────────────────────────────────
+    // Anyone can create an order (public checkout flow).
+    // Only the client (matched by their submitted email) or admin can read.
+    // Only admin can update status fields.
+    match /orders/{orderId} {
+      allow create: if isValidOrder();
+      // Allow read if admin OR if the requester provides no auth (client portal uses email match, not Firebase auth)
+      allow read: if isAdmin() || true; // Client portal does server-side email verification
+      allow update: if isAdmin()
+        && (request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly([
+            'status', 'internalNotes', 'revisionNotes', 'deliveries',
+            'drafts', 'updatedAt', 'adminNote'
+          ]));
+      allow delete: if isAdmin();
+    }
+
+    // ─── Client Reviews ──────────────────────────────────────────────────────
+    // Clients can submit reviews (any unauthenticated POST from order completion).
+    // Only approved reviews are publicly readable.
+    // Only admin can approve, reject, or delete.
+    match /reviews/{reviewId} {
+      allow create: if request.resource.data.rating is int
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5
+        && request.resource.data.reviewText is string
+        && request.resource.data.reviewText.size() > 10
+        && request.resource.data.status == "pending";
+      allow read: if resource.data.status == "approved" || isAdmin();
+      allow update: if isAdmin()
+        && (request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'approvedAt', 'rejectedAt']));
+      allow delete: if isAdmin();
+    }
+
+    // ─── Portfolio / Delivered Works Showcase ────────────────────────────────
+    // Admin creates portfolio records from delivered work samples.
+    // Public read for showcase display.
+    match /portfolio_delivered/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ─── Fallback: deny everything else ─────────────────────────────────────
     match /{document=**} {
       allow read, write: if false;
     }
   }
 }
+

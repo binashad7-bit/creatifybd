@@ -28,6 +28,25 @@ const Login = lazy(() => import('./pages/Login'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
+// Marketplace pages
+const ServiceCategoryPage = lazy(() => import('./pages/public/ServiceCategoryPage'));
+const GigsCatalogPage = lazy(() => import('./pages/public/GigsCatalogPage'));
+const GigDetailPage = lazy(() => import('./pages/public/GigDetailPage'));
+const OrderStartPage = lazy(() => import('./pages/public/OrderStartPage'));
+const OrderSuccessPage = lazy(() => import('./pages/public/OrderSuccessPage'));
+
+// Client portal pages
+const ClientOrdersPortal = lazy(() => import('./pages/public/ClientOrdersPortal'));
+const ClientOrderDetail = lazy(() => import('./pages/public/ClientOrderDetail'));
+
+// Trust & info pages
+const TeamPage = lazy(() => import('./pages/public/TeamPage'));
+const ReviewsPage = lazy(() => import('./pages/public/ReviewsPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/public/PrivacyPolicyPage'));
+const TermsPage = lazy(() => import('./pages/public/TermsPage'));
+const RefundPolicyPage = lazy(() => import('./pages/public/RefundPolicyPage'));
+const RevisionPolicyPage = lazy(() => import('./pages/public/RevisionPolicyPage'));
+
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -88,14 +107,26 @@ function AppContent() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
           <Route path="/services" element={<PageWrapper><ServicesPage /></PageWrapper>} />
+          <Route path="/services/:categorySlug" element={<PageWrapper><ServiceCategoryPage /></PageWrapper>} />
+          <Route path="/gigs" element={<PageWrapper><GigsCatalogPage /></PageWrapper>} />
+          <Route path="/gigs/:slug" element={<PageWrapper><GigDetailPage /></PageWrapper>} />
+          <Route path="/order/start/:gigSlug" element={<PageWrapper><OrderStartPage /></PageWrapper>} />
+          <Route path="/order/success" element={<PageWrapper><OrderSuccessPage /></PageWrapper>} />
+          <Route path="/client/orders" element={<PageWrapper><ClientOrdersPortal /></PageWrapper>} />
+          <Route path="/client/orders/:orderId" element={<PageWrapper><ClientOrderDetail /></PageWrapper>} />
           <Route path="/work" element={<PageWrapper><PortfolioPage /></PageWrapper>} />
           <Route path="/process" element={<PageWrapper><ProcessPage /></PageWrapper>} />
           <Route path="/pricing" element={<PageWrapper><PricingPage /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
           <Route path="/case-studies" element={<PageWrapper><CaseStudiesPage /></PageWrapper>} />
           <Route path="/case-study/:slug" element={<PageWrapper><CaseStudyPage /></PageWrapper>} />
-          <Route path="/privacy" element={<PageWrapper><LegalPage type="privacy" /></PageWrapper>} />
-          <Route path="/terms" element={<PageWrapper><LegalPage type="terms" /></PageWrapper>} />
+          <Route path="/team" element={<PageWrapper><TeamPage /></PageWrapper>} />
+          <Route path="/reviews" element={<PageWrapper><ReviewsPage /></PageWrapper>} />
+          <Route path="/privacy" element={<PageWrapper><PrivacyPolicyPage /></PageWrapper>} />
+          <Route path="/terms" element={<PageWrapper><TermsPage /></PageWrapper>} />
+          <Route path="/refund-policy" element={<PageWrapper><RefundPolicyPage /></PageWrapper>} />
+          <Route path="/revision-policy" element={<PageWrapper><RevisionPolicyPage /></PageWrapper>} />
+          <Route path="/privacy-policy" element={<PageWrapper><PrivacyPolicyPage /></PageWrapper>} />
           <Route path="/about" element={<PageWrapper><ProcessPage /></PageWrapper>} />
           <Route path="/payment" element={<PageWrapper><PaymentPage /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />

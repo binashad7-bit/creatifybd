@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /login/
+Disallow: /client/
+Disallow: /order/
 
 Sitemap: https://creatifybd.com/sitemap.xml

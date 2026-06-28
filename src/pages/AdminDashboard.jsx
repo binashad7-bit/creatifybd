@@ -17,7 +17,10 @@ import {
   Bell,
   ChevronRight,
   Menu,
-  X
+  X,
+  ShoppingBag,
+  ClipboardList,
+  MessageCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
@@ -33,6 +36,9 @@ import SettingsManager from './admin/Settings';
 import ContentManager from './admin/ContentManager';
 import PricingManager from './admin/PricingManager';
 import PaymentVerification from './admin/PaymentVerification';
+import AdminGigs from './admin/AdminGigs';
+import AdminOrders from './admin/AdminOrders';
+import AdminReviews from './admin/AdminReviews';
 
 const AdminDashboard = () => {
   const location = useLocation();
@@ -48,11 +54,14 @@ const AdminDashboard = () => {
 
   const navItems = [
     { path: '/admin', label: 'Overview', icon: <LayoutDashboard size={18} /> },
+    { path: '/admin/orders', label: 'Orders', icon: <ClipboardList size={18} />, badge: true },
+    { path: '/admin/gigs', label: 'Gigs Manager', icon: <ShoppingBag size={18} /> },
+    { path: '/admin/reviews', label: 'Reviews', icon: <MessageCircle size={18} /> },
+    { path: '/admin/payments', label: 'Payments', icon: <CreditCard size={18} /> },
     { path: '/admin/content', label: 'Page Content', icon: <Activity size={18} /> },
     { path: '/admin/services', label: 'Services', icon: <Briefcase size={18} /> },
     { path: '/admin/portfolio', label: 'Portfolio', icon: <ImageIcon size={18} /> },
     { path: '/admin/pricing', label: 'Pricing Plans', icon: <CreditCard size={18} /> },
-    { path: '/admin/payments', label: 'Payments', icon: <CreditCard size={18} /> },
     { path: '/admin/testimonials', label: 'Testimonials', icon: <Star size={18} /> },
     { path: '/admin/messages', label: 'Messages', icon: <MessageSquare size={18} /> },
     { path: '/admin/settings', label: 'Branding & SEO', icon: <Settings size={18} /> },
@@ -200,6 +209,9 @@ const AdminDashboard = () => {
             >
               <Routes location={location} key={location.pathname}>
                 <Route index element={<Overview />} />
+                <Route path="orders" element={<AdminOrders />} />
+                <Route path="gigs" element={<AdminGigs />} />
+                <Route path="reviews" element={<AdminReviews />} />
                 <Route path="content" element={<ContentManager />} />
                 <Route path="services" element={<ServicesManager />} />
                 <Route path="portfolio" element={<PortfolioManager />} />

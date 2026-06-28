@@ -5,23 +5,27 @@ export const siteConfig = {
   // Business Information
   businessName: 'CreatifyBD',
   websiteUrl: 'https://creatifybd.com',
+  tagline: 'Creative services for small businesses',
   email: 'hello@creatifybd.com',
   phone: '+880 1951 676600',
   whatsappNumber: '+8801951676600',
   address: 'Dhaka, Bangladesh',
+
+  targetMarkets: ['USA', 'Canada', 'Australia'],
   
   // Social Media Links
   socialLinks: {
     facebook: 'https://www.facebook.com/creatifybd',
     instagram: 'https://www.instagram.com/creatifybd',
     linkedin: 'https://www.linkedin.com/company/creatifybd',
-    twitter: 'https://twitter.com/creatifybd'
+    behance: '',
+    youtube: ''
   },
   
   // Payment Information - Payoneer
   payoneer: {
-    accountName: 'CreatifyBD / [Your Name]', // Update with actual account name
-    email: 'payments@creatifybd.com', // Update with actual Payoneer email
+    accountName: 'CreatifyBD / Owner Name',
+    email: 'payoneer-email@example.com',
     currency: 'USD',
     note: 'Please include your name or project name in the payment note if possible.'
   },
@@ -29,10 +33,10 @@ export const siteConfig = {
   // Payment Information - DBBL Bank Transfer
   dbbl: {
     bankName: 'Dutch-Bangla Bank Limited',
-    accountName: 'CreatifyBD / [Your Name]', // Update with actual account name
-    accountNumber: 'XXXXXXXXXXXX', // Update with actual account number
-    branch: 'Dhaka Main Branch', // Update with actual branch
-    routingNumber: 'XXXXXXXX', // Update with actual routing number if available
+    accountName: 'Account Name',
+    accountNumber: 'Account Number',
+    branch: 'Branch Name',
+    routingNumber: 'Routing Number',
     paymentReference: 'Client Name / Project Name'
   },
   
@@ -44,6 +48,9 @@ export const siteConfig = {
   },
   
   // Admin Information
+  admin: {
+    allowedEmails: ['binashad7@gmail.com']
+  },
   adminEmail: 'binashad7@gmail.com',
   
   // SEO Configuration
@@ -59,23 +66,20 @@ export const siteConfig = {
   
   // Services List (for dropdowns and forms)
   services: [
-    'Social Media Marketing',
-    'Branding & Creative Design',
-    'Web Design & Development',
-    'Content Production',
-    'SEO & Performance Marketing',
-    'Photography & Videography',
-    'Digital Marketing Strategy',
+    'Social Media Management',
+    'Graphic Design',
+    'Video Editing',
+    'Website Design',
     'Other'
   ],
   
   // Budget Ranges (for contact form)
   budgetRanges: [
-    { value: '5k-10k', label: '৳5,000 - ৳10,000' },
-    { value: '10k-30k', label: '৳10,000 - ৳30,000' },
-    { value: '30k-50k', label: '৳30,000 - ৳50,000' },
-    { value: '50k-100k', label: '৳50,000 - ৳100,000' },
-    { value: '100k+', label: '৳100,000+' }
+    { value: '50-150', label: '$50 - $150 USD' },
+    { value: '150-300', label: '$150 - $300 USD' },
+    { value: '300-600', label: '$300 - $600 USD' },
+    { value: '600-1200', label: '$600 - $1,200 USD' },
+    { value: '1200+', label: '$1,200+ USD' }
   ],
   
   // CTA Button Text
@@ -89,3 +93,4 @@ export const siteConfig = {
 };
 
 export default siteConfig;
+

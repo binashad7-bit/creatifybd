@@ -35,11 +35,20 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://creatifybd.com/">
 
-    <!-- Noindex for Firebase staging domain -->
+    <!-- Staging domain: redirect to canonical + add noindex -->
     <script>
-      if (window.location.hostname === 'creatify-bd.web.app') {
-        document.write('<meta name="robots" content="noindex, nofollow">');
-      }
+      (function() {
+        var host = window.location.hostname;
+        if (host === 'creatify-bd.web.app' || host === 'creatify-bd.firebaseapp.com') {
+          // Add noindex meta tag dynamically
+          var meta = document.createElement('meta');
+          meta.name = 'robots';
+          meta.content = 'noindex, nofollow';
+          document.head.appendChild(meta);
+          // Hard redirect to canonical domain (preserving path)
+          window.location.replace('https://creatifybd.com' + window.location.pathname + window.location.search + window.location.hash);
+        }
+      })();
     </script>
 
     <!-- Fonts -->
@@ -131,7 +140,60 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Static SEO fallback for search engine crawlers (hidden visually once JS loads) -->
+    <div id="root"><main aria-label="CreatifyBD - Premium Creative Agency" style="font-family:sans-serif;max-width:900px;margin:0 auto;padding:2rem;color:#222;">
+      <header>
+        <a href="https://creatifybd.com"><strong>CreatifyBD</strong></a> — Premium Creative Agency &amp; Service Marketplace
+      </header>
+      <h1>Social Media Management, Graphic Design, Video Editing &amp; Website Design Services</h1>
+      <p>CreatifyBD is a premium creative agency and digital service marketplace based in Dhaka, Bangladesh, serving small businesses, startups, and brands across the <strong>USA, Canada, and Australia</strong>. We combine the trust of an international agency with the streamlined ordering experience of a modern service marketplace.</p>
+      <nav aria-label="Primary navigation">
+        <ul style="list-style:none;padding:0;display:flex;gap:1rem;flex-wrap:wrap;">
+          <li><a href="/services">Services</a></li>
+          <li><a href="/services/social-media-management">Social Media Management</a></li>
+          <li><a href="/services/graphic-design">Graphic Design</a></li>
+          <li><a href="/services/video-editing">Video Editing</a></li>
+          <li><a href="/services/website-design">Website Design</a></li>
+          <li><a href="/gigs">Browse Gigs</a></li>
+          <li><a href="/reviews">Client Reviews</a></li>
+          <li><a href="/team">Our Team</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+        </ul>
+      </nav>
+      <section>
+        <h2>Our Core Services</h2>
+        <article>
+          <h3><a href="/services/social-media-management">Social Media Management</a></h3>
+          <p>Monthly social media management for Facebook, Instagram, LinkedIn, and Pinterest. Includes content design, caption copywriting, hashtag strategies, and monthly analytics reporting.</p>
+        </article>
+        <article>
+          <h3><a href="/services/graphic-design">Graphic Design &amp; Branding</a></h3>
+          <p>Professional logo design, brand identity guides, social media posters, flyers, YouTube thumbnails, and custom vector illustrations.</p>
+        </article>
+        <article>
+          <h3><a href="/services/video-editing">Video Editing</a></h3>
+          <p>Cinematic Reels, TikTok, and YouTube video editing with captions, zoom cuts, color grading, and audio mixing. High-converting ad video production.</p>
+        </article>
+        <article>
+          <h3><a href="/services/website-design">Website Design &amp; Development</a></h3>
+          <p>Fast, responsive, and SEO-optimized landing pages and full business websites built with React. Includes local SEO schema setup and lead capture forms.</p>
+        </article>
+      </section>
+      <section>
+        <h2>Why Choose CreatifyBD?</h2>
+        <ul>
+          <li>International-standard creative execution from our Dhaka production office</li>
+          <li>Fixed-price packages with transparent deliverables — no hidden fees</li>
+          <li>Manual payment system (Payoneer / DBBL Bank) with escrow-style order verification</li>
+          <li>Revision guarantee on every order</li>
+          <li>Serving clients in USA, Canada, and Australia</li>
+        </ul>
+      </section>
+      <footer>
+        <p>&copy; 2025 CreatifyBD. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms</a> | <a href="/refund-policy">Refund Policy</a></p>
+      </footer>
+    </main></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

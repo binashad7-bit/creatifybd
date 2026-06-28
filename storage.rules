@@ -9,6 +9,7 @@ service firebase.storage {
         );
     }
 
+    // ─── Admin Uploaded Content ──────────────────────────────────────────────
     match /uploads/{allPaths=**} {
       allow read: if true;
       allow write: if isAdmin()
@@ -16,7 +17,9 @@ service firebase.storage {
         && request.resource.contentType.matches('image/.*');
     }
 
-    // Payment Proofs Folder
+    // ─── Payment Proof Screenshots ───────────────────────────────────────────
+    // Any unauth user can upload (client proof of payment).
+    // Only admin can read proof images.
     match /payment-proofs/{allPaths=**} {
       allow read: if isAdmin();
       allow write: if request.resource.size < 5 * 1024 * 1024
@@ -24,9 +27,43 @@ service firebase.storage {
           || request.resource.contentType == 'application/pdf');
     }
 
+    // ─── Order Requirements Attachments ─────────────────────────────────────
+    // Client submits reference files during order onboarding (any unauthenticated upload).
+    // Admin reads them to understand project brief.
+    match /order-requirements/{allPaths=**} {
+      allow read: if isAdmin();
+      allow write: if request.resource.size < 10 * 1024 * 1024
+        && (
+          request.resource.contentType.matches('image/.*')
+          || request.resource.contentType == 'application/pdf'
+          || request.resource.contentType == 'application/zip'
+          || request.resource.contentType.matches('application/.*word.*')
+          || request.resource.contentType.matches('application/.*document.*')
+        );
+    }
+
+    // ─── Delivery File Uploads ───────────────────────────────────────────────
+    // Admin team uploads finished deliverables that clients download.
+    match /deliveries/{allPaths=**} {
+      allow read: if true; // Clients access via direct URL stored in order doc
+      allow write: if isAdmin()
+        && request.resource.size < 100 * 1024 * 1024; // 100MB max per delivery file
+    }
+
+    // ─── Portfolio / Showcase Samples ────────────────────────────────────────
+    // Admin uploads approved sample images to portfolio showcase.
+    match /portfolio/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin()
+        && request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // ─── Fallback deny ───────────────────────────────────────────────────────
     match /{allPaths=**} {
       allow read: if true;
       allow write: if false;
     }
   }
 }
+

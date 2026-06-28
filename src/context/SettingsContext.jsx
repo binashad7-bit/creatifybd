@@ -50,10 +50,10 @@ export const SettingsProvider = ({ children }) => {
         const data = snap.data();
         setContent(data);
         
-        // Force light theme for all sections (remove dark theme)
-        // All pages now use light background like homepage
-        document.body.removeAttribute('data-theme');
-        document.body.style.background = 'var(--white)';
+        // Use premium dark charcoal base by default
+        document.body.setAttribute('data-theme', 'dark');
+        document.body.style.background = 'var(--black, #0f0f0f)';
+        document.body.style.color = 'var(--white, #ffffff)';
       }
       setLoading(false);
     }, (err) => {

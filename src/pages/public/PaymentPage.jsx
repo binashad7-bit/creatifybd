@@ -16,12 +16,13 @@ import SEO from '../../components/SEO';
 import { siteConfig } from '../../config/siteConfig';
 import { storage, db } from '../../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import toast from 'react-hot-toast';
 
 const PaymentPage = () => {
   const [searchParams] = useSearchParams();
   const selectedService = searchParams.get('service') || '';
+  const linkedOrderId = searchParams.get('orderId') || '';
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -111,11 +112,26 @@ const PaymentPage = () => {
         proofFileUrl: proofFileUrl,
         message: formData.message || '',
         invoiceNumber: formData.invoiceNumber || '',
+        linkedOrderId: linkedOrderId || '',
         status: 'pending',
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
         adminNote: ''
       });
+
+      // If a marketplace order ID was passed, update its status to payment_submitted
+      if (linkedOrderId) {
+        try {
+          await updateDoc(doc(db, 'orders', linkedOrderId), {
+            status: 'payment_submitted',
+            paymentProofUrl: proofFileUrl,
+            transactionId: formData.transactionId,
+            updatedAt: serverTimestamp()
+          });
+        } catch (orderUpdateErr) {
+          console.warn('Could not update order status (order may not exist):', orderUpdateErr.message);
+        }
+      }
 
       setSubmitted(true);
       toast.success('Payment proof submitted successfully', { id: toastId });
