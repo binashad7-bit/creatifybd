@@ -4,8 +4,8 @@ import { useSettings } from '../context/SettingsContext';
 const Clients = () => {
   const { content } = useSettings();
   const clientsContent = content?.clients || {
-    label: 'Trusted by businesses across Bangladesh',
-    list: 'Fashion House BD, TechStart Dhaka, Green Eats, Nova Clothing, EduBridge BD, HealthPlus, CraftNest, ShopLocal BD, ByteWave, Riverside Resto'
+    label: 'Built for brands serving global markets',
+    list: 'Ecommerce Brands, Coaches & Consultants, SaaS Startups, Local Service Businesses, Restaurants, Real Estate Teams, Beauty Brands, Education Companies, Health & Wellness, Creator-Led Brands'
   };
 
   const logos = clientsContent.list.split(',').map(s => s.trim()).filter(s => s);

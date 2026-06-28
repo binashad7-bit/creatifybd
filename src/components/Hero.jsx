@@ -1,23 +1,21 @@
 import React, { useMemo } from 'react';
 import DOMPurify from 'dompurify';
+import { ArrowUpRight, CalendarCheck, Globe2, Megaphone, Play, TrendingUp } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../utils/translations';
-import { TextReveal, FadeReveal, ImageReveal } from './MotionReveal';
-import { useSettings } from '../context/SettingsContext';
+import { TextReveal, FadeReveal } from './MotionReveal';
 
 const Hero = () => {
   const { lang } = useLanguage();
-  const { content } = useSettings();
   const t = translations[lang].hero;
-  const heroContent = content?.hero || {};
 
   const sanitizedTitle = useMemo(() => {
-    const rawHtml = heroContent.title || t.title;
+    const rawHtml = t.title;
     return DOMPurify.sanitize(rawHtml, {
       ALLOWED_TAGS: ['span', 'br', 'strong', 'em'],
       ALLOWED_ATTR: ['class']
     });
-  }, [heroContent.title, t.title]);
+  }, [t.title]);
 
   return (
     <section className="hero">
@@ -29,7 +27,7 @@ const Hero = () => {
           <FadeReveal delay={0}>
             <div className="hero-eyebrow">
               <span className="pulse-dot" />
-              {heroContent.eyebrow || t.eyebrow}
+              {t.eyebrow}
             </div>
           </FadeReveal>
 
@@ -38,19 +36,17 @@ const Hero = () => {
           </TextReveal>
 
           <FadeReveal delay={0.2}>
-            <p className="hero-sub">{heroContent.desc || t.desc}</p>
+            <p className="hero-sub">{t.desc}</p>
           </FadeReveal>
 
           <FadeReveal delay={0.3}>
             <div className="hero-actions">
               <a href="#contact" className="btn-red premium-btn">
-                {heroContent.cta1 || t.cta1}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                {t.cta1}
+                <ArrowUpRight size={18} aria-hidden="true" />
               </a>
               <a href="#portfolio" className="btn-outline-dark premium-btn-outline">
-                {heroContent.cta2 || t.cta2}
+                {t.cta2}
               </a>
             </div>
           </FadeReveal>
@@ -58,50 +54,65 @@ const Hero = () => {
           <FadeReveal delay={0.4}>
             <div className="hero-trust">
               <div className="hero-avatars" aria-hidden="true">
-                <span className="avatar-initial">FH</span>
-                <span className="avatar-initial">TS</span>
-                <span className="avatar-initial">GE</span>
+                <span className="avatar-initial">US</span>
+                <span className="avatar-initial">CA</span>
+                <span className="avatar-initial">AU</span>
               </div>
               <div className="hero-trust-text">
-                <strong>5.0 ★</strong> from 100+ clients
+                <strong>Global-ready delivery</strong> across strategy, content, design and reporting
               </div>
             </div>
           </FadeReveal>
+
         </div>
 
         <div className="hero-visual">
-          <ImageReveal delay={0.2}>
+          <div className="hero-image-static">
             <div className="hero-mockup-wrapper">
-              {heroContent.mockup_primary ? (
-                <img
-                  src={heroContent.mockup_primary}
-                  alt="CreatifyBD creative growth showcase"
-                  className="hero-mockup-img"
-                  loading="eager"
-                  fetchpriority="high"
-                />
-              ) : (
-                <div className="hero-mockup-inner">
+              <div className="hero-mockup-inner">
                   <div className="mock-bar">
                     <div className="mock-dot" style={{ background: '#ff5f57' }} />
                     <div className="mock-dot" style={{ background: '#febc2e' }} />
                     <div className="mock-dot" style={{ background: '#28c840' }} />
-                    <div style={{ flex: 1, marginLeft: '1rem', background: 'rgba(255,255,255,0.06)', height: '22px', borderRadius: '6px', maxWidth: '280px' }} />
+                    <div className="hero-url-pill">creatifybd.com / social-command-center</div>
                   </div>
                   <div className="mock-body">
-                    <div className="mock-sidebar">
-                      <div className="mock-sidebar-item active" />
-                      <div className="mock-sidebar-item" style={{ width: '70%' }} />
-                      <div className="mock-sidebar-item" style={{ width: '85%' }} />
+                    <div className="mock-sidebar hero-channel-list">
+                      <div className="hero-channel active"><Megaphone size={16} />Meta Ads</div>
+                      <div className="hero-channel"><Play size={16} />Reels</div>
+                      <div className="hero-channel"><Globe2 size={16} />LinkedIn</div>
                     </div>
-                    <div className="mock-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                      <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'rgba(255,255,255,0.2)' }}>Digital Growth</div>
+                    <div className="mock-content hero-dashboard">
+                      <div className="hero-dashboard-main">
+                        <div className="dashboard-kicker">Monthly social performance</div>
+                        <div className="dashboard-number">+168%</div>
+                        <div className="dashboard-sub">Qualified engagement growth</div>
+                        <div className="dashboard-bars" aria-hidden="true">
+                          <span style={{ height: '40%' }} />
+                          <span style={{ height: '62%' }} />
+                          <span style={{ height: '54%' }} />
+                          <span style={{ height: '78%' }} />
+                          <span style={{ height: '88%' }} />
+                          <span style={{ height: '72%' }} />
+                        </div>
+                      </div>
+                      <div className="hero-dashboard-stack">
+                        <div className="dashboard-mini-card">
+                          <CalendarCheck size={18} />
+                          <strong>30-day content calendar</strong>
+                          <span>Posts, stories, reels, captions and approvals.</span>
+                        </div>
+                        <div className="dashboard-mini-card">
+                          <TrendingUp size={18} />
+                          <strong>Weekly optimization</strong>
+                          <span>Analytics-led creative and campaign iteration.</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+              </div>
             </div>
-          </ImageReveal>
+          </div>
         </div>
       </div>
     </section>

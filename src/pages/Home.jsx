@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '../firebase/config';
-import { collection, onSnapshot } from 'firebase/firestore';
 import useReveal from '../utils/useReveal';
 
 import Navbar from '../components/Navbar';
@@ -12,7 +10,7 @@ import Services from '../components/Services';
 import Portfolio from '../components/Portfolio';
 import Process from '../components/Process';
 import Features from '../components/Features';
-import Pricing from '../components/Pricing';
+import CaseStudies from '../components/CaseStudies';
 import Testimonials from '../components/Testimonials';
 import CTABand from '../components/CTABand';
 import Contact from '../components/Contact';
@@ -22,7 +20,7 @@ import SEO from '../components/SEO';
 import { useSettings } from '../context/SettingsContext';
 
 const Home = () => {
-  const { settings, content, loading } = useSettings();
+  const { content, loading } = useSettings();
   const [dataLoaded, setDataLoaded] = useState(false);
 
   // Trigger reveal observer
@@ -33,14 +31,14 @@ const Home = () => {
   }, [loading]);
 
   const seo = {
-    title: settings?.seo_title || "Creatify BD | Best Digital Marketing & Creative Agency in Dhaka",
-    description: settings?.seo_description || "Creatify BD is the premier digital marketing and creative agency in Dhaka, offering top-notch web design, branding, and video production.",
-    keywords: "Creatify BD, CreatifyBD, digital marketing agency dhaka, best creative agency bangladesh, social media management dhaka, web design bangladesh, branding agency dhaka",
+    title: "CreatifyBD | Social Media Management & Creative Agency for Global Brands",
+    description: "CreatifyBD helps businesses in the USA, Canada, Australia and beyond with social media management, graphic design, video editing, digital marketing and website design.",
+    keywords: "CreatifyBD, social media management agency, creative agency Bangladesh, international digital marketing agency, graphic design agency, video editing agency, website design agency",
     schema: {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Creatify BD | Best Digital Marketing & Creative Agency in Dhaka",
-      "description": "Creatify BD is the premier digital marketing and creative agency in Dhaka.",
+      "name": "CreatifyBD | Social Media Management & Creative Agency for Global Brands",
+      "description": "CreatifyBD is a social-first creative agency serving international clients.",
       "url": "https://creatify-bd.web.app/"
     }
   };
@@ -62,9 +60,9 @@ const Home = () => {
       
       {content?.visibility?.services !== false && <Services highlight={true} theme={content?.services?.theme} />}
       {content?.visibility?.features !== false && <Features theme={content?.features?.theme} />}
+      <CaseStudies />
       {content?.visibility?.portfolio !== false && <Portfolio highlight={true} theme={content?.portfolio?.theme} />}
       {content?.visibility?.process !== false && <Process highlight={true} theme={content?.process?.theme} />}
-      {content?.visibility?.pricing !== false && <Pricing highlight={true} theme={content?.pricing?.theme} />}
       
       {content?.visibility?.testimonials !== false && <Testimonials theme={content?.testimonials?.theme} />}
       {content?.visibility?.cta_band !== false && <CTABand />}
