@@ -2,11 +2,11 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
-const SEO = ({ 
-  title = "CreatifyBD | Best Digital Marketing & Creative Agency in Dhaka", 
-  description = "CreatifyBD is the leading creative agency in Dhaka, offering top-class digital marketing, branding, web development, and video production services for global brands.",
-  keywords = "Creatify BD, CreatifyBD, digital marketing agency dhaka, best creative agency bangladesh, web design dhaka, branding bangladesh, SEO agency dhaka",
-  image = "https://creatify-bd.web.app/og-image.png",
+const SEO = ({
+  title = "CreatifyBD | Digital Marketing, Branding & Creative Agency in Dhaka",
+  description = "CreatifyBD helps brands grow through digital marketing, branding, social media management, web development, photography, videography and creative content production.",
+  keywords = "digital marketing agency dhaka, creative agency bangladesh, web design dhaka, branding agency bangladesh, social media marketing, content production, seo services, creatifybd",
+  image = "https://creatifybd.com/og-image.png",
   url = null,
   type = "website",
   schema = null,
@@ -15,7 +15,7 @@ const SEO = ({
   const location = useLocation();
   const siteName = "CreatifyBD";
   const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
-  const canonicalUrl = url || `https://creatify-bd.web.app${location.pathname}`;
+  const canonicalUrl = url || `https://creatifybd.com${location.pathname}`;
 
   return (
     <Helmet>
@@ -27,8 +27,13 @@ const SEO = ({
       {/* Advanced Bots Control */}
       <meta
         name="robots"
-        content={noIndex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
+        content={noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
       />
+
+      {/* Noindex for Firebase staging domain */}
+      {typeof window !== 'undefined' && window.location.hostname === 'creatify-bd.web.app' && (
+        <meta name="robots" content="noindex, nofollow" />
+      )}
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />

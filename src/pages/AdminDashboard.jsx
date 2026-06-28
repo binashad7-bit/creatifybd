@@ -2,13 +2,13 @@ import React from 'react';
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/config';
 import { signOut } from 'firebase/auth';
-import { 
-  LayoutDashboard, 
-  Briefcase, 
-  Image as ImageIcon, 
-  MessageSquare, 
-  Settings, 
-  LogOut, 
+import {
+  LayoutDashboard,
+  Briefcase,
+  Image as ImageIcon,
+  MessageSquare,
+  Settings,
+  LogOut,
   User,
   Star,
   Activity,
@@ -20,6 +20,7 @@ import {
   X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SEO from '../components/SEO';
 import '../admin.css';
 
 // Admin Sub-pages
@@ -95,7 +96,9 @@ const AdminDashboard = () => {
   const adminEmail = auth.currentUser?.email || 'binashad7@gmail.com';
 
   return (
-    <div className="admin-layout">
+    <>
+      <SEO title="Admin Dashboard | CreatifyBD" noIndex={true} />
+      <div className="admin-layout">
       <button
         type="button"
         className="admin-sidebar-backdrop"
@@ -264,6 +267,7 @@ const AdminDashboard = () => {
       </AnimatePresence>
 
     </div>
+    </>
   );
 };
 

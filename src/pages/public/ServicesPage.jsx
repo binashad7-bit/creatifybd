@@ -8,17 +8,17 @@ import { motion } from 'framer-motion';
 const ServicesPage = () => {
   return (
     <div className="services-page">
-      <SEO 
-        title="Creatify BD Services | Digital Marketing & Web Design in Dhaka"
-        description="Expert digital marketing, branding, web development, and video production services tailored to elevate your brand presence by Creatify BD."
-        keywords="Creatify BD services, digital marketing services dhaka, web development bangladesh, SEO services dhaka, branding services"
+      <SEO
+        title="Creative, Digital Marketing & Web Services | CreatifyBD"
+        description="Explore CreatifyBD services including social media marketing, branding, web design, photography, videography, SEO and content production."
+        keywords="digital marketing services dhaka, web development bangladesh, SEO services dhaka, branding services, creatifybd services"
         schema={{
           "@context": "https://schema.org",
           "@type": "Service",
           "serviceType": "Digital Marketing & Web Development",
           "provider": {
             "@type": "LocalBusiness",
-            "name": "Creatify BD"
+            "name": "CreatifyBD"
           }
         }}
       />

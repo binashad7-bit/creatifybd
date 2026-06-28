@@ -59,6 +59,31 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Manual Payments Collection
+    function isValidPayment() {
+      return request.resource.data.fullName is string
+        && request.resource.data.fullName.size() > 0
+        && request.resource.data.email is string
+        && request.resource.data.email.size() > 3
+        && request.resource.data.phone is string
+        && request.resource.data.selectedService is string
+        && request.resource.data.paymentMethod is string
+        && request.resource.data.paidAmount is string
+        && request.resource.data.transactionId is string
+        && request.resource.data.proofFileUrl is string
+        && request.resource.data.status == "pending"
+        && request.resource.data.createdAt is timestamp;
+    }
+
+    match /manualPayments/{paymentId} {
+      allow create: if isValidPayment();
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && (request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'adminNote', 'verifiedBy', 'verifiedAt', 'rejectedBy', 'rejectedAt', 'updatedAt']));
+      allow delete: if isAdmin();
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }

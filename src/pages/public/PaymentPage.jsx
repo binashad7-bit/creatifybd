@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  CreditCard, 
-  Upload, 
-  CheckCircle2, 
-  AlertCircle, 
+import {
+  CreditCard,
+  Upload,
+  CheckCircle2,
+  AlertCircle,
   Loader2,
   Copy,
   Check
@@ -22,7 +22,7 @@ import toast from 'react-hot-toast';
 const PaymentPage = () => {
   const [searchParams] = useSearchParams();
   const selectedService = searchParams.get('service') || '';
-  
+
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [copied, setCopied] = useState(null);
@@ -144,9 +144,9 @@ const PaymentPage = () => {
 
   return (
     <div className="payment-page">
-      <SEO 
+      <SEO
         title="Manual Payment | CreatifyBD"
-        description="Submit your manual payment proof for CreatifyBD services through Payoneer or DBBL bank transfer."
+        description="Submit manual payment proof for CreatifyBD services through Payoneer or DBBL bank transfer. Payments are verified manually."
         keywords="manual payment, payoneer payment, bank transfer, creatifybd payment"
         schema={{
           "@context": "https://schema.org",

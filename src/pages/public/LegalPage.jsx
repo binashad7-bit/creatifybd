@@ -14,7 +14,7 @@ const LegalPage = ({ type }) => {
       <SEO
         title={`${title} | CreatifyBD`}
         description={`${title} for CreatifyBD clients and website visitors.`}
-        url={`https://creatify-bd.web.app${location.pathname}`}
+        url={`https://creatifybd.com${location.pathname}`}
       />
       <Navbar />
       <main className="container" style={{ padding: '9rem 1rem 5rem', maxWidth: '900px' }}>

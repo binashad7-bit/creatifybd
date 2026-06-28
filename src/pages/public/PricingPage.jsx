@@ -8,10 +8,10 @@ import { motion } from 'framer-motion';
 const PricingPage = () => {
   return (
     <div className="pricing-page">
-      <SEO 
-        title="Creatify BD Pricing | Affordable Digital Marketing & Web Design"
-        description="Affordable and transparent pricing for digital marketing, web development, branding, and video production services in Bangladesh by Creatify BD."
-        keywords="Creatify BD pricing, digital marketing cost bangladesh, web design price dhaka, SEO packages bangladesh"
+      <SEO
+        title="Pricing | CreatifyBD Service Packages"
+        description="Affordable and transparent pricing for digital marketing, web development, branding, and video production services in Bangladesh by CreatifyBD."
+        keywords="creatifybd pricing, digital marketing cost bangladesh, web design price dhaka, SEO packages bangladesh"
       />
       <Navbar theme="light" />
       <div style={{ paddingTop: '80px' }}>

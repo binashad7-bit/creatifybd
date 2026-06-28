@@ -12,14 +12,14 @@ const CaseStudiesPage = () => {
   return (
     <div className="case-studies-page">
       <SEO
-        title="Creatify BD Case Studies | Creative Growth Stories"
+        title="Case Studies | CreatifyBD Creative Work"
         description="Explore CreatifyBD case studies across branding, digital marketing, and website design with challenges, strategy, and measurable results."
-        keywords="Creatify BD case studies, digital marketing case study Bangladesh, creative agency results"
+        keywords="creatifybd case studies, digital marketing case study Bangladesh, creative agency results"
         schema={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           "name": "CreatifyBD Case Studies",
-          "url": "https://creatify-bd.web.app/case-studies"
+          "url": "https://creatifybd.com/case-studies"
         }}
       />
       <Navbar />
