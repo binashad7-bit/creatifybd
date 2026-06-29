@@ -37,6 +37,25 @@ service cloud.firestore {
         && request.resource.data.clientInfo.phone is string;
     }
 
+    function isClientCompletionUpdate() {
+      return resource.data.status in ['draft_shared', 'delivered']
+        && request.resource.data.status == 'completed'
+        && request.resource.data.reviewSubmitted == true
+        && request.resource.data.reviewStatus == 'pending'
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'reviewSubmitted', 'reviewStatus', 'reviewedAt', 'updatedAt']);
+    }
+
+    function isClientRevisionUpdate() {
+      return resource.data.status in ['draft_shared', 'delivered']
+        && request.resource.data.status == 'revision_requested'
+        && request.resource.data.revisionNotes is string
+        && request.resource.data.revisionNotes.size() > 0
+        && request.resource.data.revisionNotes.size() <= 3000
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'revisionNotes', 'updatedAt']);
+    }
+
     // ─── Contact Messages ────────────────────────────────────────────────────
     match /messages/{message} {
       allow create: if isValidMessage();
@@ -109,14 +128,16 @@ service cloud.firestore {
       allow get: if true;
       allow list: if isAdmin();
       // Admin: update status & delivery fields only
-      allow update: if isAdmin()
+      allow update: if (
+        isAdmin()
         && (request.resource.data.diff(resource.data).affectedKeys()
           .hasOnly([
             'status', 'paymentStatus', 'internalNotes', 'revisionNotes', 'deliveries',
             'drafts', 'updatedAt', 'adminNote',
             'paymentVerifiedAt', 'paymentRejectedAt', 'paymentRejectionNote',
             'paymentProofUrl', 'transactionId'
-          ]));
+          ]))
+      ) || isClientCompletionUpdate() || isClientRevisionUpdate();
       allow delete: if isAdmin();
     }
 

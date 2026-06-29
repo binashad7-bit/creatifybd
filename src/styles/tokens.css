@@ -4,17 +4,24 @@
   --red-light: #fff0f1;
   --red-mid: #ffd6d9;
   --red-dark: #b2121e;
-  --black: #0f0f0f;
-  --charcoal: #161616;
+  --black: #111318;
+  --charcoal: #ffffff;
   --gray-900: #1a1a1a;
   --gray-800: #222222;
   --gray-700: #444444;
   --gray-500: #777777;
   --gray-300: #c8c8c8;
+  --gray-200: #e8e8e4;
   --gray-100: #f5f5f3;
+  --gray-50: #fbfaf8;
   --white: #ffffff;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-light: rgba(0, 0, 0, 0.08);
+  --ink: #15171c;
+  --muted: #5f636b;
+  --surface: #ffffff;
+  --surface-soft: #fbfaf8;
+  --surface-muted: #f4f2ee;
+  --border: rgba(17, 19, 24, 0.1);
+  --border-light: rgba(17, 19, 24, 0.08);
 
   /* Fonts */
   --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
@@ -22,9 +29,9 @@
   --font-bn: 'Hind Siliguri', sans-serif;
 
   /* Theme Defaults */
-  --section-bg: var(--black);
-  --section-text: var(--white);
-  --section-subtext: rgba(255, 255, 255, 0.6);
+  --section-bg: var(--surface);
+  --section-text: var(--ink);
+  --section-subtext: var(--muted);
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -42,9 +49,9 @@
   --radius-round: 50%;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 8px rgba(17, 19, 24, 0.06);
+  --shadow-md: 0 12px 30px rgba(17, 19, 24, 0.08);
+  --shadow-lg: 0 24px 60px rgba(17, 19, 24, 0.12);
   --shadow-red-glow: 0 0 25px rgba(232, 25, 44, 0.15);
 
   /* Transitions */

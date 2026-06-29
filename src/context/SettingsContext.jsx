@@ -10,10 +10,10 @@ export const SettingsProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set premium dark charcoal base by default immediately
-    document.body.setAttribute('data-theme', 'dark');
-    document.body.style.background = '#0f0f0f';
-    document.body.style.color = '#ffffff';
+    // Keep the public site light-first; individual admin screens can still override locally.
+    document.body.setAttribute('data-theme', 'light');
+    document.body.style.background = '#fbfaf8';
+    document.body.style.color = '#15171c';
 
     // Listen to global site settings (Identity, Branding, Colors)
     const unsubSettings = onSnapshot(doc(db, 'settings', 'site'), (snap) => {
@@ -38,10 +38,6 @@ export const SettingsProvider = ({ children }) => {
           });
         }
 
-        // Dynamically update browser tab title
-        if (data.seo_title) {
-          document.title = data.seo_title;
-        }
       }
     }, (err) => {
       console.error("Settings Fetch Error:", err);

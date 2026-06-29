@@ -93,19 +93,19 @@ const AdminOrders = () => {
 
       await updateDoc(doc(db, 'orders', selectedOrder.id), {
         deliveries: arrayUnion(deliveryEntry),
-        status: 'draft_shared',
+        status: 'delivered',
         updatedAt: serverTimestamp()
       });
 
       // Update local state
       setOrders(prev => prev.map(o =>
         o.id === selectedOrder.id
-          ? { ...o, status: 'draft_shared', deliveries: [...(o.deliveries || []), deliveryEntry] }
+          ? { ...o, status: 'delivered', deliveries: [...(o.deliveries || []), deliveryEntry] }
           : o
       ));
       setSelectedOrder(prev => ({
         ...prev,
-        status: 'draft_shared',
+        status: 'delivered',
         deliveries: [...(prev.deliveries || []), deliveryEntry]
       }));
 
@@ -341,7 +341,7 @@ const AdminOrders = () => {
               <div className="detail-group">
                 <h5>Upload Delivery File</h5>
                 <p style={{ fontSize: '0.75rem', color: 'var(--adm-dim)', marginBottom: '0.75rem', lineHeight: 1.4 }}>
-                  Upload completed files for the client. Status will auto-update to <strong style={{ color: '#ff9800' }}>draft_shared</strong>.
+                  Upload completed files for the client. Status will auto-update to <strong style={{ color: '#4caf50' }}>delivered</strong>.
                 </p>
                 <input
                   ref={deliveryFileRef}

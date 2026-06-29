@@ -126,7 +126,7 @@ const ClientOrderDetail = () => {
 
     // Step 4: Delivered
     if (stepNumber === 4) {
-      if (status === 'delivered') return 'current';
+      if (['draft_shared', 'delivered'].includes(status)) return 'current';
       if (status === 'completed') return 'completed';
       return 'pending';
     }
@@ -198,9 +198,18 @@ const ClientOrderDetail = () => {
     const toastId = toast.loading('Finalizing order completion...');
 
     try {
+      if (!reviewForm.reviewText.trim()) {
+        toast.error('Please write a short review before completing the order.', { id: toastId });
+        setSubmittingAction(false);
+        return;
+      }
+
       // 1. Update order status to completed
       await updateDoc(doc(db, 'orders', order.id), {
         status: 'completed',
+        reviewSubmitted: true,
+        reviewStatus: 'pending',
+        reviewedAt: serverTimestamp(),
         updatedAt: serverTimestamp()
       });
 
@@ -218,13 +227,15 @@ const ClientOrderDetail = () => {
         communication: Number(reviewForm.communication),
         deliveryExperience: Number(reviewForm.deliveryExperience),
         wouldRecommend: reviewForm.wouldRecommend,
+        verifiedOrder: true,
+        publicOrderId: order.publicOrderId || '',
         deliveredImageUrl: order.deliveries?.[0]?.fileUrl || '',
         permissionToShowWork: reviewForm.permissionToShowWork,
         status: 'pending', // Requires admin approval for public display
         createdAt: serverTimestamp()
       });
 
-      setOrder(prev => ({ ...prev, status: 'completed' }));
+      setOrder(prev => ({ ...prev, status: 'completed', reviewSubmitted: true, reviewStatus: 'pending' }));
       setShowReviewModal(false);
       toast.success('Order completed! Thank you for your feedback.', { id: toastId });
     } catch (err) {
@@ -330,11 +341,11 @@ const ClientOrderDetail = () => {
                   )}
 
                   {/* Customer action box when status is delivered */}
-                  {order.status === 'delivered' && (
+                  {['draft_shared', 'delivered'].includes(order.status) && !order.reviewSubmitted && (
                     <div className="customer-review-prompt-box">
                       <div className="prompt-meta">
                         <h5>Review Final Delivery</h5>
-                        <p>Please review the final draft files above. You can either accept the delivery to mark it complete and leave reviews, or request revision adjustments.</p>
+                        <p>Please review the final delivery files above. You can accept the delivery and leave feedback, or request revision adjustments.</p>
                       </div>
                       <div className="prompt-buttons">
                         <button type="button" className="btn-outline-white" onClick={() => setShowRevisionModal(true)}>
@@ -343,6 +354,16 @@ const ClientOrderDetail = () => {
                         <button type="button" className="btn-red" onClick={() => setShowReviewModal(true)}>
                           <CheckCircle2 size={16} /> Accept & Complete Order
                         </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {order.reviewSubmitted && (
+                    <div className="revision-instructions-status-info">
+                      <ShieldCheck size={18} style={{ color: '#4caf50' }} />
+                      <div className="info-txt">
+                        <strong>Review submitted for approval</strong>
+                        <p>Your feedback has been sent to our team and will appear publicly after quality review.</p>
                       </div>
                     </div>
                   )}
@@ -474,7 +495,7 @@ const ClientOrderDetail = () => {
             <div className="modal-portal-overlay">
               <div className="modal-portal-card" style={{ maxWidth: '550px' }}>
                 <h3>Accept Delivery & Leave Feedback</h3>
-                <p className="modal-desc">This wraps up the project order and releases design files. Please share your reviews feedback:</p>
+                <p className="modal-desc">This wraps up the project order and unlocks final handoff. Please share your delivery feedback:</p>
                 
                 <form onSubmit={handleAcceptDelivery} className="review-portal-form">
                   <div className="form-group flex-row-stars">

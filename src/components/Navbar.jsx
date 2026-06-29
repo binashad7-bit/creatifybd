@@ -1,46 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import { translations } from '../utils/translations';
-import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { ChevronRight, Menu, Phone, Search, X } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 
-const MagneticLink = ({ children, to, className, onClick }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const x = useSpring(mouseX, { damping: 15, stiffness: 150 });
-  const y = useSpring(mouseY, { damping: 15, stiffness: 150 });
+const navLinks = [
+  { to: '/services', label: 'Services' },
+  { to: '/gigs', label: 'Gigs' },
+  { to: '/portfolio', label: 'Portfolio' },
+  { to: '/reviews', label: 'Reviews' },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' }
+];
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    mouseX.set((e.clientX - (rect.left + rect.width / 2)) * 0.4);
-    mouseY.set((e.clientY - (rect.top + rect.height / 2)) * 0.4);
-  };
+const mobileLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/services', label: 'Services' },
+  { to: '/gigs', label: 'Gigs' },
+  { to: '/portfolio', label: 'Portfolio' },
+  { to: '/reviews', label: 'Reviews' },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' }
+];
 
-  return (
-    <motion.div
-      style={{ x, y }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => {
-        mouseX.set(0);
-        mouseY.set(0);
-      }}
-      className="magnetic-wrap"
-    >
-      <Link to={to} className={className} onClick={onClick} data-cursor="Click">
-        {children}
-      </Link>
-    </motion.div>
-  );
-};
+const mobileServices = ['Social Media', 'Graphic Design', 'Video Editing', 'Web Design'];
 
-const Navbar = ({ theme = 'dark' }) => {
+const Navbar = ({ theme = 'light' }) => {
   const { settings } = useSettings();
   const [scrolled, setScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const { lang } = useLanguage();
   const { pathname } = useLocation();
-  const t = translations[lang].nav;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 100);
@@ -49,46 +38,56 @@ const Navbar = ({ theme = 'dark' }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileOpen]);
+
   const closeMobile = () => setIsMobileOpen(false);
   const isActive = (path) => pathname === path || (path !== '/' && pathname.startsWith(path));
-  const gigsLabel = lang === 'bn' ? 'গিগস' : 'Gigs';
-  const portfolioLabel = lang === 'bn' ? 'পোর্টফোলিও' : 'Portfolio';
-  const reviewsLabel = lang === 'bn' ? 'রিভিউ' : 'Reviews';
-  const aboutLabel = lang === 'bn' ? 'আমাদের সম্পর্কে' : 'About';
+  const brandName = settings?.site_name || 'CreatifyBD';
+  const brandBase = brandName.includes('BD') ? brandName.split('BD')[0] : 'Creatify';
 
   return (
     <>
       <nav id="navbar" className={`${scrolled ? 'scrolled' : ''} theme-${theme}`}>
         <div className="nav-container-inner">
-          <Link to="/" className="nav-logo" data-cursor="Click" style={{ display: 'flex', alignItems: 'center', gap: '12px' }} aria-label="CreatifyBD home">
-            <img src={settings?.logo_url || '/favicon.png'} alt="" className="nav-logo-img" style={{ height: '52px', width: 'auto' }} />
+          <Link to="/" className="nav-logo" data-cursor="Click" aria-label="CreatifyBD home">
+            <img src={settings?.logo_url || '/favicon.png'} alt="" className="nav-logo-img" />
             <span className="nav-logo-text">
-              {settings?.site_name?.split('BD')[0] || 'Creatify'}<span style={{ color: 'var(--red)' }}>BD</span>
+              {brandBase}<span>BD</span>
             </span>
           </Link>
 
           <ul className="nav-center">
-            <li><MagneticLink to="/services" className={isActive('/services') ? 'active' : ''}>{t.services}{isActive('/services') && <motion.div layoutId="activePill" className="nav-active-pill" />}</MagneticLink></li>
-            <li><MagneticLink to="/gigs" className={isActive('/gigs') ? 'active' : ''}>{gigsLabel}{isActive('/gigs') && <motion.div layoutId="activePill" className="nav-active-pill" />}</MagneticLink></li>
-            <li><MagneticLink to="/portfolio" className={isActive('/portfolio') ? 'active' : ''}>{portfolioLabel}{isActive('/portfolio') && <motion.div layoutId="activePill" className="nav-active-pill" />}</MagneticLink></li>
-            <li><MagneticLink to="/reviews" className={isActive('/reviews') ? 'active' : ''}>{reviewsLabel}{isActive('/reviews') && <motion.div layoutId="activePill" className="nav-active-pill" />}</MagneticLink></li>
-            <li><MagneticLink to="/about" className={isActive('/about') ? 'active' : ''}>{aboutLabel}{isActive('/about') && <motion.div layoutId="activePill" className="nav-active-pill" />}</MagneticLink></li>
-            <li><MagneticLink to="/contact" className={isActive('/contact') ? 'active' : ''}>{t.contact}{isActive('/contact') && <motion.div layoutId="activePill" className="nav-active-pill" />}</MagneticLink></li>
+            {navLinks.map(link => (
+              <li key={link.to}>
+                <Link to={link.to} className={isActive(link.to) ? 'active' : ''} data-cursor="Click">
+                  {link.label}
+                  {isActive(link.to) && <motion.div layoutId="activePill" className="nav-active-pill" />}
+                </Link>
+              </li>
+            ))}
           </ul>
 
           <div className="nav-right">
-            <a href="tel:+8801951676600" className="btn-ghost" data-cursor="Call">{t.callUs}</a>
-            <Link to="/contact" className="btn-red" data-cursor="Click">{t.cta} →</Link>
+            <a href="tel:+8801951676600" className="btn-ghost" data-cursor="Call">Call Us</a>
+            <Link to="/contact" className="btn-red" data-cursor="Click">
+              <span className="desktop-cta-label">Get Started</span>
+              <span className="mobile-cta-label">Start</span>
+            </Link>
             <button
               className={`hamburger-btn ${isMobileOpen ? 'active' : ''}`}
               onClick={() => setIsMobileOpen(open => !open)}
               aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
               aria-controls="mobile-menu"
               aria-expanded={isMobileOpen}
+              type="button"
             >
-              <span />
-              <span />
-              <span />
+              {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
+              <span className="hamburger-label">Menu</span>
             </button>
           </div>
         </div>
@@ -98,25 +97,58 @@ const Navbar = ({ theme = 'dark' }) => {
         {isMobileOpen && (
           <motion.div
             id="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            style={{ pointerEvents: 'auto' }}
             className="mobile-menu-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <div className="mobile-menu-inner">
-              <Link to="/" onClick={closeMobile}>Home</Link>
-              <Link to="/services" onClick={closeMobile}>{t.services}</Link>
-              <Link to="/gigs" onClick={closeMobile}>{gigsLabel}</Link>
-              <Link to="/portfolio" onClick={closeMobile}>{portfolioLabel}</Link>
-              <Link to="/reviews" onClick={closeMobile}>{reviewsLabel}</Link>
-              <Link to="/about" onClick={closeMobile}>{aboutLabel}</Link>
-              <Link to="/pricing" onClick={closeMobile}>{t.pricing}</Link>
-              <Link to="/contact" onClick={closeMobile}>{t.contact}</Link>
-              <div className="mobile-menu-footer">
-                <a href="tel:+8801951676600" className="btn-red" style={{ width: '100%', justifyContent: 'center' }}>{t.callUs}</a>
+            <button type="button" className="mobile-menu-backdrop" onClick={closeMobile} aria-label="Close menu" />
+            <motion.aside
+              className="mobile-menu-panel"
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="mobile-menu-head">
+                <Link to="/" className="mobile-menu-brand" onClick={closeMobile} aria-label="CreatifyBD home">
+                  <img src={settings?.logo_url || '/favicon.png'} alt="" />
+                  <span>{brandBase}<strong>BD</strong></span>
+                </Link>
+                <button type="button" onClick={closeMobile} aria-label="Close menu">
+                  <X size={20} />
+                </button>
               </div>
-            </div>
+
+              <nav className="mobile-menu-list" aria-label="Mobile navigation">
+                {mobileLinks.map(item => (
+                  <Link key={item.to} to={item.to} onClick={closeMobile} className={isActive(item.to) ? 'active' : ''}>
+                    <span>{item.label}</span>
+                    <ChevronRight size={17} aria-hidden="true" />
+                  </Link>
+                ))}
+              </nav>
+
+              <Link to="/gigs" className="mobile-search-link" onClick={closeMobile}>
+                <Search size={18} />
+                <span>Browse fixed-scope creative gigs</span>
+                <ChevronRight size={17} aria-hidden="true" />
+              </Link>
+
+              <div className="mobile-service-strip" aria-label="Popular services">
+                {mobileServices.map(service => (
+                  <Link key={service} to="/services" onClick={closeMobile}>
+                    <span>{service}</span>
+                    <ChevronRight size={16} aria-hidden="true" />
+                  </Link>
+                ))}
+              </div>
+
+              <div className="mobile-menu-footer">
+                <Link to="/contact" className="btn-red" onClick={closeMobile}>Get a Free Proposal</Link>
+                <a href="tel:+8801951676600" className="mobile-call-link"><Phone size={16} /> Call Us</a>
+              </div>
+            </motion.aside>
           </motion.div>
         )}
       </AnimatePresence>

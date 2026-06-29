@@ -4,7 +4,7 @@ import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 
 const PolicyLayout = ({ title, seoDescription, lastUpdated, children }) => (
-  <div style={{ background: '#0f0f0f', minHeight: '100vh' }}>
+  <div className="policy-page-shell">
     <SEO title={`${title} | CreatifyBD`} description={seoDescription} />
     <Navbar />
     <div className="container" style={{ maxWidth: '780px', margin: '0 auto', padding: '8rem 1.5rem 6rem' }}>
@@ -16,29 +16,35 @@ const PolicyLayout = ({ title, seoDescription, lastUpdated, children }) => (
     </div>
     <Footer />
     <style>{`
+      .policy-page-shell {
+        min-height: 100vh;
+        background: #fbfaf8;
+        color: #16181d;
+      }
+
       .policy-header {
         margin-bottom: 3rem;
         padding-bottom: 2rem;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
+        border-bottom: 1px solid rgba(17, 19, 24, 0.08);
       }
       .policy-header h1 {
         font-size: clamp(2rem, 4vw, 2.8rem);
         font-weight: 900;
-        color: white;
+        color: #16181d;
         margin-bottom: 0.5rem;
       }
       .last-updated {
         font-size: 0.85rem;
-        color: #666;
+        color: #6b707c;
       }
       .policy-body h2 {
         font-size: 1.3rem;
         font-weight: 800;
-        color: white;
+        color: #16181d;
         margin: 2.5rem 0 1rem;
       }
       .policy-body p, .policy-body li {
-        color: #aaa;
+        color: #4b5260;
         font-size: 0.95rem;
         line-height: 1.7;
         margin-bottom: 0.75rem;
@@ -52,7 +58,7 @@ const PolicyLayout = ({ title, seoDescription, lastUpdated, children }) => (
         text-decoration: underline;
       }
       .policy-body strong {
-        color: white;
+        color: #16181d;
         font-weight: 700;
       }
     `}</style>

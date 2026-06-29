@@ -154,12 +154,12 @@ const PageLoadingFallback = () => (
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'var(--black, #0f0f0f)'
+    background: 'var(--surface-soft, #fbfaf8)'
   }}>
     <div style={{
       width: '40px',
       height: '40px',
-      border: '3px solid rgba(232,25,44,0.2)',
+      border: '3px solid rgba(232,25,44,0.16)',
       borderTopColor: '#E8192C',
       borderRadius: '50%',
       animation: 'spin 1s linear infinite'

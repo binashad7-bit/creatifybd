@@ -216,8 +216,7 @@ const Portfolio = ({ highlight = false, fullPage = false, theme = 'light' }) => 
 
   return (
     <>
-      {/* Cinematic Dark Theme */}
-      <section className={`wk-section dark-section ${fullPage ? 'full-page-section' : ''}`} id="portfolio" style={{ background: '#0b0b0b', color: '#fff' }}>
+      <section className={`wk-section ${fullPage ? 'full-page-section' : ''}`} id="portfolio">
 
         {!fullPage && <div className="wk-grain" aria-hidden="true" />}
         <div className="wk-inner">

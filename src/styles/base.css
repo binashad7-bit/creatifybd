@@ -7,14 +7,14 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
-  background-color: var(--black);
-  color: var(--white);
+  background-color: var(--surface-soft);
+  color: var(--ink);
   font-family: var(--font-body);
 }
 
 body {
-  background: var(--black);
-  color: var(--white);
+  background: var(--surface-soft);
+  color: var(--ink);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
@@ -28,15 +28,15 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 800;
   line-height: 1.2;
-  color: var(--white);
+  color: var(--ink);
 }
 
 p {
-  color: var(--gray-light);
+  color: var(--muted);
 }
 
 a {
-  color: var(--white);
+  color: var(--ink);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
@@ -57,13 +57,13 @@ a:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--black);
+  background: var(--surface-soft);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gray-800);
+  background: var(--gray-300);
   border-radius: var(--radius-sm);
-  border: 2px solid var(--black);
+  border: 2px solid var(--surface-soft);
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -1,100 +1,123 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { db } from '../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { useLanguage } from '../context/LanguageContext';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, BarChart3, Clapperboard, Code2, Megaphone, Palette } from 'lucide-react';
 import { TextReveal, FadeReveal, StaggerReveal } from './MotionReveal';
-import { siteConfig } from '../config/siteConfig';
 
-const Services = ({ highlight = false, fullPage = false, theme = 'light' }) => {
-  // Force light theme - dark theme disabled
-  const forcedTheme = 'light';
+const defaultServices = [
+  {
+    id: 'signature-social-media-manager',
+    icon: <BarChart3 size={28} />,
+    title: 'Managed Social Media Growth',
+    desc: 'Monthly content calendars, post design, captions, scheduling, community support, and analytics for busy small businesses.',
+    price: 'From $299/mo',
+    badge: 'Most requested'
+  },
+  {
+    id: 'graphic-design',
+    icon: <Palette size={28} />,
+    title: 'Graphic Design',
+    desc: 'Brand kits, logo systems, ad creatives, flyers, carousels, and social templates built for clear conversion.',
+    price: 'From $45'
+  },
+  {
+    id: 'video-editing',
+    icon: <Clapperboard size={28} />,
+    title: 'Video Editing',
+    desc: 'Short-form reels, promotional videos, YouTube edits, captions, hooks, pacing, and platform-ready exports.',
+    price: 'From $60'
+  },
+  {
+    id: 'digital-marketing',
+    icon: <Megaphone size={28} />,
+    title: 'Digital Marketing',
+    desc: 'Campaign planning, ad creative direction, landing-page funnels, lead magnets, and monthly performance insight.',
+    price: 'Custom quote'
+  },
+  {
+    id: 'website-design',
+    icon: <Code2 size={28} />,
+    title: 'Website Design',
+    desc: 'Fast, responsive business websites, landing pages, redesigns, SEO foundations, and inquiry-focused UX.',
+    price: 'From $249'
+  }
+];
+
+const Services = ({ highlight = false, fullPage = false }) => {
   const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { lang } = useLanguage();
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'services'), (snap) => {
-      const all = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      const sorted = all.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
-      setServices(sorted.filter(s => !s.hidden));
-      setLoading(false);
-    });
+    const unsub = onSnapshot(
+      collection(db, 'services'),
+      (snap) => {
+        const all = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const sorted = all.sort((a, b) => (a.order || 0) - (b.order || 0) || (a.title || '').localeCompare(b.title || ''));
+        setServices(sorted.filter(s => !s.hidden));
+      },
+      () => setServices([])
+    );
     return () => unsub();
   }, []);
 
-  const displayServices = highlight ? services.slice(0, 6) : services;
-
-  if (loading && services.length === 0) return null;
+  const displayServices = useMemo(() => {
+    const source = services.length > 0 ? services : defaultServices;
+    const signature = source.find(item => /social media manager|social media management/i.test(item.title || ''));
+    const ordered = signature ? [signature, ...source.filter(item => item.id !== signature.id)] : source;
+    return highlight ? ordered.slice(0, 5) : ordered;
+  }, [highlight, services]);
 
   return (
-    <section 
-      className={`section services-section ${fullPage ? 'full-page-section' : ''}`} 
-      id="services"
-    >
+    <section className={`section services-section ${fullPage ? 'full-page-section' : ''}`} id="services">
       <div className="container">
         {!fullPage && (
-          <div className="services-header text-center" style={{ marginBottom: '6rem' }}>
+          <div className="services-header text-center">
             <FadeReveal>
-              <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>{lang === 'bn' ? 'আমরা যা অফার করি' : 'Our Expertise'}</div>
+              <div className="eyebrow">Our Expertise</div>
             </FadeReveal>
-            <TextReveal className="section-h" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, color: 'var(--section-text)' }}>
-              {lang === 'bn' ? 'সৃজনশীল পরিষেবা' : 'Design. Strategy. Growth.'}
+            <TextReveal className="section-h">
+              Practical creative services for modern small businesses
             </TextReveal>
-            <FadeReveal delay={0.4}>
-              <p className="section-sub" style={{ color: 'var(--section-subtext)', maxWidth: '600px', margin: '2rem auto' }}>
-                {lang === 'bn' ? 'আপনার ব্র্যান্ডের প্রসারে আমরা দিচ্ছি আধুনিক ও কার্যকর ডিজিটাল সমাধান।' : 'We blend absolute creativity with strategic precision to scale your brand in the digital age.'}
+            <FadeReveal delay={0.2}>
+              <p className="section-sub">
+                We package the most requested creative and growth services for small businesses in the USA, Canada, Australia, and other international markets.
               </p>
             </FadeReveal>
           </div>
         )}
 
-
-        <StaggerReveal delay={0.5}>
+        <StaggerReveal delay={0.2}>
           <div className="services-grid">
-            {displayServices.map((s, idx) => (
-              <FadeReveal key={s.id || idx}>
-                <motion.div 
-                  className="service-card-premium" 
-                  whileHover={{ y: -12 }}
-                >
-                  <div className="service-icon">{s.icon}</div>
-                  <h3>{s.title}</h3>
-                  <p>{s.desc}</p>
-                  
+            {displayServices.map((service, idx) => (
+              <FadeReveal key={service.id || idx}>
+                <motion.article className={`service-card-premium ${idx === 0 ? 'is-signature' : ''}`} whileHover={{ y: -8 }}>
+                  <div className="service-icon">{service.icon}</div>
+                  {service.badge && <span className="service-badge">{service.badge}</span>}
+                  <h3>{service.title}</h3>
+                  <p>{service.desc || service.description}</p>
+
                   <div className="service-card-footer">
-                    <span className="service-price">{s.price || 'Custom Quote'}</span>
-                    <a 
-                      href={`/payment?service=${encodeURIComponent(s.title)}`}
+                    <span className="service-price">{service.price || 'Custom quote'}</span>
+                    <a
+                      href={service.price && service.price !== 'Custom quote' ? `/payment?service=${encodeURIComponent(service.title)}` : '#contact'}
                       className="service-cta"
-                      onClick={(e) => {
-                        // If it's a custom quote, go to contact instead
-                        if (!s.price || s.price === 'Custom Quote') {
-                          e.preventDefault();
-                          window.location.href = '#contact';
-                        }
-                      }}
                     >
-                      <motion.div className="service-arrow">
-                        {s.price && s.price !== 'Custom Quote' ? 'Start Project' : 'Get Quote'}
-                        <ArrowUpRight size={16} style={{ marginLeft: '0.5rem' }} />
-                      </motion.div>
+                      <span className="service-arrow">
+                        {service.price && service.price !== 'Custom quote' ? 'Start Project' : 'Get Quote'}
+                        <ArrowUpRight size={16} />
+                      </span>
                     </a>
                   </div>
-                </motion.div>
+                </motion.article>
               </FadeReveal>
             ))}
           </div>
         </StaggerReveal>
 
-
         {highlight && (
-          <FadeReveal delay={0.8}>
-            <div style={{ marginTop: '5rem', textAlign: 'center' }}>
-              <a href="/services" className="btn-huge-red">
-                Explore All Services
-              </a>
+          <FadeReveal delay={0.4}>
+            <div className="section-action">
+              <a href="/services" className="btn-huge-red">Explore All Services</a>
             </div>
           </FadeReveal>
         )}

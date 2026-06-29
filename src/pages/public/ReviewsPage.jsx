@@ -4,18 +4,32 @@ import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import { db } from '../../firebase/config';
 import { collection, query, where, orderBy, getDocs, limit } from 'firebase/firestore';
-import { Star, Globe, User, Quote, ChevronDown } from 'lucide-react';
+import { Star, Globe, Quote, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { CLIENT_REVIEWS } from '../../data/clientReviews';
 
-// Hardcoded fallback reviews while DB populates
-const FALLBACK_REVIEWS = [
-  { id: 'r1', clientName: 'Marcus Reynolds', country: 'USA', businessType: 'Real Estate Agency', rating: 5, reviewText: 'CreatifyBD completely transformed our social media presence. The content calendar they built was detailed and strategic. Our Instagram went from zero engagement to 600 profile visits per week within the first month.', gigTitle: 'Monthly Social Media Management', createdAt: { seconds: 1720000000 } },
-  { id: 'r2', clientName: 'Sarah Thompson', country: 'Canada', businessType: 'Life Coaching Brand', rating: 5, reviewText: 'I hired them for a full brand identity package including logo and 3 months of social media content. The quality blew me away — it looked completely custom and premium. Zero templates.', gigTitle: 'Brand Identity Design', createdAt: { seconds: 1719000000 } },
-  { id: 'r3', clientName: 'James Holloway', country: 'Australia', businessType: 'Restaurant Chain', rating: 5, reviewText: 'The video reels they created for our food business exploded on Instagram. Three of our videos crossed 50,000 views. Hands down best investment for our restaurant brand.', gigTitle: 'Short-form Reels Editing', createdAt: { seconds: 1718000000 } },
-  { id: 'r4', clientName: 'Priya Sharma', country: 'USA', businessType: 'E-commerce Store', rating: 5, reviewText: 'Got 5 Reels videos edited and 20 product posts designed. Everything was delivered before deadline and the quality rivaled agencies charging 10x more.', gigTitle: 'Instagram Content Management', createdAt: { seconds: 1717000000 } },
-  { id: 'r5', clientName: 'Daniel Carter', country: 'Canada', businessType: 'Law Firm', rating: 5, reviewText: 'The landing page they built for our law firm is sleek, responsive, and ranking well on Google. The contact form converts well. Very professional team.', gigTitle: 'Website Design', createdAt: { seconds: 1716000000 } },
-  { id: 'r6', clientName: 'Emma Wilson', country: 'Australia', businessType: 'Digital Agency', rating: 5, reviewText: 'We outsource all our client\'s social media work to CreatifyBD. Consistent delivery, clear communication, and never once missed a deadline in 8 months.', gigTitle: 'Monthly Social Media Management', createdAt: { seconds: 1715000000 } },
-];
+const FALLBACK_REVIEWS = CLIENT_REVIEWS;
+
+const getAvatarUrl = (review) => {
+  if (review.avatarUrl) return review.avatarUrl;
+  const label = (review.clientName || 'Client')
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part[0]?.toUpperCase())
+    .join('') || 'C';
+  const palette = [
+    ['#fff1f2', '#e8192c'],
+    ['#eef7ff', '#1463ff'],
+    ['#f2fff8', '#07885d'],
+    ['#fff8ea', '#a46100'],
+    ['#f6f1ff', '#6d35c7'],
+  ];
+  const index = (review.clientName || '').split('').reduce((sum, char) => sum + char.charCodeAt(0), 0) % palette.length;
+  const [bg, fg] = palette[index];
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><rect width="128" height="128" rx="64" fill="${bg}"/><text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="44" font-weight="800" fill="${fg}">${label}</text></svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+};
 
 const StarDisplay = ({ rating }) => (
   <div style={{ display: 'flex', gap: '0.1rem' }}>
@@ -40,7 +54,7 @@ const ReviewCard = ({ review, idx }) => (
   >
     <div className="rc-header">
       <div className="rc-avatar">
-        <User size={20} />
+        <img src={getAvatarUrl(review)} alt={`${review.clientName} profile`} loading="lazy" />
       </div>
       <div className="rc-meta">
         <h5 className="rc-name">{review.clientName}</h5>
@@ -48,7 +62,8 @@ const ReviewCard = ({ review, idx }) => (
           <Globe size={12} />
           <span>{review.country}</span>
           <span className="bullet">·</span>
-          <span>{review.businessType}</span>
+          <span>Verified order</span>
+          {review.repeatClient && <span>Repeat client</span>}
         </div>
       </div>
       <div className="rc-stars">
@@ -73,7 +88,18 @@ const ReviewsPage = () => {
   const [filter, setFilter] = useState('all');
   const [displayCount, setDisplayCount] = useState(9);
 
-  const countries = ['all', 'USA', 'Canada', 'Australia'];
+  const countries = [
+    'all',
+    ...Array.from(new Set(reviews.map(r => r.country).filter(Boolean))).sort((a, b) => {
+      const priority = ['USA', 'Canada', 'Australia', 'UK', 'Germany'];
+      const aPriority = priority.indexOf(a);
+      const bPriority = priority.indexOf(b);
+      if (aPriority !== -1 || bPriority !== -1) {
+        return (aPriority === -1 ? 99 : aPriority) - (bPriority === -1 ? 99 : bPriority);
+      }
+      return a.localeCompare(b);
+    }),
+  ];
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -112,7 +138,7 @@ const ReviewsPage = () => {
     <div className="reviews-page-pub">
       <SEO 
         title="Client Reviews & Verified Feedback | CreatifyBD"
-        description="Read verified client reviews from USA, Canada, and Australia. See how CreatifyBD delivers premium social media, design, video, and website services."
+        description="Read verified client reviews from completed CreatifyBD creative orders. See how our team delivers responsive communication, fast delivery, and high-quality creative work."
         keywords="creatifybd reviews, client testimonials, creative agency feedback"
       />
 
@@ -121,7 +147,7 @@ const ReviewsPage = () => {
       <section className="reviews-hero dark-section">
         <div className="container">
           <h1 className="page-title">Verified Client <span className="red">Reviews</span></h1>
-          <p className="page-subtitle">Real feedback from businesses across USA, Canada, and Australia who experienced our agency-level creative services.</p>
+          <p className="page-subtitle">Real client feedback from completed creative orders, reviewed through our delivery and approval workflow.</p>
 
           <div className="reviews-aggregate-stats">
             <div className="agg-stat">
@@ -143,6 +169,24 @@ const ReviewsPage = () => {
         </div>
       </section>
 
+      <section className="review-workflow-band" aria-label="Verified review workflow">
+        <div className="container">
+          <div className="review-workflow-row">
+            {[
+              'Order placed',
+              'Delivery reviewed',
+              'Feedback submitted',
+              'Published after approval',
+            ].map((item, index) => (
+              <div className="review-workflow-step" key={item}>
+                <span>{index + 1}</span>
+                <strong>{item}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="reviews-content-section">
         <div className="container">
           {/* Country Filter */}
@@ -151,6 +195,7 @@ const ReviewsPage = () => {
               <button 
                 key={c} 
                 type="button"
+                data-country={c === 'all' ? 'All Countries' : c}
                 className={`filter-tab-btn ${filter === c ? 'active' : ''}`}
                 onClick={() => { setFilter(c); setDisplayCount(9); }}
               >
@@ -210,12 +255,12 @@ const ReviewsPage = () => {
         .agg-num {
           font-size: 2.5rem;
           font-weight: 900;
-          color: white;
+          color: #16181d;
         }
 
         .agg-lbl {
           font-size: 0.8rem;
-          color: #777;
+          color: #6b707c;
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
@@ -223,12 +268,57 @@ const ReviewsPage = () => {
         .agg-divider {
           width: 1px;
           height: 60px;
-          background: rgba(255,255,255,0.1);
+          background: rgba(17,19,24,0.1);
         }
 
         .reviews-content-section {
           padding: 5rem 1rem 6rem;
-          background: #111;
+          background: #fbfaf8;
+        }
+
+        .review-workflow-band {
+          background: #ffffff;
+          border-bottom: 1px solid rgba(17,19,24,0.08);
+          padding: 1.25rem 1rem;
+        }
+
+        .review-workflow-row {
+          max-width: 980px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 0.75rem;
+        }
+
+        .review-workflow-step {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          min-width: 0;
+          color: #303642;
+          font-size: 0.84rem;
+          font-weight: 700;
+        }
+
+        .review-workflow-step span {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 auto;
+          background: #fff7f8;
+          color: var(--red);
+          border: 1px solid rgba(232,25,44,0.16);
+          font-size: 0.75rem;
+          font-weight: 900;
+        }
+
+        @media (max-width: 720px) {
+          .review-workflow-row {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
         }
 
         .country-filter-tabs {
@@ -243,14 +333,19 @@ const ReviewsPage = () => {
 
         .filter-tab-btn {
           padding: 0.6rem 1.25rem;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.06);
+          background: #ffffff;
+          border: 1px solid rgba(17,19,24,0.1);
           border-radius: 100px;
-          color: #888;
-          font-size: 0.85rem;
+          color: #5f6470;
+          font-size: 0;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.2s;
+        }
+
+        .filter-tab-btn::after {
+          content: attr(data-country);
+          font-size: 0.85rem;
         }
 
         .filter-tab-btn:hover,
@@ -269,8 +364,8 @@ const ReviewsPage = () => {
         }
 
         .review-card-pub {
-          background: #161616;
-          border: 1px solid rgba(255,255,255,0.06);
+          background: #ffffff;
+          border: 1px solid rgba(17,19,24,0.08);
           border-radius: 16px;
           padding: 2rem;
           display: flex;
@@ -279,6 +374,7 @@ const ReviewsPage = () => {
           position: relative;
           overflow: hidden;
           transition: border-color 0.2s;
+          box-shadow: 0 14px 36px rgba(17, 19, 24, 0.06);
         }
 
         .review-card-pub:hover {
@@ -292,16 +388,24 @@ const ReviewsPage = () => {
         }
 
         .rc-avatar {
-          width: 42px;
-          height: 42px;
+          width: 46px;
+          height: 46px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.1);
+          background: #fff7f8;
+          border: 1px solid rgba(232,25,44,0.12);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #888;
+          color: var(--red);
           flex-shrink: 0;
+          overflow: hidden;
+        }
+
+        .rc-avatar img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
         }
 
         .rc-meta {
@@ -311,7 +415,7 @@ const ReviewsPage = () => {
 
         .rc-name {
           font-size: 1rem;
-          color: white;
+          color: #16181d;
           font-weight: 700;
           margin-bottom: 0.2rem;
           overflow: hidden;
@@ -324,12 +428,13 @@ const ReviewsPage = () => {
           align-items: center;
           gap: 0.35rem;
           font-size: 0.75rem;
-          color: #777;
+          color: #6b707c;
           flex-wrap: wrap;
         }
 
         .rc-sub .bullet {
-          color: #444;
+          display: none;
+          color: #a6abb5;
         }
 
         .rc-stars {
@@ -341,7 +446,7 @@ const ReviewsPage = () => {
         }
 
         .rc-text {
-          color: #b0b0b0;
+          color: #3f4652;
           font-size: 0.9rem;
           line-height: 1.6;
           font-style: italic;
@@ -351,7 +456,7 @@ const ReviewsPage = () => {
         .rc-service-tag {
           margin-top: auto;
           padding-top: 0.75rem;
-          border-top: 1px solid rgba(255,255,255,0.04);
+          border-top: 1px solid rgba(17,19,24,0.08);
         }
 
         .rc-service-tag span {
@@ -368,8 +473,8 @@ const ReviewsPage = () => {
           gap: 0.5rem;
           padding: 0.75rem 2rem;
           background: transparent;
-          border: 1.5px solid rgba(255,255,255,0.12);
-          color: white;
+          border: 1.5px solid rgba(17,19,24,0.14);
+          color: #16181d;
           border-radius: 100px;
           font-weight: 700;
           font-size: 0.9rem;

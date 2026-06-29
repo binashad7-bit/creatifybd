@@ -1,122 +1,101 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { db } from '../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
 import { ArrowRight } from 'lucide-react';
-import { TextReveal, ImageReveal, FadeReveal } from './MotionReveal';
+import { detailedCaseStudies } from '../data/caseStudiesData';
 import OptimizedImage from './OptimizedImage';
 
-
-const ParallaxImage = ({ src, alt }) => {
-  const ref = React.useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-  const y = useTransform(scrollYProgress, [0, 1], [-50, 50]);
-  return (
-    <motion.div 
-      ref={ref}
-      className="duck-cs-img" 
-      style={{ y, scale: 1.15 }} 
-    >
-      <OptimizedImage 
-        src={src} 
-        alt={alt} 
-        objectFit="cover"
-      />
-    </motion.div>
-  );
+const fallbackImages = {
+  'graphic-design-apex': 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop',
+  'marketing-luxe': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
+  'web-design-finflow': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop'
 };
 
-const CaseStudies = ({ theme = 'light' }) => {
+const CaseStudies = () => {
   const [images, setImages] = useState({});
-  const [masterpieces, setMasterpieces] = useState([]);
-  const { lang } = useLanguage();
+  const [remoteCases, setRemoteCases] = useState([]);
 
   useEffect(() => {
-    const unsubCases = onSnapshot(collection(db, 'case_studies'), (snap) => {
-      const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a,b) => (b.createdAt?.toMillis ? b.createdAt.toMillis() : 0) - (a.createdAt?.toMillis ? a.createdAt.toMillis() : 0));
-      setMasterpieces(data.slice(0, 3));
-    });
-    const unsubImages = onSnapshot(collection(db, 'case_study_images'), (snap) => {
-      const imgMap = {};
-      snap.docs.forEach(doc => { imgMap[doc.id] = doc.data(); });
-      setImages(imgMap);
-    });
-    return () => { unsubCases(); unsubImages(); };
+    const unsubCases = onSnapshot(
+      collection(db, 'case_studies'),
+      (snap) => {
+        const data = snap.docs
+          .map(doc => ({ id: doc.id, ...doc.data() }))
+          .sort((a, b) => (b.createdAt?.toMillis ? b.createdAt.toMillis() : 0) - (a.createdAt?.toMillis ? a.createdAt.toMillis() : 0));
+        setRemoteCases(data.slice(0, 3));
+      },
+      () => setRemoteCases([])
+    );
+
+    const unsubImages = onSnapshot(
+      collection(db, 'case_study_images'),
+      (snap) => {
+        const imgMap = {};
+        snap.docs.forEach(doc => { imgMap[doc.id] = doc.data(); });
+        setImages(imgMap);
+      },
+      () => setImages({})
+    );
+
+    return () => {
+      unsubCases();
+      unsubImages();
+    };
   }, []);
 
-  // Force light theme - dark theme disabled
-  const forcedTheme = 'light';
+  const cases = useMemo(() => {
+    if (remoteCases.length > 0) return remoteCases;
+    return Object.values(detailedCaseStudies).map(item => ({
+      id: item.id,
+      title: item.title,
+      sector: item.industry,
+      tagline: `${item.solution} Results focus: ${item.results.map(result => `${result.val} ${result.label}`).join(', ')}.`,
+      fallbackImage: fallbackImages[item.id]
+    }));
+  }, [remoteCases]);
 
   return (
     <section className="duck-cs-section" id="case-studies">
-
       <div className="container">
         <div className="cs-intro">
-          <FadeReveal>
-            <div className="eyebrow">{lang === 'bn' ? 'নির্বাচিত কেস স্টাডিজ' : 'Selected Case Studies'}</div>
-          </FadeReveal>
-          <TextReveal className="duck-h section-h">
-            {lang === 'bn' ? 'কৌশলগত সমাধান' : 'Strategic Narratives.'}
-          </TextReveal>
+          <div className="eyebrow">Selected Case Studies</div>
+          <h2 className="duck-h section-h">Creative work tied to measurable business outcomes</h2>
         </div>
 
         <div className="duck-cs-list">
-          {masterpieces.map((project, index) => {
+          {cases.map((project, index) => {
             const csImages = images[project.id] || {};
-            const heroImg = csImages.heroUrl || csImages.resultUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop';
-            const isReversed = index % 2 !== 0;
-            
+            const heroImg = csImages.heroUrl || csImages.resultUrl || project.fallbackImage || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop';
+
             return (
-              <div 
-                key={project.id} 
-                className={`duck-cs-item ${isReversed ? 'reverse' : ''}`}
-              >
+              <article key={project.id} className={`duck-cs-item ${index % 2 ? 'reverse' : ''}`}>
                 <div className="duck-cs-info">
-                  <FadeReveal delay={0.2}>
-                    <div className="duck-cs-num">0{index + 1}</div>
-                  </FadeReveal>
-                  <TextReveal className="duck-cs-title" delay={0.3}>
-                    {project.title}
-                  </TextReveal>
-                  <FadeReveal delay={0.5}>
-                    <div className="duck-cs-tags">
-                      {project.sector && <span className="duck-tag">{project.sector}</span>}
-                    </div>
-                    <p className="duck-cs-desc">
-                      {project.tagline}
-                    </p>
-                    <Link to="/case-studies" className="duck-cs-link">
-                      {lang === 'bn' ? 'বিস্তারিত দেখুন' : 'Explore Masterpiece'} <ArrowRight size={18} />
-                    </Link>
-                  </FadeReveal>
+                  <div className="duck-cs-num">0{index + 1}</div>
+                  <h3 className="duck-cs-title">{project.title}</h3>
+                  <div className="duck-cs-tags">
+                    {project.sector && <span className="duck-tag">{project.sector}</span>}
+                  </div>
+                  <p className="duck-cs-desc">{project.tagline}</p>
+                  <Link to="/case-studies" className="duck-cs-link">
+                    Read Case Study <ArrowRight size={18} />
+                  </Link>
                 </div>
                 <div className="duck-cs-visual">
-                  <ImageReveal delay={0.2}>
-                    <div className="duck-cs-img-wrap">
-                      <ParallaxImage src={heroImg} alt={project.title} />
-                    </div>
-                  </ImageReveal>
+                  <div className="duck-cs-img-wrap">
+                    <OptimizedImage src={heroImg} alt={project.title} objectFit="cover" />
+                  </div>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
 
-        <FadeReveal delay={0.6}>
-          <div className="duck-cs-footer">
-            <Link to="/case-studies" className="btn-huge-red">
-              {lang === 'bn' ? 'সব কেস স্টাডি দেখুন' : 'View All 10 Case Studies →'}
-            </Link>
-          </div>
-        </FadeReveal>
+        <div className="duck-cs-footer">
+          <Link to="/case-studies" className="btn-huge-red">View All Case Studies -&gt;</Link>
+        </div>
       </div>
     </section>
-
   );
 };
 

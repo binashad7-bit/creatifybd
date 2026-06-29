@@ -56,7 +56,7 @@ const Preloader = ({ onComplete }) => {
             </div>
             <div className="preloader-num">{count}%</div>
           </div>
-          <div className="preloader-bg-text">CREATIVITY • GROWTH • RESULTS</div>
+          <div className="preloader-bg-text">CREATIVITY / GROWTH / RESULTS</div>
         </motion.div>
       )}
     </AnimatePresence>

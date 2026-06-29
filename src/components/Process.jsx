@@ -1,136 +1,66 @@
-import React, { useMemo, useRef } from 'react';
-import DOMPurify from 'dompurify';
-import { useLanguage } from '../context/LanguageContext';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { TextReveal, FadeReveal } from './MotionReveal';
-import { useSettings } from '../context/SettingsContext';
+import { FileSearch, Lightbulb, PenTool, Rocket } from 'lucide-react';
+import { FadeReveal } from './MotionReveal';
+
+const steps = [
+  {
+    num: '01',
+    icon: <FileSearch size={26} />,
+    title: 'Audit and brief',
+    desc: 'We review your current brand, competitors, audience, goals, and existing assets before proposing scope.'
+  },
+  {
+    num: '02',
+    icon: <Lightbulb size={26} />,
+    title: 'Strategy and calendar',
+    desc: 'We map the service plan, creative direction, content calendar, milestones, and approval process.'
+  },
+  {
+    num: '03',
+    icon: <PenTool size={26} />,
+    title: 'Creative production',
+    desc: 'Designers, editors, writers, and web specialists produce drafts with organized review checkpoints.'
+  },
+  {
+    num: '04',
+    icon: <Rocket size={26} />,
+    title: 'Launch and improve',
+    desc: 'Final assets are delivered, scheduled, or launched with performance notes and next-step recommendations.'
+  }
+];
 
 const Process = ({ highlight = false, fullPage = false }) => {
-  const { lang } = useLanguage();
-  const { content } = useSettings();
-  const containerRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start center', 'end end']
-  });
-
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const defaultSteps = [
-    {
-      num: '01',
-      icon: '🔍',
-      title: lang === 'bn' ? 'গবেষণা ও পরিকল্পনা' : 'Strategy & Planning',
-      desc: lang === 'bn' ? 'আপনার ব্র্যান্ড, লক্ষ্য ও গ্রাহক বুঝে একটি পরিষ্কার রোডম্যাপ তৈরি করি।' : 'We deep dive into your brand goals and user needs to create a bulletproof roadmap.'
-    },
-    {
-      num: '02',
-      icon: '🎨',
-      title: lang === 'bn' ? 'সৃজনশীল ডিজাইন' : 'Creative Design',
-      desc: lang === 'bn' ? 'আপনার আইডিয়াকে প্রিমিয়াম ভিজ্যুয়াল কনসেপ্ট ও UI ডিজাইনে রূপান্তর করি।' : 'We transform your ideas into high-fidelity premium visual concepts and UI designs.'
-    },
-    {
-      num: '03',
-      icon: '⚙️',
-      title: lang === 'bn' ? 'নিখুঁত বাস্তবায়ন' : 'Expert Execution',
-      desc: lang === 'bn' ? 'নির্ভুল ডিজাইন, কনটেন্ট ও ডেভেলপমেন্টের মাধ্যমে কাজটি বাস্তবে রূপ দিই।' : 'We bring designs to life with pixel-perfect execution and high-performance development.'
-    },
-    {
-      num: '04',
-      icon: '🚀',
-      title: lang === 'bn' ? 'লঞ্চ ও অপ্টিমাইজেশন' : 'Growth & Support',
-      desc: lang === 'bn' ? 'লঞ্চের পর ফলাফল মাপি এবং ধারাবাহিক উন্নতির মাধ্যমে ROI বাড়াই।' : 'We monitor results post-launch and continuously refine strategies for maximum ROI.'
-    }
-  ];
-
-  const steps = content?.process?.steps?.length > 0 ? content.process.steps : defaultSteps;
-  const safeTitle = useMemo(() => (
-    content?.process?.title
-      ? DOMPurify.sanitize(content.process.title, { ALLOWED_TAGS: ['span', 'br', 'strong', 'em'], ALLOWED_ATTR: ['class'] })
-      : ''
-  ), [content?.process?.title]);
-
   return (
-    <section className={`section process-section ${fullPage ? 'full-page-section' : ''}`} id="process" ref={containerRef}>
+    <section className={`section process-section ${fullPage ? 'full-page-section' : ''}`} id="process">
       <div className="container">
         {!fullPage && (
           <div className="process-header">
             <FadeReveal>
-              <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>
-                {lang === 'bn' ? 'আমাদের কাজের পদ্ধতি' : 'Our Workflow'}
-              </div>
+              <div className="eyebrow">Our Workflow</div>
             </FadeReveal>
-            <TextReveal className="section-h">
-              {safeTitle ? (
-                <span dangerouslySetInnerHTML={{ __html: safeTitle }} />
-              ) : (
-                lang === 'bn' ? 'নিখুঁত প্রসেস' : 'The Path to Excellence.'
-              )}
-            </TextReveal>
-            <FadeReveal delay={0.4}>
-              <p className="section-sub" style={{ color: 'var(--section-subtext)' }}>
-                {content?.process?.subtitle || (lang === 'bn' ? 'সুশৃঙ্খল পদ্ধতিতে আমরা আপনার ধারণাকে বাস্তবে রূপান্তর করি।' : 'A proven 4-step framework designed to deliver consistent, high-end results with precision.')}
-              </p>
-            </FadeReveal>
+            <h2 className="section-h">A clear process from first brief to final delivery</h2>
+            <p className="section-sub">Every project follows a visible workflow, so you know what is happening, what needs approval, and when deliverables are due.</p>
           </div>
         )}
 
-        <div className="timeline-container">
-          <div className="timeline-line" />
-          <motion.div className="timeline-progress" style={{ scaleY, originY: 0 }} />
-
-          <div className="timeline-steps">
-            {steps.map((step, idx) => (
-              <div key={`${step.num}-${idx}`} className={`process-step-v2 ${idx % 2 !== 0 ? 'reverse' : ''}`}>
-                <div className="process-content-v2">
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    <div className={`step-num ${idx % 2 !== 0 ? 'left' : 'right'}`}>{step.num}</div>
-                    <h3 className="process-step-title">{step.title}</h3>
-                    <p className="process-step-desc">{step.desc}</p>
-                  </motion.div>
-                </div>
-
-                <motion.div
-                  className="process-icon-wrap"
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  aria-hidden="true"
-                >
-                  {step.icon}
-                </motion.div>
-
-                <div className="process-spacer" />
+        <div className="process-grid-light">
+          {steps.map((step) => (
+            <article key={step.num} className="process-step-card">
+              <div className="process-step-top">
+                <span>{step.num}</span>
+                <div>{step.icon}</div>
               </div>
-            ))}
-          </div>
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+            </article>
+          ))}
         </div>
 
-        {content?.process?.process_image && (
-          <FadeReveal delay={0.6}>
-            <div style={{ marginTop: '4rem', textAlign: 'center' }}>
-              <img src={content.process.process_image} alt="CreatifyBD workflow" style={{ width: '100%', maxWidth: '800px', borderRadius: '24px', objectFit: 'cover' }} loading="lazy" />
-            </div>
-          </FadeReveal>
-        )}
-
         {highlight && (
-          <FadeReveal delay={0.8}>
-            <div style={{ marginTop: '4rem', textAlign: 'center' }}>
-              <Link to="/process" className="btn-huge-red">
-                {lang === 'bn' ? 'বিস্তারিত প্রসেস দেখুন →' : 'Explore Our Full Workflow →'}
-              </Link>
+          <FadeReveal delay={0.3}>
+            <div className="section-action">
+              <Link to="/process" className="btn-huge-red">Explore Our Full Workflow -&gt;</Link>
             </div>
           </FadeReveal>
         )}
