@@ -155,14 +155,14 @@ const ClientOrdersPortal = () => {
 
       <style>{`
         .lookup-card {
-          background: #161616;
-          border: 1px solid rgba(255,255,255,0.08);
+          background: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 3rem;
           max-width: 450px;
           width: 100%;
           text-align: center;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+          box-shadow: var(--shadow-lg);
         }
 
         @media (max-width: 480px) {
@@ -187,13 +187,13 @@ const ClientOrdersPortal = () => {
         .lookup-card h2 {
           font-size: 1.8rem;
           font-weight: 800;
-          color: white;
+          color: var(--ink);
           margin-bottom: 0.5rem;
         }
 
         .lookup-intro {
           font-size: 0.85rem;
-          color: #777;
+          color: var(--muted);
           line-height: 1.5;
           margin-bottom: 2rem;
         }
@@ -208,7 +208,7 @@ const ClientOrdersPortal = () => {
         .lookup-form label {
           font-size: 0.75rem;
           font-weight: 700;
-          color: #888;
+          color: var(--muted);
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
@@ -220,17 +220,17 @@ const ClientOrdersPortal = () => {
           justify-content: center;
           gap: 0.4rem;
           font-size: 0.75rem;
-          color: #555;
+          color: var(--muted);
         }
 
         .lookup-support-bar a {
-          color: #777;
+          color: var(--brand-red);
           text-decoration: none;
           font-weight: 600;
         }
 
         .lookup-support-bar a:hover {
-          color: white;
+          color: var(--brand-red-dark);
           text-decoration: underline;
         }
       `}</style>
