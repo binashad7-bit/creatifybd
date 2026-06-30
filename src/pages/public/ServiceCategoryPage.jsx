@@ -6,7 +6,9 @@ import SEO from '../../components/SEO';
 import GigCard from '../../components/GigCard';
 import { categories, getGigsByCategory } from '../../data/gigs';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, ChevronRight } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+
+const EASE_EXPO = [0.16, 1, 0.3, 1];
 
 const ServiceCategoryPage = () => {
   const { categorySlug } = useParams();
@@ -18,7 +20,6 @@ const ServiceCategoryPage = () => {
 
   const categoryGigs = getGigsByCategory(categorySlug);
 
-  // Category specific copywriting details
   const categoryDetails = {
     'social-media-management': {
       headline: 'Monthly Social Media Management Built for Small Businesses',
@@ -86,7 +87,7 @@ const ServiceCategoryPage = () => {
 
   return (
     <div className="category-landing-page">
-      <SEO 
+      <SEO
         title={`${category.name} Services | CreatifyBD`}
         description={details.subheadline}
         keywords={`${categorySlug}, creatifybd services, creative agency bangladesh`}
@@ -94,31 +95,74 @@ const ServiceCategoryPage = () => {
 
       <Navbar />
 
-      {/* Category Hero */}
+      {/* ── Category Hero (dark branded) ── */}
       <section className="category-hero category-hero-light">
         <div className="container hero-container-inner">
-          <span className="category-icon-large">{category.icon}</span>
-          <h1 className="hero-title">{details.headline}</h1>
-          <p className="hero-desc">{details.subheadline}</p>
-          <div className="hero-actions">
+          <motion.span
+            className="category-icon-large"
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: EASE_EXPO, delay: 0 }}
+          >
+            {category.icon}
+          </motion.span>
+
+          <motion.h1
+            className="hero-title"
+            initial={{ opacity: 0, y: 36, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.85, ease: EASE_EXPO, delay: 0.1 }}
+          >
+            {details.headline}
+          </motion.h1>
+
+          <motion.p
+            className="hero-desc"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: EASE_EXPO, delay: 0.22 }}
+          >
+            {details.subheadline}
+          </motion.p>
+
+          <motion.div
+            className="hero-actions"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE_EXPO, delay: 0.35 }}
+          >
             <a href="#gigs-section" className="premium-btn">Explore Gigs <ArrowRight size={18} /></a>
             <Link to="/contact" className="premium-btn-outline">Custom Consultation</Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Gigs List Section */}
+      {/* ── Gigs List Section ── */}
       <section id="gigs-section" className="category-gigs-section">
         <div className="container">
-          <div className="section-header text-center">
+          <motion.div
+            className="section-header text-center"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, ease: EASE_EXPO }}
+          >
             <h2 className="section-h">Browse Our <span className="red">{category.name}</span> Gigs</h2>
             <p className="section-sub">Choose a transparent, fixed-price package below to start your order flow instantly.</p>
-          </div>
+          </motion.div>
 
           {categoryGigs.length > 0 ? (
             <div className="gigs-grid">
-              {categoryGigs.map(gig => (
-                <GigCard key={gig.id} gig={gig} />
+              {categoryGigs.map((gig, idx) => (
+                <motion.div
+                  key={gig.id}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.65, ease: EASE_EXPO, delay: Math.min(idx * 0.1, 0.4) }}
+                >
+                  <GigCard gig={gig} />
+                </motion.div>
               ))}
             </div>
           ) : (
@@ -130,10 +174,16 @@ const ServiceCategoryPage = () => {
         </div>
       </section>
 
-      {/* Benefits / Why Us */}
+      {/* ── Benefits / Why Us ── */}
       <section className="category-benefits-section">
         <div className="container">
-          <div className="benefits-grid">
+          <motion.div
+            className="benefits-grid"
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.75, ease: EASE_EXPO }}
+          >
             <div className="benefits-text">
               <h2 className="section-h">Why Partner with Us for {category.name}?</h2>
               <p className="benefits-intro">We provide premium creative agency standards at competitive production price rates, delivering Fiverr-like transparency and security.</p>
@@ -141,13 +191,19 @@ const ServiceCategoryPage = () => {
                 {details.benefits.map((benefit, idx) => {
                   const [title, desc] = benefit.split(': ');
                   return (
-                    <li key={idx}>
+                    <motion.li
+                      key={idx}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: '-30px' }}
+                      transition={{ duration: 0.55, ease: EASE_EXPO, delay: idx * 0.08 }}
+                    >
                       <CheckCircle2 size={20} className="check-icon" />
                       <div>
                         <strong>{title}</strong>
                         {desc && <p>{desc}</p>}
                       </div>
-                    </li>
+                    </motion.li>
                   );
                 })}
               </ul>
@@ -164,25 +220,38 @@ const ServiceCategoryPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Process / How it Works */}
+      {/* ── Process / How it Works ── */}
       <section className="category-process-section">
         <div className="container">
-          <div className="section-header text-center">
+          <motion.div
+            className="section-header text-center"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, ease: EASE_EXPO }}
+          >
             <h2 className="section-h">Our Step-by-Step Delivery Process</h2>
             <p className="section-sub">A seamless order execution roadmap built to guarantee revisions satisfaction.</p>
-          </div>
+          </motion.div>
 
           <div className="process-stepper-grid">
             {details.process.map((step, idx) => (
-              <div key={idx} className="process-step-card">
+              <motion.div
+                key={idx}
+                className="process-step-card"
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.65, ease: EASE_EXPO, delay: idx * 0.12 }}
+              >
                 <div className="step-number">0{idx + 1}</div>
                 <h4>{step.title}</h4>
                 <p>{step.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -344,13 +413,8 @@ const ServiceCategoryPage = () => {
           font-weight: 600;
         }
 
-        .advantage-bar .label {
-          color: #aaa;
-        }
-
-        .advantage-bar .percent {
-          color: white;
-        }
+        .advantage-bar .label { color: #aaa; }
+        .advantage-bar .percent { color: white; }
 
         .category-process-section {
           padding: 6rem 2rem;
@@ -400,13 +464,8 @@ const ServiceCategoryPage = () => {
         }
 
         @media (max-width: 968px) {
-          .benefits-grid {
-            grid-template-columns: 1fr;
-            gap: 3rem;
-          }
-          .process-stepper-grid {
-            grid-template-columns: 1fr;
-          }
+          .benefits-grid { grid-template-columns: 1fr; gap: 3rem; }
+          .process-stepper-grid { grid-template-columns: 1fr; }
         }
       `}</style>
     </div>
