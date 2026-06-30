@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileSearch, Lightbulb, PenTool, Rocket } from 'lucide-react';
-import { FadeReveal, StaggerReveal, StaggerChild } from './MotionReveal';
+import { FadeReveal, SlideReveal, StaggerReveal, StaggerChild, HoverTilt } from './MotionReveal';
 
 const steps = [
   {
@@ -39,23 +39,31 @@ const Process = ({ highlight = false, fullPage = false }) => {
             <FadeReveal>
               <div className="eyebrow">Our Workflow</div>
             </FadeReveal>
-            <h2 className="section-h">A clear process from first brief to final delivery</h2>
-            <p className="section-sub">Every project follows a visible workflow, so you know what is happening, what needs approval, and when deliverables are due.</p>
+            <SlideReveal delay={0.1}>
+              <h2 className="section-h">A clear process from first brief to final delivery</h2>
+            </SlideReveal>
+            <FadeReveal delay={0.2}>
+              <p className="section-sub">Every project follows a visible workflow, so you know what is happening, what needs approval, and when deliverables are due.</p>
+            </FadeReveal>
           </div>
         )}
 
-        <div className="process-grid-light">
+        <StaggerReveal className="process-grid-light" staggerDelay={0.12} delay={0.15}>
           {steps.map((step) => (
-            <article key={step.num} className="process-step-card">
-              <div className="process-step-top">
-                <span>{step.num}</span>
-                <div>{step.icon}</div>
-              </div>
-              <h3>{step.title}</h3>
-              <p>{step.desc}</p>
-            </article>
+            <StaggerChild key={step.num}>
+              <HoverTilt>
+                <article className="process-step-card">
+                  <div className="process-step-top">
+                    <span>{step.num}</span>
+                    <div>{step.icon}</div>
+                  </div>
+                  <h3>{step.title}</h3>
+                  <p>{step.desc}</p>
+                </article>
+              </HoverTilt>
+            </StaggerChild>
           ))}
-        </div>
+        </StaggerReveal>
 
         {highlight && (
           <FadeReveal delay={0.3}>
