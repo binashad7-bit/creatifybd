@@ -23,13 +23,12 @@ export const siteConfig = {
   },
   
   // Payment Information - Payoneer
-  // IMPORTANT: Replace with real payment details before production
   payoneer: {
-    accountName: 'CreatifyBD / Owner Name',
-    email: 'payoneer-email@example.com',
+    accountName: 'MD ALAMIN ALI',
+    paymentLink: 'https://link.payoneer.com/Token?t=AC58688EFC1E47B885A7ED5E30B9AC16&src=pl',
     currency: 'USD',
-    note: 'Please include your name or project name in the payment note if possible.',
-    placeholder: true // Remove this when real info is added
+    note: 'Enter the exact amount from your order confirmation. Add your Order ID (e.g. CBD-1234567) in the payment note.',
+    placeholder: false
   },
 
   // Payment Information - DBBL Bank Transfer
