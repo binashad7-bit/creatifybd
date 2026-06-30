@@ -94,14 +94,14 @@ import React from 'react';
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #4caf50;
-            background: rgba(76, 175, 80, 0.12);
-            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: var(--success);
+            background: var(--success-soft);
+            border: 1px solid var(--success-soft);
             padding: 0.15rem 0.5rem;
             border-radius: 4px;
           }
           .gig-card {
-            background: #161616;
+            background: var(--surface);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             overflow: hidden;
@@ -113,7 +113,7 @@ import React from 'react';
           }
           .gig-card:hover {
             border-color: rgba(232, 25, 44, 0.3);
-            box-shadow: 0 15px 40px rgba(232, 25, 44, 0.1);
+            box-shadow: 0 15px 40px var(--brand-red-soft);
           }
           .gig-card-link {
             text-decoration: none;
@@ -127,7 +127,7 @@ import React from 'react';
             padding-top: 62.5%;
             width: 100%;
             overflow: hidden;
-            background: #222;
+            background: var(--ink);
           }
           .gig-card-img {
             position: absolute;
@@ -148,9 +148,9 @@ import React from 'react';
             letter-spacing: 0.5px;
             z-index: 2;
           }
-          .gig-card-badge.monthly { background: rgba(33,150,243,0.2); border: 1px solid rgba(33,150,243,0.4); color: #2196f3; }
-          .gig-card-badge.best-seller { background: rgba(255,152,0,0.2); border: 1px solid rgba(255,152,0,0.4); color: #ff9800; }
-          .gig-card-badge.fast { background: rgba(76,175,80,0.2); border: 1px solid rgba(76,175,80,0.4); color: #4caf50; }
+          .gig-card-badge.monthly { background: var(--info-soft); border: 1px solid var(--info-soft); color: var(--info); }
+          .gig-card-badge.best-seller { background: var(--warning-soft); border: 1px solid var(--warning-soft); color: var(--warning); }
+          .gig-card-badge.fast { background: var(--success-soft); border: 1px solid var(--success-soft); color: var(--success); }
           .gig-card-badge.popular { background: rgba(232,25,44,0.2); border: 1px solid rgba(232,25,44,0.4); color: var(--red); }
           .gig-card-favorite-btn {
             position: absolute;
@@ -172,7 +172,7 @@ import React from 'react';
             padding: 1.5rem;
             display: flex; flex-direction: column;
             flex-grow: 1;
-            background: #161616;
+            background: var(--surface);
           }
           .gig-card-meta {
             display: flex;
@@ -189,7 +189,7 @@ import React from 'react';
           }
           .gig-card-rating { display: flex; align-items: center; gap: 0.25rem; }
           .rating-value { font-size: 0.85rem; font-weight: 700; color: white; }
-          .rating-count { font-size: 0.75rem; color: #777; }
+          .rating-count { font-size: 0.75rem; color: var(--muted); }
           .gig-card-title {
             font-size: 1.15rem; font-weight: 700;
             line-height: 1.3; margin-bottom: 0.5rem;
@@ -201,7 +201,7 @@ import React from 'react';
             overflow: hidden;
           }
           .gig-card-desc {
-            color: #888; font-size: 0.85rem;
+            color: var(--gray-500); font-size: 0.85rem;
             line-height: 1.5; margin-bottom: 1.5rem;
             height: 3em;
             display: -webkit-box;
@@ -217,11 +217,11 @@ import React from 'react';
             padding-top: 1rem;
             border-top: 1px solid rgba(255,255,255,0.05);
           }
-          .gig-card-delivery { display: flex; align-items: center; gap: 0.4rem; color: #888; font-size: 0.8rem; }
+          .gig-card-delivery { display: flex; align-items: center; gap: 0.4rem; color: var(--gray-500); font-size: 0.8rem; }
           .gig-card-price { display: flex; flex-direction: column; align-items: flex-end; }
-          .price-label { font-size: 0.65rem; text-transform: uppercase; color: #777; letter-spacing: 0.5px; margin-bottom: 0.1rem; }
+          .price-label { font-size: 0.65rem; text-transform: uppercase; color: var(--muted); letter-spacing: 0.5px; margin-bottom: 0.1rem; }
           .price-value { font-size: 1.15rem; font-weight: 800; color: white; }
-          .price-unit { font-size: 0.7rem; font-weight: 600; color: #888; }
+          .price-unit { font-size: 0.7rem; font-weight: 600; color: var(--gray-500); }
         `}</style>
       </motion.div>
     );
