@@ -5057,7 +5057,10 @@ body:not(.admin-body) .tab-btn.active {
 
 
 
-/* ─── Premium light theme overrides (loaded last for specificity) ─── */
+/* ─── Rose theme overrides (loaded last for highest cascade specificity) ─── */
+/* Note: In Vite/PostCSS, @import is processed at build time regardless of
+   position — this intentionally sits at the end so overrides.css rules
+   cascade after all inline CSS blocks in this file. ─── */
 @import './styles/overrides.css';
 
 /* ═══════════════════════════════════════════════════════════════

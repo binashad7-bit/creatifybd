@@ -182,10 +182,6 @@ input:focus, textarea:focus, select:focus {
 .word-wrap   { display: inline-block; overflow: hidden; vertical-align: bottom; }
 .word-inner  { display: inline-block; }
 
-/* ─── SECTION: remove unwanted dark backgrounds ─── */
-[style*="background: #"] { background: unset; }
-[style*="background:#"]  { background: unset; }
-[style*="background-color: #0"] { background-color: var(--surface) !important; }
-
-/* Protect admin from overrides */
-.admin-layout [style*="background"] { /* no change */ }
+/* NOTE: Inline styles on specific components are handled via component-level
+   class overrides above. No global attribute selectors are used to avoid
+   unintended regressions. Admin layout keeps its own dark theme. */
