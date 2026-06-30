@@ -4,10 +4,12 @@ import { useLanguage } from '../context/LanguageContext';
 import { sendMessage } from '../firebase/services';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2, MessageSquare, Phone, MapPin, Loader2, Building2 } from 'lucide-react';
-import { TextReveal, FadeReveal } from './MotionReveal';
+import { TextReveal, FadeReveal, SlideReveal, StaggerReveal, StaggerChild } from './MotionReveal';
 import toast from 'react-hot-toast';
 import { useSettings } from '../context/SettingsContext';
 import { siteConfig } from '../config/siteConfig';
+
+const EASE_EXPO = [0.16, 1, 0.3, 1];
 
 const Contact = () => {
   const { lang } = useLanguage();
@@ -38,7 +40,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.phone || !formData.service || !formData.budget || !formData.message) {
-      toast.error(lang === 'bn' ? 'সব প্রয়োজনীয় ঘর পূরণ করুন' : 'Please fill in all required fields');
+      toast.error(lang === 'bn' ? 'সব প্রয়োজনীয় ঘর পূরণ করুন' : 'Please fill in all required fields');
       return;
     }
 
@@ -51,16 +53,27 @@ const Contact = () => {
       setFormData({ name: '', email: '', phone: '', company: '', country: '', service: '', budget: '', message: '' });
     } catch (err) {
       console.error(err);
-      toast.error(lang === 'bn' ? 'পাঠানো যায়নি। আবার চেষ্টা করুন।' : 'Failed to send. Please try again.', { id: toastId });
+      toast.error(lang === 'bn' ? 'পাঠানো যায়নি। আবার চেষ্টা করুন।' : 'Failed to send. Please try again.', { id: toastId });
     } finally {
       setLoading(false);
     }
   };
 
+  const contactMethods = [
+    { icon: <MessageSquare size={24} />, label: 'Email Us',      val: siteConfig.email },
+    { icon: <Phone size={24} />,        label: 'Call Us',        val: siteConfig.phone },
+    { icon: <MapPin size={24} />,       label: 'Location',       val: cContent.address || siteConfig.address },
+    ...(cContent.working_hours
+      ? [{ icon: <CheckCircle2 size={24} />, label: 'Working Hours', val: cContent.working_hours }]
+      : [])
+  ];
+
   return (
     <section className="contact-premium-section" id="contact">
       <div className="container">
         <div className="contact-grid-wrap">
+
+          {/* ── Info panel ── */}
           <div className="contact-info-panel">
             <FadeReveal>
               <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: '1.5rem' }}>
@@ -68,13 +81,15 @@ const Contact = () => {
               </div>
             </FadeReveal>
 
-            <TextReveal className="contact-h1">
-              {safeHeading ? (
-                <span dangerouslySetInnerHTML={{ __html: safeHeading }} />
-              ) : (
-                lang === 'bn' ? 'আসুন নতুন কিছু তৈরি করি' : "Let's build something great."
-              )}
-            </TextReveal>
+            <SlideReveal delay={0.08}>
+              <TextReveal className="contact-h1">
+                {safeHeading ? (
+                  <span dangerouslySetInnerHTML={{ __html: safeHeading }} />
+                ) : (
+                  lang === 'bn' ? 'আসুন নতুন কিছু তৈরি করি' : "Let's build something great."
+                )}
+              </TextReveal>
+            </SlideReveal>
 
             {cContent.sub && (
               <FadeReveal delay={0.2}>
@@ -84,43 +99,23 @@ const Contact = () => {
               </FadeReveal>
             )}
 
-            <FadeReveal delay={0.4}>
-              <div className="contact-methods">
-                <div className="contact-method-item">
-                  <div className="method-icon"><MessageSquare size={24} /></div>
-                  <div>
-                    <div className="method-label">Email Us</div>
-                    <div className="method-val">{siteConfig.email}</div>
-                  </div>
-                </div>
-                <div className="contact-method-item">
-                  <div className="method-icon"><Phone size={24} /></div>
-                  <div>
-                    <div className="method-label">Call Us</div>
-                    <div className="method-val">{siteConfig.phone}</div>
-                  </div>
-                </div>
-                <div className="contact-method-item">
-                  <div className="method-icon"><MapPin size={24} /></div>
-                  <div>
-                    <div className="method-label">Location</div>
-                    <div className="method-val">{cContent.address || siteConfig.address}</div>
-                  </div>
-                </div>
-                {cContent.working_hours && (
+            {/* Staggered contact method items */}
+            <StaggerReveal className="contact-methods" staggerDelay={0.1} delay={0.25}>
+              {contactMethods.map((method) => (
+                <StaggerChild key={method.label}>
                   <div className="contact-method-item">
-                    <div className="method-icon"><CheckCircle2 size={24} /></div>
+                    <div className="method-icon">{method.icon}</div>
                     <div>
-                      <div className="method-label">Working Hours</div>
-                      <div className="method-val">{cContent.working_hours}</div>
+                      <div className="method-label">{method.label}</div>
+                      <div className="method-val">{method.val}</div>
                     </div>
                   </div>
-                )}
-              </div>
-            </FadeReveal>
+                </StaggerChild>
+              ))}
+            </StaggerReveal>
 
             {cContent.office_image && (
-              <FadeReveal delay={0.6}>
+              <FadeReveal delay={0.55}>
                 <div style={{ marginTop: '3rem' }}>
                   <img
                     src={cContent.office_image}
@@ -133,14 +128,22 @@ const Contact = () => {
             )}
           </div>
 
-          <div className="contact-form-card">
+          {/* ── Form card ── */}
+          <motion.div
+            className="contact-form-card"
+            initial={{ opacity: 0, y: 36, filter: 'blur(6px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.85, ease: EASE_EXPO, delay: 0.1 }}
+          >
             <AnimatePresence mode="wait">
               {!submitted ? (
                 <motion.form
                   key="form"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: EASE_EXPO }}
                   onSubmit={handleSubmit}
                 >
                   <h3 className="form-title">Start a Discovery Session</h3>
@@ -282,19 +285,27 @@ const Contact = () => {
                     </label>
                   </div>
 
-                  <button type="submit" disabled={loading} className="btn-huge-red w-full">
+                  <motion.button
+                    type="submit"
+                    disabled={loading}
+                    className="btn-huge-red w-full"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ duration: 0.22, ease: EASE_EXPO }}
+                  >
                     {loading ? (
                       <>Processing... <Loader2 size={18} className="animate-spin" style={{ marginLeft: '1rem' }} /></>
                     ) : (
                       <>Send Inquiry <Send size={18} style={{ marginLeft: '1rem' }} /></>
                     )}
-                  </button>
+                  </motion.button>
                 </motion.form>
               ) : (
                 <motion.div
                   key="success"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: EASE_EXPO }}
                   className="success-message"
                 >
                   <CheckCircle2 size={80} color="var(--red)" style={{ marginBottom: '2rem' }} />
@@ -306,7 +317,8 @@ const Contact = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </motion.div>
+
         </div>
       </div>
     </section>
