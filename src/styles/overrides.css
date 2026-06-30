@@ -461,3 +461,149 @@
   /* These selectors are intentionally empty — admin.css scopes everything under
      .admin-layout so no overrides needed here. */
   
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     PHASE 3 — INNER-PAGE NAV FIX
+     Inner pages previously had white nav text for dark page-headers.
+     Now that page-header is light rose (Phase 2), nav text must be dark ink.
+     These rules sit in overrides.css (imported last) so they win the cascade.
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  /* ─── Nav logo & text: white → dark ink on all inner pages ─── */
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .nav-logo,
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .nav-logo-text,
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .nav-logo span {
+    color: var(--ink) !important;
+  }
+
+  /* ─── Logo image: remove white-filter inversion on inner pages ─── */
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .nav-logo img.nav-logo-img {
+    filter: none !important;
+  }
+
+  /* ─── Nav center pill: dark glass → light glass ─── */
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .nav-center {
+    background: rgba(255, 251, 251, 0.82) !important;
+    border-color: rgba(232, 25, 44, 0.14) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+  }
+
+  /* ─── Nav links: rgba(255,255,255,0.8) → dark ink ─── */
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .nav-center :is(a, .nav-link-wrap) {
+    color: var(--ink) !important;
+  }
+
+  /* Active link stays red */
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .nav-center :is(a, .nav-link-wrap).active {
+    color: var(--red) !important;
+  }
+
+  /* ─── "Call Us" ghost button: white → dark ink ─── */
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .btn-ghost {
+    color: var(--ink) !important;
+    border-color: rgba(232, 25, 44, 0.22) !important;
+  }
+
+  /* ─── Hamburger icon: white → dark ─── */
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .hamburger-btn {
+    color: var(--ink) !important;
+  }
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .hamburger-btn span {
+    background: var(--ink) !important;
+  }
+
+  /* ─── Dropdown items on inner pages: white → dark ─── */
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .nav-minimal-dropdown {
+    background: rgba(255, 251, 251, 0.98) !important;
+    border-color: rgba(232, 25, 44, 0.1) !important;
+  }
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .minimal-dropdown-item {
+    color: var(--ink) !important;
+  }
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .minimal-dropdown-item:hover {
+    background: rgba(232, 25, 44, 0.06) !important;
+    color: var(--red) !important;
+  }
+  :is(.services-page, .pricing-page, .process-page, .work-page, .contact-page,
+      .case-studies-page, .portfolio-page, .premium-cs-page,
+      .gigs-catalog-page, .about-page, .team-page, .reviews-page,
+      .gig-detail-page, .order-success-page, .client-orders-page)
+    nav:not(.scrolled) .dropdown-chevron {
+    color: var(--ink) !important;
+  }
+
+  /* ─── dark-section nav inside non-admin areas: dark text (not white) ─── */
+  body:not(.admin-body) .dark-section nav:not(.scrolled) .nav-logo,
+  body:not(.admin-body) .dark-section nav:not(.scrolled) .nav-logo span,
+  body:not(.admin-body) .dark-section nav:not(.scrolled) .nav-logo-text,
+  body:not(.admin-body) .dark-section nav:not(.scrolled) .nav-center a,
+  body:not(.admin-body) .dark-section nav:not(.scrolled) .nav-link-wrap,
+  body:not(.admin-body) .dark-section nav:not(.scrolled) .nav-link-wrap:hover {
+    color: var(--ink) !important;
+  }
+
+  /* ─── Page header text: was white for dark bg, now dark for light bg ─── */
+  .page-header .page-title,
+  .page-header .page-title .red {
+    color: var(--ink) !important;
+  }
+  .page-header .page-title .red {
+    color: var(--red) !important;
+  }
+  .page-header .page-subtitle {
+    color: var(--muted) !important;
+  }
+  
