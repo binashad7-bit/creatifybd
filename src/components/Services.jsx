@@ -4,7 +4,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, BarChart3, Clapperboard, Code2, Megaphone, Palette } from 'lucide-react';
-import { TextReveal, FadeReveal, StaggerReveal } from './MotionReveal';
+import { TextReveal, FadeReveal, StaggerReveal, HoverTilt } from './MotionReveal';
 
 const defaultServices = [
   {
@@ -91,7 +91,7 @@ const Services = ({ highlight = false, fullPage = false }) => {
           <div className="services-grid">
             {displayServices.map((service, idx) => (
               <FadeReveal key={service.id || idx}>
-                <motion.article className={`service-card-premium ${idx === 0 ? 'is-signature' : ''}`} whileHover={{ y: -8 }}>
+                <HoverTilt maxTilt={8} scale={1.01}><motion.article className={`service-card-premium ${idx === 0 ? 'is-signature' : ''}`}>
                   <div className="service-icon">{service.icon}</div>
                   {service.badge && <span className="service-badge">{service.badge}</span>}
                   <h3>{service.title}</h3>
@@ -109,7 +109,7 @@ const Services = ({ highlight = false, fullPage = false }) => {
                       </span>
                     </Link>
                   </div>
-                </motion.article>
+                </motion.article></HoverTilt>
               </FadeReveal>
             ))}
           </div>
