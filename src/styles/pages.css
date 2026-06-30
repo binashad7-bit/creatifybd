@@ -77,6 +77,11 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   width: 80%;
+  display: flex;
+  align-items: center;
+  padding: 0 0.65rem;
+  font-size: 0.75rem;
+  color: var(--gray-600);
 }
 
 .mock-sb-item.active,

@@ -1167,14 +1167,15 @@ h2.section-h .red { color: var(--red); }
 .pf-lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.94);
+  background: rgba(0,0,0,0.75);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
   animation: lbFadeIn 0.25s ease;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 @keyframes lbFadeIn {
   from { opacity: 0; }
@@ -3630,21 +3631,7 @@ html, body {
   color: var(--black);
 }
 
-/* Dark section fixes for service cards */
-.dark-section .service-card-premium {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-.dark-section .service-card-premium:hover {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border-color: var(--red) !important;
-}
-
-.dark-section .service-arrow {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--white);
-}
+/* Dark section fixes for service cards - removed (white theme only) */
 
 /* Dark section testimonials fix */
 .dark-section .editorial-header .eyebrow {
