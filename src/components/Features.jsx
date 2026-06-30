@@ -1,5 +1,6 @@
 import React from 'react';
 import { BarChart3, Clock3, Globe2, ShieldCheck } from 'lucide-react';
+import { FadeReveal, StaggerReveal, StaggerChild, ScaleReveal, CountUp, SlideReveal } from './MotionReveal';
 
 const featureItems = [
   {
@@ -29,51 +30,68 @@ const Features = () => {
     <section className="section features-section" id="why">
       <div className="container">
         <div className="features-grid">
-          <div>
-            <div className="eyebrow">Why CreatifyBD</div>
-            <h2 className="section-h">A reliable creative team without agency overhead</h2>
-            <p className="section-sub">
-              We combine a structured production office in Dhaka with international service standards, giving small businesses dependable creative output at practical monthly pricing.
-            </p>
+          <SlideReveal from="left">
+            <div>
+              <FadeReveal>
+                <div className="eyebrow">Why CreatifyBD</div>
+              </FadeReveal>
+              <FadeReveal delay={0.1}>
+                <h2 className="section-h">A reliable creative team without agency overhead</h2>
+              </FadeReveal>
+              <FadeReveal delay={0.2}>
+                <p className="section-sub">
+                  We combine a structured production office in Dhaka with international service standards, giving small businesses dependable creative output at practical monthly pricing.
+                </p>
+              </FadeReveal>
 
-            <div className="feature-list">
-              {featureItems.map((item) => (
-                <div key={item.title} className="feature-item">
-                  <div className="feature-icon-wrap">{item.icon}</div>
-                  <div>
-                    <h4>{item.title}</h4>
-                    <p>{item.desc}</p>
+              <StaggerReveal delay={0.3} stagger={0.1} className="feature-list">
+                {featureItems.map((item) => (
+                  <StaggerChild key={item.title}>
+                    <div className="feature-item">
+                      <div className="feature-icon-wrap">{item.icon}</div>
+                      <div>
+                        <h4>{item.title}</h4>
+                        <p>{item.desc}</p>
+                      </div>
+                    </div>
+                  </StaggerChild>
+                ))}
+              </StaggerReveal>
+            </div>
+          </SlideReveal>
+
+          <SlideReveal from="right" delay={0.15}>
+            <div className="features-visual">
+              <ScaleReveal delay={0.25}>
+                <div className="feat-card-big">
+                  <h3>Creative operations built for recurring growth</h3>
+                  <div className="feat-stats">
+                    <div className="feat-stat">
+                      <div className="feat-stat-val">
+                        <CountUp to={100} suffix="+" duration={2} />
+                      </div>
+                      <div className="feat-stat-label">Projects delivered</div>
+                    </div>
+                    <div className="feat-stat">
+                      <div className="feat-stat-val">5.0<em>*</em></div>
+                      <div className="feat-stat-label">Client rating target</div>
+                    </div>
+                    <div className="feat-stat">
+                      <div className="feat-stat-val">24<em>h</em></div>
+                      <div className="feat-stat-label">Typical response window</div>
+                    </div>
+                  </div>
+                  <div className="badge-row">
+                    <span className="badge hot">Social Media Management</span>
+                    <span className="badge">Graphic Design</span>
+                    <span className="badge">Video Editing</span>
+                    <span className="badge">Digital Marketing</span>
+                    <span className="badge">Website Design</span>
                   </div>
                 </div>
-              ))}
+              </ScaleReveal>
             </div>
-          </div>
-          <div className="features-visual">
-            <div className="feat-card-big">
-              <h3>Creative operations built for recurring growth</h3>
-              <div className="feat-stats">
-                <div className="feat-stat">
-                  <div className="feat-stat-val">100<em>+</em></div>
-                  <div className="feat-stat-label">Projects delivered</div>
-                </div>
-                <div className="feat-stat">
-                  <div className="feat-stat-val">5.0<em>*</em></div>
-                  <div className="feat-stat-label">Client rating target</div>
-                </div>
-                <div className="feat-stat">
-                  <div className="feat-stat-val">24<em>h</em></div>
-                  <div className="feat-stat-label">Typical response window</div>
-                </div>
-              </div>
-              <div className="badge-row">
-                <span className="badge hot">Social Media Management</span>
-                <span className="badge">Graphic Design</span>
-                <span className="badge">Video Editing</span>
-                <span className="badge">Digital Marketing</span>
-                <span className="badge">Website Design</span>
-              </div>
-            </div>
-          </div>
+          </SlideReveal>
         </div>
       </div>
     </section>
