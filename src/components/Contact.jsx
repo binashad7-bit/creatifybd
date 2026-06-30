@@ -176,7 +176,7 @@ const Contact = () => {
 
                   <div className="form-row-2">
                     <div className="form-group">
-                      <label className="luxury-label" htmlFor="contact-phone">WhatsApp / Phone *</label>
+                      <label className="luxury-label" htmlFor="contact-phone">Phone Number *</label>
                       <input
                         id="contact-phone"
                         type="tel"
@@ -187,6 +187,9 @@ const Contact = () => {
                         placeholder="+880 1XXX XXXXXX"
                         autoComplete="tel"
                       />
+                      <small style={{ color: 'var(--muted)', fontSize: '0.85rem', marginTop: '0.25rem', display: 'block' }}>
+                        WhatsApp preferred for quick communication
+                      </small>
                     </div>
                     <div className="form-group">
                       <label className="luxury-label" htmlFor="contact-company">Company Name</label>
@@ -264,6 +267,19 @@ const Contact = () => {
                       onChange={e => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Share your vision..."
                     />
+                  </div>
+
+                  <div className="form-group-full" style={{ marginBottom: '1.5rem' }}>
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--ink)', cursor: 'pointer' }}>
+                      <input
+                        type="checkbox"
+                        required
+                        style={{ marginTop: '0.25rem' }}
+                      />
+                      <span>
+                        I agree to the <a href="/privacy-policy" style={{ color: 'var(--brand-red)', textDecoration: 'underline' }}>Privacy Policy</a> and consent to having my information processed for project inquiries.
+                      </span>
+                    </label>
                   </div>
 
                   <button type="submit" disabled={loading} className="btn-huge-red w-full">

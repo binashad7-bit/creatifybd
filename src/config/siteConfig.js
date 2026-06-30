@@ -79,11 +79,11 @@ export const siteConfig = {
   
   // Budget Ranges (for contact form)
   budgetRanges: [
-    { value: '50-150', label: '$50 - $150 USD' },
-    { value: '150-300', label: '$150 - $300 USD' },
-    { value: '300-600', label: '$300 - $600 USD' },
-    { value: '600-1200', label: '$600 - $1,200 USD' },
-    { value: '1200+', label: '$1,200+ USD' }
+    { value: '50-100', label: '$50 - $100 USD' },
+    { value: '100-250', label: '$100 - $250 USD' },
+    { value: '250-500', label: '$250 - $500 USD' },
+    { value: '500-1000', label: '$500 - $1,000 USD' },
+    { value: '1000+', label: '$1,000+ USD' }
   ],
   
   // CTA Button Text

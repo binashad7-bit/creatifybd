@@ -99,11 +99,11 @@ const Services = ({ highlight = false, fullPage = false }) => {
                   <div className="service-card-footer">
                     <span className="service-price">{service.price || 'Custom quote'}</span>
                     <a
-                      href={service.price && service.price !== 'Custom quote' ? `/payment?service=${encodeURIComponent(service.title)}` : '#contact'}
+                      href="#contact"
                       className="service-cta"
                     >
                       <span className="service-arrow">
-                        {service.price && service.price !== 'Custom quote' ? 'Start Project' : 'Get Quote'}
+                        Get a Proposal
                         <ArrowUpRight size={16} />
                       </span>
                     </a>

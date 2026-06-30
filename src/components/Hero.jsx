@@ -45,12 +45,15 @@ const Hero = () => {
 
           <FadeReveal delay={0.3}>
             <div className="hero-actions">
-              <a href="#contact" className="btn-red premium-btn">
-                {siteConfig.cta.getProposal}
+              <a href="/gigs" className="btn-red premium-btn">
+                {t.cta1}
                 <ArrowRight size={18} />
               </a>
-              <a href="#portfolio" className="btn-outline-dark premium-btn-outline">
-                {siteConfig.cta.viewPortfolio}
+              <a href="/services/social-media-management" className="btn-outline-dark premium-btn-outline">
+                {t.cta2}
+              </a>
+              <a href="#contact" className="btn-outline-light premium-btn-outline" style={{ marginLeft: '0.5rem' }}>
+                {t.cta3}
               </a>
             </div>
           </FadeReveal>

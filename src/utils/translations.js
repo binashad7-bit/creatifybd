@@ -12,9 +12,10 @@ export const translations = {
     hero: {
       eyebrow: 'Social media management & design for small businesses',
       title: 'Creative Services That Make Small Businesses Look <span class="red">Premium Online</span>',
-      desc: 'CreatifyBD helps businesses in the USA, Canada, and Australia grow with social media management, graphic design, video editing, and website design — delivered through a transparent, gig-style process.',
+      desc: 'CreatifyBD helps small businesses in the USA, Canada, and Australia grow with social media management, graphic design, video editing, and website design — delivered through a transparent gig-style process.',
       cta1: 'Browse Gigs',
-      cta2: 'Explore Services'
+      cta2: 'Explore Social Media Management',
+      cta3: 'Get a Free Proposal'
     },
     common: {
       getStarted: 'Get Started ->',
@@ -35,9 +36,10 @@ export const translations = {
     hero: {
       eyebrow: 'স্মল বিজনেসের জন্য সোশ্যাল মিডিয়া ও ডিজাইন সাপোর্ট',
       title: 'Creative Services That Make Small Businesses Look <span class="red">Premium Online</span>',
-      desc: 'CreatifyBD helps businesses in the USA, Canada, and Australia grow with social media management, graphic design, video editing, and website design — delivered through a transparent, gig-style process.',
+      desc: 'CreatifyBD helps small businesses in the USA, Canada, and Australia grow with social media management, graphic design, video editing, and website design — delivered through a transparent gig-style process.',
       cta1: 'Browse Gigs',
-      cta2: 'Explore Services'
+      cta2: 'Explore Social Media Management',
+      cta3: 'Get a Free Proposal'
     },
     common: {
       getStarted: 'Get Started ->',
