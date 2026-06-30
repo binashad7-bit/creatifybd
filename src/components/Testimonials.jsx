@@ -114,7 +114,7 @@ const Testimonials = () => {
     return () => unsub();
   }, []);
 
-  const display = items.length > 0 ? items : FALLBACK;
+  const display = items.length > 0 ? items : [];
 
   // Auto-advance
   useEffect(() => {

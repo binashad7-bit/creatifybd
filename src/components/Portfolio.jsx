@@ -231,10 +231,6 @@ const Portfolio = ({ highlight = false, fullPage = false, theme = 'light' }) => 
               <FadeReveal delay={0.4}>
                 <div className="wk-stats-row">
                   <div className="wk-stat"><strong><Counter target={items.length} />+</strong><span>{lang === 'bn' ? 'প্রজেক্ট' : 'Projects'}</span></div>
-                  <div className="wk-stat-div" />
-                  <div className="wk-stat"><strong><Counter target={50} />+</strong><span>{lang === 'bn' ? 'সন্তুষ্ট ক্লায়েন্ট' : 'Happy Clients'}</span></div>
-                  <div className="wk-stat-div" />
-                  <div className="wk-stat"><strong><Counter target={5} /></strong><span>{lang === 'bn' ? 'বছরের অভিজ্ঞতা' : 'Years Experience'}</span></div>
                 </div>
               </FadeReveal>
             </div>
