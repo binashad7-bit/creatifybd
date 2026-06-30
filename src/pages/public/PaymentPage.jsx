@@ -219,48 +219,56 @@ const PaymentPage = () => {
                   <CreditCard size={24} style={{ color: 'var(--red)' }} />
                   <h3>Payoneer</h3>
                 </div>
-                <div className="payment-details">
-                  <div className="payment-detail-row">
-                    <span className="payment-label">Payment Method</span>
-                    <span className="payment-value">Payoneer</span>
+                {siteConfig.payoneer.placeholder ? (
+                  <div className="payment-placeholder-warning">
+                    <AlertCircle size={20} style={{ marginRight: '0.5rem' }} />
+                    <p>Payment details will be shared after order confirmation. Please contact us for payment information.</p>
+                    <a href="/contact" className="btn-red" style={{ marginTop: '1rem', display: 'inline-block' }}>Contact for Payment Details</a>
                   </div>
-                  <div className="payment-detail-row">
-                    <span className="payment-label">Account Name</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span className="payment-value">{siteConfig.payoneer.accountName}</span>
-                      <button 
-                        type="button"
-                        onClick={() => handleCopy(siteConfig.payoneer.accountName, 'payoneer-name')}
-                        className="copy-btn"
-                        aria-label="Copy account name"
-                      >
-                        {copied === 'payoneer-name' ? <Check size={14} /> : <Copy size={14} />}
-                      </button>
+                ) : (
+                  <div className="payment-details">
+                    <div className="payment-detail-row">
+                      <span className="payment-label">Payment Method</span>
+                      <span className="payment-value">Payoneer</span>
+                    </div>
+                    <div className="payment-detail-row">
+                      <span className="payment-label">Account Name</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span className="payment-value">{siteConfig.payoneer.accountName}</span>
+                        <button 
+                          type="button"
+                          onClick={() => handleCopy(siteConfig.payoneer.accountName, 'payoneer-name')}
+                          className="copy-btn"
+                          aria-label="Copy account name"
+                        >
+                          {copied === 'payoneer-name' ? <Check size={14} /> : <Copy size={14} />}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="payment-detail-row">
+                      <span className="payment-label">Payoneer Email</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span className="payment-value">{siteConfig.payoneer.email}</span>
+                        <button 
+                          type="button"
+                          onClick={() => handleCopy(siteConfig.payoneer.email, 'payoneer-email')}
+                          className="copy-btn"
+                          aria-label="Copy email"
+                        >
+                          {copied === 'payoneer-email' ? <Check size={14} /> : <Copy size={14} />}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="payment-detail-row">
+                      <span className="payment-label">Currency</span>
+                      <span className="payment-value">{siteConfig.payoneer.currency}</span>
+                    </div>
+                    <div className="payment-note">
+                      <AlertCircle size={16} style={{ marginRight: '0.5rem' }} />
+                      {siteConfig.payoneer.note}
                     </div>
                   </div>
-                  <div className="payment-detail-row">
-                    <span className="payment-label">Payoneer Email</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span className="payment-value">{siteConfig.payoneer.email}</span>
-                      <button 
-                        type="button"
-                        onClick={() => handleCopy(siteConfig.payoneer.email, 'payoneer-email')}
-                        className="copy-btn"
-                        aria-label="Copy email"
-                      >
-                        {copied === 'payoneer-email' ? <Check size={14} /> : <Copy size={14} />}
-                      </button>
-                    </div>
-                  </div>
-                  <div className="payment-detail-row">
-                    <span className="payment-label">Currency</span>
-                    <span className="payment-value">{siteConfig.payoneer.currency}</span>
-                  </div>
-                  <div className="payment-note">
-                    <AlertCircle size={16} style={{ marginRight: '0.5rem' }} />
-                    {siteConfig.payoneer.note}
-                  </div>
-                </div>
+                )}
               </div>
 
               {/* DBBL Bank Transfer */}
@@ -269,54 +277,62 @@ const PaymentPage = () => {
                   <CreditCard size={24} style={{ color: 'var(--red)' }} />
                   <h3>DBBL Bank Transfer</h3>
                 </div>
-                <div className="payment-details">
-                  <div className="payment-detail-row">
-                    <span className="payment-label">Bank Name</span>
-                    <span className="payment-value">{siteConfig.dbbl.bankName}</span>
+                {siteConfig.dbbl.placeholder ? (
+                  <div className="payment-placeholder-warning">
+                    <AlertCircle size={20} style={{ marginRight: '0.5rem' }} />
+                    <p>Payment details will be shared after order confirmation. Please contact us for payment information.</p>
+                    <a href="/contact" className="btn-red" style={{ marginTop: '1rem', display: 'inline-block' }}>Contact for Payment Details</a>
                   </div>
-                  <div className="payment-detail-row">
-                    <span className="payment-label">Account Name</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span className="payment-value">{siteConfig.dbbl.accountName}</span>
-                      <button 
-                        type="button"
-                        onClick={() => handleCopy(siteConfig.dbbl.accountName, 'dbbl-name')}
-                        className="copy-btn"
-                        aria-label="Copy account name"
-                      >
-                        {copied === 'dbbl-name' ? <Check size={14} /> : <Copy size={14} />}
-                      </button>
-                    </div>
-                  </div>
-                  <div className="payment-detail-row">
-                    <span className="payment-label">Account Number</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span className="payment-value">{siteConfig.dbbl.accountNumber}</span>
-                      <button 
-                        type="button"
-                        onClick={() => handleCopy(siteConfig.dbbl.accountNumber, 'dbbl-account')}
-                        className="copy-btn"
-                        aria-label="Copy account number"
-                      >
-                        {copied === 'dbbl-account' ? <Check size={14} /> : <Copy size={14} />}
-                      </button>
-                    </div>
-                  </div>
-                  <div className="payment-detail-row">
-                    <span className="payment-label">Branch</span>
-                    <span className="payment-value">{siteConfig.dbbl.branch}</span>
-                  </div>
-                  {siteConfig.dbbl.routingNumber && (
+                ) : (
+                  <div className="payment-details">
                     <div className="payment-detail-row">
-                      <span className="payment-label">Routing Number</span>
-                      <span className="payment-value">{siteConfig.dbbl.routingNumber}</span>
+                      <span className="payment-label">Bank Name</span>
+                      <span className="payment-value">{siteConfig.dbbl.bankName}</span>
                     </div>
-                  )}
-                  <div className="payment-note">
-                    <AlertCircle size={16} style={{ marginRight: '0.5rem' }} />
-                    Payment Reference: {siteConfig.dbbl.paymentReference}
+                    <div className="payment-detail-row">
+                      <span className="payment-label">Account Name</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span className="payment-value">{siteConfig.dbbl.accountName}</span>
+                        <button 
+                          type="button"
+                          onClick={() => handleCopy(siteConfig.dbbl.accountName, 'dbbl-name')}
+                          className="copy-btn"
+                          aria-label="Copy account name"
+                        >
+                          {copied === 'dbbl-name' ? <Check size={14} /> : <Copy size={14} />}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="payment-detail-row">
+                      <span className="payment-label">Account Number</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span className="payment-value">{siteConfig.dbbl.accountNumber}</span>
+                        <button 
+                          type="button"
+                          onClick={() => handleCopy(siteConfig.dbbl.accountNumber, 'dbbl-account')}
+                          className="copy-btn"
+                          aria-label="Copy account number"
+                        >
+                          {copied === 'dbbl-account' ? <Check size={14} /> : <Copy size={14} />}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="payment-detail-row">
+                      <span className="payment-label">Branch</span>
+                      <span className="payment-value">{siteConfig.dbbl.branch}</span>
+                    </div>
+                    {siteConfig.dbbl.routingNumber && (
+                      <div className="payment-detail-row">
+                        <span className="payment-label">Routing Number</span>
+                        <span className="payment-value">{siteConfig.dbbl.routingNumber}</span>
+                      </div>
+                    )}
+                    <div className="payment-note">
+                      <AlertCircle size={16} style={{ marginRight: '0.5rem' }} />
+                      Payment Reference: {siteConfig.dbbl.paymentReference}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* FAQ */}

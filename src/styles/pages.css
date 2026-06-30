@@ -64,6 +64,25 @@
   line-height: 1.6;
 }
 
+/* ─── PAYMENT PLACEHOLDER WARNING ─── */
+
+.payment-placeholder-warning {
+  background: var(--brand-red-soft);
+  border: 1px solid var(--brand-red);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  color: var(--ink);
+}
+
+.payment-placeholder-warning p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 /* ─── HOME PAGE HERO AND MOCKUPS ─── */
 .hero-sec {
   position: relative;
