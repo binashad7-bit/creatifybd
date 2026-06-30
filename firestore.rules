@@ -79,6 +79,18 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAdmin();
     }
+    // ─── Settings Collection (Split for Security) ────────────────────────────────
+    // Public settings (safe for public read)
+    match /settings/public/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // Private settings (admin only - payment info, sensitive data)
+    match /settings/private/{id} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+    // Legacy settings (for backward compatibility)
     match /settings/{id} {
       allow read: if true;
       allow write: if isAdmin();
@@ -121,13 +133,15 @@ service cloud.firestore {
     // Phase 7/11: clientAccessToken IS the doc ID (24-char random hex).
     // Public can GET a single document by its exact ID — but cannot LIST orders.
     // Only admin can list, update status, or delete.
+    // Client updates restricted to safe transitions only.
     match /orders/{orderId} {
       // Public: create a new order (setDoc with token as ID)
       allow create: if isValidOrder();
       // Public: get-only by knowing the exact token (doc ID) — no list permitted
       allow get: if true;
       allow list: if isAdmin();
-      // Admin: update status & delivery fields only
+      // Admin: full control over all fields
+      // Client: only safe status transitions (revision_requested, completed)
       allow update: if (
         isAdmin()
         && (request.resource.data.diff(resource.data).affectedKeys()
