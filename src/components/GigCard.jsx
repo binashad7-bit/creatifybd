@@ -158,7 +158,7 @@ const GigCard = ({ gig }) => {
         }
 
         .gig-card-badge.fast {
-          background: rgba(7caf50, 0.2);
+          background: rgba(76, 175, 80, 0.2);
           border: 1px solid rgba(76, 175, 80, 0.4);
           color: #4caf50;
         }

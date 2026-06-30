@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import DOMPurify from 'dompurify';
+import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../utils/translations';
@@ -45,16 +46,16 @@ const Hero = () => {
 
           <FadeReveal delay={0.3}>
             <div className="hero-actions">
-              <a href="/gigs" className="btn-red premium-btn">
+              <Link to="/gigs" className="btn-red premium-btn">
                 {t.cta1}
                 <ArrowRight size={18} />
-              </a>
-              <a href="/services/social-media-management" className="btn-outline-dark premium-btn-outline">
+              </Link>
+              <Link to="/services/social-media-management" className="btn-outline-dark premium-btn-outline">
                 {t.cta2}
-              </a>
-              <a href="#contact" className="btn-outline-light premium-btn-outline" style={{ marginLeft: '0.5rem' }}>
+              </Link>
+              <Link to="/contact" className="btn-outline-dark premium-btn-outline" style={{ marginLeft: '0.5rem' }}>
                 {t.cta3}
-              </a>
+              </Link>
             </div>
           </FadeReveal>
 

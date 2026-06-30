@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   CreditCard,
@@ -223,7 +223,7 @@ const PaymentPage = () => {
                   <div className="payment-placeholder-warning">
                     <AlertCircle size={20} style={{ marginRight: '0.5rem' }} />
                     <p>Payment details will be shared after order confirmation. Please contact us for payment information.</p>
-                    <a href="/contact" className="btn-red" style={{ marginTop: '1rem', display: 'inline-block' }}>Contact for Payment Details</a>
+                    <Link to="/contact" className="btn-red" style={{ marginTop: '1rem', display: 'inline-block' }}>Contact for Payment Details</Link>
                   </div>
                 ) : (
                   <div className="payment-details">
@@ -281,7 +281,7 @@ const PaymentPage = () => {
                   <div className="payment-placeholder-warning">
                     <AlertCircle size={20} style={{ marginRight: '0.5rem' }} />
                     <p>Payment details will be shared after order confirmation. Please contact us for payment information.</p>
-                    <a href="/contact" className="btn-red" style={{ marginTop: '1rem', display: 'inline-block' }}>Contact for Payment Details</a>
+                    <Link to="/contact" className="btn-red" style={{ marginTop: '1rem', display: 'inline-block' }}>Contact for Payment Details</Link>
                   </div>
                 ) : (
                   <div className="payment-details">

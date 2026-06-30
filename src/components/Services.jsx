@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { db } from '../firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, BarChart3, Clapperboard, Code2, Megaphone, Palette } from 'lucide-react';
 import { TextReveal, FadeReveal, StaggerReveal } from './MotionReveal';
@@ -98,15 +99,15 @@ const Services = ({ highlight = false, fullPage = false }) => {
 
                   <div className="service-card-footer">
                     <span className="service-price">{service.price || 'Custom quote'}</span>
-                    <a
-                      href="#contact"
+                    <Link
+                      to="/contact"
                       className="service-cta"
                     >
                       <span className="service-arrow">
                         Get a Proposal
                         <ArrowUpRight size={16} />
                       </span>
-                    </a>
+                    </Link>
                   </div>
                 </motion.article>
               </FadeReveal>
@@ -117,7 +118,7 @@ const Services = ({ highlight = false, fullPage = false }) => {
         {highlight && (
           <FadeReveal delay={0.4}>
             <div className="section-action">
-              <a href="/services" className="btn-huge-red">Explore All Services</a>
+              <Link to="/services" className="btn-huge-red">Explore All Services</Link>
             </div>
           </FadeReveal>
         )}
