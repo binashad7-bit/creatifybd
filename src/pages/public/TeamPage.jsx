@@ -13,35 +13,35 @@ const TeamPage = () => {
       bio: 'Pioneering custom workflow pipelines connecting global small businesses with specialized creative assets.',
       skills: ['Strategy', 'Creative Direction', 'Operations'],
       email: 'binashad7@gmail.com',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&h=300&fit=crop'
+      image: ''
     },
     {
-      name: 'Sarah Anderson',
+      name: 'Social Media Manager',
       role: 'Lead Social Strategist',
       bio: 'Designing targeted content strategies and hashtag funnels for US/CA/AU audiences.',
       skills: ['SMM Strategy', 'Audience Growth', 'Analytics'],
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&h=300&fit=crop'
+      image: ''
     },
     {
-      name: 'Rashedul Islam',
+      name: 'Graphic Designer',
       role: 'Lead Graphic Designer',
       bio: 'Crafting clean, memorable vector logo designs and cohesive corporate styles guides.',
       skills: ['Branding', 'Vector Illustration', 'InDesign'],
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&h=300&fit=crop'
+      image: ''
     },
     {
-      name: 'Tanvir Hossain',
+      name: 'Video Editor',
       role: 'Senior Video Editor',
       bio: 'Injecting high-energy visual zoom cuts and sound effects to maximize Reels watch time.',
       skills: ['Premiere Pro', 'DaVinci Resolve', 'Sound FX'],
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&h=300&fit=crop'
+      image: ''
     },
     {
-      name: 'Fahim Rahman',
+      name: 'Web Developer',
       role: 'Lead Full-stack Web Developer',
       bio: 'Engineering lightning-fast React platforms and indexable static fallback structures.',
       skills: ['React/Vite', 'Firebase Node', 'SEO Architect'],
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=300&h=300&fit=crop'
+      image: ''
     }
   ];
 
@@ -79,11 +79,15 @@ const TeamPage = () => {
         <div className="container">
           <div className="office-grid">
             <div className="office-image-box">
-              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&h=500&fit=crop" alt="CreatifyBD collaborative work area" />
+              <div className="office-placeholder" style={{ background: 'var(--surface-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px', borderRadius: '12px', color: 'var(--muted)' }}>
+                <p>Office photo coming soon</p>
+              </div>
               <span className="caption">Our collaborative workspace in Dhaka, Bangladesh</span>
             </div>
             <div className="office-image-box">
-              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&h=500&fit=crop" alt="Creative meeting area" />
+              <div className="office-placeholder" style={{ background: 'var(--surface-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px', borderRadius: '12px', color: 'var(--muted)' }}>
+                <p>Creative meeting area coming soon</p>
+              </div>
               <span className="caption">Visual design and editing brainstorming room</span>
             </div>
           </div>
@@ -91,7 +95,7 @@ const TeamPage = () => {
       </section>
 
       {/* Team grid */}
-      <section className="team-members-grid-section" style={{ padding: '6rem 1rem', background: '#111' }}>
+      <section className="team-members-grid-section" style={{ padding: '6rem 1rem', background: 'var(--surface-soft)' }}>
         <div className="container">
           <div className="section-header text-center" style={{ marginBottom: '4rem' }}>
             <h2 className="section-h">Meet Our Specialists</h2>

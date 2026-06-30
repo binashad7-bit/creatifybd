@@ -66,11 +66,6 @@ const Home = () => {
         { "@type": "Country", "name": "Australia" }
       ],
       "priceRange": "$$",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "reviewCount": "84"
-      },
       "sameAs": [
         "https://www.facebook.com/creatifybd",
         "https://www.linkedin.com/company/creatifybd"

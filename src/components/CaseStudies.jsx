@@ -7,9 +7,9 @@ import { detailedCaseStudies } from '../data/caseStudiesData';
 import OptimizedImage from './OptimizedImage';
 
 const fallbackImages = {
-  'graphic-design-apex': 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop',
-  'marketing-luxe': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
-  'web-design-finflow': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop'
+  'graphic-design-apex': '',
+  'marketing-luxe': '',
+  'web-design-finflow': ''
 };
 
 const CaseStudies = () => {
