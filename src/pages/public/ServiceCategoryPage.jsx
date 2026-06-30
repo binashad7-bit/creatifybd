@@ -233,7 +233,7 @@ const ServiceCategoryPage = () => {
 
         .category-gigs-section {
           padding: 6rem 2rem;
-          background: #111;
+          background: var(--surface-soft);
         }
 
         .gigs-grid {
@@ -354,7 +354,7 @@ const ServiceCategoryPage = () => {
 
         .category-process-section {
           padding: 6rem 2rem;
-          background: #111;
+          background: var(--surface-soft);
         }
 
         .process-stepper-grid {

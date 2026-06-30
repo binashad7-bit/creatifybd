@@ -216,11 +216,11 @@ const GIGS = [
 const STATIC_ROUTES = [
   {
     path: '',
-    title: 'CreatifyBD | Social Media Management, Graphic Design & Creative Services',
-    description: 'CreatifyBD is a premium creative agency serving small businesses in the USA, Canada, and Australia. Expert social media management, graphic design, video editing, and website design — delivered transparently.',
-    h1: 'Social Media Management, Graphic Design, Video Editing & Website Design Services',
+    title: 'CreatifyBD | Social Media Management, Graphic Design, Video Editing & Websites',
+    description: 'CreatifyBD helps small businesses in the USA, Canada, and Australia grow with social media management, graphic design, video editing, and website design — delivered through a transparent gig-style process.',
+    h1: 'Creative Services That Make Small Businesses Look Premium Online',
     bodyContent: `
-      <p>CreatifyBD is a premium creative agency and digital service marketplace based in Dhaka, Bangladesh, serving small businesses, startups, and brands across the <strong>USA, Canada, and Australia</strong>. We combine the trust of an international agency with the streamlined ordering experience of a modern service marketplace.</p>
+      <p>CreatifyBD helps small businesses in the <strong>USA, Canada, and Australia</strong> grow with social media management, graphic design, video editing, and website design — delivered through a transparent gig-style process.</p>
       <h2>Our Core Services</h2>
       <ul>
         <li><a href="/services/social-media-management"><strong>Social Media Management</strong></a> — Monthly content calendars, post design, captions, hashtag strategy, reels planning, and monthly analytics reporting.</li>
@@ -236,7 +236,7 @@ const STATIC_ROUTES = [
         <li>Revision guarantee on every order</li>
         <li>Serving clients in USA, Canada, and Australia</li>
       </ul>
-      <p><a href="/gigs">Browse all service gigs</a> | <a href="/contact">Contact us</a></p>
+      <p><a href="/gigs">Browse all service gigs</a> | <a href="/contact">Get a free proposal</a></p>
     `
   },
   {
@@ -449,6 +449,67 @@ const STATIC_ROUTES = [
     `
   },
   {
+    path: 'process',
+    title: 'Our Process — How CreatifyBD Delivers Creative Services',
+    description: 'Learn about CreatifyBD structured workflow for delivering creative services. From requirements intake to final delivery — transparent process for USA, Canada, and Australia clients.',
+    h1: 'Our Process — Structured Workflow for Creative Service Delivery',
+    bodyContent: `
+      <p>CreatifyBD follows a structured, transparent workflow for every creative order. From initial requirements to final delivery, you can track progress at every stage through our client portal.</p>
+      <h2>Our 4-Step Process</h2>
+      <ul>
+        <li><strong>Step 1: Requirements Intake</strong> — Share your project brief, brand assets, and specific requirements through our order form or contact form.</li>
+        <li><strong>Step 2: Payment Verification</strong> — Submit manual payment proof (Payoneer or DBBL Bank Transfer). We verify within 24 hours.</li>
+        <li><strong>Step 3: Production & Drafts</strong> — Our team creates initial drafts. You review and request revisions through the client portal.</li>
+        <li><strong>Step 4: Final Delivery</strong> — Approved deliverables are shared via secure download links. You can request final tweaks if needed.</li>
+      </ul>
+      <h2>Why Our Process Works</h2>
+      <ul>
+        <li>Clear communication at every stage</li>
+        <li>Revision guarantee on every order</li>
+        <li>Manual payment verification for financial safety</li>
+        <li>Client portal for tracking progress</li>
+        <li>Final approval before delivery</li>
+      </ul>
+      <p><a href="/gigs">Browse our service gigs</a> | <a href="/contact">Start a project</a></p>
+    `
+  },
+  {
+    path: 'pricing',
+    title: 'Transparent Pricing Packages | CreatifyBD Creative Services',
+    description: 'View CreatifyBD transparent pricing for social media management, graphic design, video editing, and website design. Fixed-price packages with no hidden costs for USA, Canada, and Australia businesses.',
+    h1: 'Transparent Pricing — Fixed-Price Creative Service Packages',
+    bodyContent: `
+      <p>CreatifyBD offers fixed-price creative service packages with transparent deliverables. No hidden costs, no scope creep — clear pricing for businesses in the USA, Canada, and Australia.</p>
+      <h2>Social Media Management Pricing</h2>
+      <ul>
+        <li><strong>Starter Growth</strong> — $299/month: 12 posts, 1 platform, content calendar, caption writing</li>
+        <li><strong>Business Pro</strong> — $499/month: 20 posts + stories, 2 platforms, reels scripting, monthly report</li>
+        <li><strong>Ultimate Brand Scale</strong> — $799/month: 30 posts + 5 reels, 3 platforms, dedicated account manager</li>
+      </ul>
+      <h2>Graphic Design Pricing</h2>
+      <ul>
+        <li><strong>Logo Design</strong> — from $99: Vector logos with commercial rights</li>
+        <li><strong>Brand Identity</strong> — from $350: Full brand guidelines and style sheets</li>
+        <li><strong>Social Media Posters</strong> — from $45: Custom promotion posters</li>
+        <li><strong>YouTube Thumbnails</strong> — from $35: CTR-optimized thumbnails</li>
+      </ul>
+      <h2>Video Editing Pricing</h2>
+      <ul>
+        <li><strong>Short-form Reels</strong> — from $40: Viral-ready Reels and TikToks</li>
+        <li><strong>YouTube Video Editing</strong> — from $120: Long-form edits with B-roll</li>
+        <li><strong>Promotional Videos</strong> — from $150: Corporate promo videos</li>
+      </ul>
+      <h2>Website Design Pricing</h2>
+      <ul>
+        <li><strong>Small Business Website</strong> — from $499: 3-12 page responsive websites</li>
+        <li><strong>Landing Page</strong> — from $249: High-converting single-page landing pages</li>
+        <li><strong>Portfolio Website</strong> — from $199: Professional portfolio sites</li>
+        <li><strong>Website Redesign</strong> — from $399: Modernize existing sites</li>
+      </ul>
+      <p><a href="/gigs">Browse all service gigs with detailed pricing</a></p>
+    `
+  },
+  {
     path: 'contact',
     title: 'Contact CreatifyBD | Get a Free Creative Proposal',
     description: 'Contact CreatifyBD creative team for custom inquiries, project consultation, or order support. Serving businesses in USA, Canada, and Australia.',
@@ -472,17 +533,18 @@ const STATIC_ROUTES = [
   },
   {
     path: 'case-studies',
-    title: 'Case Studies & Success Stories | CreatifyBD',
-    description: 'Read detailed case studies of CreatifyBD creative projects. Real examples of social media growth, brand transformations, and website builds for clients in USA, Canada, and Australia.',
-    h1: 'Case Studies — CreatifyBD Project Success Stories',
+    title: 'Sample Concepts & Creative Work Examples | CreatifyBD',
+    description: 'View sample creative concepts demonstrating CreatifyBD capabilities in graphic design, digital marketing, and website design. These are sample projects, not actual client case studies.',
+    h1: 'Sample Concepts — Demonstrating Our Creative Capabilities',
     bodyContent: `
-      <p>CreatifyBD case studies document detailed examples of our creative work, including the challenge, our approach, deliverables, and results for clients in the USA, Canada, and Australia.</p>
-      <h2>Featured Case Studies</h2>
+      <p>The following are sample concepts demonstrating CreatifyBD creative capabilities in graphic design, digital marketing, and website design. These are portfolio examples showcasing our skills, not actual client case studies.</p>
+      <h2>Featured Sample Concepts</h2>
       <ul>
-        <li><a href="/case-study/graphic-design-apex">Graphic Design Brand Refresh — Apex Company</a></li>
-        <li><a href="/case-study/marketing-luxe">Social Media Growth — Luxe Marketing Campaign</a></li>
-        <li><a href="/case-study/web-design-finflow">Website Design — FinFlow Business Platform</a></li>
+        <li><a href="/case-study/graphic-design-apex">Brand Identity System Design — Sample Concept</a></li>
+        <li><a href="/case-study/marketing-luxe">Social Media Marketing Strategy — Sample Concept</a></li>
+        <li><a href="/case-study/web-design-finflow">Website UI/UX Design — Sample Concept</a></li>
       </ul>
+      <p><strong>Note:</strong> These are sample projects demonstrating our design capabilities. Contact us to discuss your actual creative needs.</p>
       <p><a href="/portfolio">View our portfolio</a> | <a href="/gigs">Order a service</a></p>
     `
   },

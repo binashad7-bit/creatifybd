@@ -78,7 +78,7 @@ const PackageTabs = ({ packages = {}, onSelect }) => {
         .tabs-header {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          background: #111;
+          background: var(--surface-soft);
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 

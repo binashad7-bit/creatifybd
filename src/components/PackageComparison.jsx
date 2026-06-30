@@ -85,7 +85,7 @@ const PackageComparison = ({ packages = {} }) => {
         }
 
         .comparison-table th {
-          background: #111;
+          background: var(--surface-soft);
           color: white;
           font-weight: 700;
           padding: 1.25rem 1rem;

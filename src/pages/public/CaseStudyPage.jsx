@@ -37,7 +37,7 @@ const CaseStudyPage = () => {
       />
       <Navbar />
       <main>
-        <section style={{ background: study.color || '#111', color: '#fff', padding: '9rem 0 5rem' }}>
+        <section style={{ background: study.color || 'var(--surface-soft)', color: '#fff', padding: '9rem 0 5rem' }}>
           <div className="container">
             <Link to="/case-studies" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontWeight: 700 }}>
               Back to case studies

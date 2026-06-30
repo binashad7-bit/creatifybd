@@ -48,7 +48,7 @@ const CaseStudiesPage = () => {
                   justifyContent: 'space-between',
                   padding: '2rem',
                   borderRadius: '20px',
-                  background: `linear-gradient(145deg, ${study.color || '#111'} 0%, #111 65%)`,
+                  background: `linear-gradient(145deg, ${study.color || 'var(--surface-soft)'} 0%, var(--surface-soft) 65%)`,
                   color: '#fff',
                   textDecoration: 'none',
                   overflow: 'hidden'

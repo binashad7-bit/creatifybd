@@ -34,8 +34,8 @@ const SEO = ({
         content={noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
       />
 
-      {/* Noindex for Firebase staging domain */}
-      {typeof window !== 'undefined' && window.location.hostname === 'creatify-bd.web.app' && (
+      {/* Noindex for Firebase staging domains */}
+      {typeof window !== 'undefined' && (window.location.hostname === 'creatify-bd.web.app' || window.location.hostname === 'creatify-bd.firebaseapp.com') && (
         <meta name="robots" content="noindex, nofollow" />
       )}
 

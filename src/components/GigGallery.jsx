@@ -75,7 +75,7 @@ const GigGallery = ({ images = [] }) => {
           position: relative;
           width: 100%;
           padding-top: 60%; /* Aspect ratio ~ 5:3 */
-          background: #111;
+          background: var(--surface-soft);
           border-radius: 16px;
           overflow: hidden;
           border: 1px solid rgba(255, 255, 255, 0.08);
