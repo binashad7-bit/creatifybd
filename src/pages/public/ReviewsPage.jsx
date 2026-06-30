@@ -19,11 +19,11 @@ const getAvatarUrl = (review) => {
     .map(part => part[0]?.toUpperCase())
     .join('') || 'C';
   const palette = [
-    ['#fff1f2', '#e8192c'],
-    ['#eef7ff', '#1463ff'],
-    ['#f2fff8', '#07885d'],
-    ['#fff8ea', '#a46100'],
-    ['#f6f1ff', '#6d35c7'],
+    ['var(--brand-red-soft)', '#e8192c'],
+    ['var(--info-soft)', 'var(--info)'],
+    ['var(--success-soft)', 'var(--success-dark)'],
+    ['var(--warning-soft)', 'var(--warning)'],
+    ['rgba(139,92,246,0.10)', 'rgb(109,53,199)'],
   ];
   const index = (review.clientName || '').split('').reduce((sum, char) => sum + char.charCodeAt(0), 0) % palette.length;
   const [bg, fg] = palette[index];
@@ -38,7 +38,7 @@ const StarDisplay = ({ rating }) => (
         key={i} 
         size={15} 
         fill={i < rating ? 'var(--red)' : 'none'} 
-        stroke={i < rating ? 'var(--red)' : '#444'} 
+        stroke={i < rating ? 'var(--red)' : 'var(--ink-soft)'} 
       />
     ))}
   </div>
@@ -255,12 +255,12 @@ const ReviewsPage = () => {
         .agg-num {
           font-size: 2.5rem;
           font-weight: 900;
-          color: #16181d;
+          color: var(--ink);
         }
 
         .agg-lbl {
           font-size: 0.8rem;
-          color: #6b707c;
+          color: var(--muted);
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
@@ -268,17 +268,17 @@ const ReviewsPage = () => {
         .agg-divider {
           width: 1px;
           height: 60px;
-          background: rgba(17,19,24,0.1);
+          background: var(--border);
         }
 
         .reviews-content-section {
           padding: 5rem 1rem 6rem;
-          background: #fbfaf8;
+          background: var(--surface-soft);
         }
 
         .review-workflow-band {
-          background: #ffffff;
-          border-bottom: 1px solid rgba(17,19,24,0.08);
+          background: var(--surface);
+          border-bottom: 1px solid var(--border);
           padding: 1.25rem 1rem;
         }
 
@@ -295,7 +295,7 @@ const ReviewsPage = () => {
           align-items: center;
           gap: 0.65rem;
           min-width: 0;
-          color: #303642;
+          color: var(--ink);
           font-size: 0.84rem;
           font-weight: 700;
         }
@@ -308,7 +308,7 @@ const ReviewsPage = () => {
           align-items: center;
           justify-content: center;
           flex: 0 0 auto;
-          background: #fff7f8;
+          background: var(--brand-red-soft);
           color: var(--red);
           border: 1px solid rgba(232,25,44,0.16);
           font-size: 0.75rem;
@@ -333,10 +333,10 @@ const ReviewsPage = () => {
 
         .filter-tab-btn {
           padding: 0.6rem 1.25rem;
-          background: #ffffff;
-          border: 1px solid rgba(17,19,24,0.1);
+          background: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 100px;
-          color: #5f6470;
+          color: var(--muted);
           font-size: 0;
           font-weight: 600;
           cursor: pointer;
@@ -364,8 +364,8 @@ const ReviewsPage = () => {
         }
 
         .review-card-pub {
-          background: #ffffff;
-          border: 1px solid rgba(17,19,24,0.08);
+          background: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 16px;
           padding: 2rem;
           display: flex;
@@ -374,7 +374,7 @@ const ReviewsPage = () => {
           position: relative;
           overflow: hidden;
           transition: border-color 0.2s;
-          box-shadow: 0 14px 36px rgba(17, 19, 24, 0.06);
+          box-shadow: 0 14px 36px var(--border);
         }
 
         .review-card-pub:hover {
@@ -391,7 +391,7 @@ const ReviewsPage = () => {
           width: 46px;
           height: 46px;
           border-radius: 50%;
-          background: #fff7f8;
+          background: var(--brand-red-soft);
           border: 1px solid rgba(232,25,44,0.12);
           display: flex;
           align-items: center;
@@ -415,7 +415,7 @@ const ReviewsPage = () => {
 
         .rc-name {
           font-size: 1rem;
-          color: #16181d;
+          color: var(--ink);
           font-weight: 700;
           margin-bottom: 0.2rem;
           overflow: hidden;
@@ -428,13 +428,13 @@ const ReviewsPage = () => {
           align-items: center;
           gap: 0.35rem;
           font-size: 0.75rem;
-          color: #6b707c;
+          color: var(--muted);
           flex-wrap: wrap;
         }
 
         .rc-sub .bullet {
           display: none;
-          color: #a6abb5;
+          color: var(--gray-400);
         }
 
         .rc-stars {
@@ -446,7 +446,7 @@ const ReviewsPage = () => {
         }
 
         .rc-text {
-          color: #3f4652;
+          color: var(--ink-soft);
           font-size: 0.9rem;
           line-height: 1.6;
           font-style: italic;
@@ -456,7 +456,7 @@ const ReviewsPage = () => {
         .rc-service-tag {
           margin-top: auto;
           padding-top: 0.75rem;
-          border-top: 1px solid rgba(17,19,24,0.08);
+          border-top: 1px solid var(--border);
         }
 
         .rc-service-tag span {
@@ -473,8 +473,8 @@ const ReviewsPage = () => {
           gap: 0.5rem;
           padding: 0.75rem 2rem;
           background: transparent;
-          border: 1.5px solid rgba(17,19,24,0.14);
-          color: #16181d;
+          border: 1.5px solid var(--border);
+          color: var(--ink);
           border-radius: 100px;
           font-weight: 700;
           font-size: 0.9rem;
