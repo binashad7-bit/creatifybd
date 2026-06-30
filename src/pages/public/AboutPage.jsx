@@ -37,15 +37,15 @@ const AboutPage = () => {
       />
       <Navbar />
 
-      <header className="page-header">
+      <div className="page-header page-header-light">
         <div className="container">
           <span className="eyebrow">Our Agency Story</span>
-          <h1 className="page-title">A dependable creative partner for international small businesses</h1>
+          <h1 className="page-title">A dependable creative partner for <span className="red">international</span> small businesses</h1>
           <p className="page-subtitle">
             CreatifyBD combines agency-level creative production with clear, gig-style packages for founders who need consistent execution without long contracts.
           </p>
         </div>
-      </header>
+      </div>
 
       <main>
         <section className="about-detail-section">
