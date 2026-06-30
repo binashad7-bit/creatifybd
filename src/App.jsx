@@ -57,22 +57,22 @@ function ScrollToTop() {
 }
 
 const pageVariants = {
-    initial: { opacity: 0, y: 36, filter: 'blur(6px)' },
-    animate: {
-      opacity: 1, y: 0, filter: 'blur(0px)',
-      transition: { duration: 0.78, ease: [0.16, 1, 0.3, 1] },
-    },
-    exit: {
-      opacity: 0, y: -18, filter: 'blur(3px)',
-      transition: { duration: 0.35, ease: [0.76, 0, 0.24, 1] },
-    },
-  };
+  initial: { opacity: 0, y: 36, filter: 'blur(6px)' },
+  animate: {
+    opacity: 1, y: 0, filter: 'blur(0px)',
+    transition: { duration: 0.78, ease: [0.16, 1, 0.3, 1] },
+  },
+  exit: {
+    opacity: 0, y: -18, filter: 'blur(3px)',
+    transition: { duration: 0.35, ease: [0.76, 0, 0.24, 1] },
+  },
+};
 
-  const PageWrapper = ({ children }) => (
-    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
-      {children}
-    </motion.div>
-  ));
+const PageWrapper = ({ children }) => (
+  <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+    {children}
+  </motion.div>
+);
 
 function AppContent() {
   const location = useLocation();
@@ -83,15 +83,15 @@ function AppContent() {
 
   useEffect(() => {
     const lenis = new Lenis({
-        duration: 1.5,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 0.85,
-        smoothTouch: false,
-        touchMultiplier: 2,
-      })});
+      duration: 1.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.85,
+      smoothTouch: false,
+      touchMultiplier: 2,
+    });
 
     function raf(time) {
       lenis.raf(time);
@@ -139,13 +139,13 @@ function AppContent() {
           <Route path="/privacy-policy" element={<PageWrapper><PrivacyPolicyPage /></PageWrapper>} />
           <Route path="/payment" element={<PageWrapper><PaymentPage /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
-          <Route 
-            path="/admin/*" 
+          <Route
+            path="/admin/*"
             element={
               <ProtectedRoute>
                 <AdminDashboard />
               </ProtectedRoute>
-            } 
+            }
           />
           <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
         </Routes>
