@@ -9,6 +9,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fbfaf8" />
     
     <!-- Primary Meta Tags -->
     <title>CreatifyBD | Social Media Management, Design, Video Editing & Websites</title>
@@ -101,6 +102,21 @@
         padding: 2rem;
         line-height: 1.6;
       }
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--critical-red);
+        color: white;
+        padding: 8px 16px;
+        z-index: 100000;
+        transition: top 0.3s;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
     </style>
 
     <!-- JSON-LD Structured Data (Advanced) -->
@@ -187,13 +203,14 @@
     </script>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div id="root">
       <div class="boot-shell" aria-hidden="true">
         <div class="boot-shell__mark">CB</div>
       </div>
     </div>
     <noscript>
-    <main class="seo-fallback" aria-label="CreatifyBD - Creative Services">
+    <main class="seo-fallback" id="main-content" aria-label="CreatifyBD - Creative Services">
       <header>
         <a href="https://creatifybd.com"><strong>CreatifyBD</strong></a> — Premium Creative Agency &amp; Service Marketplace
       </header>

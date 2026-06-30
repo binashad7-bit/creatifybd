@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -14,6 +15,13 @@ export default defineConfig({
           if (id.includes('node_modules')) return 'vendor';
           if (id.includes('/src/pages/admin/') || id.includes('/src/pages/AdminDashboard')) return 'admin';
         }
+      }
+    },
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
       }
     }
   },
