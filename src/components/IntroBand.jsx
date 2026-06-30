@@ -1,6 +1,9 @@
 import React from 'react';
 import { BarChart3, Palette, Video } from 'lucide-react';
-import { TextReveal, StaggerReveal, StaggerChild, HoverTilt } from './MotionReveal';
+import { TextReveal } from './MotionReveal';
+import { motion } from 'framer-motion';
+
+const EASE_EXPO = [0.16, 1, 0.3, 1];
 
 const pillars = [
   {
@@ -32,21 +35,26 @@ const IntroBand = () => {
             The creative services small businesses ask for most, packaged for reliable monthly execution
           </TextReveal>
 
-          <StaggerReveal className="intro-pillars-v2" staggerDelay={0.13} delay={0.1}>
-            {pillars.map((pillar) => (
-              <StaggerChild key={pillar.title}>
-                <HoverTilt>
-                  <article className="pillar-v2">
-                    <div className="pillar-icon-v2" style={{ '--pillar-color': pillar.color }}>
-                      {pillar.icon}
-                    </div>
-                    <h4>{pillar.title}</h4>
-                    <p>{pillar.desc}</p>
-                  </article>
-                </HoverTilt>
-              </StaggerChild>
+          {/* Keep the native grid div — animate each article directly */}
+          <div className="intro-pillars-v2">
+            {pillars.map((pillar, index) => (
+              <motion.article
+                key={pillar.title}
+                className="pillar-v2"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.75, ease: EASE_EXPO, delay: index * 0.13 }}
+                whileHover={{ y: -10, transition: { duration: 0.3, ease: EASE_EXPO } }}
+              >
+                <div className="pillar-icon-v2" style={{ '--pillar-color': pillar.color }}>
+                  {pillar.icon}
+                </div>
+                <h4>{pillar.title}</h4>
+                <p>{pillar.desc}</p>
+              </motion.article>
             ))}
-          </StaggerReveal>
+          </div>
         </div>
       </div>
     </section>
