@@ -19,6 +19,7 @@ const Contact = () => {
     email: '',
     phone: '',
     company: '',
+    country: '',
     service: '',
     budget: '',
     message: ''
@@ -36,7 +37,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.service || !formData.budget || !formData.message) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.service || !formData.budget || !formData.message) {
       toast.error(lang === 'bn' ? 'সব প্রয়োজনীয় ঘর পূরণ করুন' : 'Please fill in all required fields');
       return;
     }
@@ -47,7 +48,7 @@ const Contact = () => {
       await sendMessage(formData);
       setSubmitted(true);
       toast.success('Thank you for contacting CreatifyBD. We have received your project inquiry and will contact you shortly.', { id: toastId });
-      setFormData({ name: '', email: '', phone: '', company: '', service: '', budget: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', company: '', country: '', service: '', budget: '', message: '' });
     } catch (err) {
       console.error(err);
       toast.error(lang === 'bn' ? 'পাঠানো যায়নি। আবার চেষ্টা করুন।' : 'Failed to send. Please try again.', { id: toastId });
@@ -198,6 +199,24 @@ const Contact = () => {
                         placeholder="Your Company Ltd."
                         autoComplete="organization"
                       />
+                    </div>
+                    <div className="form-group">
+                      <label className="luxury-label" htmlFor="contact-country">Country *</label>
+                      <select
+                        id="contact-country"
+                        className="luxury-input"
+                        required
+                        value={formData.country}
+                        onChange={e => setFormData({ ...formData, country: e.target.value })}
+                      >
+                        <option value="">Select your country</option>
+                        <option value="USA">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="Other">Other</option>
+                      </select>
                     </div>
                   </div>
 

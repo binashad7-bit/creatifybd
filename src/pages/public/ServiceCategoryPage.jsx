@@ -95,7 +95,7 @@ const ServiceCategoryPage = () => {
       <Navbar />
 
       {/* Category Hero */}
-      <section className="category-hero dark-section">
+      <section className="category-hero category-hero-light">
         <div className="container hero-container-inner">
           <span className="category-icon-large">{category.icon}</span>
           <h1 className="hero-title">{details.headline}</h1>
@@ -131,7 +131,7 @@ const ServiceCategoryPage = () => {
       </section>
 
       {/* Benefits / Why Us */}
-      <section className="category-benefits-section dark-section">
+      <section className="category-benefits-section">
         <div className="container">
           <div className="benefits-grid">
             <div className="benefits-text">

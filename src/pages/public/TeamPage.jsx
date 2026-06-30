@@ -54,7 +54,7 @@ const TeamPage = () => {
 
       <Navbar />
 
-      <div className="page-header dark-section">
+      <div className="page-header page-header-light">
         <div className="container">
           <h1 className="page-title">Meet Our <span className="red">Team</span> & Workspace</h1>
           <p className="page-subtitle">A cohesive group of visual artists, copywriters, and developers driving growth for global brands.</p>
@@ -90,7 +90,7 @@ const TeamPage = () => {
       </section>
 
       {/* Office Image showcase */}
-      <section className="office-showcase-section dark-section" style={{ padding: '6rem 1rem' }}>
+      <section className="office-showcase-section" style={{ padding: '6rem 1rem' }}>
         <div className="container">
           <div className="office-grid">
             <div className="office-image-box">

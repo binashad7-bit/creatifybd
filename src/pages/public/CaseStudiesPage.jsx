@@ -24,7 +24,7 @@ const CaseStudiesPage = () => {
       />
       <Navbar />
       <main>
-        <section className="page-header dark-section">
+        <section className="page-header page-header-light">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

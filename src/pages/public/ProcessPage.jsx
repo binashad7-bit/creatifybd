@@ -14,7 +14,7 @@ const ProcessPage = () => {
         keywords="about creatifybd, creative agency process, web design workflow, digital marketing strategy dhaka"
       />
       <Navbar />
-      <div className="page-header dark-section">
+      <div className="page-header page-header-light">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

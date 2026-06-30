@@ -1,4 +1,70 @@
-/* Home page Hero and Mockups */
+/* ─── LIGHT THEME PAGE HEADERS ─── */
+
+.page-header-light {
+  background: var(--surface-soft);
+  padding: 6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header-light .page-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.page-header-light .page-subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+.category-hero-light {
+  background: var(--surface-soft);
+  padding: 6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.category-hero-light .hero-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.category-hero-light .hero-desc {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 700px;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.reviews-hero-light {
+  background: var(--surface-soft);
+  padding: 6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.reviews-hero-light .page-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.reviews-hero-light .page-subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+/* ─── HOME PAGE HERO AND MOCKUPS ─── */
 .hero-sec {
   position: relative;
   padding: 180px 0 100px;

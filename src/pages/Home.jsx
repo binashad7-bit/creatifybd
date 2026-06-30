@@ -93,8 +93,8 @@ const Home = () => {
       
       {content?.visibility?.clients !== false && <Clients />}
       
-      {content?.visibility?.services !== false && <Services highlight={true} theme={content?.services?.theme} />}
       <SmmHighlight />
+      {content?.visibility?.services !== false && <Services highlight={true} theme={content?.services?.theme} />}
       {content?.visibility?.features !== false && <Features theme={content?.features?.theme} />}
       <AboutTrust />
       {content?.visibility?.portfolio !== false && <Portfolio highlight={true} theme={content?.portfolio?.theme} />}

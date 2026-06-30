@@ -144,7 +144,7 @@ const ReviewsPage = () => {
 
       <Navbar />
 
-      <section className="reviews-hero dark-section">
+      <section className="reviews-hero reviews-hero-light">
         <div className="container">
           <h1 className="page-title">Verified Client <span className="red">Reviews</span></h1>
           <p className="page-subtitle">Real client feedback from completed creative orders, reviewed through our delivery and approval workflow.</p>

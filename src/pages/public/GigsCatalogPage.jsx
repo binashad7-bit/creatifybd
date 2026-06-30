@@ -81,7 +81,7 @@ const GigsCatalogPage = () => {
 
       <Navbar />
 
-      <div className="page-header dark-section">
+      <div className="page-header page-header-light">
         <div className="container">
           <h1 className="page-title">Browse Creative <span className="red">Gigs</span></h1>
           <p className="page-subtitle">Select transparent, fixed-price services designed to make your small business look premium online.</p>
