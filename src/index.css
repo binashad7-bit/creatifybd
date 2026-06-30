@@ -2183,8 +2183,8 @@ footer {
 
 .page-header {
   padding: 12rem 0 6rem;
-  background: var(--black);
-  color: white;
+  background: linear-gradient(135deg, var(--surface-soft) 0%, var(--brand-red-pale) 55%, var(--surface-soft) 100%);
+  color: var(--ink);
   text-align: center;
 }
 
@@ -2199,7 +2199,7 @@ footer {
 
 .page-subtitle {
   font-size: 1.2rem;
-  color: rgba(255,255,255,0.6);
+  color: var(--muted);
   max-width: 600px;
   margin: 0 auto;
   font-weight: 300;
