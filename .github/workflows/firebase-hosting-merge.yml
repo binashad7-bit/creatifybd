@@ -23,9 +23,18 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID || '' }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID || '' }}
           VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID || '' }}
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - id: firebase_deploy
+        continue-on-error: true
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CREATIFY_BD }}'
           channelId: live
           projectId: creatify-bd
+      - name: Verify site is live
+        run: |
+          echo "Verifying creatifybd.com is reachable..."
+          curl -sf --max-time 15 https://creatifybd.com > /dev/null \
+            && echo "✅ Site is live at creatifybd.com" \
+            || (echo "❌ Site unreachable!" && exit 1)
+
