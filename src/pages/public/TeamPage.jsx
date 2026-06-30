@@ -3,7 +3,9 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import { motion } from 'framer-motion';
-import { Mail, Globe, Users, Trophy, Coffee } from 'lucide-react';
+import { Mail } from 'lucide-react';
+
+const EASE_EXPO = [0.16, 1, 0.3, 1];
 
 const TeamPage = () => {
   const teamMembers = [
@@ -47,23 +49,56 @@ const TeamPage = () => {
 
   return (
     <div className="team-page">
-      <SEO 
+      <SEO
         title="Meet Our Creative Team & Workspace | CreatifyBD"
         description="Learn about the creative agency specialists collaborating in our Dhaka production office to build premium social content and React sites."
       />
 
       <Navbar />
 
+      {/* ── Hero ── */}
       <div className="page-header page-header-light">
         <div className="container">
-          <h1 className="page-title">Meet Our <span className="red">Team</span> & Workspace</h1>
-          <p className="page-subtitle">A cohesive group of visual artists, copywriters, and developers driving growth for global brands.</p>
+          <motion.div
+            className="eyebrow"
+            style={{ marginBottom: '1rem' }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: EASE_EXPO, delay: 0 }}
+          >
+            Dhaka Production Centre
+          </motion.div>
+
+          <motion.h1
+            className="page-title"
+            initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.85, ease: EASE_EXPO, delay: 0.08 }}
+          >
+            Meet Our <span className="red">Team</span> &amp; Workspace
+          </motion.h1>
+
+          <motion.p
+            className="page-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: EASE_EXPO, delay: 0.2 }}
+          >
+            A cohesive group of visual artists, copywriters, and developers driving growth for global brands.
+          </motion.p>
         </div>
       </div>
 
       {/* Corporate trust intro */}
       <section className="team-intro-section" style={{ padding: '6rem 1rem', background: 'var(--surface-soft)' }}>
-        <div className="container" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+        <motion.div
+          className="container"
+          style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.75, ease: EASE_EXPO }}
+        >
           <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--ink)', marginBottom: '1.5rem' }}>Our Production Center in Dhaka</h2>
           <p style={{ color: 'var(--muted)', fontSize: '1.05rem', lineHeight: '1.6', marginBottom: '2rem' }}>
             By establishing our creative execution center in Dhaka, Bangladesh, we secure an exceptional cost-efficiency advantage. We pass these operational savings directly to small businesses in the USA, Canada, and Australia—delivering high-end international agency standards at competitive rates.
@@ -71,25 +106,31 @@ const TeamPage = () => {
           <p style={{ color: 'var(--muted)', fontSize: '0.95rem', lineHeight: '1.5' }}>
             Our collaborative workspace brings together specialized creative talent focused on delivering quality results for your brand.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Office Image showcase */}
       <section className="office-showcase-section" style={{ padding: '6rem 1rem' }}>
         <div className="container">
           <div className="office-grid">
-            <div className="office-image-box">
-              <div className="office-placeholder" style={{ background: 'var(--surface-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px', borderRadius: '12px', color: 'var(--muted)' }}>
-                <p>Office photo coming soon</p>
-              </div>
-              <span className="caption">Our collaborative workspace in Dhaka, Bangladesh</span>
-            </div>
-            <div className="office-image-box">
-              <div className="office-placeholder" style={{ background: 'var(--surface-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px', borderRadius: '12px', color: 'var(--muted)' }}>
-                <p>Creative meeting area coming soon</p>
-              </div>
-              <span className="caption">Visual design and editing brainstorming room</span>
-            </div>
+            {[
+              'Our collaborative workspace in Dhaka, Bangladesh',
+              'Visual design and editing brainstorming room'
+            ].map((caption, idx) => (
+              <motion.div
+                key={idx}
+                className="office-image-box"
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.7, ease: EASE_EXPO, delay: idx * 0.12 }}
+              >
+                <div className="office-placeholder" style={{ background: 'var(--surface-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px', borderRadius: '12px', color: 'var(--muted)' }}>
+                  <p>{idx === 0 ? 'Office photo coming soon' : 'Creative meeting area coming soon'}</p>
+                </div>
+                <span className="caption">{caption}</span>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -97,14 +138,28 @@ const TeamPage = () => {
       {/* Team grid */}
       <section className="team-members-grid-section" style={{ padding: '6rem 1rem', background: 'var(--surface-soft)' }}>
         <div className="container">
-          <div className="section-header text-center" style={{ marginBottom: '4rem' }}>
+          <motion.div
+            className="section-header text-center"
+            style={{ marginBottom: '4rem' }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, ease: EASE_EXPO }}
+          >
             <h2 className="section-h">Meet Our Specialists</h2>
             <p className="section-sub">Transparent billing structures backed by professional, accountable experts.</p>
-          </div>
+          </motion.div>
 
           <div className="team-grid">
             {teamMembers.map((member, idx) => (
-              <div key={idx} className="team-member-card">
+              <motion.div
+                key={idx}
+                className="team-member-card"
+                initial={{ opacity: 0, y: 36 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.65, ease: EASE_EXPO, delay: Math.min(idx * 0.08, 0.36) }}
+              >
                 <div className="member-photo-wrap">
                   <img src={member.image} alt={member.name} />
                 </div>
@@ -112,13 +167,11 @@ const TeamPage = () => {
                   <h4 className="member-name">{member.name}</h4>
                   <span className="member-role">{member.role}</span>
                   <p className="member-bio">{member.bio}</p>
-                  
                   <div className="member-skills-row">
                     {member.skills.map((skill, sIdx) => (
                       <span key={sIdx} className="skill-tag">{skill}</span>
                     ))}
                   </div>
-
                   {member.email && (
                     <div className="member-contact-row" style={{ marginTop: '1.25rem', borderTop: '1px solid var(--border)', paddingTop: '0.75rem' }}>
                       <a href={`mailto:${member.email}`} className="member-mail-btn" aria-label={`Email ${member.name}`}>
@@ -128,7 +181,7 @@ const TeamPage = () => {
                     </div>
                   )}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -146,9 +199,7 @@ const TeamPage = () => {
         }
 
         @media (max-width: 768px) {
-          .office-grid {
-            grid-template-columns: 1fr;
-          }
+          .office-grid { grid-template-columns: 1fr; }
         }
 
         .office-image-box {
@@ -184,26 +235,25 @@ const TeamPage = () => {
           border: 1px solid var(--border);
           border-radius: 16px;
           overflow: hidden;
-          transition: all 0.2s;
+          transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .team-member-card:hover {
           border-color: var(--brand-red);
+          box-shadow: 0 8px 32px rgba(232,25,44,0.08);
         }
 
         .member-photo-wrap {
           width: 100%;
-          padding-top: 100%; /* square ratio */
+          padding-top: 100%;
           position: relative;
           background: var(--surface-muted);
         }
 
         .member-photo-wrap img {
           position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+          top: 0; left: 0;
+          width: 100%; height: 100%;
           object-fit: cover;
         }
 
