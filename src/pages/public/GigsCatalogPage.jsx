@@ -241,12 +241,12 @@ const GigsCatalogPage = () => {
 
       <style>{`
         .gigs-catalog-page {
-          background: #fbfaf8;
+          background: var(--surface-soft);
         }
 
         .marketplace-banner {
-          background: #fff7f8;
-          border: 1px solid rgba(232, 25, 44, 0.15);
+          background: var(--brand-red-soft);
+          border: 1px solid var(--brand-red);
           border-radius: 12px;
           padding: 1.5rem 2rem;
           margin-bottom: 3rem;
@@ -262,7 +262,7 @@ const GigsCatalogPage = () => {
         }
 
         .banner-icon {
-          color: var(--red);
+          color: var(--brand-red);
           flex-shrink: 0;
           margin-top: 0.2rem;
         }
@@ -270,13 +270,13 @@ const GigsCatalogPage = () => {
         .banner-text h5 {
           font-size: 1.05rem;
           font-weight: 700;
-          color: #16181d;
+          color: var(--ink);
           margin-bottom: 0.25rem;
         }
 
         .banner-text p {
           font-size: 0.85rem;
-          color: #5f6470;
+          color: var(--muted);
           line-height: 1.5;
         }
 
@@ -286,11 +286,11 @@ const GigsCatalogPage = () => {
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
-          background: #ffffff;
-          border: 1px solid rgba(17, 19, 24, 0.08);
+          background: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 16px;
           padding: 2rem;
-          box-shadow: 0 18px 42px rgba(17, 19, 24, 0.06);
+          box-shadow: var(--shadow-md);
         }
 
         .search-box-wrap {
@@ -303,25 +303,25 @@ const GigsCatalogPage = () => {
           left: 1.25rem;
           top: 50%;
           transform: translateY(-50%);
-          color: #777;
+          color: var(--muted);
         }
 
         .search-input {
           width: 100%;
-          background: #fbfaf8;
-          border: 1px solid rgba(17, 19, 24, 0.1);
+          background: var(--surface-soft);
+          border: 1px solid var(--border);
           border-radius: 10px;
           padding: 1rem 1rem 1rem 3.25rem;
-          color: #16181d;
+          color: var(--ink);
           font-size: 0.95rem;
           outline: none;
           transition: all 0.2s;
         }
 
         .search-input:focus {
-          border-color: var(--red);
-          background: #ffffff;
-          box-shadow: 0 0 0 4px rgba(232, 25, 44, 0.08);
+          border-color: var(--brand-red);
+          background: var(--surface);
+          box-shadow: 0 0 0 4px var(--brand-red-soft);
         }
 
         .filters-row-grid {
@@ -351,15 +351,15 @@ const GigsCatalogPage = () => {
         .filter-select-wrap label {
           font-size: 0.75rem;
           font-weight: 700;
-          color: #6b707c;
+          color: var(--muted);
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
 
         .filter-select-wrap select {
-          background: #fbfaf8;
-          border: 1px solid rgba(17, 19, 24, 0.1);
-          color: #16181d;
+          background: var(--surface-soft);
+          border: 1px solid var(--border);
+          color: var(--ink);
           padding: 0.75rem;
           border-radius: 8px;
           outline: none;
@@ -369,20 +369,20 @@ const GigsCatalogPage = () => {
         }
 
         .filter-select-wrap select:focus {
-          border-color: var(--red);
-          background: #ffffff;
-          box-shadow: 0 0 0 4px rgba(232, 25, 44, 0.08);
+          border-color: var(--brand-red);
+          background: var(--surface);
+          box-shadow: 0 0 0 4px var(--brand-red-soft);
         }
 
         .active-filters-summary {
           max-width: 1200px;
           margin: 1.5rem auto 0;
-          color: #6b707c;
+          color: var(--muted);
           font-size: 0.85rem;
         }
 
         .active-filters-summary strong {
-          color: #16181d;
+          color: var(--ink);
         }
 
         .catalog-gigs-grid {
@@ -396,22 +396,22 @@ const GigsCatalogPage = () => {
         .no-gigs-found {
           text-align: center;
           padding: 4rem 2rem;
-          background: #ffffff;
-          border: 1px solid rgba(17, 19, 24, 0.08);
+          background: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 16px;
           max-width: 600px;
           margin: 0 auto;
-          box-shadow: 0 18px 42px rgba(17, 19, 24, 0.06);
+          box-shadow: var(--shadow-md);
         }
 
         .no-gigs-found h4 {
           font-size: 1.3rem;
           margin-bottom: 0.5rem;
-          color: #16181d;
+          color: var(--ink);
         }
 
         .no-gigs-found p {
-          color: #6b707c;
+          color: var(--muted);
           font-size: 0.9rem;
           margin-bottom: 2rem;
         }
