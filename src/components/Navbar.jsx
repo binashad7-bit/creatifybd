@@ -25,7 +25,7 @@ const mobileLinks = [
 
 const mobileServices = ['Social Media', 'Graphic Design', 'Video Editing', 'Web Design'];
 
-const Navbar = ({ theme = 'dark' }) => {
+const Navbar = ({ theme = 'light' }) => {
   const { settings } = useSettings();
   const [scrolled, setScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);

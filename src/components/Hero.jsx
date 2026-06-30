@@ -102,16 +102,16 @@ const Hero = () => {
                         <h3 className="mock-card-title">Campaign Performance</h3>
                         <div className="mock-stats-grid">
                           <div className="mock-stat-item">
-                            <small className="mock-stat-label">Reach</small>
-                            <strong className="mock-stat-value mock-stat-value-red">+142.8%</strong>
+                            <small className="mock-stat-label">Content Calendar</small>
+                            <strong className="mock-stat-value mock-stat-value-red">Active</strong>
                           </div>
                           <div className="mock-stat-item">
-                            <small className="mock-stat-label">Engagement</small>
-                            <strong className="mock-stat-value">+28.4%</strong>
+                            <small className="mock-stat-label">Posts Ready</small>
+                            <strong className="mock-stat-value">12</strong>
                           </div>
                           <div className="mock-stat-item">
-                            <small className="mock-stat-label">CTR Avg</small>
-                            <strong className="mock-stat-value">18.3%</strong>
+                            <small className="mock-stat-label">Scheduled</small>
+                            <strong className="mock-stat-value">8</strong>
                           </div>
                         </div>
                         <div className="mock-schedule-section">

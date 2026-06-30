@@ -23,21 +23,25 @@ export const siteConfig = {
   },
   
   // Payment Information - Payoneer
+  // IMPORTANT: Replace with real payment details before production
   payoneer: {
     accountName: 'CreatifyBD / Owner Name',
     email: 'payoneer-email@example.com',
     currency: 'USD',
-    note: 'Please include your name or project name in the payment note if possible.'
+    note: 'Please include your name or project name in the payment note if possible.',
+    placeholder: true // Remove this when real info is added
   },
-  
+
   // Payment Information - DBBL Bank Transfer
+  // IMPORTANT: Replace with real payment details before production
   dbbl: {
     bankName: 'Dutch-Bangla Bank Limited',
     accountName: 'Account Name',
     accountNumber: 'Account Number',
     branch: 'Branch Name',
     routingNumber: 'Routing Number',
-    paymentReference: 'Client Name / Project Name'
+    paymentReference: 'Client Name / Project Name',
+    placeholder: true // Remove this when real info is added
   },
   
   // Payment Instructions

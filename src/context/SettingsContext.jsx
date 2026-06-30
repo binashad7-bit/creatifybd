@@ -10,10 +10,10 @@ export const SettingsProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Keep the public site dark; individual admin screens can still override locally.
-    document.body.setAttribute('data-theme', 'dark');
-    document.body.style.background = '#0d0e12';
-    document.body.style.color = '#ffffff';
+    // Premium light theme - remove forced dark theme
+    document.body.setAttribute('data-theme', 'light');
+    document.body.style.background = '';
+    document.body.style.color = '';
 
     // Listen to global site settings (Identity, Branding, Colors)
     const unsubSettings = onSnapshot(doc(db, 'settings', 'site'), (snap) => {
