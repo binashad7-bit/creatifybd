@@ -1,100 +1,116 @@
 import React from 'react';
-  import { ArrowRight, CalendarCheck, CheckCircle, Clock, LineChart, MessageSquareText } from 'lucide-react';
-  import { Link } from 'react-router-dom';
+import { ArrowRight, CalendarCheck, CheckCircle, Clock, LineChart, MessageSquareText } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { FadeReveal, SlideReveal, StaggerReveal, StaggerChild, BlurReveal } from './MotionReveal';
 
-  const benefits = [
-    {
-      icon: <CalendarCheck size={20} />,
-      title: 'Done-for-you monthly calendar',
-      desc: 'Post ideas, designs, captions, hashtags, and scheduling prepared before the month starts.'
-    },
-    {
-      icon: <MessageSquareText size={20} />,
-      title: 'Brand voice and community support',
-      desc: 'Professional captions, customer-facing replies guidance, and consistent visual tone.'
-    },
-    {
-      icon: <LineChart size={20} />,
-      title: 'Performance reporting',
-      desc: 'Monthly reach, engagement, content winners, and next-step recommendations.'
-    }
-  ];
+const benefits = [
+  {
+    icon: <CalendarCheck size={20} />,
+    title: 'Done-for-you monthly calendar',
+    desc: 'Post ideas, designs, captions, hashtags, and scheduling prepared before the month starts.'
+  },
+  {
+    icon: <MessageSquareText size={20} />,
+    title: 'Brand voice and community support',
+    desc: 'Professional captions, customer-facing replies guidance, and consistent visual tone.'
+  },
+  {
+    icon: <LineChart size={20} />,
+    title: 'Performance reporting',
+    desc: 'Monthly reach, engagement, content winners, and next-step recommendations.'
+  }
+];
 
-  const calendarDays = [
-    { day: 'Mon', done: true },
-    { day: 'Tue', done: true },
-    { day: 'Wed', done: true },
-    { day: 'Thu', done: true },
-    { day: 'Fri', done: false },
-    { day: 'Sat', done: false },
-  ];
+const calendarDays = [
+  { day: 'Mon', done: true },
+  { day: 'Tue', done: true },
+  { day: 'Wed', done: true },
+  { day: 'Thu', done: true },
+  { day: 'Fri', done: false },
+  { day: 'Sat', done: false },
+];
 
-  const SmmHighlight = () => {
-    return (
-      <section className="smm-highlight-section">
-        <div className="container">
-          <div className="smm-grid">
+const SmmHighlight = () => {
+  return (
+    <section className="smm-highlight-section">
+      <div className="container">
+        <div className="smm-grid">
+          <SlideReveal from="left">
             <div>
-              <span className="eyebrow">Managed Social Media</span>
-              <h2>Monthly social media management for international small businesses</h2>
-              <p className="smm-lead">
-                A dedicated creative workflow for founders who need consistent, polished social media without hiring a full in-house team. We plan, design, write, schedule, and report, so your business stays active and trustworthy every week.
-              </p>
+              <FadeReveal>
+                <span className="eyebrow">Managed Social Media</span>
+              </FadeReveal>
+              <FadeReveal delay={0.1}>
+                <h2>Monthly social media management for international small businesses</h2>
+              </FadeReveal>
+              <FadeReveal delay={0.2}>
+                <p className="smm-lead">
+                  A dedicated creative workflow for founders who need consistent, polished social media without hiring a full in-house team. We plan, design, write, schedule, and report, so your business stays active and trustworthy every week.
+                </p>
+              </FadeReveal>
 
-              <div className="smm-benefits-list">
+              <StaggerReveal delay={0.25} stagger={0.1} className="smm-benefits-list">
                 {benefits.map((item) => (
-                  <div className="smm-benefit-item" key={item.title}>
-                    <div className="smm-benefit-icon">{item.icon}</div>
-                    <div>
-                      <h4>{item.title}</h4>
-                      <p>{item.desc}</p>
+                  <StaggerChild key={item.title}>
+                    <div className="smm-benefit-item">
+                      <div className="smm-benefit-icon">{item.icon}</div>
+                      <div>
+                        <h4>{item.title}</h4>
+                        <p>{item.desc}</p>
+                      </div>
                     </div>
-                  </div>
+                  </StaggerChild>
                 ))}
-              </div>
+              </StaggerReveal>
 
-              <Link to="/services" className="btn-red smm-cta">
-                Explore SMM Packages <ArrowRight size={16} />
-              </Link>
+              <FadeReveal delay={0.5}>
+                <Link to="/services" className="btn-red smm-cta">
+                  Explore SMM Packages <ArrowRight size={16} />
+                </Link>
+              </FadeReveal>
             </div>
+          </SlideReveal>
 
-            <div className="smm-visuals" aria-label="Social media management deliverables">
-              <div className="smm-panel-header">
-                <span>Monthly Growth Board</span>
-                <strong className="smm-status-badge">Ready for Review</strong>
-              </div>
-              <div className="smm-metrics-grid">
-                <div className="smm-metric-item">
-                  <small>Content pieces</small>
-                  <strong>30</strong>
-                  <span>Posts, stories, reels</span>
+          <SlideReveal from="right" delay={0.2}>
+            <BlurReveal delay={0.3}>
+              <div className="smm-visuals" aria-label="Social media management deliverables">
+                <div className="smm-panel-header">
+                  <span>Monthly Growth Board</span>
+                  <strong className="smm-status-badge">Ready for Review</strong>
                 </div>
-                <div className="smm-metric-item">
-                  <small>Platforms</small>
-                  <strong>3</strong>
-                  <span>Instagram, Facebook, LinkedIn</span>
-                </div>
-              </div>
-              <div className="smm-calendar-card">
-                {calendarDays.map(({ day, done }) => (
-                  <div className={done ? 'is-ready' : 'is-pending'} key={day}>
-                    <span>{day}</span>
-                    {done
-                      ? <CheckCircle size={13} />
-                      : <Clock size={13} className="pending-icon" />
-                    }
+                <div className="smm-metrics-grid">
+                  <div className="smm-metric-item">
+                    <small>Content pieces</small>
+                    <strong>30</strong>
+                    <span>Posts, stories, reels</span>
                   </div>
-                ))}
+                  <div className="smm-metric-item">
+                    <small>Platforms</small>
+                    <strong>3</strong>
+                    <span>Instagram, Facebook, LinkedIn</span>
+                  </div>
+                </div>
+                <div className="smm-calendar-card">
+                  {calendarDays.map(({ day, done }) => (
+                    <div className={done ? 'is-ready' : 'is-pending'} key={day}>
+                      <span>{day}</span>
+                      {done
+                        ? <CheckCircle size={13} />
+                        : <Clock size={13} className="pending-icon" />
+                      }
+                    </div>
+                  ))}
+                </div>
+                <div className="smm-note">
+                  <strong>Included:</strong> content calendar, branded templates, short-form video direction, caption writing, scheduling support, and analytics.
+                </div>
               </div>
-              <div className="smm-note">
-                <strong>Included:</strong> content calendar, branded templates, short-form video direction, caption writing, scheduling support, and analytics.
-              </div>
-            </div>
-          </div>
+            </BlurReveal>
+          </SlideReveal>
         </div>
-      </section>
-    );
-  };
+      </div>
+    </section>
+  );
+};
 
-  export default SmmHighlight;
-  
+export default SmmHighlight;
