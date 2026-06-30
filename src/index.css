@@ -245,7 +245,7 @@ nav.scrolled .nav-active-pill {
   box-shadow: 0 10px 25px rgba(232, 25, 44, 0.2);
 }
 .btn-red:hover { 
-  background: #d11224; 
+  background: var(--brand-red-dark); 
   transform: translateY(-2px); 
   box-shadow: 0 15px 35px rgba(232,25,44,0.3); 
 }
@@ -336,7 +336,7 @@ nav.scrolled .nav-active-pill {
   margin-bottom: 1rem;
 }
 .hero h1 .wavy-text { 
-  background: linear-gradient(135deg, var(--red) 0%, #ff4b5a 100%);
+  background: linear-gradient(135deg, var(--red) 0%, var(--brand-red) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
@@ -991,7 +991,7 @@ h2.section-h .red { color: var(--red); }
   color: white;
   box-shadow: 0 4px 20px rgba(232,25,44,0.35);
 }
-.wk-filter-btn--active:hover { background: #c8101f; }
+.wk-filter-btn--active:hover { background: var(--brand-red-dark); }
 .wk-filter-count {
   background: var(--red-light);
   color: var(--red);
@@ -1561,7 +1561,7 @@ h2.section-h .red { color: var(--red); }
   color: white;
   flex-shrink: 0;
 }
-.av1 { background: linear-gradient(135deg, #E8192C, #ff6b6b); }
+.av1 { background: linear-gradient(135deg, var(--brand-red), #ff6b6b); }
 .av2 { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
 .av3 { background: linear-gradient(135deg, #10b981, #06b6d4); }
 .av4 { background: linear-gradient(135deg, #f59e0b, #ef4444); }
@@ -2263,7 +2263,7 @@ footer {
 .preloader {
   position: fixed;
   inset: 0;
-  background: #0D0D0D;
+  background: var(--ink);
   z-index: 999998;
   display: flex;
   align-items: center;
@@ -2287,7 +2287,7 @@ footer {
 }
 
 .preloader-brand span {
- color: #E8192C;
+ color: var(--brand-red);
 }
 
 .preloader-progress {
@@ -2302,7 +2302,7 @@ footer {
 
 .preloader-bar {
  height: 100%;
- background: #E8192C;
+ background: var(--brand-red);
  transition: width 0.1s ease-out;
 }
 
@@ -2441,7 +2441,7 @@ footer {
 /* INTRO BAND V2 */
 .intro-band-v2 {
   padding: 6rem 0;
-  background: #0D0D0D;
+  background: var(--ink);
   overflow: hidden;
 }
 
@@ -5055,3 +5055,7 @@ body:not(.admin-body) .tab-btn.active {
   color: var(--ink);
 }
 
+
+
+/* ─── Premium light theme overrides (loaded last for specificity) ─── */
+@import './styles/overrides.css';
