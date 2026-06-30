@@ -19,6 +19,12 @@
   background-color: var(--red-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow-red-glow);
+  animation: buttonPulse 0.6s ease;
+}
+
+@keyframes buttonPulse {
+  0%, 100% { transform: translateY(-2px) scale(1); }
+  50% { transform: translateY(-2px) scale(1.02); }
 }
 
 .btn-ghost {
@@ -26,20 +32,21 @@
   align-items: center;
   gap: 0.5rem;
   background-color: transparent;
-  color: var(--white) !important;
+  color: var(--ink) !important;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.9rem;
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--border);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .btn-ghost:hover {
-  border-color: var(--white);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--red);
+  color: var(--red) !important;
+  background: var(--red-light);
 }
 
 .btn-outline-white {
@@ -47,20 +54,21 @@
   align-items: center;
   gap: 0.5rem;
   background-color: transparent;
-  color: var(--white) !important;
+  color: var(--ink) !important;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.9rem;
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-md);
-  border: 1.5px solid var(--white);
+  border: 1.5px solid var(--gray-300);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .btn-outline-white:hover {
-  background-color: var(--white);
-  color: var(--black) !important;
+  background-color: var(--red);
+  color: var(--white) !important;
+  border-color: var(--red);
   transform: translateY(-2px);
 }
 
@@ -157,21 +165,21 @@
 
 /* Form Inputs */
 .luxury-input {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--white);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 0.875rem 1.25rem;
-  color: var(--white);
+  color: var(--ink);
   font-family: var(--font-body);
   font-size: 0.95rem;
   outline: none;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   width: 100%;
 }
 
 .luxury-input:focus {
   border-color: var(--red);
-  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px var(--red-light);
 }
 
 textarea.luxury-input {
@@ -182,7 +190,7 @@ textarea.luxury-input {
 select.luxury-input {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b6b6b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1.25rem;
@@ -191,7 +199,7 @@ select.luxury-input {
 
 /* Skeletons & Shimmers */
 .skeleton {
-  background: linear-gradient(90deg, #161616 25%, #222222 50%, #161616 75%);
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: loading-shimmer 1.5s infinite;
   border-radius: var(--radius-md);
@@ -247,7 +255,7 @@ select.luxury-input {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: var(--black);
+  background: var(--white);
   display: flex;
   justify-content: center;
   align-items: center;

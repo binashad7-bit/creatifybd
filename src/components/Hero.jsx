@@ -84,56 +84,56 @@ const Hero = () => {
                 <div className="hero-mockup-wrap">
                   <div className="dashboard-mockup-grid">
                     <div className="mock-sidebar">
-                      <div className="mock-sb-item active" style={{ color: '#fff', fontSize: '0.75rem', padding: '0.35rem 0.65rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <div className="mock-sb-item mock-sb-item-active">
                         📊 Campaigns
                       </div>
-                      <div className="mock-sb-item" style={{ color: '#888', fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}>
+                      <div className="mock-sb-item">
                         🚚 Deliveries
                       </div>
-                      <div className="mock-sb-item" style={{ color: '#888', fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}>
+                      <div className="mock-sb-item">
                         📋 Intake Brief
                       </div>
-                      <div className="mock-sb-item" style={{ color: '#888', fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}>
+                      <div className="mock-sb-item">
                         💬 Revisions
                       </div>
                     </div>
                     <div className="mock-content-panel">
-                      <div className="mock-card" style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                        <h3 style={{ fontSize: '0.85rem', fontWeight: 800, color: '#fff', marginBottom: '0.75rem' }}>Campaign Performance</h3>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', marginBottom: '1rem' }}>
-                          <div style={{ background: 'rgba(255,255,255,0.02)', padding: '0.5rem', borderRadius: '6px' }}>
-                            <small style={{ display: 'block', fontSize: '0.65rem', color: '#666' }}>Reach</small>
-                            <strong style={{ display: 'block', fontSize: '0.85rem', color: 'var(--red)', marginTop: '2px' }}>+142.8%</strong>
+                      <div className="mock-card">
+                        <h3 className="mock-card-title">Campaign Performance</h3>
+                        <div className="mock-stats-grid">
+                          <div className="mock-stat-item">
+                            <small className="mock-stat-label">Reach</small>
+                            <strong className="mock-stat-value mock-stat-value-red">+142.8%</strong>
                           </div>
-                          <div style={{ background: 'rgba(255,255,255,0.02)', padding: '0.5rem', borderRadius: '6px' }}>
-                            <small style={{ display: 'block', fontSize: '0.65rem', color: '#666' }}>Engagement</small>
-                            <strong style={{ display: 'block', fontSize: '0.85rem', color: '#fff', marginTop: '2px' }}>+28.4%</strong>
+                          <div className="mock-stat-item">
+                            <small className="mock-stat-label">Engagement</small>
+                            <strong className="mock-stat-value">+28.4%</strong>
                           </div>
-                          <div style={{ background: 'rgba(255,255,255,0.02)', padding: '0.5rem', borderRadius: '6px' }}>
-                            <small style={{ display: 'block', fontSize: '0.65rem', color: '#666' }}>CTR Avg</small>
-                            <strong style={{ display: 'block', fontSize: '0.85rem', color: '#fff', marginTop: '2px' }}>18.3%</strong>
+                          <div className="mock-stat-item">
+                            <small className="mock-stat-label">CTR Avg</small>
+                            <strong className="mock-stat-value">18.3%</strong>
                           </div>
                         </div>
-                        <div>
-                          <small style={{ display: 'block', fontSize: '0.65rem', color: '#666', marginBottom: '0.35rem' }}>Weekly Schedule</small>
-                          <div className="calendar-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
-                            <div className="calendar-day active" style={{ padding: '4px', textAlign: 'center', background: 'rgba(232, 25, 44, 0.05)', border: '1px solid rgba(232, 25, 44, 0.15)', borderRadius: '4px' }}><span style={{ display: 'block', fontSize: '0.6rem' }}>Mon</span><div className="active-bar-content" style={{ height: '3px', background: 'var(--red)', marginTop: '2px', borderRadius: '2px' }} /></div>
-                            <div className="calendar-day active" style={{ padding: '4px', textAlign: 'center', background: 'rgba(232, 25, 44, 0.05)', border: '1px solid rgba(232, 25, 44, 0.15)', borderRadius: '4px' }}><span style={{ display: 'block', fontSize: '0.6rem' }}>Tue</span><div className="active-bar-content" style={{ height: '3px', background: 'var(--red)', marginTop: '2px', borderRadius: '2px' }} /></div>
-                            <div className="calendar-day active" style={{ padding: '4px', textAlign: 'center', background: 'rgba(34, 197, 94, 0.05)', border: '1px solid rgba(34, 197, 94, 0.15)', borderRadius: '4px' }}><span style={{ display: 'block', fontSize: '0.6rem' }}>Wed</span><div className="active-bar-content" style={{ height: '3px', background: '#22c55e', marginTop: '2px', borderRadius: '2px' }} /></div>
-                            <div className="calendar-day" style={{ padding: '4px', textAlign: 'center', background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.03)', borderRadius: '4px', opacity: 0.4 }}><span style={{ display: 'block', fontSize: '0.6rem', color: '#888' }}>Thu</span></div>
+                        <div className="mock-schedule-section">
+                          <small className="mock-schedule-label">Weekly Schedule</small>
+                          <div className="calendar-grid">
+                            <div className="calendar-day active"><span>Mon</span><div className="active-bar-content" /></div>
+                            <div className="calendar-day active"><span>Tue</span><div className="active-bar-content" /></div>
+                            <div className="calendar-day active calendar-day-green"><span>Wed</span><div className="active-bar-content active-bar-content-green" /></div>
+                            <div className="calendar-day"><span>Thu</span></div>
                           </div>
                         </div>
                       </div>
-                      <div className="mock-card" style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                        <h3 style={{ fontSize: '0.85rem', fontWeight: 800, color: '#fff', marginBottom: '0.75rem' }}>Recent Deliveries</h3>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '0.4rem 0.6rem', borderRadius: '6px' }}>
-                            <span style={{ fontSize: '0.7rem', color: '#ccc' }}>SMM_Post_v2.png</span>
-                            <span style={{ color: 'var(--red)', fontSize: '0.65rem', fontWeight: 700 }}>⬇ Download</span>
+                      <div className="mock-card">
+                        <h3 className="mock-card-title">Recent Deliveries</h3>
+                        <div className="mock-deliveries-list">
+                          <div className="mock-delivery-item">
+                            <span className="mock-delivery-name">SMM_Post_v2.png</span>
+                            <span className="mock-delivery-action">⬇ Download</span>
                           </div>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '0.4rem 0.6rem', borderRadius: '6px' }}>
-                            <span style={{ fontSize: '0.7rem', color: '#ccc' }}>Campaign_Teaser.mp4</span>
-                            <span style={{ color: 'var(--red)', fontSize: '0.65rem', fontWeight: 700 }}>⬇ Download</span>
+                          <div className="mock-delivery-item">
+                            <span className="mock-delivery-name">Campaign_Teaser.mp4</span>
+                            <span className="mock-delivery-action">⬇ Download</span>
                           </div>
                         </div>
                       </div>

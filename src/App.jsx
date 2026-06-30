@@ -154,7 +154,7 @@ const PageLoadingFallback = () => (
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'var(--surface-soft, #fbfaf8)'
+    background: 'var(--surface, #ffffff)'
   }}>
     <div style={{
       width: '40px',

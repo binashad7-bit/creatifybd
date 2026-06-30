@@ -12,7 +12,7 @@ nav {
 }
 
 nav.scrolled {
-  background: rgba(15, 15, 15, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -31,7 +31,7 @@ nav.scrolled {
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 1.3rem;
-  color: var(--white);
+  color: var(--ink);
 }
 
 .nav-center {
@@ -49,14 +49,14 @@ nav.scrolled {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--gray-light);
+  color: var(--gray-700);
   position: relative;
   padding: 0.5rem 0;
 }
 
 .nav-center a.active,
 .nav-center a:hover {
-  color: var(--white);
+  color: var(--red);
 }
 
 .nav-active-pill {
@@ -98,7 +98,7 @@ nav.scrolled {
   display: block;
   width: 24px;
   height: 2px;
-  background-color: var(--white);
+  background-color: var(--ink);
   transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 
@@ -121,7 +121,7 @@ nav.scrolled {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: var(--black);
+  background: var(--white);
   z-index: 105;
   display: flex;
   flex-direction: column;
@@ -140,7 +140,7 @@ nav.scrolled {
 .mobile-menu-inner a {
   font-size: 1.8rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--ink);
 }
 
 .mobile-menu-inner a:hover {
@@ -154,7 +154,7 @@ nav.scrolled {
 
 /* Footer layout */
 footer {
-  background: var(--charcoal);
+  background: var(--gray-900);
   border-top: 1px solid var(--border);
   padding: var(--space-xxl) 0 var(--space-xl);
 }
@@ -197,7 +197,7 @@ footer {
 
 .footer-col ul a {
   font-size: 0.9rem;
-  color: var(--gray-light);
+  color: var(--gray-300);
 }
 
 .footer-col ul a:hover {
@@ -205,7 +205,7 @@ footer {
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255,255,255,0.1);
   padding-top: var(--space-lg);
   display: flex;
   justify-content: space-between;
@@ -213,7 +213,7 @@ footer {
   flex-wrap: wrap;
   gap: var(--space-md);
   font-size: 0.85rem;
-  color: var(--gray-dim);
+  color: var(--gray-400);
 }
 
 .footer-legal-links {
@@ -222,7 +222,7 @@ footer {
 }
 
 .footer-legal-links a {
-  color: var(--gray-dim);
+  color: var(--gray-400);
   font-size: 0.85rem;
 }
 
