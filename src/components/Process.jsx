@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileSearch, Lightbulb, PenTool, Rocket } from 'lucide-react';
-import { FadeReveal } from './MotionReveal';
+import { FadeReveal, StaggerReveal, StaggerChild } from './MotionReveal';
 
 const steps = [
   {
