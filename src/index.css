@@ -5059,3 +5059,229 @@ body:not(.admin-body) .tab-btn.active {
 
 /* ─── Premium light theme overrides (loaded last for specificity) ─── */
 @import './styles/overrides.css';
+
+/* ═══════════════════════════════════════════════════════════════
+   ROSE THEME GLOBAL FIXES — appended after all other styles
+   Converts any remaining hardcoded dark values to the light
+   rose theme system. These run after overrides.css imports.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Hero mockup — light card theme ─── */
+.hero-mockup-wrapper {
+  box-shadow: var(--shadow-lifted) !important;
+  border: 1.5px solid var(--border) !important;
+  transform: perspective(1000px) rotateY(-3deg) rotateX(2deg);
+}
+.hero-mockup-wrapper:hover {
+  transform: perspective(1000px) rotateY(0deg) rotateX(0deg) !important;
+}
+.hero-mockup-inner {
+  background: linear-gradient(135deg, #FFF0F1 0%, #FFF7F8 50%, #FFFBFB 100%) !important;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+.mock-bar {
+  background: rgba(232, 25, 44, 0.05) !important;
+  border-bottom: 1px solid rgba(232, 25, 44, 0.08) !important;
+}
+.mock-body { display: grid; grid-template-columns: 200px 1fr; height: calc(100% - 42px); }
+.mock-sidebar {
+  background: rgba(232, 25, 44, 0.04) !important;
+  border-right: 1px solid rgba(232, 25, 44, 0.08) !important;
+}
+.mock-sidebar-item {
+  background: rgba(232, 25, 44, 0.06) !important;
+  height: 28px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+.mock-sidebar-item.active { background: rgba(232, 25, 44, 0.18) !important; }
+.mock-card {
+  background: #fff !important;
+  border: 1px solid rgba(232, 25, 44, 0.10) !important;
+  box-shadow: 0 2px 8px rgba(232,25,44,0.06) !important;
+}
+.mock-card::after {
+  background: radial-gradient(circle, rgba(232,25,44,0.10), transparent 70%) !important;
+}
+.mock-card-label { color: var(--muted) !important; }
+.mock-card-val { color: var(--ink) !important; }
+.mock-card-val span { color: var(--muted) !important; }
+.bar-col { background: rgba(232,25,44,0.3) !important; }
+.bar-col:nth-child(3) { background: var(--brand-red) !important; }
+
+/* ─── Feature section (dark version) → light rose ─── */
+.feat-card-big {
+  background: var(--surface-soft) !important;
+  border: 1.5px solid var(--border) !important;
+}
+.feat-card-big::before {
+  background: linear-gradient(90deg, var(--brand-red), transparent) !important;
+}
+.feat-card-big h3 { color: var(--ink) !important; }
+.feat-stats .feat-stat-val { color: var(--ink) !important; }
+.feat-stat-label { color: var(--muted) !important; }
+.badge-row .badge {
+  background: var(--surface-card) !important;
+  border: 1px solid var(--border-card) !important;
+  color: var(--muted) !important;
+}
+.badge-row .badge.hot {
+  border-color: rgba(232,25,44,0.25) !important;
+  color: var(--brand-red) !important;
+  background: var(--brand-red-soft) !important;
+}
+
+/* ─── CTA Section — red gradient instead of dark gray ─── */
+.cta-section {
+  background: var(--gradient-red) !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 80% at 50% -10%, rgba(255,255,255,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-section h2 { color: #fff !important; }
+.cta-section p  { color: rgba(255,255,255,0.82) !important; }
+.cta-section .eyebrow { color: rgba(255,255,255,0.85) !important; }
+
+/* White button in CTA */
+.btn-white {
+  background: #fff !important;
+  color: var(--brand-red) !important;
+  border-radius: var(--radius-pill) !important;
+  font-weight: 700 !important;
+  transition: all var(--transition-spring) !important;
+}
+.btn-white:hover {
+  transform: translateY(-3px) scale(1.03) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+.btn-red-outline {
+  border: 1.5px solid rgba(255,255,255,0.45) !important;
+  color: rgba(255,255,255,0.9) !important;
+  border-radius: var(--radius-pill) !important;
+  background: transparent !important;
+}
+.btn-red-outline:hover {
+  border-color: rgba(255,255,255,0.8) !important;
+  color: #fff !important;
+  background: rgba(255,255,255,0.12) !important;
+}
+
+/* ─── Dark footer override → already in overrides.css but ensure ─── */
+.footer-col ul li a  { color: var(--muted) !important; }
+.f-contact-item a    { color: var(--ink) !important; }
+.footer-legal a      { color: var(--muted) !important; }
+.footer-legal a:hover{ color: var(--brand-red) !important; }
+
+/* ─── Portfolio overlay ─── */
+.portfolio-overlay {
+  background: linear-gradient(to top, rgba(232,25,44,0.85) 0%, rgba(192,20,42,0.4) 50%, transparent 100%) !important;
+}
+
+/* ─── Step cards (process section older version) ─── */
+.step-card {
+  background: var(--surface-card) !important;
+  border: 1.5px solid var(--border-card) !important;
+  color: var(--ink) !important;
+}
+.step-card:hover {
+  box-shadow: var(--shadow-float) !important;
+  border-color: rgba(232,25,44,0.15) !important;
+  transform: translateY(-5px) !important;
+}
+.step-num {
+  color: rgba(232,25,44,0.15) !important;
+  font-weight: 900 !important;
+  font-family: var(--font-display) !important;
+}
+.step-icon-wrap {
+  background: var(--brand-red-soft) !important;
+  color: var(--brand-red) !important;
+}
+
+/* ─── Nav scrolled — rose-tinted pill ─── */
+nav.scrolled {
+  background: rgba(255, 251, 251, 0.92) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 4px 24px rgba(232,25,44,0.09), 0 1px 3px rgba(0,0,0,0.04) !important;
+}
+nav.scrolled .nav-center {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+/* ─── Opt image skeleton — rose shimmer ─── */
+.opt-img-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-muted) 25%,
+    var(--surface-soft) 50%,
+    var(--surface-muted) 75%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: shimmer 1.8s infinite linear !important;
+}
+
+/* ─── Floating blob background orbs ─── */
+body::before, body::after {
+  display: none; /* handled by background-image in body */
+}
+
+/* ─── Section transition: ensure white sections stay white ─── */
+.services-section,
+.portfolio-section,
+.contact-section,
+.testimonials-section { background: var(--surface-card) !important; }
+
+.features-section,
+.process-section,
+.clients-section,
+.about-section,
+.intro-section { background: var(--surface-soft) !important; }
+
+/* ─── Pricing hero section ─── */
+.pricing-hero { background: var(--surface-soft) !important; }
+
+/* ─── Package detail overlay ─── */
+.package-detail-overlay { background: rgba(255,240,241,0.96) !important; }
+
+/* ─── Accessibility focus ring brand ─── */
+:focus-visible { outline-color: var(--brand-red) !important; }
+
+/* ─── Admin layout must NOT be affected ─── */
+.admin-layout,
+.admin-layout * { /* Admin keeps its own dark theme — see admin.css */ }
+
+
+/* ─── PRELOADER — light rose theme ─── */
+.preloader {
+  background: var(--surface-card) !important;
+}
+.preloader-brand { color: var(--ink) !important; }
+.preloader-brand span { color: var(--brand-red) !important; }
+.preloader-progress { background: var(--surface-soft) !important; }
+.preloader-bar { background: var(--gradient-red) !important; }
+.preloader-num { color: var(--muted) !important; }
+.preloader-bg-text { color: rgba(232,25,44,0.05) !important; }
+
+/* ─── Hero mockup inner dark → rose ─── */
+.hero-mockup-inner {
+  background: linear-gradient(135deg, #FFF0F1 0%, #FFF5F6 50%, #FFFBFB 100%) !important;
+}
+
+/* ─── Review page star colors ─── */
+.av3 { background: linear-gradient(135deg, var(--success), #06b6d4) !important; }
+
+/* ─── Line 3734 dark admin bg ─── */
+/* Admin keeps its own dark theme — scoped to .admin-layout */
+
