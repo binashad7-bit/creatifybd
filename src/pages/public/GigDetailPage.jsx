@@ -329,8 +329,8 @@ const GigDetailPage = () => {
 
       <style>{`
         .breadcrumb-bar {
-          background: #161616;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          background: var(--surface);
+          border-bottom: 1px solid var(--border);
           padding: 1rem 0;
           font-size: 0.85rem;
         }
@@ -339,22 +339,22 @@ const GigDetailPage = () => {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: #777;
+          color: var(--muted);
         }
 
         .breadcrumb-inner a {
-          color: #888;
+          color: var(--muted);
           text-decoration: none;
           font-weight: 500;
           transition: color 0.2s;
         }
 
         .breadcrumb-inner a:hover {
-          color: white;
+          color: var(--brand-red);
         }
 
         .current-crumb {
-          color: white;
+          color: var(--ink);
           font-weight: 600;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -382,7 +382,7 @@ const GigDetailPage = () => {
         .gig-title-main {
           font-size: clamp(1.8rem, 4vw, 2.5rem);
           font-weight: 900;
-          color: white;
+          color: var(--ink);
           line-height: 1.2;
           margin-bottom: 1rem;
         }
@@ -395,9 +395,9 @@ const GigDetailPage = () => {
         }
 
         .gig-badge-lbl {
-          background: rgba(232, 25, 44, 0.1);
-          color: var(--red);
-          border: 1px solid rgba(232, 25, 44, 0.3);
+          background: var(--brand-red-soft);
+          color: var(--brand-red);
+          border: 1px solid var(--brand-red);
           padding: 0.3rem 0.8rem;
           border-radius: 6px;
           font-size: 0.75rem;
@@ -413,11 +413,11 @@ const GigDetailPage = () => {
         }
 
         .rating-wrap-lbl strong {
-          color: white;
+          color: var(--ink);
         }
 
         .rating-wrap-lbl span {
-          color: #777;
+          color: var(--muted);
         }
 
         .detail-card-text {
@@ -427,19 +427,19 @@ const GigDetailPage = () => {
         .detail-card-text h3 {
           font-size: 1.4rem;
           font-weight: 800;
-          color: white;
+          color: var(--ink);
           margin-bottom: 1.25rem;
         }
 
         .description-p, .who-p {
-          color: #b0b0b0;
+          color: var(--muted);
           font-size: 1rem;
           line-height: 1.6;
         }
 
         .bg-dark-box {
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.05);
+          background: var(--surface-soft);
+          border: 1px solid var(--border);
           padding: 2rem;
           border-radius: 16px;
         }
@@ -455,13 +455,13 @@ const GigDetailPage = () => {
           display: flex;
           align-items: flex-start;
           gap: 0.75rem;
-          color: #aaa;
+          color: var(--muted);
           font-size: 0.95rem;
           line-height: 1.4;
         }
 
         .req-check-icon {
-          color: var(--red);
+          color: var(--brand-red);
           flex-shrink: 0;
           margin-top: 0.1rem;
         }
@@ -473,23 +473,23 @@ const GigDetailPage = () => {
         }
 
         .faq-acc-item {
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          border: 1px solid var(--border);
           border-radius: 8px;
-          background: rgba(255, 255, 255, 0.01);
+          background: var(--surface);
           overflow: hidden;
           transition: all 0.2s;
         }
 
         .faq-acc-item.open {
-          border-color: rgba(232, 25, 44, 0.2);
-          background: rgba(255, 255, 255, 0.03);
+          border-color: var(--brand-red);
+          background: var(--surface);
         }
 
         .faq-acc-header {
           width: 100%;
           background: transparent;
           border: none;
-          color: white;
+          color: var(--ink);
           padding: 1.25rem 1.5rem;
           display: flex;
           align-items: center;
@@ -501,19 +501,19 @@ const GigDetailPage = () => {
         }
 
         .faq-icon-acc {
-          color: var(--red);
+          color: var(--brand-red);
           flex-shrink: 0;
         }
 
         .chevron-icon-acc {
           margin-left: auto;
-          color: #777;
+          color: var(--muted);
           transition: transform 0.2s;
         }
 
         .faq-acc-item.open .chevron-icon-acc {
           transform: rotate(180deg);
-          color: white;
+          color: var(--brand-red);
         }
 
         .faq-acc-body {
@@ -526,7 +526,7 @@ const GigDetailPage = () => {
         }
 
         .faq-acc-body p {
-          color: #888;
+          color: var(--muted);
           font-size: 0.9rem;
           line-height: 1.5;
         }
@@ -543,12 +543,12 @@ const GigDetailPage = () => {
           display: flex;
           align-items: center;
           gap: 0.6rem;
-          color: #aaa;
+          color: var(--muted);
           font-size: 0.85rem;
           padding: 0.5rem 1rem;
-          background: rgba(255,255,255,0.02);
+          background: var(--surface-soft);
           border-radius: 8px;
-          border: 1px solid rgba(255,255,255,0.04);
+          border: 1px solid var(--border);
         }
 
         .check-icon-trust {
@@ -569,14 +569,14 @@ const GigDetailPage = () => {
           justify-content: center;
           padding: 4rem 2rem;
           text-align: center;
-          border: 1px dashed rgba(255,255,255,0.08);
+          border: 1px dashed var(--border);
           border-radius: 12px;
-          color: #777;
+          color: var(--muted);
         }
 
         .no-reviews-icon {
           margin-bottom: 1rem;
-          color: #444;
+          color: var(--muted);
         }
 
         .no-reviews-box p {
@@ -597,8 +597,8 @@ const GigDetailPage = () => {
         }
 
         .delivered-work-card {
-          background: #161616;
-          border: 1px solid rgba(255,255,255,0.05);
+          background: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 12px;
           overflow: hidden;
         }
@@ -607,7 +607,7 @@ const GigDetailPage = () => {
           position: relative;
           padding-top: 60%;
           width: 100%;
-          background: #222;
+          background: var(--surface-muted);
         }
 
         .work-img-wrap img {
@@ -625,13 +625,13 @@ const GigDetailPage = () => {
 
         .work-card-meta h5 {
           font-size: 0.95rem;
-          color: white;
+          color: var(--ink);
           margin-bottom: 0.25rem;
         }
 
         .work-card-meta span {
           font-size: 0.75rem;
-          color: #777;
+          color: var(--muted);
         }
 
         /* Review Item Card Styles */
@@ -642,8 +642,8 @@ const GigDetailPage = () => {
         }
 
         .review-item-card {
-          background: rgba(255,255,255,0.01);
-          border: 1px solid rgba(255,255,255,0.05);
+          background: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 12px;
           padding: 1.5rem;
         }
@@ -659,12 +659,12 @@ const GigDetailPage = () => {
           width: 40px;
           height: 40px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.05);
+          background: var(--surface-soft);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #888;
-          border: 1px solid rgba(255,255,255,0.1);
+          color: var(--muted);
+          border: 1px solid var(--border);
         }
 
         .rev-meta {
@@ -674,7 +674,7 @@ const GigDetailPage = () => {
 
         .rev-name {
           font-size: 0.95rem;
-          color: white;
+          color: var(--ink);
           font-weight: 700;
         }
 
@@ -683,7 +683,7 @@ const GigDetailPage = () => {
           align-items: center;
           gap: 0.5rem;
           font-size: 0.75rem;
-          color: #777;
+          color: var(--muted);
         }
 
         .rev-country {
@@ -699,7 +699,7 @@ const GigDetailPage = () => {
 
         .rev-content {
           font-size: 0.9rem;
-          color: #aaa;
+          color: var(--muted);
           line-height: 1.5;
         }
 
@@ -708,7 +708,7 @@ const GigDetailPage = () => {
           max-width: 200px;
           border-radius: 8px;
           overflow: hidden;
-          border: 1px solid rgba(255,255,255,0.08);
+          border: 1px solid var(--border);
         }
 
         .rev-delivered-sample-preview img {
