@@ -887,7 +887,7 @@ const ClientOrderDetail = () => {
           justify-content: center;
           height: 40px;
           font-size: 0.85rem;
-          cursor: pointer;
+          cursor: none;
         }
 
         .btn-outline-white {
@@ -1058,7 +1058,7 @@ const ClientOrderDetail = () => {
           border-radius: 100px;
           font-size: 0.85rem;
           font-weight: 700;
-          cursor: pointer;
+          cursor: none;
         }
 
         .review-portal-form {
@@ -1087,18 +1087,18 @@ const ClientOrderDetail = () => {
           display: flex;
           align-items: flex-start;
           gap: 0.5rem;
-          cursor: pointer;
+          cursor: none;
         }
 
         .checkbox-group-lbl input {
           margin-top: 0.15rem;
-          cursor: pointer;
+          cursor: none;
         }
 
         .checkbox-group-lbl label {
           font-size: 0.85rem;
           color: #aaa;
-          cursor: pointer;
+          cursor: none;
           line-height: 1.3;
           text-transform: none;
           font-weight: 500;

@@ -663,7 +663,7 @@ const PaymentPage = () => {
           color: var(--red, #E8192C);
           padding: 0.4rem;
           border-radius: 6px;
-          cursor: pointer;
+          cursor: none;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -778,7 +778,7 @@ const PaymentPage = () => {
           width: 100%;
           height: 100%;
           opacity: 0;
-          cursor: pointer;
+          cursor: none;
         }
 
         .file-upload-label {
@@ -790,7 +790,7 @@ const PaymentPage = () => {
           border: 2px dashed var(--border, #333);
           border-radius: 8px;
           color: var(--section-subtext, #888);
-          cursor: pointer;
+          cursor: none;
           transition: all 0.2s;
         }
 
@@ -837,7 +837,7 @@ const PaymentPage = () => {
           border-radius: 8px;
           font-size: 1rem;
           font-weight: 600;
-          cursor: pointer;
+          cursor: none;
           transition: all 0.2s;
           display: flex;
           align-items: center;
@@ -867,7 +867,7 @@ const PaymentPage = () => {
           border-radius: 8px;
           font-size: 0.95rem;
           font-weight: 600;
-          cursor: pointer;
+          cursor: none;
           transition: all 0.2s;
         }
 

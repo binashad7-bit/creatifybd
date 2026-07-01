@@ -497,7 +497,7 @@ const GigDetailPage = () => {
           text-align: left;
           font-weight: 700;
           font-size: 0.95rem;
-          cursor: pointer;
+          cursor: none;
         }
 
         .faq-icon-acc {

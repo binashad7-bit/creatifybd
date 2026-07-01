@@ -756,7 +756,7 @@ const OrderStartPage = () => {
           width: 100%;
           height: 100%;
           opacity: 0;
-          cursor: pointer;
+          cursor: none;
         }
 
         .file-upload-label {
@@ -769,7 +769,7 @@ const OrderStartPage = () => {
           border: 2px dashed rgba(255, 255, 255, 0.1);
           border-radius: 8px;
           color: #777;
-          cursor: pointer;
+          cursor: none;
           transition: all 0.2s;
           text-align: center;
         }

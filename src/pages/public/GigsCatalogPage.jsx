@@ -377,7 +377,7 @@ const GigsCatalogPage = () => {
           outline: none;
           font-weight: 500;
           font-size: 0.85rem;
-          cursor: pointer;
+          cursor: none;
           transition: all 0.2s;
         }
 

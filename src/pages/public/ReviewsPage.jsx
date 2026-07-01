@@ -377,7 +377,7 @@ const ReviewsPage = () => {
           color: var(--muted);
           font-size: 0;
           font-weight: 600;
-          cursor: pointer;
+          cursor: none;
           transition: all 0.2s;
         }
 
@@ -516,7 +516,7 @@ const ReviewsPage = () => {
           border-radius: 100px;
           font-weight: 700;
           font-size: 0.9rem;
-          cursor: pointer;
+          cursor: none;
           transition: all 0.2s;
         }
 

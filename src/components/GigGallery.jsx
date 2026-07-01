@@ -103,7 +103,7 @@ const GigGallery = ({ images = [] }) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
+          cursor: none;
           backdrop-filter: blur(4px);
           transition: all 0.2s;
           z-index: 2;
@@ -133,7 +133,7 @@ const GigGallery = ({ images = [] }) => {
           border-radius: 8px;
           overflow: hidden;
           padding: 0;
-          cursor: pointer;
+          cursor: none;
           background: #222;
           width: 100%;
           padding-top: 60%;
