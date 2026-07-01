@@ -99,7 +99,7 @@ const Hero = () => {
                   alt="CreatifyBD creative services showcase"
                   className="hero-mockup-img"
                   loading="eager"
-                  fetchPriority="high"
+                  fetchpriority="high"
                 />
               ) : (
                 <div className="hero-mockup-wrap">

@@ -41,7 +41,7 @@ const SmmHighlight = () => {
                 <span className="eyebrow">Managed Social Media</span>
               </FadeReveal>
               <FadeReveal delay={0.1}>
-                <h2>Monthly social media management for international small businesses</h2>
+                <h2>Monthly social media management for international brands</h2>
               </FadeReveal>
               <FadeReveal delay={0.2}>
                 <p className="smm-lead">

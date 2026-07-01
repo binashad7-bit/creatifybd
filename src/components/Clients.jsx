@@ -5,18 +5,19 @@ import { FadeReveal } from './MotionReveal';
 const Clients = () => {
   const { content } = useSettings();
   const clientsContent = content?.clients || {
-    label: 'Trusted by small businesses in global markets',
+    label: 'Trusted by brands in global markets',
     list: 'Maple & Co, Northstar Dental, Harbor Cafe, Green Eats, Nova Clothing, EduBridge, HealthPlus, CraftNest, ShopLocal, ByteWave, Riverside Resto, Summit Fitness'
   };
-  const safeLabel = /(bangladesh|dhaka|\bbd\b)/i.test(clientsContent.label || '')
-    ? 'Trusted by small businesses in global markets'
-    : clientsContent.label;
+  const rawLabel = clientsContent.label || '';
+  const safeLabel = /(bangladesh|dhaka|\bbd\b|small business|small businesses)/i.test(rawLabel)
+    ? 'Trusted by brands in global markets'
+    : rawLabel;
 
   const logos = clientsContent.list
     .split(',')
     .map(s => s.trim())
     .filter(s => s && !/(bangladesh|dhaka|\bbd\b)/i.test(s));
-  const marqueeItems = [...logos, ...logos, ...logos];
+  const marqueeItems = logos.length ? logos : clientsContent.list.split(',').map(s => s.trim()).filter(Boolean);
 
   return (
     <FadeReveal>
@@ -28,8 +29,12 @@ const Clients = () => {
         </FadeReveal>
         <div className="marquee-wrap">
           <div className="marquee-row">
-            {marqueeItems.map((logo, index) => (
-              <div key={`${logo}-${index}`} className="client-logo">{logo}</div>
+            {[0, 1].map(group => (
+              <div className="marquee-group" key={group} aria-hidden={group === 1}>
+                {marqueeItems.map((logo, index) => (
+                  <div key={`${group}-${logo}-${index}`} className="client-logo">{logo}</div>
+                ))}
+              </div>
             ))}
           </div>
         </div>

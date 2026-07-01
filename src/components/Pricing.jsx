@@ -22,7 +22,7 @@ const fallbackPricing = {
   ],
   web: [
     { id: 'w1', tier: 'Landing Page', price: '249', desc: 'Single campaign page', features: ['Responsive design', 'Lead capture form', 'Basic SEO setup'] },
-    { id: 'w2', tier: 'Business Site', price: '899', desc: 'Complete small-business website', features: ['Up to 6 pages', 'Custom UI/UX', 'Inquiry database setup'], featured: true },
+    { id: 'w2', tier: 'Business Site', price: '899', desc: 'Complete brand website', features: ['Up to 6 pages', 'Custom UI/UX', 'Inquiry database setup'], featured: true },
     { id: 'w3', tier: 'Growth Platform', price: '1499', desc: 'Advanced web presence', features: ['Up to 12 pages', 'CMS or admin workflow', 'Speed and SEO optimization'] }
   ]
 };

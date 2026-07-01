@@ -12,7 +12,7 @@ const TeamPage = () => {
     {
       name: 'B. I. N. Shad',
       role: 'Founder & Creative Lead',
-      bio: 'Pioneering custom workflow pipelines connecting global small businesses with specialized creative assets.',
+      bio: 'Pioneering custom workflow pipelines connecting global brands with specialized creative assets.',
       skills: ['Strategy', 'Creative Direction', 'Operations'],
       email: 'binashad7@gmail.com',
       image: ''
@@ -51,7 +51,7 @@ const TeamPage = () => {
     <div className="team-page">
       <SEO
         title="Meet Our Creative Team & Workspace | CreatifyBD"
-        description="Meet the creative agency specialists building premium social content, design assets, videos, and websites for global small businesses."
+        description="Meet the creative agency specialists building premium social content, design assets, videos, and websites for global brands."
       />
 
       <Navbar />
@@ -101,7 +101,7 @@ const TeamPage = () => {
         >
           <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--ink)', marginBottom: '1.5rem' }}>A remote-ready creative production team</h2>
           <p style={{ color: 'var(--muted)', fontSize: '1.05rem', lineHeight: '1.6', marginBottom: '2rem' }}>
-            Our workflow is built for global small businesses that need consistent creative execution, clear communication, and practical pricing without hiring a full in-house team.
+            Our workflow is built for global brands that need consistent creative execution, clear communication, and practical pricing without hiring a full in-house team.
           </p>
           <p style={{ color: 'var(--muted)', fontSize: '0.95rem', lineHeight: '1.5' }}>
             Our collaborative workspace brings together specialized creative talent focused on delivering quality results for your brand.

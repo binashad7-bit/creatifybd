@@ -11,8 +11,8 @@ const BASE_TEMPLATE_PATH = path.join(DIST_DIR, 'index.html');
 // ─── Inline gig data (avoids ESM/CJS headache in build script) ───────────────
 const GIGS = [
   {
-    slug: 'monthly-social-media-management-small-business',
-    title: 'Monthly Social Media Management for Small Businesses',
+    slug: 'monthly-social-media-management',
+    title: 'Monthly Social Media Management for Growing Brands',
     category: 'Social Media Management',
     overview: 'Get consistent, premium content posted on your channels with full monthly management.',
     description: 'Struggling to post consistently? We handle everything from content strategy and eye-catching post design to caption writing, hashtag research, and monthly scheduling. Build authority in the USA, Canada, and Australia markets.',
@@ -33,7 +33,7 @@ const GIGS = [
     startingPrice: 199,
     packages: { basic: { name: 'Basic Presence', price: 199, deliveryTime: 14 }, standard: { name: 'Engagement Boost', price: 349, deliveryTime: 30 }, premium: { name: 'Authority Build', price: 549, deliveryTime: 30 } },
     faqs: [{ q: 'Do you run paid Facebook Ads?', a: 'Yes, we design the ad creatives and copy. Advanced campaign setup is available as an add-on.' }],
-    related: ['monthly-social-media-management-small-business', 'brand-launch-social-media-kit']
+    related: ['monthly-social-media-management', 'brand-launch-social-media-kit']
   },
   {
     slug: 'instagram-content-management',
@@ -44,7 +44,7 @@ const GIGS = [
     startingPrice: 220,
     packages: { basic: { name: 'Aesthetic Grid Starter', price: 220, deliveryTime: 14 }, standard: { name: 'Instagram Pro Grid', price: 399, deliveryTime: 30 }, premium: { name: 'Ultimate Insta-Growth', price: 649, deliveryTime: 30 } },
     faqs: [{ q: 'Do you schedule the posts?', a: 'Yes, we schedule using Meta Business Suite, Buffer, or Later depending on your preference.' }],
-    related: ['monthly-social-media-management-small-business', 'brand-launch-social-media-kit']
+    related: ['monthly-social-media-management', 'brand-launch-social-media-kit']
   },
   {
     slug: 'brand-launch-social-media-kit',
@@ -62,7 +62,7 @@ const GIGS = [
     title: 'Premium Professional Logo Design Services',
     category: 'Graphic Design',
     overview: 'High-end vector logos representing your brand identity.',
-    description: 'Your logo is the first impression of your brand. We create clean, memorable, premium vector logos tailored to capture small businesses value statement instantly.',
+    description: 'Your logo is the first impression of your brand. We create clean, memorable, premium vector logos tailored to capture brands value statement instantly.',
     startingPrice: 99,
     packages: { basic: { name: 'Basic Concept', price: 99, deliveryTime: 4 }, standard: { name: 'Professional Vector', price: 179, deliveryTime: 6 }, premium: { name: 'Enterprise Logo Kit', price: 299, deliveryTime: 8 } },
     faqs: [{ q: 'What file formats do you deliver?', a: 'We deliver AI, EPS, SVG, PDF, high-res PNG, and JPEG formats.' }],
@@ -168,8 +168,8 @@ const GIGS = [
     related: ['social-media-poster-design', 'landing-page-design']
   },
   {
-    slug: 'small-business-website-design',
-    title: 'Premium Small Business Website Design & React Setup',
+    slug: 'business-website-design',
+    title: 'Premium Business Website Design & React Setup',
     category: 'Website Design',
     overview: 'Modern, responsive multi-page website showcasing your local services.',
     description: 'Elevate your online authority. We build fast, fully responsive corporate websites containing customized service pages, contact capture forms, and clean SEO-optimized layouts.',
@@ -187,7 +187,7 @@ const GIGS = [
     startingPrice: 249,
     packages: { basic: { name: 'Starter Landing Page', price: 249, deliveryTime: 5 }, standard: { name: 'Conversion Pro Landing', price: 449, deliveryTime: 8 }, premium: { name: 'Omni Ad-Campaign Hub', price: 699, deliveryTime: 12 } },
     faqs: [{ q: 'Do you provide copywriting?', a: 'Standard and Premium packages include persuasive copywriting in high-converting US/CA/AU English.' }],
-    related: ['small-business-website-design', 'website-redesign']
+    related: ['business-website-design', 'website-redesign']
   },
   {
     slug: 'portfolio-website-design',
@@ -198,7 +198,7 @@ const GIGS = [
     startingPrice: 199,
     packages: { basic: { name: 'Single Page Portfolio', price: 199, deliveryTime: 5 }, standard: { name: 'Pro Showcase Site', price: 349, deliveryTime: 9 }, premium: { name: 'Enterprise Agency Hub', price: 599, deliveryTime: 14 } },
     faqs: [{ q: 'Can I add new projects myself?', a: 'Yes! Standard and Premium packages include easy-to-update content structures or Firebase DB integrations.' }],
-    related: ['small-business-website-design', 'landing-page-design']
+    related: ['business-website-design', 'landing-page-design']
   },
   {
     slug: 'website-redesign',
@@ -209,7 +209,7 @@ const GIGS = [
     startingPrice: 399,
     packages: { basic: { name: 'Mobile UX Redesign', price: 399, deliveryTime: 7 }, standard: { name: 'Full Site Rebuild (Pro)', price: 749, deliveryTime: 15 }, premium: { name: 'Enterprise Platform Refresh', price: 1299, deliveryTime: 24 } },
     faqs: [{ q: 'Will I lose my existing Google SEO rankings?', a: 'No. We configure proper 301 redirects to protect your existing authority.' }],
-    related: ['small-business-website-design', 'landing-page-design']
+    related: ['business-website-design', 'landing-page-design']
   }
 ];
 
@@ -217,10 +217,10 @@ const STATIC_ROUTES = [
   {
     path: '',
     title: 'CreatifyBD | Social Media Management, Graphic Design, Video Editing & Websites',
-    description: 'CreatifyBD helps small businesses in the USA, Canada, and Australia grow with social media management, graphic design, video editing, and website design — delivered through a transparent gig-style process.',
-    h1: 'Creative Services That Make Small Businesses Look Premium Online',
+    description: 'CreatifyBD helps brands in the USA, Canada, and Australia grow with social media management, graphic design, video editing, and website design — delivered through a transparent gig-style process.',
+    h1: 'Creative Services That Make brands Look Premium Online',
     bodyContent: `
-      <p>CreatifyBD helps small businesses in the <strong>USA, Canada, and Australia</strong> grow with social media management, graphic design, video editing, and website design — delivered through a transparent gig-style process.</p>
+      <p>CreatifyBD helps brands in the <strong>USA, Canada, and Australia</strong> grow with social media management, graphic design, video editing, and website design — delivered through a transparent gig-style process.</p>
       <h2>Our Core Services</h2>
       <ul>
         <li><a href="/services/social-media-management"><strong>Social Media Management</strong></a> — Monthly content calendars, post design, captions, hashtag strategy, reels planning, and monthly analytics reporting.</li>
@@ -230,7 +230,7 @@ const STATIC_ROUTES = [
       </ul>
       <h2>Why Choose CreatifyBD?</h2>
       <ul>
-        <li>International-standard creative execution from our Dhaka production office</li>
+        <li>International-standard creative execution from our remote-ready production workflow</li>
         <li>Fixed-price packages with transparent deliverables — no hidden fees</li>
         <li>Manual payment system (Payoneer / DBBL Bank) with order verification</li>
         <li>Revision guarantee on every order</li>
@@ -241,15 +241,15 @@ const STATIC_ROUTES = [
   },
   {
     path: 'about',
-    title: 'About CreatifyBD | Bangladesh-Based Creative Agency for USA, Canada & Australia',
-    description: 'Learn about CreatifyBD — a Dhaka-based creative production team serving businesses in the USA, Canada, and Australia with premium social media management, graphic design, video editing, and web design.',
-    h1: 'About CreatifyBD — Dhaka Production Team Serving International Markets',
+    title: 'About CreatifyBD | Global Creative Agency for USA, Canada & Australia',
+    description: 'Learn about CreatifyBD — a remote-ready creative production team serving businesses in the USA, Canada, and Australia with premium social media management, graphic design, video editing, and web design.',
+    h1: 'About CreatifyBD — Remote-Ready Production Team Serving International Markets',
     bodyContent: `
-      <p>CreatifyBD was founded with a clear mission: make premium creative services accessible and affordable for small businesses in English-speaking markets without sacrificing quality or transparency.</p>
+      <p>CreatifyBD was founded with a clear mission: make premium creative services accessible and affordable for brands in English-speaking markets without sacrificing quality or transparency.</p>
       <h2>Our Production Office</h2>
-      <p>We operate from Dhaka, Bangladesh, one of the world's fastest-growing creative production hubs. Our skilled team of designers, video editors, social media strategists, and web developers brings international-standard results at production-office cost efficiency.</p>
+      <p>We operate from Global remote operations, one of the world's fastest-growing creative production hubs. Our skilled team of designers, video editors, social media strategists, and web developers brings international-standard results at production-office cost efficiency.</p>
       <h2>Who We Serve</h2>
-      <p>We focus exclusively on small businesses and growing brands in the <strong>USA, Canada, and Australia</strong> who need consistent, high-quality creative output without the overhead of a full-time in-house creative department.</p>
+      <p>We focus exclusively on brands and growing brands in the <strong>USA, Canada, and Australia</strong> who need consistent, high-quality creative output without the overhead of a full-time in-house creative department.</p>
       <h2>Our Transparent Process</h2>
       <p>Every order follows a structured workflow: requirements intake → payment verification → production → draft sharing → revisions → final delivery. You can track your order at every stage through our client portal.</p>
       <p><a href="/gigs">View our service packages</a> | <a href="/team">Meet our team</a></p>
@@ -259,7 +259,7 @@ const STATIC_ROUTES = [
     path: 'services',
     title: 'Services & Pricing Packages | CreatifyBD',
     description: 'Explore CreatifyBD fixed-price creative service packages. Social media management starting at $299/month. Graphic design, video editing, and website design for USA, Canada, and Australia businesses.',
-    h1: 'Creative Services & Gig-Style Packages for Small Businesses',
+    h1: 'Creative Services & Gig-Style Packages for brands',
     bodyContent: `
       <p>All CreatifyBD services are delivered as transparent, fixed-price packages — no surprises, no scope creep. Browse our four core service categories below.</p>
       <h2>Social Media Management</h2>
@@ -269,17 +269,17 @@ const STATIC_ROUTES = [
       <h2>Video Editing</h2>
       <p>Short-form reels, YouTube video editing, promotional videos, and social media ad videos. Starting from $40. <a href="/services/video-editing">Learn more</a></p>
       <h2>Website Design</h2>
-      <p>Small business websites, landing pages, portfolio sites, and website redesigns. Starting from $199. <a href="/services/website-design">Learn more</a></p>
+      <p>brand websites, landing pages, portfolio sites, and website redesigns. Starting from $199. <a href="/services/website-design">Learn more</a></p>
       <p><a href="/gigs">Browse all gigs and packages</a></p>
     `
   },
   {
     path: 'services/social-media-management',
     title: 'Social Media Management Service | CreatifyBD',
-    description: 'Professional monthly social media management for small businesses in USA, Canada & Australia. Content calendars, post design, captions, hashtags, reels planning, and analytics. Starting at $299/month.',
-    h1: 'Social Media Management for Small Businesses — USA, Canada & Australia',
+    description: 'Professional Monthly Social Media Management for Growing Brands in USA, Canada & Australia. Content calendars, post design, captions, hashtags, reels planning, and analytics. Starting at $299/month.',
+    h1: 'Social Media Management for brands — USA, Canada & Australia',
     bodyContent: `
-      <p>CreatifyBD provides comprehensive monthly social media management tailored for small businesses in the <strong>USA, Canada, and Australia</strong>. From content strategy to post design, caption writing, and scheduling — we handle it all so you can focus on growing your business.</p>
+      <p>CreatifyBD provides comprehensive monthly social media management tailored for brands in the <strong>USA, Canada, and Australia</strong>. From content strategy to post design, caption writing, and scheduling — we handle it all so you can focus on growing your business.</p>
       <h2>What's Included</h2>
       <ul>
         <li>Monthly content calendar planning</li>
@@ -300,19 +300,19 @@ const STATIC_ROUTES = [
       </ul>
       <h2>Related Gigs</h2>
       <ul>
-        <li><a href="/gigs/monthly-social-media-management-small-business">Monthly Social Media Management</a></li>
+        <li><a href="/gigs/monthly-social-media-management">Monthly Social Media Management</a></li>
         <li><a href="/gigs/facebook-page-management">Facebook Page Management</a></li>
         <li><a href="/gigs/instagram-content-management">Instagram Content Management</a></li>
         <li><a href="/gigs/brand-launch-social-media-kit">Brand Launch Social Media Kit</a></li>
       </ul>
-      <p><a href="/order/start/monthly-social-media-management-small-business">Start your social media management order</a></p>
+      <p><a href="/order/start/monthly-social-media-management">Start your social media management order</a></p>
     `
   },
   {
     path: 'services/graphic-design',
     title: 'Graphic Design & Branding Services | CreatifyBD',
     description: 'Professional graphic design services for businesses in USA, Canada & Australia. Logo design, brand identity, social media posters, flyers, thumbnails, and vector illustrations. Starting at $35.',
-    h1: 'Graphic Design & Branding Services for International Small Businesses',
+    h1: 'Graphic Design & Branding Services for International brands',
     bodyContent: `
       <p>Our graphic design team creates premium visual assets that make your brand stand out. From logos to full brand identity systems, every deliverable is crafted to international quality standards.</p>
       <h2>Graphic Design Services</h2>
@@ -347,13 +347,13 @@ const STATIC_ROUTES = [
   {
     path: 'services/website-design',
     title: 'Website Design Services | CreatifyBD',
-    description: 'Premium website design services for small businesses in USA, Canada & Australia. Small business websites, landing pages, portfolio sites, and website redesigns. React/Vite-based. Starting at $199.',
-    h1: 'Website Design Services — Small Business, Landing Page & Portfolio Websites',
+    description: 'Premium website design services for brands in USA, Canada & Australia. brand websites, landing pages, portfolio sites, and website redesigns. React/Vite-based. Starting at $199.',
+    h1: 'Website Design Services — brand, Landing Page & Portfolio Websites',
     bodyContent: `
       <p>CreatifyBD designs and develops fast, modern, SEO-optimized websites using React/Vite technology. Every website is built to convert visitors into customers with clean UI and compelling copy.</p>
       <h2>Website Design Services</h2>
       <ul>
-        <li><a href="/gigs/small-business-website-design"><strong>Small Business Website Design</strong></a> — 3–12 page responsive websites from $499.</li>
+        <li><a href="/gigs/business-website-design"><strong>Business Website Design</strong></a> — 3–12 page responsive websites from $499.</li>
         <li><a href="/gigs/landing-page-design"><strong>Landing Page Design</strong></a> — High-converting single-page landing pages from $249.</li>
         <li><a href="/gigs/portfolio-website-design"><strong>Portfolio Website Design</strong></a> — Professional portfolio and showcase sites from $199.</li>
         <li><a href="/gigs/website-redesign"><strong>Website Redesign</strong></a> — Modernize your existing site with new UI/UX from $399.</li>
@@ -370,7 +370,7 @@ const STATIC_ROUTES = [
       <p>CreatifyBD marketplace features 18+ gig-style creative service packages for businesses in USA, Canada, and Australia. Every gig has transparent pricing, clear deliverables, and revision guarantees.</p>
       <h2>Featured: Social Media Management Gigs</h2>
       <ul>
-        <li><a href="/gigs/monthly-social-media-management-small-business">Monthly Social Media Management — from $299/month</a></li>
+        <li><a href="/gigs/monthly-social-media-management">Monthly Social Media Management — from $299/month</a></li>
         <li><a href="/gigs/facebook-page-management">Facebook Page Management — from $199/month</a></li>
         <li><a href="/gigs/instagram-content-management">Instagram Content Management — from $220/month</a></li>
         <li><a href="/gigs/brand-launch-social-media-kit">Brand Launch Social Media Kit — from $179</a></li>
@@ -390,7 +390,7 @@ const STATIC_ROUTES = [
       </ul>
       <h2>Website Design Gigs</h2>
       <ul>
-        <li><a href="/gigs/small-business-website-design">Small Business Website Design — from $499</a></li>
+        <li><a href="/gigs/business-website-design">Business Website Design — from $499</a></li>
         <li><a href="/gigs/landing-page-design">Landing Page Design — from $249</a></li>
       </ul>
     `
@@ -407,7 +407,7 @@ const STATIC_ROUTES = [
         <li>Social Media Management — Monthly post packages, content calendars, and brand consistency systems</li>
         <li>Graphic Design — Logos, brand identities, social posters, and flyers</li>
         <li>Video Editing — Reels, YouTube videos, and promotional video production</li>
-        <li>Website Design — Small business sites, landing pages, and portfolio websites</li>
+        <li>Website Design — brand sites, landing pages, and portfolio websites</li>
       </ul>
       <p><a href="/gigs">Order a service gig</a> | <a href="/reviews">Read client reviews</a></p>
     `
@@ -416,9 +416,9 @@ const STATIC_ROUTES = [
     path: 'reviews',
     title: 'Client Reviews & Testimonials | CreatifyBD',
     description: 'Read verified client reviews and testimonials from businesses in USA, Canada, and Australia who have used CreatifyBD creative services.',
-    h1: 'Client Reviews — What Small Businesses Say About CreatifyBD',
+    h1: 'Client Reviews — What brands Say About CreatifyBD',
     bodyContent: `
-      <p>CreatifyBD works with small businesses in the <strong>USA, Canada, and Australia</strong>. Client feedback is shared publicly after admin verification to ensure authenticity.</p>
+      <p>CreatifyBD works with brands in the <strong>USA, Canada, and Australia</strong>. Client feedback is shared publicly after admin verification to ensure authenticity.</p>
       <h2>Why Clients Choose CreatifyBD</h2>
       <ul>
         <li>Transparent fixed pricing with no hidden costs</li>
@@ -433,10 +433,10 @@ const STATIC_ROUTES = [
   {
     path: 'team',
     title: 'Our Team | CreatifyBD',
-    description: 'Meet the CreatifyBD creative production team based in Dhaka, Bangladesh — serving businesses in USA, Canada, and Australia with social media management, design, video editing, and web services.',
-    h1: 'Meet the CreatifyBD Team — Dhaka-Based Creative Production Experts',
+    description: 'Meet the CreatifyBD creative production team based in Global remote operations — serving businesses in USA, Canada, and Australia with social media management, design, video editing, and web services.',
+    h1: 'Meet the CreatifyBD Team — remote-ready Creative Production Experts',
     bodyContent: `
-      <p>CreatifyBD is operated by a team of experienced creative professionals based in Dhaka, Bangladesh. Our team includes social media strategists, graphic designers, video editors, and web developers with combined experience serving international markets.</p>
+      <p>CreatifyBD is operated by a team of experienced creative professionals based in Global remote operations. Our team includes social media strategists, graphic designers, video editors, and web developers with combined experience serving international markets.</p>
       <h2>Our Team Specializations</h2>
       <ul>
         <li><strong>Social Media Strategists</strong> — Content planning, platform strategy, and performance tracking</li>
@@ -501,7 +501,7 @@ const STATIC_ROUTES = [
       </ul>
       <h2>Website Design Pricing</h2>
       <ul>
-        <li><strong>Small Business Website</strong> — from $499: 3-12 page responsive websites</li>
+        <li><strong>brand Website</strong> — from $499: 3-12 page responsive websites</li>
         <li><strong>Landing Page</strong> — from $249: High-converting single-page landing pages</li>
         <li><strong>Portfolio Website</strong> — from $199: Professional portfolio sites</li>
         <li><strong>Website Redesign</strong> — from $399: Modernize existing sites</li>
@@ -520,7 +520,7 @@ const STATIC_ROUTES = [
       <ul>
         <li><strong>Email:</strong> hello@creatifybd.com</li>
         <li><strong>WhatsApp:</strong> +880 1951 676600</li>
-        <li><strong>Location:</strong> Dhaka, Bangladesh (Serving USA, Canada, and Australia)</li>
+        <li><strong>Location:</strong> Serving USA, Canada, Australia, and global clients</li>
       </ul>
       <h2>Services We Offer</h2>
       <ul>

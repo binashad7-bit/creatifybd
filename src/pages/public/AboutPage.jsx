@@ -2,28 +2,55 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
-import { Award, Building2, Globe, Quote, ShieldCheck, Users } from 'lucide-react';
+import { Award, Building2, Globe, MonitorPlay, Quote, ShieldCheck, Sparkles, Users, Video } from 'lucide-react';
 
 const teamMembers = [
   {
     name: 'B. I. N. Shad',
     role: 'Founder & CEO',
-    bio: 'Leads creative strategy, client success, and the operating system behind CreatifyBD.'
+    bio: 'Leads creative strategy, client success, and the operating system behind CreatifyBD.',
+    image: ''
   },
   {
     name: 'Social Media Strategy Team',
     role: 'Content Planning',
-    bio: 'Builds monthly calendars, captions, content pillars, and performance reports.'
+    bio: 'Builds monthly calendars, captions, content pillars, and performance reports.',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=700&auto=format&fit=crop'
   },
   {
     name: 'Design Studio',
     role: 'Graphic Design',
-    bio: 'Creates brand assets, post designs, ad creatives, logos, and campaign visuals.'
+    bio: 'Creates brand assets, post designs, ad creatives, logos, and campaign visuals.',
+    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=700&auto=format&fit=crop'
   },
   {
     name: 'Video & Web Team',
     role: 'Production',
-    bio: 'Edits short-form videos and builds conversion-focused websites and landing pages.'
+    bio: 'Edits short-form videos and builds conversion-focused websites and landing pages.',
+    image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=700&auto=format&fit=crop'
+  }
+];
+
+const agencyMoments = [
+  {
+    icon: <Building2 size={17} />,
+    title: 'Creative operations hub',
+    image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop'
+  },
+  {
+    icon: <Users size={17} />,
+    title: 'Team production sprint',
+    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop'
+  },
+  {
+    icon: <Video size={17} />,
+    title: 'Online client review',
+    image: 'https://images.unsplash.com/photo-1616587894289-86480e533129?q=80&w=1200&auto=format&fit=crop'
+  },
+  {
+    icon: <MonitorPlay size={17} />,
+    title: 'Delivery quality review',
+    image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop'
   }
 ];
 
@@ -32,7 +59,7 @@ const AboutPage = () => {
     <div className="about-page">
       <SEO
         title="About CreatifyBD | Social Media Management & Creative Team"
-        description="Meet CreatifyBD, a remote-ready creative production team serving small businesses in the USA, Canada, Australia, and global markets."
+        description="Meet CreatifyBD, a remote-ready creative production team serving brands in the USA, Canada, Australia, and global markets."
         keywords="about creatifybd, social media manager, creative agency, graphic design, video editing, website design"
       />
       <Navbar />
@@ -40,7 +67,7 @@ const AboutPage = () => {
       <div className="page-header page-header-light">
         <div className="container">
           <span className="eyebrow">Our Agency Story</span>
-          <h1 className="page-title">A dependable creative partner for <span className="red">international</span> small businesses</h1>
+          <h1 className="page-title">A dependable creative partner for <span className="red">international</span> brands</h1>
           <p className="page-subtitle">
             CreatifyBD combines agency-level creative production with clear, gig-style packages for founders who need consistent execution without long contracts.
           </p>
@@ -53,14 +80,20 @@ const AboutPage = () => {
             <div>
               <h2 className="section-h">Why CreatifyBD exists</h2>
               <p className="section-sub">
-                Small businesses often get stuck between expensive agencies and inconsistent freelancers. We built CreatifyBD to offer a third option: a structured remote creative team with fixed scope, accountable delivery, and practical pricing.
+                Growing brands often get stuck between expensive agencies and inconsistent freelancers. We built CreatifyBD to offer a third option: a structured remote creative team with fixed scope, accountable delivery, and practical pricing.
               </p>
-              <div className="ceo-quote">
-                <Quote size={22} />
-                <p>
-                  "Our goal is to make high-quality creative support accessible for small businesses that want to look trustworthy in front of customers in the USA, Canada, Australia, and beyond."
-                </p>
-                <strong>B. I. N. Shad, Founder & CEO</strong>
+              <div className="ceo-quote about-ceo-feature">
+                <div className="about-ceo-portrait" aria-label="Founder profile visual">
+                  <span>BS</span>
+                  <Sparkles size={18} />
+                </div>
+                <div>
+                  <Quote size={22} />
+                  <p>
+                    "Our goal is to make high-quality creative support accessible for brands that want to look trustworthy in front of customers in the USA, Canada, Australia, and beyond."
+                  </p>
+                  <strong>B. I. N. Shad, Founder & CEO</strong>
+                </div>
               </div>
             </div>
 
@@ -82,15 +115,13 @@ const AboutPage = () => {
                 Our remote-ready production workflow keeps projects organized, quality controlled, and cost-efficient for international clients.
               </p>
             </div>
-            <div className="office-gallery-grid">
-              <figure>
-                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop" alt="CreatifyBD office workspace" />
-                <figcaption><Building2 size={16} /> Creative production workspace</figcaption>
-              </figure>
-              <figure>
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" alt="CreatifyBD team collaboration" />
-                <figcaption><Users size={16} /> Team planning and review sessions</figcaption>
-              </figure>
+            <div className="office-gallery-grid agency-moments-grid">
+              {agencyMoments.map((moment, index) => (
+                <figure key={moment.title} className={index === 0 ? 'moment-large' : ''}>
+                  <img src={moment.image} alt={`CreatifyBD ${moment.title.toLowerCase()}`} />
+                  <figcaption>{moment.icon} {moment.title}</figcaption>
+                </figure>
+              ))}
             </div>
           </div>
         </section>
@@ -104,7 +135,13 @@ const AboutPage = () => {
             <div className="about-team-grid">
               {teamMembers.map(member => (
                 <article key={member.name} className="about-team-card">
-                  <div className="member-avatar">{member.name.charAt(0)}</div>
+                  <div className="member-avatar member-photo">
+                    {member.image ? (
+                      <img src={member.image} alt={`${member.name} working at CreatifyBD`} loading="lazy" />
+                    ) : (
+                      <span>{member.name.split(' ').map(part => part[0]).join('').slice(0, 2)}</span>
+                    )}
+                  </div>
                   <h3>{member.name}</h3>
                   <span>{member.role}</span>
                   <p>{member.bio}</p>

@@ -438,6 +438,9 @@ const PaymentPage = () => {
                       onChange={e => setFormData({ ...formData, selectedService: e.target.value })}
                     >
                       <option value="">Select a service</option>
+                      {formData.selectedService && !siteConfig.services.includes(formData.selectedService) && (
+                        <option value={formData.selectedService}>{formData.selectedService}</option>
+                      )}
                       {siteConfig.services.map(service => (
                         <option key={service} value={service}>{service}</option>
                       ))}

@@ -1197,3 +1197,355 @@
       border-width: 0 0 1px !important;
     }
   }
+
+  /* Production polish pass: global positioning, editorial work wall, light payment UI. */
+  body:not(.admin-body) .clients-label {
+    color: #667085 !important;
+  }
+
+  body:not(.admin-body) .marquee-row {
+    gap: 0 !important;
+    animation: clientsMarquee 24s linear infinite !important;
+    will-change: transform !important;
+  }
+
+  body:not(.admin-body) .marquee-group {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    gap: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  @keyframes clientsMarquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  body:not(.admin-body) .duck-services-layout {
+    grid-template-columns: minmax(420px, 0.86fr) minmax(0, 1.14fr) !important;
+    gap: clamp(3rem, 5vw, 6rem) !important;
+  }
+
+  body:not(.admin-body) .duck-services-intro {
+    overflow: visible !important;
+  }
+
+  body:not(.admin-body) .duck-services-intro .section-h {
+    max-width: 100% !important;
+    overflow: visible !important;
+    font-size: clamp(3.4rem, 4.5vw, 5.25rem) !important;
+    line-height: 0.98 !important;
+    word-break: normal !important;
+  }
+
+  body:not(.admin-body) .duck-service-action a {
+    background: #ffffff !important;
+    color: var(--brand-red) !important;
+    box-shadow: 0 12px 30px rgba(232, 25, 44, 0.08) !important;
+  }
+
+  body:not(.admin-body) .duck-service-row:hover .duck-service-action a {
+    background: #ffffff !important;
+    color: var(--brand-red) !important;
+    transform: translateY(-3px) rotate(12deg) !important;
+    box-shadow: 0 18px 44px rgba(232, 25, 44, 0.18) !important;
+  }
+
+  body:not(.admin-body) .duck-service-row:hover .duck-service-action a svg {
+    stroke: currentColor !important;
+  }
+
+  body:not(.admin-body) .wk-section {
+    background: #ffffff !important;
+  }
+
+  body:not(.admin-body) .agency-work-page-header {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 2rem !important;
+    align-items: end !important;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem) !important;
+  }
+
+  body:not(.admin-body) .agency-work-page-header p,
+  body:not(.admin-body) .wk-header-copy {
+    color: #667085 !important;
+  }
+
+  body:not(.admin-body) .duck-work-gallery-wrap {
+    overflow: visible !important;
+  }
+
+  body:not(.admin-body) .duck-work-gallery {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+    grid-auto-flow: dense !important;
+    gap: 0 !important;
+    border: 1px solid rgba(232, 25, 44, 0.12) !important;
+    background: rgba(232, 25, 44, 0.12) !important;
+  }
+
+  body:not(.admin-body) .duck-work-tile {
+    min-height: 280px !important;
+    background: #fff7f8 !important;
+    border: 1px solid rgba(232, 25, 44, 0.12) !important;
+  }
+
+  body:not(.admin-body) .duck-work-tile--hero {
+    grid-column: span 6 !important;
+    grid-row: span 2 !important;
+  }
+
+  body:not(.admin-body) .duck-work-tile--wide {
+    grid-column: span 6 !important;
+  }
+
+  body:not(.admin-body) .duck-work-tile--tall {
+    grid-column: span 3 !important;
+    grid-row: span 2 !important;
+  }
+
+  body:not(.admin-body) .duck-work-tile--square {
+    grid-column: span 3 !important;
+  }
+
+  body:not(.admin-body) .duck-work-media,
+  body:not(.admin-body) .duck-work-tile:nth-child(6n + 2) .duck-work-media,
+  body:not(.admin-body) .duck-work-tile:nth-child(6n + 5) .duck-work-media {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: inherit !important;
+    aspect-ratio: auto !important;
+    background: #fff7f8 !important;
+  }
+
+  body:not(.admin-body) .duck-work-overlay {
+    opacity: 1 !important;
+    background: linear-gradient(180deg, rgba(12, 12, 14, 0) 38%, rgba(12, 12, 14, 0.78) 100%) !important;
+    transform: translateY(10px) !important;
+    transition: opacity 260ms ease, transform 380ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  body:not(.admin-body) .duck-work-tile:hover .duck-work-overlay,
+  body:not(.admin-body) .duck-work-tile:focus-visible .duck-work-overlay {
+    transform: translateY(0) !important;
+  }
+
+  body:not(.admin-body) .duck-work-tile:hover .duck-work-image {
+    transform: scale(1.08) !important;
+  }
+
+  body:not(.admin-body) .duck-work-arrow {
+    background: rgba(255, 255, 255, 0.14) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  body:not(.admin-body) .gig-detail-page .breadcrumb-bar {
+    margin-top: 96px !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  body:not(.admin-body) .order-start-page > .container,
+  body:not(.admin-body) .payment-page > .container {
+    padding-top: clamp(4rem, 7vw, 7rem) !important;
+  }
+
+  body:not(.admin-body) .payment-page,
+  body:not(.admin-body) .payment-page .payment-method-card,
+  body:not(.admin-body) .payment-page .payment-faq,
+  body:not(.admin-body) .payment-page .payment-form-wrapper,
+  body:not(.admin-body) .payment-page .payment-success {
+    background: #ffffff !important;
+    color: #0f0f12 !important;
+    border-color: rgba(232, 25, 44, 0.14) !important;
+  }
+
+  body:not(.admin-body) .payment-page .payment-method-card,
+  body:not(.admin-body) .payment-page .payment-faq,
+  body:not(.admin-body) .payment-page .payment-form-wrapper {
+    box-shadow: 0 24px 80px rgba(232, 25, 44, 0.08) !important;
+  }
+
+  body:not(.admin-body) .payment-page :is(.payment-value, .faq-question, .success-title, .payment-form h2, .payment-instructions h2) {
+    color: #0f0f12 !important;
+  }
+
+  body:not(.admin-body) .payment-page :is(.payment-label, .faq-answer, .success-desc, .luxury-label, .file-upload-label, .payment-note) {
+    color: #667085 !important;
+  }
+
+  body:not(.admin-body) .payment-page :is(.luxury-input, select.luxury-input, textarea.luxury-input) {
+    background: #fff0f1 !important;
+    border-color: rgba(232, 25, 44, 0.16) !important;
+    color: #0f0f12 !important;
+  }
+
+  body:not(.admin-body) .payment-page .file-upload-label {
+    background: #fff7f8 !important;
+    border-color: rgba(232, 25, 44, 0.22) !important;
+  }
+
+  body:not(.admin-body) .ceo-quote-with-image {
+    display: grid !important;
+    grid-template-columns: 112px minmax(0, 1fr) !important;
+    gap: 1.1rem !important;
+    align-items: stretch !important;
+  }
+
+  body:not(.admin-body) .ceo-portrait-card,
+  body:not(.admin-body) .about-ceo-portrait {
+    min-height: 112px !important;
+    display: grid !important;
+    place-items: center !important;
+    border-radius: 22px !important;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9), transparent 34%),
+      linear-gradient(135deg, #e8192c, #8f0f1b) !important;
+    color: #ffffff !important;
+    box-shadow: 0 24px 58px rgba(232, 25, 44, 0.22) !important;
+  }
+
+  body:not(.admin-body) .ceo-portrait-card {
+    grid-template-rows: 1fr auto !important;
+    padding: 0.8rem !important;
+  }
+
+  body:not(.admin-body) .ceo-portrait-mark,
+  body:not(.admin-body) .about-ceo-portrait span {
+    font-size: 2.2rem !important;
+    font-weight: 950 !important;
+    letter-spacing: 0 !important;
+  }
+
+  body:not(.admin-body) .ceo-portrait-card span {
+    color: rgba(255, 255, 255, 0.78) !important;
+    font-size: 0.68rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+  }
+
+  body:not(.admin-body) .ceo-quote-with-image blockquote {
+    margin: 0 !important;
+  }
+
+  body:not(.admin-body) .agency-moment-grid,
+  body:not(.admin-body) .agency-moments-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+
+  body:not(.admin-body) .agency-moment-grid figure,
+  body:not(.admin-body) .agency-moments-grid figure {
+    margin: 0 !important;
+    overflow: hidden !important;
+    border-radius: 22px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(232, 25, 44, 0.14) !important;
+    box-shadow: 0 18px 50px rgba(232, 25, 44, 0.08) !important;
+  }
+
+  body:not(.admin-body) .agency-moments-grid .moment-large {
+    grid-column: span 2 !important;
+  }
+
+  body:not(.admin-body) .agency-moment-grid img,
+  body:not(.admin-body) .agency-moments-grid img {
+    width: 100% !important;
+    height: 220px !important;
+    display: block !important;
+    object-fit: cover !important;
+  }
+
+  body:not(.admin-body) .agency-moments-grid .moment-large img {
+    height: clamp(280px, 34vw, 440px) !important;
+  }
+
+  body:not(.admin-body) .agency-moment-grid figcaption,
+  body:not(.admin-body) .agency-moments-grid figcaption {
+    display: flex !important;
+    gap: 0.6rem !important;
+    align-items: center !important;
+    padding: 0.85rem 1rem !important;
+    color: #0f0f12 !important;
+    font-weight: 800 !important;
+  }
+
+  body:not(.admin-body) .about-ceo-feature {
+    grid-template-columns: 132px 1fr !important;
+    gap: 1.25rem !important;
+    align-items: center !important;
+  }
+
+  body:not(.admin-body) .member-photo {
+    overflow: hidden !important;
+    background: #fff0f1 !important;
+  }
+
+  body:not(.admin-body) .member-photo img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+  }
+
+  body:not(.admin-body) .member-photo span {
+    color: var(--brand-red) !important;
+    font-weight: 950 !important;
+  }
+
+  @media (max-width: 1100px) {
+    body:not(.admin-body) .duck-services-layout {
+      grid-template-columns: 1fr !important;
+    }
+
+    body:not(.admin-body) .duck-services-intro {
+      position: static !important;
+      max-width: 720px !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    body:not(.admin-body) .agency-work-page-header,
+    body:not(.admin-body) .about-ceo-feature {
+      grid-template-columns: 1fr !important;
+    }
+
+    body:not(.admin-body) .duck-work-gallery {
+      grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    }
+
+    body:not(.admin-body) .duck-work-tile--hero,
+    body:not(.admin-body) .duck-work-tile--wide {
+      grid-column: span 6 !important;
+    }
+
+    body:not(.admin-body) .duck-work-tile--tall,
+    body:not(.admin-body) .duck-work-tile--square {
+      grid-column: span 3 !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    body:not(.admin-body) .duck-services-intro .section-h {
+      font-size: clamp(2.65rem, 13vw, 4rem) !important;
+    }
+
+    body:not(.admin-body) .duck-work-gallery,
+    body:not(.admin-body) .agency-moment-grid,
+    body:not(.admin-body) .agency-moments-grid,
+    body:not(.admin-body) .ceo-quote-with-image {
+      grid-template-columns: 1fr !important;
+    }
+
+    body:not(.admin-body) .duck-work-tile,
+    body:not(.admin-body) .duck-work-tile--hero,
+    body:not(.admin-body) .duck-work-tile--wide,
+    body:not(.admin-body) .duck-work-tile--tall,
+    body:not(.admin-body) .duck-work-tile--square,
+    body:not(.admin-body) .agency-moments-grid .moment-large {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+  }

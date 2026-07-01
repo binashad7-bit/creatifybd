@@ -3,7 +3,7 @@ import { useParams, useSearchParams, useNavigate, Navigate, Link } from 'react-r
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
-import { getGigBySlug } from '../../data/gigs';
+import { getGigBySlug, categories } from '../../data/gigs';
 import { db, storage } from '../../firebase/config';
 import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -31,6 +31,7 @@ const OrderStartPage = () => {
   }
 
   const p = gig.packages[selectedPackage] || gig.packages.basic;
+  const categoryName = categories[gig.category]?.name || gig.category;
 
   const [loading, setLoading] = useState(false);
   const [fileUploading, setFileUploading] = useState(false);
@@ -511,7 +512,7 @@ const OrderStartPage = () => {
                         type="text" 
                         required
                         className="luxury-input"
-                        placeholder="e.g. Small business owners, age 30-50, USA"
+                        placeholder="e.g. Business owners, age 30-50, USA"
                         value={genericRequirements.targetAudience}
                         onChange={e => setGenericRequirements({...genericRequirements, targetAudience: e.target.value})}
                       />

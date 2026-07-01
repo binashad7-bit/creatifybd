@@ -37,11 +37,11 @@ const Home = () => {
 
   const seo = {
     title: "CreatifyBD | Social Media Management, Graphic Design, Video Editing & Websites",
-    description: "CreatifyBD helps small businesses in the USA, Canada, Australia, and global markets with social media management, graphic design, video editing, digital marketing, and website design.",
-    keywords: "CreatifyBD, Creatify BD, social media management agency, hire social media manager USA, video editing service Canada, graphic design agency Australia, outsource creative design, small business web design React, digital marketing marketplace",
+    description: "CreatifyBD helps brands in the USA, Canada, Australia, and global markets with social media management, graphic design, video editing, digital marketing, and website design.",
+    keywords: "CreatifyBD, Creatify BD, social media management agency, hire social media manager USA, video editing service Canada, graphic design agency Australia, outsource creative design, business web design React, digital marketing marketplace",
     schema: {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": "Organization",
       "name": "CreatifyBD",
       "alternateName": "Creatify BD",
       "image": "https://creatifybd.com/og-image.png",
@@ -49,17 +49,6 @@ const Home = () => {
       "url": "https://creatifybd.com",
       "telephone": "+8801951676600",
       "email": "hello@creatifybd.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Dhaka",
-        "addressLocality": "Dhaka",
-        "addressCountry": "BD"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "23.8103",
-        "longitude": "90.4125"
-      },
       "areaServed": [
         { "@type": "Country", "name": "United States" },
         { "@type": "Country", "name": "Canada" },

@@ -9,7 +9,7 @@ const pillars = [
   {
     icon: <BarChart3 size={22} />,
     title: 'Monthly social media management',
-    desc: 'Consistent calendars, post design, captions, scheduling, and reporting for small businesses.',
+    desc: 'Consistent calendars, post design, captions, scheduling, and reporting for growing brands.',
     color: '#E8192C'
   },
   {
@@ -32,7 +32,7 @@ const IntroBand = () => {
       <div className="container">
         <div className="intro-main">
           <TextReveal className="intro-title-v2">
-            The creative services small businesses ask for most, packaged for reliable monthly execution
+            The creative services ambitious brands ask for most, packaged for reliable monthly execution
           </TextReveal>
 
           {/* Keep the native grid div — animate each article directly */}

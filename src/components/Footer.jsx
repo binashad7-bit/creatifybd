@@ -39,7 +39,7 @@ const Footer = () => {
                 <span>{settings?.site_name?.split('BD')[0] || 'Creatify'}<strong>BD</strong></span>
               </div>
               <p>
-                Social media management, graphic design, video editing, digital marketing, and website design for international small businesses.
+                Social media management, graphic design, video editing, digital marketing, and website design for international brands.
               </p>
               <FadeReveal delay={0.2}>
                 <div className="footer-social">

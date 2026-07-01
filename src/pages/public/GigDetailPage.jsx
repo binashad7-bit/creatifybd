@@ -90,7 +90,7 @@ const GigDetailPage = () => {
     <div className="gig-detail-page">
       <SEO 
         title={`${gig.title} | CreatifyBD`}
-        description={`${gig.overview} Premium ${gig.category} package starting at $${gig.startingPrice} USD. Served by CreatifyBD production team for USA, Canada, and Australia small businesses.`}
+        description={`${gig.overview} Premium ${gig.category} package starting at $${gig.startingPrice} USD. Served by CreatifyBD production team for USA, Canada, and Australia brands.`}
         keywords={`${gig.tags.join(', ')}, ${gig.category.toLowerCase()} service, hire freelancer, creatifybd gigs, dynamic marketing package`}
         schema={{
           "@context": "https://schema.org",

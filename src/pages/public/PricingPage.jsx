@@ -10,7 +10,7 @@ const PricingPage = () => {
     <div className="pricing-page">
       <SEO
         title="Pricing | CreatifyBD Service Packages"
-        description="Affordable and transparent pricing for digital marketing, web development, branding, and video production services for global small businesses by CreatifyBD."
+        description="Affordable and transparent pricing for digital marketing, web development, branding, and video production services for global brands by CreatifyBD."
         keywords="creatifybd pricing, digital marketing pricing, web design price, social media management packages"
       />
       <Navbar theme="light" />

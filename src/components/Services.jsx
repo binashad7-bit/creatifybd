@@ -9,7 +9,7 @@ const defaultServices = [
     id: 'signature-social-media-manager',
     icon: <BarChart3 size={28} />,
     title: 'Managed Social Media Growth',
-    desc: 'Monthly content calendars, post design, captions, scheduling, community support, and analytics for busy small businesses.',
+    desc: 'Monthly content calendars, post design, captions, scheduling, community support, and analytics for busy brands.',
     price: 'From $299/mo',
     badge: 'Most requested'
   },

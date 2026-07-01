@@ -5,7 +5,7 @@ export const siteConfig = {
   // Business Information
   businessName: 'CreatifyBD',
   websiteUrl: 'https://creatifybd.com',
-  tagline: 'Social media management and creative services for small businesses',
+  tagline: 'Social media management and creative services for growing brands',
   email: 'hello@creatifybd.com',
   phone: '+880 1951 676600',
   whatsappNumber: '+8801951676600',
@@ -59,8 +59,8 @@ export const siteConfig = {
   // SEO Configuration
   seo: {
     defaultTitle: 'CreatifyBD | Social Media Management, Design, Video Editing & Websites',
-    defaultDescription: 'CreatifyBD helps small businesses in the USA, Canada, Australia, and global markets with social media management, graphic design, video editing, digital marketing, and website design.',
-    defaultKeywords: 'social media manager, social media management for small business, graphic design service, video editing service, website design for small business, digital marketing service',
+    defaultDescription: 'CreatifyBD helps brands in the USA, Canada, Australia, and global markets with social media management, graphic design, video editing, digital marketing, and website design.',
+    defaultKeywords: 'social media manager, social media management, graphic design service, video editing service, website design, digital marketing service',
     canonicalUrl: 'https://creatifybd.com'
   },
   

@@ -151,7 +151,10 @@ function Counter({ target, duration = 1200 }) {
 
 // ── Helper for Masonry Spans ────────────────────────────────────────────────
 // ── Work Card ─────────────────────────────────────────────────────────────────
+const WORK_TILE_PATTERNS = ['hero', 'tall', 'wide', 'square', 'wide', 'tall', 'square', 'hero'];
+
 const WorkCard = React.forwardRef(({ item, onClick, priority = 0 }, ref) => {
+  const pattern = WORK_TILE_PATTERNS[priority % WORK_TILE_PATTERNS.length];
   return (
     <motion.div
       ref={ref}
@@ -160,7 +163,7 @@ const WorkCard = React.forwardRef(({ item, onClick, priority = 0 }, ref) => {
       whileInView={{ opacity: 1, y: 0, skewY: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="duck-work-tile"
+      className={`duck-work-tile duck-work-tile--${pattern}`}
       onClick={() => onClick(item)}
       role="button"
       tabIndex={0}
@@ -262,7 +265,7 @@ const Portfolio = ({ highlight = false, fullPage = false, theme = 'light' }) => 
                 </TextReveal>
                 <FadeReveal delay={0.2}>
                   <p>
-                    Social content, campaigns, brand identities, videos, and websites created for ambitious small businesses.
+                    Social content, campaigns, brand identities, videos, and websites created for ambitious brands.
                   </p>
                 </FadeReveal>
               </div>

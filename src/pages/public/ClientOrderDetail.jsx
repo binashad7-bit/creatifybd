@@ -220,7 +220,7 @@ const ClientOrderDetail = () => {
         gigSlug: order.gigSlug,
         clientName: order.clientInfo?.fullName || 'Client',
         country: order.clientInfo?.country || 'USA',
-        businessType: order.clientInfo?.companyName || 'Small Business',
+        businessType: order.clientInfo?.companyName || 'Business',
         rating: Number(reviewForm.rating),
         reviewText: reviewForm.reviewText.trim(),
         serviceQuality: Number(reviewForm.serviceQuality),
@@ -549,7 +549,7 @@ const ClientOrderDetail = () => {
                       checked={reviewForm.wouldRecommend}
                       onChange={e => setReviewForm({...reviewForm, wouldRecommend: e.target.checked})}
                     />
-                    <label htmlFor="recommend-chbox">I would recommend CreatifyBD to other small business owners.</label>
+                    <label htmlFor="recommend-chbox">I would recommend CreatifyBD to other business owners.</label>
                   </div>
 
                   <div className="modal-action-btns">

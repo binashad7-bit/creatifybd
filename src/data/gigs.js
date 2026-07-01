@@ -32,14 +32,15 @@ export const gigs = [
   // --- Social Media Management ---
   {
     id: 'smm-monthly',
-    slug: 'monthly-social-media-management-small-business',
-    title: 'Monthly Social Media Management for Small Businesses',
+    slug: 'monthly-social-media-management',
+    legacySlugs: ['monthly-social-media-management-small-business'],
+    title: 'Monthly Social Media Management for Growing Brands',
     shortTitle: 'Monthly Social Media Management',
     category: 'social-media-management',
     subcategory: 'Full Management',
     overview: 'Get consistent, premium content posted on your channels with full monthly management.',
-    description: 'Struggling to post consistently? We handle everything from content strategy and eye-catching post design to caption writing, hashtag research, and monthly scheduling. Build authority in the USA, Canada, and Australia markets with a team that understands small business growth.',
-    whoIsThisFor: 'Startups, small business owners, personal brands, real estate agents, and local shops looking to look professional online.',
+    description: 'Struggling to post consistently? We handle everything from content strategy and eye-catching post design to caption writing, hashtag research, and monthly scheduling. Build authority in the USA, Canada, and Australia markets with a team that understands brand growth.',
+    whoIsThisFor: 'Startups, business owners, personal brands, real estate agents, and local shops looking to look professional online.',
     galleryImages: [
       'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1280&h=769&fit=crop',
       'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1280&h=769&fit=crop',
@@ -162,7 +163,7 @@ export const gigs = [
     revisionPolicy: 'Free text and graphic adjustments during drafting phase.',
     tags: ['facebook page', 'facebook posts', 'social media management', 'local business'],
     industries: ['Local Services', 'Restaurants', 'Clinics', 'Law Firms'],
-    relatedGigs: ['monthly-social-media-management-small-business', 'brand-launch-kit'],
+    relatedGigs: ['monthly-social-media-management', 'brand-launch-kit'],
     status: 'active'
   },
   {
@@ -217,7 +218,7 @@ export const gigs = [
     revisionPolicy: 'Unlimited aesthetic adjustments during concept drafting stage.',
     tags: ['instagram content', 'instagram grid', 'aesthetic posts', 'social design'],
     industries: ['E-commerce', 'Fashion', 'Beauty', 'Coaches'],
-    relatedGigs: ['monthly-social-media-management-small-business', 'vector-illustration'],
+    relatedGigs: ['monthly-social-media-management', 'vector-illustration'],
     status: 'active'
   },
   {
@@ -285,7 +286,7 @@ export const gigs = [
     category: 'graphic-design',
     subcategory: 'Logo',
     overview: 'High-end vector logos representing your brand identity.',
-    description: 'Your logo is the first impression of your brand. We create clean, memorable, premium vector logo layouts tailored to capture small businesses\' value statement instantly.',
+    description: 'Your logo is the first impression of your brand. We create clean, memorable, premium vector logo layouts tailored to capture your value statement instantly.',
     whoIsThisFor: 'Businesses needing a custom, non-template logo that reflects corporate authority.',
     galleryImages: [
       'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1280&h=769&fit=crop',
@@ -833,9 +834,10 @@ export const gigs = [
   // --- Website Design ---
   {
     id: 'web-business',
-    slug: 'small-business-website-design',
-    title: 'Premium Small Business Website Design & React Setup',
-    shortTitle: 'Small Business Website Design',
+    slug: 'business-website-design',
+    legacySlugs: ['small-business-website-design'],
+    title: 'Premium Business Website Design & React Setup',
+    shortTitle: 'Business Website Design',
     category: 'website-design',
     subcategory: 'Full Website',
     overview: 'Modern, responsive multi-page website showcasing your local services.',
@@ -938,7 +940,7 @@ export const gigs = [
     revisionPolicy: 'Minor section adjustments, button changes, block color swaps.',
     tags: ['landing page', 'sales page', 'react web page', 'conversion design'],
     industries: ['E-commerce', 'Coaches', 'SaaS Brands', 'Local Businesses'],
-    relatedGigs: ['small-business-website-design', 'website-redesign'],
+    relatedGigs: ['business-website-design', 'website-redesign'],
     status: 'active'
   },
   {
@@ -993,7 +995,7 @@ export const gigs = [
     revisionPolicy: 'Grid alignment adjustments, font swaps, and overlay modifications.',
     tags: ['portfolio site', 'personal website', 'creative resume', 'artist showcase'],
     industries: ['Creators', 'Designers', 'Photographers', 'Consultants'],
-    relatedGigs: ['small-business-website-design', 'landing-page-design'],
+    relatedGigs: ['business-website-design', 'landing-page-design'],
     status: 'active'
   },
   {
@@ -1048,7 +1050,7 @@ export const gigs = [
     revisionPolicy: 'Adjust colors schemes, layout spacing adjustments, and button positions.',
     tags: ['website redesign', 'web conversion', 'react rebuild', 'page speed optimize'],
     industries: ['Law Firms', 'Clinics', 'Home Services', 'Corporate'],
-    relatedGigs: ['small-business-website-design', 'landing-page-design'],
+    relatedGigs: ['business-website-design', 'landing-page-design'],
     status: 'active'
   }
 ];
@@ -1058,5 +1060,5 @@ export const getGigsByCategory = (categorySlug) => {
 };
 
 export const getGigBySlug = (slug) => {
-  return gigs.find(gig => gig.slug === slug);
+  return gigs.find(gig => gig.slug === slug || gig.legacySlugs?.includes(slug));
 };

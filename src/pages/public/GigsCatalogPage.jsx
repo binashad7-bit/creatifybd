@@ -104,7 +104,7 @@ const GigsCatalogPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: EASE_EXPO, delay: 0.2 }}
           >
-            Select transparent, fixed-price services designed to make your small business look premium online.
+            Select transparent, fixed-price services designed to make your brand look premium online.
           </motion.p>
         </div>
       </div>

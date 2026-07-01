@@ -22,7 +22,7 @@ const ServiceCategoryPage = () => {
 
   const categoryDetails = {
     'social-media-management': {
-      headline: 'Monthly Social Media Management Built for Small Businesses',
+      headline: 'Monthly Social Media Management Built for Growing Brands',
       subheadline: 'Struggling to post consistently? We handle your grid planning, post design, copywriting, Reels scripts, and hashtag strategies.',
       benefits: [
         'Content Calendar: Never guess what to post next; review drafts before publishing.',
@@ -90,7 +90,7 @@ const ServiceCategoryPage = () => {
       <SEO
         title={`${category.name} Services | CreatifyBD`}
         description={details.subheadline}
-        keywords={`${categorySlug}, creatifybd services, global creative agency, small business creative services`}
+        keywords={`${categorySlug}, creatifybd services, global creative agency, brand creative services`}
       />
 
       <Navbar />
@@ -212,7 +212,7 @@ const ServiceCategoryPage = () => {
               <div className="mock-dash-box">
                 <span className="badge">CREATIFY AGENCY STANDARDS</span>
                 <h4>Global Production Advantage</h4>
-                <p>We run a structured remote production workflow with international quality standards for small businesses in the USA, Canada, Australia, and other global markets.</p>
+                <p>We run a structured remote production workflow with international quality standards for brands in the USA, Canada, Australia, and other global markets.</p>
                 <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   <div className="advantage-bar"><span className="label">International Quality</span><span className="percent">100%</span></div>
                   <div className="advantage-bar"><span className="label">Manual verification trust</span><span className="percent">100%</span></div>

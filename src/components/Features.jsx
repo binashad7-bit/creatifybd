@@ -6,7 +6,7 @@ const featureItems = [
   {
     icon: <Globe2 size={22} />,
     title: 'Built for US, Canada, and Australia buyers',
-    desc: 'Copy, visuals, formats, and offers are shaped for international small-business audiences.'
+    desc: 'Copy, visuals, formats, and offers are shaped for international audiences.'
   },
   {
     icon: <ShieldCheck size={22} />,
@@ -40,7 +40,7 @@ const Features = () => {
               </FadeReveal>
               <FadeReveal delay={0.2}>
                 <p className="section-sub">
-                  We combine structured creative operations with international service standards, giving small businesses dependable creative output at practical monthly pricing.
+                  We combine structured creative operations with international service standards, giving brands dependable creative output at practical monthly pricing.
                 </p>
               </FadeReveal>
 
