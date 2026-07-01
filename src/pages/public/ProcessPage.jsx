@@ -12,8 +12,8 @@ const ProcessPage = () => {
     <div className="process-page">
       <SEO
         title="How We Work | CreatifyBD Creative Agency"
-        description="Learn about CreatifyBD, a Bangladesh-based creative agency helping businesses grow through branding, digital marketing, content production and web solutions."
-        keywords="about creatifybd, creative agency process, web design workflow, digital marketing strategy dhaka"
+        description="Learn how CreatifyBD helps global small businesses grow through branding, digital marketing, content production, and web solutions."
+        keywords="about creatifybd, creative agency process, web design workflow, digital marketing strategy"
       />
       <Navbar />
 

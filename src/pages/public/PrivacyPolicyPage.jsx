@@ -143,7 +143,7 @@ export const TermsPage = () => (
     <p>If you are unsatisfied with a delivery, please first submit a revision request. Refund disputes must be raised within 7 days of final delivery. See our <a href="/refund-policy">Refund Policy</a> for full terms.</p>
 
     <h2>7. Governing Law</h2>
-    <p>These terms are governed by the laws of Bangladesh. Any disputes will be handled through good-faith negotiation first.</p>
+    <p>Any disputes will be handled through good-faith negotiation first, with the goal of reaching a fair resolution for both the client and CreatifyBD.</p>
   </PolicyLayout>
 );
 

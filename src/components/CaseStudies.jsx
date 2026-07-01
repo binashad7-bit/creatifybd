@@ -77,7 +77,7 @@ const CaseStudies = () => {
             return (
               <StaggerChild key={project.id}>
                 <article className={`duck-cs-item ${isReverse ? 'reverse' : ''}`}>
-                  <SlideReveal from={isReverse ? 'right' : 'left'} delay={0.05}>
+                  <SlideReveal from={isReverse ? 'right' : 'left'} delay={0.05} className="duck-cs-copy-cell">
                     <div className="duck-cs-info">
                       <div className="duck-cs-num">0{index + 1}</div>
                       <h3 className="duck-cs-title">{project.title}</h3>
@@ -93,7 +93,7 @@ const CaseStudies = () => {
                     </div>
                   </SlideReveal>
 
-                  <SlideReveal from={isReverse ? 'left' : 'right'} delay={0.1}>
+                  <SlideReveal from={isReverse ? 'left' : 'right'} delay={0.1} className="duck-cs-media-cell">
                     <div className="duck-cs-visual">
                       <div className="duck-cs-img-wrap">
                         <ImageReveal direction="up" delay={0.15}>

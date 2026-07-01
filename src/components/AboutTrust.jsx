@@ -17,9 +17,9 @@ import React from 'react';
           <div className="about-trust-grid">
             <div>
               <span className="eyebrow">About CreatifyBD</span>
-              <h2 className="section-h">A Dhaka production office serving global small businesses</h2>
+              <h2 className="section-h">A specialist creative team serving global small businesses</h2>
               <p className="section-sub">
-                CreatifyBD is built for business owners who need dependable creative execution but do not want the cost or complexity of a full in-house marketing department.
+                CreatifyBD is built for founders and small business teams who need dependable creative execution without the cost or complexity of a full in-house marketing department.
               </p>
               <blockquote className="ceo-quote">
                 <p>
@@ -37,9 +37,9 @@ import React from 'react';
                   alt="CreatifyBD collaborative production office"
                   loading="lazy"
                 />
-                <div>
+                <div className="office-card-caption">
                   <Building2 size={18} />
-                  <span>Centralized creative production office in Dhaka, Bangladesh</span>
+                  <span>Remote-ready creative operations for international clients</span>
                 </div>
               </div>
               <div className="team-role-card">
@@ -78,4 +78,3 @@ import React from 'react';
   };
 
   export default AboutTrust;
-  

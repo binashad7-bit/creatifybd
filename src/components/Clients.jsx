@@ -5,28 +5,35 @@ import { FadeReveal } from './MotionReveal';
 const Clients = () => {
   const { content } = useSettings();
   const clientsContent = content?.clients || {
-    label: 'Trusted by businesses across Bangladesh',
-    list: 'Fashion House BD, TechStart Dhaka, Green Eats, Nova Clothing, EduBridge BD, HealthPlus, CraftNest, ShopLocal BD, ByteWave, Riverside Resto'
+    label: 'Trusted by small businesses in global markets',
+    list: 'Maple & Co, Northstar Dental, Harbor Cafe, Green Eats, Nova Clothing, EduBridge, HealthPlus, CraftNest, ShopLocal, ByteWave, Riverside Resto, Summit Fitness'
   };
+  const safeLabel = /(bangladesh|dhaka|\bbd\b)/i.test(clientsContent.label || '')
+    ? 'Trusted by small businesses in global markets'
+    : clientsContent.label;
 
-  const logos = clientsContent.list.split(',').map(s => s.trim()).filter(s => s);
+  const logos = clientsContent.list
+    .split(',')
+    .map(s => s.trim())
+    .filter(s => s && !/(bangladesh|dhaka|\bbd\b)/i.test(s));
+  const marqueeItems = [...logos, ...logos, ...logos];
 
   return (
     <FadeReveal>
-      <div className="clients-section" style={{ padding: '2rem 1.5rem', overflow: 'hidden' }}>
+      <section className="clients-section" aria-label="Client trust">
         <FadeReveal delay={0.05}>
-          <div className="clients-label" style={{ textAlign: 'center', fontSize: '0.8rem', color: '#666', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>
-            {clientsContent.label}
+          <div className="clients-label">
+            {safeLabel}
           </div>
         </FadeReveal>
-        <div className="marquee-wrap" style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
-          <div className="marquee-row" style={{ display: 'flex', gap: '2rem', width: 'max-content', paddingBottom: '0.5rem' }}>
-            {[...logos, ...logos].map((logo, index) => (
-              <div key={index} className="client-logo" style={{ fontSize: '1.2rem', fontWeight: 600, color: '#000', opacity: 0.6, whiteSpace: 'nowrap' }}>{logo}</div>
+        <div className="marquee-wrap">
+          <div className="marquee-row">
+            {marqueeItems.map((logo, index) => (
+              <div key={`${logo}-${index}`} className="client-logo">{logo}</div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
     </FadeReveal>
   );
 };

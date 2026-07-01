@@ -36,6 +36,10 @@ const Contact = () => {
         })
       : ''
   ), [cContent.heading]);
+  const safePublicLocation = useMemo(() => {
+    const location = cContent.address || siteConfig.address || 'Serving clients globally';
+    return /(bangladesh|dhaka)/i.test(location) ? 'Serving clients globally' : location;
+  }, [cContent.address]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,7 +66,7 @@ const Contact = () => {
   const contactMethods = [
     { icon: <MessageSquare size={24} />, label: 'Email Us',      val: siteConfig.email },
     { icon: <Phone size={24} />,        label: 'Call Us',        val: siteConfig.phone },
-    { icon: <MapPin size={24} />,       label: 'Location',       val: cContent.address || siteConfig.address },
+    { icon: <MapPin size={24} />,       label: 'Location',       val: safePublicLocation },
     ...(cContent.working_hours
       ? [{ icon: <CheckCircle2 size={24} />, label: 'Working Hours', val: cContent.working_hours }]
       : [])
@@ -180,7 +184,6 @@ const Contact = () => {
                         <option value="Canada">Canada</option>
                         <option value="Australia">Australia</option>
                         <option value="UK">United Kingdom</option>
-                        <option value="Bangladesh">Bangladesh</option>
                         <option value="Other">Other</option>
                       </select>
                     </div>

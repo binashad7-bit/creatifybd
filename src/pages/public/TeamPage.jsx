@@ -51,7 +51,7 @@ const TeamPage = () => {
     <div className="team-page">
       <SEO
         title="Meet Our Creative Team & Workspace | CreatifyBD"
-        description="Learn about the creative agency specialists collaborating in our Dhaka production office to build premium social content and React sites."
+        description="Meet the creative agency specialists building premium social content, design assets, videos, and websites for global small businesses."
       />
 
       <Navbar />
@@ -66,7 +66,7 @@ const TeamPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: EASE_EXPO, delay: 0 }}
           >
-            Dhaka Production Centre
+            Global Creative Team
           </motion.div>
 
           <motion.h1
@@ -99,9 +99,9 @@ const TeamPage = () => {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.75, ease: EASE_EXPO }}
         >
-          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--ink)', marginBottom: '1.5rem' }}>Our Production Center in Dhaka</h2>
+          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--ink)', marginBottom: '1.5rem' }}>A remote-ready creative production team</h2>
           <p style={{ color: 'var(--muted)', fontSize: '1.05rem', lineHeight: '1.6', marginBottom: '2rem' }}>
-            By establishing our creative execution center in Dhaka, Bangladesh, we secure an exceptional cost-efficiency advantage. We pass these operational savings directly to small businesses in the USA, Canada, and Australia—delivering high-end international agency standards at competitive rates.
+            Our workflow is built for global small businesses that need consistent creative execution, clear communication, and practical pricing without hiring a full in-house team.
           </p>
           <p style={{ color: 'var(--muted)', fontSize: '0.95rem', lineHeight: '1.5' }}>
             Our collaborative workspace brings together specialized creative talent focused on delivering quality results for your brand.
@@ -114,7 +114,7 @@ const TeamPage = () => {
         <div className="container">
           <div className="office-grid">
             {[
-              'Our collaborative workspace in Dhaka, Bangladesh',
+              'Remote-ready creative operations workspace',
               'Visual design and editing brainstorming room'
             ].map((caption, idx) => (
               <motion.div

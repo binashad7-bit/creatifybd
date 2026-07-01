@@ -34,7 +34,7 @@ export const CLIENT_REVIEWS = [
   {
     id: 'review-4',
     clientName: 'parulbegum122',
-    country: 'Bangladesh',
+    country: 'International',
     rating: 5,
     reviewText: 'he did good job',
     gigTitle: 'Illustration',
@@ -135,7 +135,7 @@ export const CLIENT_REVIEWS = [
   {
     id: 'review-14',
     clientName: 'parulbegum122',
-    country: 'Bangladesh',
+    country: 'International',
     rating: 5,
     reviewText: 'Very professional and done the job quickly even he was in a problems. Make changes every single things i asked. Thanks!',
     gigTitle: 'Illustration',
@@ -165,7 +165,7 @@ export const CLIENT_REVIEWS = [
   {
     id: 'review-17',
     clientName: 'parulbegum122',
-    country: 'Bangladesh',
+    country: 'International',
     rating: 5,
     reviewText: 'Did an amazing job. very professional and fast delivery.',
     gigTitle: 'Illustration',

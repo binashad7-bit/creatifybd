@@ -10,7 +10,7 @@ const PortfolioPage = () => {
       <SEO
         title="Portfolio | CreatifyBD Creative Work"
         description="Explore CreatifyBD portfolio featuring premium graphic design, branding, and digital marketing projects delivered with excellence."
-        keywords="creatifybd portfolio, creative agency work dhaka, web design portfolio bangladesh, digital marketing case studies"
+        keywords="creatifybd portfolio, global creative agency work, web design portfolio, digital marketing case studies"
         schema={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",

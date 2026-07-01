@@ -9,7 +9,7 @@ export const siteConfig = {
   email: 'hello@creatifybd.com',
   phone: '+880 1951 676600',
   whatsappNumber: '+8801951676600',
-  address: 'Dhaka, Bangladesh',
+  address: 'Serving clients globally',
 
   targetMarkets: ['USA', 'Canada', 'Australia'],
   

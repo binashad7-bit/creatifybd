@@ -40,7 +40,7 @@ const Features = () => {
               </FadeReveal>
               <FadeReveal delay={0.2}>
                 <p className="section-sub">
-                  We combine a structured production office in Dhaka with international service standards, giving small businesses dependable creative output at practical monthly pricing.
+                  We combine structured creative operations with international service standards, giving small businesses dependable creative output at practical monthly pricing.
                 </p>
               </FadeReveal>
 

@@ -121,8 +121,8 @@ const GigsCatalogPage = () => {
           <div className="banner-inner">
             <Info size={20} className="banner-icon" />
             <div className="banner-text">
-              <h5>Bangladesh Production Advantage</h5>
-              <p>Get international quality deliverables managed through our professional agency pipeline in Dhaka. Prices are in USD. Manual payment (Payoneer / DBBL Bank) ensures safe escrow and review approval before order signoff.</p>
+              <h5>Global Production Advantage</h5>
+              <p>Get international-quality deliverables managed through a professional creative workflow. Prices are in USD, with structured review and approval before order signoff.</p>
             </div>
           </div>
         </motion.div>

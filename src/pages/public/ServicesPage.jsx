@@ -10,7 +10,7 @@ const ServicesPage = () => {
       <SEO
         title="Creative, Digital Marketing & Web Services | CreatifyBD"
         description="Explore CreatifyBD services including social media marketing, branding, web design, photography, videography, SEO and content production."
-        keywords="digital marketing services dhaka, web development bangladesh, SEO services dhaka, branding services, creatifybd services"
+        keywords="digital marketing services, web development services, SEO services, branding services, creatifybd services"
         schema={{
           "@context": "https://schema.org",
           "@type": "Service",

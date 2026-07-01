@@ -18,7 +18,7 @@ const CaseStudyPage = () => {
       <SEO
         title={`${study.title} | CreatifyBD Case Study`}
         description={`${study.client} case study by CreatifyBD: ${study.challenge}`}
-        keywords={`${study.client}, ${study.category}, CreatifyBD case study, creative agency Bangladesh`}
+        keywords={`${study.client}, ${study.category}, CreatifyBD case study, global creative agency`}
         type="article"
         schema={{
           "@context": "https://schema.org",

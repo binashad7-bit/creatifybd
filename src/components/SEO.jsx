@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
 const SEO = ({
-  title = "CreatifyBD | Digital Marketing, Branding & Creative Agency in Dhaka",
+  title = "CreatifyBD | Social Media Management, Design, Video Editing & Websites",
   description = "CreatifyBD helps brands grow through digital marketing, branding, social media management, web development, photography, videography and creative content production.",
-  keywords = "digital marketing agency dhaka, creative agency bangladesh, web design dhaka, branding agency bangladesh, social media marketing, content production, seo services, creatifybd",
+  keywords = "social media management, creative agency, web design, branding agency, video editing, content production, digital marketing, creatifybd",
   image = "https://creatifybd.com/og-image.png",
   url = null,
   type = "website",

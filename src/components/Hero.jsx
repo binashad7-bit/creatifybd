@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../utils/translations';
-import { FadeReveal, ImageReveal, CharReveal, MagneticWrap, BlurReveal } from './MotionReveal';
+import { FadeReveal, MagneticWrap } from './MotionReveal';
 import { useSettings } from '../context/SettingsContext';
 import { motion } from 'framer-motion';
 
@@ -86,7 +86,12 @@ const Hero = () => {
         </div>
 
         <div className="hero-visual">
-          <ImageReveal delay={0.18}>
+          <motion.div
+            className="hero-visual-reveal"
+            initial={{ opacity: 0, y: 36, scale: 0.96, filter: 'blur(12px)' }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            transition={{ duration: 1.15, ease: EASE_EXPO, delay: 0.48 }}
+          >
             <div className="hero-mockup-wrapper">
               {heroContent.mockup_primary ? (
                 <img
@@ -150,7 +155,7 @@ const Hero = () => {
                 </div>
               )}
             </div>
-          </ImageReveal>
+          </motion.div>
         </div>
       </div>
 

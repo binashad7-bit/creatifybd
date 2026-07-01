@@ -16,7 +16,7 @@ const CaseStudiesPage = () => {
       <SEO
         title="Case Studies | CreatifyBD Creative Work"
         description="Explore CreatifyBD case studies across branding, digital marketing, and website design with challenges, strategy, and measurable results."
-        keywords="creatifybd case studies, digital marketing case study Bangladesh, creative agency results"
+        keywords="creatifybd case studies, global creative case studies, digital marketing case study, creative agency results"
         schema={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",

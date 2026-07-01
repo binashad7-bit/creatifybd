@@ -822,3 +822,378 @@
       margin-top: 1rem !important;
     }
   }
+
+  /* Final homepage polish: tighter rhythm, visible hero media, global trust strip, portfolio and CTA fixes. */
+  body:not(.admin-body) .App > section + section {
+    margin-top: 0 !important;
+  }
+
+  body:not(.admin-body) .App > section:not(.hero) {
+    border-top: 1px solid rgba(232, 25, 44, 0.10) !important;
+  }
+
+  body:not(.admin-body) .App > section:not(.hero)::before {
+    display: none !important;
+  }
+
+  body:not(.admin-body) :is(.intro-band-v2, .clients-section, .smm-highlight-section, .features-section, .about-trust-section, .pricing-section, .testimonials-section, .contact-section) {
+    background: var(--surface-soft) !important;
+  }
+
+  body:not(.admin-body) .hero {
+    min-height: auto !important;
+  }
+
+  body:not(.admin-body) section.hero .hero-container {
+    min-height: calc(100vh - 160px) !important;
+  }
+
+  body:not(.admin-body) .hero-visual {
+    display: flex !important;
+    min-height: 420px !important;
+  }
+
+  body:not(.admin-body) .hero-visual-reveal {
+    width: min(100%, 560px) !important;
+    margin-left: auto !important;
+  }
+
+  body:not(.admin-body) .hero-mockup-wrapper {
+    background: var(--surface-card) !important;
+    border: 1px solid rgba(232, 25, 44, 0.13) !important;
+    box-shadow: 0 28px 70px rgba(232, 25, 44, 0.16) !important;
+  }
+
+  body:not(.admin-body) .clients-section {
+    padding: clamp(1.6rem, 2.4vw, 2.4rem) 0 !important;
+    overflow: hidden !important;
+  }
+
+  body:not(.admin-body) .clients-label {
+    color: var(--muted) !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.16em !important;
+  }
+
+  body:not(.admin-body) .marquee-wrap {
+    overflow: hidden !important;
+    width: 100% !important;
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent) !important;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent) !important;
+  }
+
+  body:not(.admin-body) .marquee-row {
+    display: flex !important;
+    width: max-content !important;
+    gap: 1rem !important;
+    animation: slide 28s linear infinite !important;
+    padding: 0.25rem 0 !important;
+  }
+
+  body:not(.admin-body) .marquee-row:hover {
+    animation-play-state: paused !important;
+  }
+
+  body:not(.admin-body) .client-logo {
+    opacity: 0.74 !important;
+    background: rgba(255, 255, 255, 0.72) !important;
+    border-color: rgba(232, 25, 44, 0.12) !important;
+    box-shadow: 0 10px 26px rgba(232, 25, 44, 0.06) !important;
+    transition: transform 220ms ease, opacity 220ms ease, border-color 220ms ease, color 220ms ease !important;
+  }
+
+  body:not(.admin-body) .client-logo:hover {
+    opacity: 1 !important;
+    transform: translateY(-3px) !important;
+    border-color: rgba(232, 25, 44, 0.35) !important;
+    color: var(--brand-red) !important;
+  }
+
+  body:not(.admin-body) .smm-highlight-section {
+    padding: clamp(4.5rem, 7vw, 7rem) 0 !important;
+  }
+
+  body:not(.admin-body) .smm-grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr) !important;
+    gap: clamp(2.5rem, 5vw, 5rem) !important;
+    align-items: center !important;
+  }
+
+  body:not(.admin-body) .smm-benefits-list {
+    display: grid !important;
+    gap: 0.9rem !important;
+  }
+
+  body:not(.admin-body) .smm-benefit-item {
+    display: grid !important;
+    grid-template-columns: 44px 1fr !important;
+    gap: 1rem !important;
+    align-items: start !important;
+    padding: 1rem !important;
+    background: rgba(255, 255, 255, 0.68) !important;
+    border: 1px solid rgba(232, 25, 44, 0.10) !important;
+    border-radius: 18px !important;
+  }
+
+  body:not(.admin-body) .smm-benefit-icon {
+    width: 44px !important;
+    height: 44px !important;
+    display: grid !important;
+    place-items: center !important;
+    border-radius: 14px !important;
+    background: var(--brand-red-soft) !important;
+    color: var(--brand-red) !important;
+  }
+
+  body:not(.admin-body) .smm-benefit-item h4 {
+    margin: 0 0 0.3rem !important;
+    color: var(--ink) !important;
+  }
+
+  body:not(.admin-body) .smm-benefit-item p {
+    margin: 0 !important;
+    color: var(--muted) !important;
+    line-height: 1.55 !important;
+  }
+
+  body:not(.admin-body) .smm-visuals {
+    background: var(--surface-card) !important;
+    border: 1px solid rgba(232, 25, 44, 0.14) !important;
+    border-radius: 28px !important;
+    padding: clamp(1.3rem, 2.4vw, 2rem) !important;
+    box-shadow: var(--shadow-float) !important;
+  }
+
+  body:not(.admin-body) .about-trust-section {
+    padding: clamp(4.5rem, 7vw, 7rem) 0 !important;
+  }
+
+  body:not(.admin-body) .about-trust-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr) !important;
+    gap: clamp(2.5rem, 5vw, 5rem) !important;
+    align-items: center !important;
+  }
+
+  body:not(.admin-body) .trust-proof-panel {
+    display: grid !important;
+    gap: 1rem !important;
+  }
+
+  body:not(.admin-body) .office-card {
+    overflow: hidden !important;
+    border-radius: 26px !important;
+    background: var(--surface-card) !important;
+    border: 1px solid rgba(232, 25, 44, 0.14) !important;
+    box-shadow: var(--shadow-md) !important;
+  }
+
+  body:not(.admin-body) .office-card img {
+    width: 100% !important;
+    height: clamp(260px, 30vw, 420px) !important;
+    display: block !important;
+    object-fit: cover !important;
+  }
+
+  body:not(.admin-body) .office-card-caption {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    padding: 1rem 1.25rem !important;
+    color: var(--ink) !important;
+    font-weight: 700 !important;
+  }
+
+  body:not(.admin-body) .team-role-card,
+  body:not(.admin-body) .trust-stat {
+    background: var(--surface-card) !important;
+    border: 1px solid rgba(232, 25, 44, 0.12) !important;
+    border-radius: 18px !important;
+  }
+
+  body:not(.admin-body) .team-role-card {
+    padding: 1.1rem 1.25rem !important;
+  }
+
+  body:not(.admin-body) .team-role-list {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.45rem 0.65rem !important;
+    margin-top: 0.7rem !important;
+    color: var(--muted) !important;
+  }
+
+  body:not(.admin-body) .role-sep {
+    display: none !important;
+  }
+
+  body:not(.admin-body) .team-role-item {
+    padding: 0.35rem 0.7rem !important;
+    border-radius: 999px !important;
+    background: var(--surface-soft) !important;
+    color: var(--muted) !important;
+    font-weight: 700 !important;
+  }
+
+  body:not(.admin-body) .trust-mini-stats {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.8rem !important;
+  }
+
+  body:not(.admin-body) .wk-section {
+    padding: clamp(4.5rem, 7vw, 7rem) 0 !important;
+    background: var(--surface-card) !important;
+  }
+
+  body:not(.admin-body) .wk-inner {
+    max-width: 1320px !important;
+  }
+
+  body:not(.admin-body) .duck-work-gallery {
+    gap: 0 !important;
+    border: 1px solid rgba(232, 25, 44, 0.10) !important;
+    background: rgba(232, 25, 44, 0.10) !important;
+  }
+
+  body:not(.admin-body) .duck-work-media {
+    border-radius: 0 !important;
+    background: #f6f1f1 !important;
+  }
+
+  body:not(.admin-body) .duck-work-tile {
+    border: 1px solid rgba(232, 25, 44, 0.10) !important;
+    overflow: hidden !important;
+  }
+
+  body:not(.admin-body) .duck-work-overlay {
+    background: linear-gradient(180deg, rgba(10, 11, 13, 0.02) 18%, rgba(10, 11, 13, 0.86)) !important;
+  }
+
+  body:not(.admin-body) .duck-work-tile:hover .duck-work-image {
+    transform: scale(1.07) !important;
+  }
+
+  body:not(.admin-body) .pf-lightbox {
+    background: rgba(12, 12, 14, 0.82) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+  }
+
+  body:not(.admin-body) .pf-lb-content {
+    max-width: min(1120px, 88vw) !important;
+    max-height: 86vh !important;
+    background: var(--surface-card) !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  body:not(.admin-body) .pf-lb-img {
+    max-height: 76vh !important;
+  }
+
+  body:not(.admin-body) .pf-lb-meta {
+    background: var(--surface-card) !important;
+  }
+
+  body:not(.admin-body) .duck-cs-section {
+    padding: clamp(5rem, 8vw, 8rem) 0 !important;
+    background: var(--surface-card) !important;
+  }
+
+  body:not(.admin-body) .duck-cs-list {
+    gap: clamp(5rem, 8vw, 8rem) !important;
+  }
+
+  body:not(.admin-body) .duck-cs-item {
+    grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr) !important;
+    gap: clamp(2.5rem, 6vw, 6rem) !important;
+  }
+
+  body:not(.admin-body) .duck-cs-item.reverse .duck-cs-copy-cell {
+    order: 2 !important;
+  }
+
+  body:not(.admin-body) .duck-cs-item.reverse .duck-cs-media-cell {
+    order: 1 !important;
+  }
+
+  body:not(.admin-body) .duck-cs-img-wrap {
+    border-radius: 26px !important;
+    box-shadow: 0 28px 80px rgba(15, 15, 18, 0.12) !important;
+  }
+
+  body:not(.admin-body) .cta-section {
+    position: relative !important;
+    min-height: auto !important;
+    padding: clamp(5rem, 8vw, 8rem) 1.5rem !important;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(232, 25, 44, 0.08), transparent 44%),
+      linear-gradient(135deg, #fff7f8 0%, #ffffff 100%) !important;
+    color: var(--ink) !important;
+  }
+
+  body:not(.admin-body) .cta-section::before,
+  body:not(.admin-body) .cta-section::after {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  body:not(.admin-body) .cta-section > div {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  body:not(.admin-body) .cta-section h2 {
+    color: var(--ink) !important;
+    opacity: 1 !important;
+  }
+
+  body:not(.admin-body) .cta-section p,
+  body:not(.admin-body) .cta-section .eyebrow {
+    color: var(--muted) !important;
+    opacity: 1 !important;
+  }
+
+  @media (max-width: 900px) {
+    body:not(.admin-body) section.hero .hero-container,
+    body:not(.admin-body) .smm-grid,
+    body:not(.admin-body) .about-trust-grid,
+    body:not(.admin-body) .duck-cs-item {
+      grid-template-columns: 1fr !important;
+    }
+
+    body:not(.admin-body) section.hero .hero-container {
+      min-height: auto !important;
+      gap: 2.5rem !important;
+    }
+
+    body:not(.admin-body) .hero-visual {
+      min-height: 260px !important;
+    }
+
+    body:not(.admin-body) .hero-visual-reveal {
+      width: 100% !important;
+      margin: 0 !important;
+    }
+
+    body:not(.admin-body) .duck-cs-item.reverse .duck-cs-copy-cell,
+    body:not(.admin-body) .duck-cs-item.reverse .duck-cs-media-cell {
+      order: initial !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    body:not(.admin-body) .trust-mini-stats {
+      grid-template-columns: 1fr !important;
+    }
+
+    body:not(.admin-body) .duck-work-gallery {
+      border-width: 0 !important;
+    }
+
+    body:not(.admin-body) .duck-work-tile {
+      border-width: 0 0 1px !important;
+    }
+  }

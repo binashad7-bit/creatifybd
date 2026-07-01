@@ -32,7 +32,7 @@ const AboutPage = () => {
     <div className="about-page">
       <SEO
         title="About CreatifyBD | Social Media Management & Creative Team"
-        description="Meet CreatifyBD, a Dhaka-based creative production office serving small businesses in the USA, Canada, Australia, and global markets."
+        description="Meet CreatifyBD, a remote-ready creative production team serving small businesses in the USA, Canada, Australia, and global markets."
         keywords="about creatifybd, social media manager, creative agency, graphic design, video editing, website design"
       />
       <Navbar />
@@ -77,9 +77,9 @@ const AboutPage = () => {
           <div className="container">
             <div className="section-header text-center">
               <span className="eyebrow">Our Office</span>
-              <h2 className="section-h">Centralized production from Dhaka</h2>
+              <h2 className="section-h">Structured production for global clients</h2>
               <p className="section-sub">
-                Our Dhaka production office helps us keep workflows organized, quality controlled, and cost-efficient for international clients.
+                Our remote-ready production workflow keeps projects organized, quality controlled, and cost-efficient for international clients.
               </p>
             </div>
             <div className="office-gallery-grid">

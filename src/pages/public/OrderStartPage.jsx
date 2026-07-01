@@ -622,7 +622,7 @@ const OrderStartPage = () => {
                 </div>
                 <div className="g-item">
                   <CheckCircle2 size={15} />
-                  <span>Bangladesh Cost-Advantage Execution</span>
+                  <span>Global Cost-Advantage Execution</span>
                 </div>
                 <div className="g-item">
                   <CheckCircle2 size={15} />

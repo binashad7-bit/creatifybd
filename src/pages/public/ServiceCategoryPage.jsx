@@ -90,7 +90,7 @@ const ServiceCategoryPage = () => {
       <SEO
         title={`${category.name} Services | CreatifyBD`}
         description={details.subheadline}
-        keywords={`${categorySlug}, creatifybd services, creative agency bangladesh`}
+        keywords={`${categorySlug}, creatifybd services, global creative agency, small business creative services`}
       />
 
       <Navbar />
@@ -211,8 +211,8 @@ const ServiceCategoryPage = () => {
             <div className="benefits-graphic-mock">
               <div className="mock-dash-box">
                 <span className="badge">CREATIFY AGENCY STANDARDS</span>
-                <h4>Bangladesh Production Advantage</h4>
-                <p>We base our production office in Dhaka, Bangladesh, passing high cost efficiencies directly to small businesses in the USA, Canada, and Australia.</p>
+                <h4>Global Production Advantage</h4>
+                <p>We run a structured remote production workflow with international quality standards for small businesses in the USA, Canada, Australia, and other global markets.</p>
                 <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   <div className="advantage-bar"><span className="label">International Quality</span><span className="percent">100%</span></div>
                   <div className="advantage-bar"><span className="label">Manual verification trust</span><span className="percent">100%</span></div>

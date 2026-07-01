@@ -13,12 +13,12 @@ const ContactPage = () => {
       <SEO
         title="Contact CreatifyBD | Start Your Project"
         description="Contact CreatifyBD to discuss branding, digital marketing, web development, content production and creative campaign needs."
-        keywords="contact creatifybd, hire creative agency dhaka, digital marketing consultation bangladesh, web design agency contact"
+        keywords="contact creatifybd, hire creative agency, digital marketing consultation, web design agency contact"
         schema={{
           "@context": "https://schema.org",
           "@type": "ContactPage",
           "name": "Contact CreatifyBD",
-          "description": "Contact page for CreatifyBD, a premier digital marketing agency in Dhaka.",
+          "description": "Contact page for CreatifyBD, a global creative services team.",
           "url": "https://creatifybd.com/contact"
         }}
       />
