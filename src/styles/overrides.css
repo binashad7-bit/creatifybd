@@ -57,8 +57,8 @@
   .gig-card-price strong,
   .gig-card-price-val       { color: var(--ink) !important; }
   .gig-card-rating          { color: var(--muted) !important; }
-  .gig-card-favorite-btn    { background: var(--surface-card) !important; color: var(--muted) !important; border: 1px solid var(--border-card) !important; }
-  .gig-card-favorite-btn:hover { color: var(--brand-red) !important; border-color: var(--brand-red) !important; background: var(--brand-red-soft) !important; }
+  .gig-card-favorite-btn    { background: rgba(255,255,255,0.85) !important; color: var(--muted) !important; border: 1px solid var(--border-card) !important; backdrop-filter: blur(4px) !important; }
+  .gig-card-favorite-btn:hover { color: #fff !important; border-color: var(--brand-red) !important; background: var(--brand-red) !important; }
 
   /* ─── GIG DETAIL PAGE ─── */
   .gig-detail-page                          { background: var(--surface) !important; color: var(--ink) !important; }

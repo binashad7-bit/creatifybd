@@ -626,7 +626,7 @@ select:focus {
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 600;
-  cursor: pointer;
+  cursor: none;
   transition: all var(--transition-fast);
 }
 .gig-filter-btn:hover,
@@ -646,10 +646,10 @@ select:focus {
 .gig-card-price { color: var(--ink) !important; }
 .gig-card-price strong, .gig-card-price-val { color: var(--ink) !important; }
 .gig-card-badge { font-weight: 700 !important; font-size: 0.7rem !important; border-radius: 6px !important; padding: 0.2rem 0.6rem !important; }
-.gig-card-badge.monthly   { background: var(--brand-red-soft) !important; color: var(--brand-red) !important; }
-.gig-card-badge.best-seller { background: var(--warning-soft) !important; color: var(--warning) !important; }
-.gig-card-badge.fast      { background: var(--success-soft) !important; color: var(--success-dark) !important; }
-.gig-card-badge.popular   { background: var(--info-soft) !important; color: var(--info) !important; }
+.gig-card-badge.monthly     { background: var(--info-soft) !important;       color: var(--info) !important; }
+.gig-card-badge.best-seller { background: var(--warning-soft) !important;    color: var(--warning) !important; }
+.gig-card-badge.fast        { background: var(--success-soft) !important;    color: var(--success-dark) !important; }
+.gig-card-badge.popular     { background: var(--brand-red-soft) !important;  color: var(--brand-red) !important; }
 .gig-card-rating { color: var(--muted) !important; }
 .gig-card-favorite-btn { background: var(--surface-card) !important; color: var(--muted) !important; border: 1px solid var(--border-card) !important; }
 .gig-card-favorite-btn:hover { color: var(--brand-red) !important; border-color: var(--brand-red) !important; }

@@ -17,11 +17,11 @@
   padding: 0.78rem 1.65rem;
   border-radius: var(--radius-pill);
   border: none;
-  cursor: pointer;
+  cursor: none;
   position: relative;
   overflow: hidden;
-  transition: transform 0.22s var(--transition-spring),
-              box-shadow 0.22s ease;
+  transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.25s ease;
 }
 .btn-red::before {
   content: '';
@@ -51,7 +51,7 @@
   padding: 0.78rem 1.65rem;
   border-radius: var(--radius-pill);
   border: 1.5px solid var(--border-card);
-  cursor: pointer;
+  cursor: none;
   transition: all var(--transition-normal);
 }
 .btn-ghost:hover {
@@ -74,7 +74,7 @@
   padding: 1.1rem 2.6rem;
   border-radius: var(--radius-pill);
   border: none;
-  cursor: pointer;
+  cursor: none;
   position: relative;
   overflow: hidden;
   transition: transform 0.25s var(--transition-spring),
@@ -110,7 +110,7 @@
   padding: 0.78rem 1.65rem;
   border-radius: var(--radius-pill);
   border: 1.5px solid var(--border-card);
-  cursor: pointer;
+  cursor: none;
   transition: all var(--transition-normal);
 }
 .btn-outline-white:hover,
@@ -134,7 +134,7 @@
   padding: 0.78rem 1.65rem;
   border-radius: var(--radius-pill);
   border: 1.5px solid var(--brand-red);
-  cursor: pointer;
+  cursor: none;
   transition: all var(--transition-normal);
 }
 .btn-outline-red:hover {
@@ -155,7 +155,7 @@
   font-size: 0.95rem;
   font-family: var(--font-display);
   transition: all var(--transition-normal);
-  cursor: pointer;
+  cursor: none;
 }
 
 /* ─── SECTION TYPOGRAPHY ──────────────────────────────────────── */
@@ -347,7 +347,7 @@
   font-size: 2.5rem;
   font-weight: 900;
   font-family: var(--font-display);
-  color: var(--brand-red-soft);
+  color: rgba(232, 25, 44, 0.22);
   letter-spacing: -2px;
   line-height: 1;
 }
@@ -577,11 +577,13 @@
   height: 28px;
   border: 2px solid var(--brand-red);
   border-radius: 50%;
-  mix-blend-mode: multiply;
-  transition: width 0.25s ease, height 0.25s ease,
-              background 0.25s ease, border-color 0.25s ease,
-              transform 0.08s linear;
-  background: transparent;
+  transition: width 0.22s cubic-bezier(0.25, 0.8, 0.25, 1),
+              height 0.22s cubic-bezier(0.25, 0.8, 0.25, 1),
+              background 0.22s ease,
+              border-color 0.22s ease,
+              opacity 0.15s ease;
+  background: rgba(232, 25, 44, 0.06);
+  box-shadow: 0 0 0 1px rgba(232, 25, 44, 0.15);
 }
 .custom-cursor-main.cursor-hover {
   width: 44px;

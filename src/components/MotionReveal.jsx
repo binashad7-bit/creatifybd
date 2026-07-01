@@ -15,10 +15,10 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
       return (
         <MotionTag
           className={`text-reveal-container ${className}`}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.9, ease: EASE_EXPO, delay }}
+          viewport={{ once: true, margin: '-30px' }}
+          transition={{ duration: 0.8, ease: EASE_EXPO, delay }}
         >
           {children}
         </MotionTag>
@@ -28,11 +28,11 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
     const words = children.split(' ');
     const container = {
       hidden: { opacity: 0 },
-      visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: delay } },
+      visible: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: delay } },
     };
     const child = {
-      visible:  { opacity: 1, y: 0, rotate: 0,   transition: { type: 'spring', damping: 14, stiffness: 120 } },
-      hidden:   { opacity: 0, y: 60, rotate: 3,   transition: { type: 'spring', damping: 14, stiffness: 120 } },
+      visible:  { opacity: 1, y: 0, rotate: 0,   transition: { type: 'spring', damping: 16, stiffness: 140 } },
+      hidden:   { opacity: 0, y: 40, rotate: 2,   transition: { type: 'spring', damping: 16, stiffness: 140 } },
     };
 
     return (
@@ -41,7 +41,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
         variants={container}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={{ once: true, margin: '-30px' }}
       >
         {words.map((word, i) => (
           <span key={i} className="word-mask">
@@ -73,7 +73,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
         variants={container}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-60px' }}
+        viewport={{ once: true, margin: '-20px' }}
         style={{ overflow: 'hidden', display: 'flex', flexWrap: 'wrap' }}
       >
         {chars.map((c, i) => (
@@ -147,10 +147,11 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
   export const BlurReveal = ({ children, delay = 0, className = '' }) => (
     <motion.div
       className={className}
-      initial={{ opacity: 0, filter: 'blur(16px)', y: 24 }}
+      initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
       whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 1.1, ease: EASE_EXPO, delay }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ duration: 0.85, ease: EASE_EXPO, delay }}
+      style={{ willChange: 'transform, opacity, filter' }}
     >
       {children}
     </motion.div>
@@ -254,13 +255,13 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
     );
   };
 
-  // ─── HoverTilt — 3D card tilt following cursor ───────────────────────────────
-  export const HoverTilt = ({ children, className = '', maxTilt = 12, scale = 1.02 }) => {
+  // ─── HoverTilt — subtle card tilt following cursor ───────────────────────────
+  export const HoverTilt = ({ children, className = '', maxTilt = 6, scale = 1.02 }) => {
     const ref = useRef(null);
     const rotateX = useMotionValue(0);
     const rotateY = useMotionValue(0);
-    const springRotX = useSpring(rotateX, { stiffness: 200, damping: 20, mass: 0.5 });
-    const springRotY = useSpring(rotateY, { stiffness: 200, damping: 20, mass: 0.5 });
+    const springRotX = useSpring(rotateX, { stiffness: 180, damping: 22, mass: 0.4 });
+    const springRotY = useSpring(rotateY, { stiffness: 180, damping: 22, mass: 0.4 });
 
     const handleMouseMove = useCallback((e) => {
       const el = ref.current;
@@ -278,11 +279,11 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
       <motion.div
         ref={ref}
         className={className}
-        style={{ rotateX: springRotX, rotateY: springRotY, transformStyle: 'preserve-3d', transformPerspective: 800 }}
+        style={{ rotateX: springRotX, rotateY: springRotY }}
         whileHover={{ scale }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        transition={{ scale: { duration: 0.3, ease: EASE_EXPO } }}
+        transition={{ scale: { duration: 0.25, ease: EASE_EXPO } }}
       >
         {children}
       </motion.div>
