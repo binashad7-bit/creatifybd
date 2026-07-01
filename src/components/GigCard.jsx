@@ -158,7 +158,7 @@ const GigCard = ({ gig }) => {
           color: var(--muted);
           display: flex;
           align-items: center; justify-content: center;
-          cursor: pointer;
+          cursor: none;
           backdrop-filter: blur(4px);
           transition: all 0.25s ease;
           z-index: 2;
