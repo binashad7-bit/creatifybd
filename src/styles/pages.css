@@ -507,7 +507,7 @@
   left: 50%;
   transform: translateX(-50%);
   background: var(--gradient-red);
-  color: #fff;
+  color: var(--white);
   font-size: 0.65rem;
   font-weight: 800;
   padding: 0.2rem 0.85rem;

@@ -72,7 +72,7 @@ button, [role="button"], label[for] {
 /* ─── Brand selection color ─── */
 ::selection {
   background: var(--brand-red);
-  color: #fff;
+  color: var(--white);
 }
 
 /* ─── Scrollbar — thin rose-tinted ─── */
@@ -84,7 +84,7 @@ button, [role="button"], label[for] {
 /* ─── Focus ─── */
 .skip-to-content {
   position: absolute; top: -100px; left: 0;
-  background: var(--brand-red); color: #fff;
+  background: var(--brand-red); color: var(--white);
   padding: 0.5rem 1rem; z-index: 9999; transition: top 0.2s;
 }
 .skip-to-content:focus { top: 0; }

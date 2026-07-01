@@ -10,7 +10,7 @@
   align-items: center;
   gap: 0.5rem;
   background: var(--gradient-red);
-  color: #fff !important;
+  color: var(--white) !important;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.9rem;
@@ -67,7 +67,7 @@
   align-items: center;
   gap: 0.75rem;
   background: var(--gradient-red);
-  color: #fff !important;
+  color: var(--white) !important;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.05rem;
@@ -139,7 +139,7 @@
 }
 .btn-outline-red:hover {
   background: var(--brand-red);
-  color: #fff !important;
+  color: var(--white) !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(232,25,44,0.25);
 }
@@ -303,7 +303,7 @@
 .service-card-premium:hover .service-icon-wrap {
   transform: scale(1.12) rotate(-4deg);
   background: var(--brand-red);
-  color: #fff;
+  color: var(--white);
   box-shadow: 0 6px 18px rgba(232,25,44,0.3);
 }
 
@@ -366,7 +366,7 @@
 .process-step-card:hover .process-step-top div {
   transform: rotate(12deg) scale(1.1);
   background: var(--brand-red);
-  color: #fff;
+  color: var(--white);
 }
 
 /* ─── TESTIMONIAL CARDS ─────────────────────────────────────── */
@@ -602,7 +602,7 @@
   width: 56px;
   height: 56px;
   background: var(--whatsapp);
-  color: #ffffff;
+  color: var(--white);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -681,7 +681,7 @@
 
 .cta-band {
   background: var(--gradient-red);
-  color: #fff;
+  color: var(--white);
   padding: 5rem 0;
   text-align: center;
   position: relative;
@@ -695,7 +695,7 @@
   pointer-events: none;
 }
 .cta-band h2,
-.cta-band .section-h { color: #fff; }
+.cta-band .section-h { color: var(--white); }
 .cta-band .section-sub { color: rgba(255,255,255,0.8); }
 
 .cta-actions {

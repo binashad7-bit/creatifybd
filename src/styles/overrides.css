@@ -58,7 +58,7 @@
   .gig-card-price-val       { color: var(--ink) !important; }
   .gig-card-rating          { color: var(--muted) !important; }
   .gig-card-favorite-btn    { background: rgba(255,255,255,0.85) !important; color: var(--muted) !important; border: 1px solid var(--border-card) !important; backdrop-filter: blur(4px) !important; }
-  .gig-card-favorite-btn:hover { color: #fff !important; border-color: var(--brand-red) !important; background: var(--brand-red) !important; }
+  .gig-card-favorite-btn:hover { color: var(--white) !important; border-color: var(--brand-red) !important; background: var(--brand-red) !important; }
 
   /* ─── GIG DETAIL PAGE ─── */
   .gig-detail-page                          { background: var(--surface) !important; color: var(--ink) !important; }
@@ -313,7 +313,7 @@
   /* ─── CONTACT / FORM SUBMIT BUTTON — was black → brand red ─── */
   .btn-submit-premium {
     background: var(--gradient-red) !important;
-    color: #fff !important;
+    color: var(--white) !important;
   }
   .btn-submit-premium:hover:not(:disabled) {
     background: var(--brand-red-dark) !important;
